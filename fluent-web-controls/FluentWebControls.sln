@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentWebControls", "FluentWebControls\FluentWebControls.csproj", "{2D4D3CE3-9CE6-4CFF-8CC5-57ABE00986BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentWebControls.Tests", "FluentWebControls.Tests\FluentWebControls.Tests.csproj", "{99BF4D3C-90B8-4AC5-B706-3576C3AC46B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D4D3CE3-9CE6-4CFF-8CC5-57ABE00986BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D4D3CE3-9CE6-4CFF-8CC5-57ABE00986BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D4D3CE3-9CE6-4CFF-8CC5-57ABE00986BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D4D3CE3-9CE6-4CFF-8CC5-57ABE00986BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99BF4D3C-90B8-4AC5-B706-3576C3AC46B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99BF4D3C-90B8-4AC5-B706-3576C3AC46B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99BF4D3C-90B8-4AC5-B706-3576C3AC46B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99BF4D3C-90B8-4AC5-B706-3576C3AC46B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

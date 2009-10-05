@@ -1,0 +1,138 @@
+﻿using System.Collections.Generic;
+
+using FluentAssert;
+
+using FluentWebControls.Extensions;
+using FluentWebControls.Interfaces;
+
+using NUnit.Framework;
+
+namespace FluentWebControls.Tests.Extensions
+{
+	public class DropDownListDataExtensionsTest
+	{
+		public abstract class DropDownListDataExtensionsTestBase
+		{
+			private readonly List<KeyValuePair<string, string>> _items = new List<KeyValuePair<string, string>>
+				{
+					new KeyValuePair<string, string>("Name1", "Value1"),
+					new KeyValuePair<string, string>("Name2", "Value2"),
+					new KeyValuePair<string, string>("Name3", "3")
+				};
+
+			protected DropDownListData _dropDownListData;
+			protected IPropertyMetaData _propertyMetaData;
+
+			[SetUp]
+			public void BeforeEachTest()
+			{
+				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Name", false, null, null, null, null, typeof(string));
+				_dropDownListData = new DropDownListData(_items, _propertyMetaData);
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_assign_CssClass : DropDownListDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_DropDownListData_With_CssClass_initialized()
+			{
+				const string cssClass = "cssClass";
+				DropDownListData listData = _dropDownListData.CssClass(cssClass);
+				Assert.AreSame(_dropDownListData, listData);
+				TestWebControlsUtility.HtmlParser(listData.ToString())["class"].ShouldBeEqualTo(cssClass);
+				_dropDownListData.ToString().Contains(cssClass).ShouldBeTrue();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_assign_Label : DropDownListDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_DropDownListData_With_Label_initialized()
+			{
+				LabelData label = new LabelData("Id");
+
+				DropDownListData listData = _dropDownListData.WithLabel(label);
+				Assert.AreSame(_dropDownListData, listData);
+				listData.ToString().Contains(label.ToString()).ShouldBeTrue();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_assign_Set_a_Default_value : DropDownListDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_DropDownListData_with_Default_value_selected()
+			{
+				const string defaultText = "All";
+				const string defaultValue = "";
+				DropDownListData listData = _dropDownListData.WithDefault(defaultText, defaultValue);
+				Assert.AreSame(_dropDownListData, listData);
+				_dropDownListData.ToString().Contains("<option value='' selected='selected'>All</option>").ShouldBeTrue();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_assign_Set_a_selected_Value : DropDownListDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_DropDownListData_with_selected_int_assigned_to_option_that_was_selected()
+			{
+				DropDownListData listData = _dropDownListData.WithSelectedValue(3);
+				Assert.AreSame(_dropDownListData, listData);
+				_dropDownListData.ToString().Contains("<option value='3' selected='selected'>Name3</option>").ShouldBeTrue();
+			}
+
+			[Test]
+			public void Should_return_a_DropDownListData_with_selected_string_assigned_to_option_that_was_selected()
+			{
+				DropDownListData listData = _dropDownListData.WithSelectedValue("Value2");
+				Assert.AreSame(_dropDownListData, listData);
+				_dropDownListData.ToString().Contains("<option value='Value2' selected='selected'>Name2</option>").ShouldBeTrue();
+			}
+
+			[Test]
+			public void Should_return_a_DropDownListData_with_selected_value_assigned_to_option_that_was_selected()
+			{
+// ReSharper disable ConvertToConstant
+// ReSharper disable ConvertToConstant.Local
+				string value = "Value2";
+// ReSharper restore ConvertToConstant.Local
+// ReSharper restore ConvertToConstant
+				DropDownListData listData = _dropDownListData.WithSelectedValue(() => value);
+				Assert.AreSame(_dropDownListData, listData);
+				_dropDownListData.ToString().Contains("<option value='Value2' selected='selected'>Name2</option>").ShouldBeTrue();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_assign_SubmitOnChange : DropDownListDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_DropDownListData_with_onchange_script_embedded_in_the_HTMLTag()
+			{
+				DropDownListData listData = _dropDownListData.SubmitOnChange();
+				Assert.AreSame(_dropDownListData, listData);
+				TestWebControlsUtility.HtmlParser(listData.ToString())["onchange"].Contains("this.form.submit();").ShouldBeTrue();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_assign_SubmitOnChange_with_form_field_value_set : DropDownListDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_DropDownListData_with_onchange_script_embedded_in_the_HTMLTag()
+			{
+// ReSharper disable ConvertToConstant
+// ReSharper disable ConvertToConstant.Local
+				int pageNumber = 4;
+// ReSharper restore ConvertToConstant.Local
+// ReSharper restore ConvertToConstant
+				DropDownListData listData = _dropDownListData.SubmitOnChange(() => pageNumber, 4);
+				Assert.AreSame(_dropDownListData, listData);
+				TestWebControlsUtility.HtmlParser(listData.ToString())["onchange"].Contains("setFormFieldAndSubmit(\"pageNumber\",\"4\", this)").ShouldBeTrue();
+			}
+		}
+	}
+}

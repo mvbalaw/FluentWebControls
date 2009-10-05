@@ -1,0 +1,273 @@
+using System.ComponentModel;
+
+using FluentAssert;
+
+using FluentWebControls.Extensions;
+using FluentWebControls.Interfaces;
+
+using NUnit.Framework;
+
+using Rhino.Mocks;
+
+namespace FluentWebControls.Tests.Extensions
+{
+	public class PagedListExtensionsTest
+	{
+		public class PagedListExtensionsTestBase<PagedListInterface>
+			where PagedListInterface : class
+		{
+			protected PagedListInterface _pagedList;
+
+			[TearDown]
+			public void AfterEachTest()
+			{
+				_pagedList.VerifyAllExpectations();
+			}
+
+			[SetUp]
+			public void BeforeEachTest()
+			{
+				_pagedList = MockRepository.GenerateMock<PagedListInterface>();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_make_the_sort_direction_Ascending : PagedListExtensionsTestBase<IPagedList>
+		{
+			[Test]
+			public void Should_set_the_SortDirection_property_on_the_PagedList()
+			{
+				_pagedList.Expect(x => x.SortDirection = ListSortDirection.Ascending);
+
+				IPagedList result = _pagedList.Ascending();
+				result.ShouldNotBeNull();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_make_the_sort_direction_Descending : PagedListExtensionsTestBase<IPagedList>
+		{
+			[Test]
+			public void Should_set_the_SortDirection_property_on_the_PagedList()
+			{
+				_pagedList.Expect(x => x.SortDirection = ListSortDirection.Descending);
+
+				IPagedList result = _pagedList.Descending();
+				result.ShouldNotBeNull();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_OrderBy_with_a_sort_property : PagedListExtensionsTestBase<IPagedList>
+		{
+			[Test]
+			public void Should_set_the_SortProperty_property_on_the_PagedList()
+			{
+				const string sortProperty = "Name";
+
+				_pagedList.Expect(x => x.SortProperty = sortProperty);
+
+				IPagedList result = _pagedList.OrderBy(sortProperty);
+				result.ShouldNotBeNull();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_OrderBy_with_a_sort_property_and_sort_direction : PagedListExtensionsTestBase<IPagedList>
+		{
+			[Test]
+			public void Should_set_the_SortDirection_property_on_the_PagedList()
+			{
+				const string sortProperty = "Name";
+				const string sortDirection = "Desc";
+
+				_pagedList.Expect(x => x.SortDirection = ListSortDirection.Descending);
+
+				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				result.ShouldNotBeNull();
+			}
+
+			[Test]
+			public void Should_set_the_SortProperty_property_on_the_PagedList()
+			{
+				const string sortProperty = "Name";
+				const string sortDirection = "Desc";
+
+				_pagedList.Expect(x => x.SortProperty = sortProperty);
+
+				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				result.ShouldNotBeNull();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_OrderBy_with_a_sort_property_and_sort_direction_TFilter_TReturn : PagedListExtensionsTestBase<IPagedList<int, int>>
+		{
+			[Test]
+			public void Should_set_the_SortDirection_property_on_the_PagedList()
+			{
+				const string sortProperty = "Name";
+				const string sortDirection = "Desc";
+
+				_pagedList.Expect(x => x.SortDirection = ListSortDirection.Descending);
+
+				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				result.ShouldNotBeNull();
+			}
+
+			[Test]
+			public void Should_set_the_SortProperty_property_on_the_PagedList()
+			{
+				const string sortProperty = "Name";
+				const string sortDirection = "Desc";
+
+				_pagedList.Expect(x => x.SortProperty = sortProperty);
+
+				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				result.ShouldNotBeNull();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_OrderBy_with_a_sort_property_and_sort_direction_TFilter1_TFilter2_TFilter3_TReturn : PagedListExtensionsTestBase<IPagedList<int, int, int, int>>
+		{
+			[Test]
+			public void Should_set_the_SortDirection_property_on_the_PagedList()
+			{
+				const string sortProperty = "Name";
+				const string sortDirection = "Desc";
+
+				_pagedList.Expect(x => x.SortDirection = ListSortDirection.Descending);
+
+				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				result.ShouldNotBeNull();
+			}
+
+			[Test]
+			public void Should_set_the_SortProperty_property_on_the_PagedList()
+			{
+				const string sortProperty = "Name";
+				const string sortDirection = "Desc";
+
+				_pagedList.Expect(x => x.SortProperty = sortProperty);
+
+				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				result.ShouldNotBeNull();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_OrderBy_with_a_sort_property_and_sort_direction_TFilter1_TFilter2_TReturn : PagedListExtensionsTestBase<IPagedList<int, int, int>>
+		{
+			[Test]
+			public void Should_set_the_SortDirection_property_on_the_PagedList()
+			{
+				const string sortProperty = "Name";
+				const string sortDirection = "Desc";
+
+				_pagedList.Expect(x => x.SortDirection = ListSortDirection.Descending);
+
+				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				result.ShouldNotBeNull();
+			}
+
+			[Test]
+			public void Should_set_the_SortProperty_property_on_the_PagedList()
+			{
+				const string sortProperty = "Name";
+				const string sortDirection = "Desc";
+
+				_pagedList.Expect(x => x.SortProperty = sortProperty);
+
+				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				result.ShouldNotBeNull();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_OrderBy_with_a_sort_property_and_sort_direction_TReturn : PagedListExtensionsTestBase<IPagedList<int>>
+		{
+			[Test]
+			public void Should_set_the_SortDirection_property_on_the_PagedList()
+			{
+				const string sortProperty = "Name";
+				const string sortDirection = "Desc";
+
+				_pagedList.Expect(x => x.SortDirection = ListSortDirection.Descending);
+
+				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				result.ShouldNotBeNull();
+			}
+
+			[Test]
+			public void Should_set_the_SortProperty_property_on_the_PagedList()
+			{
+				const string sortProperty = "Name";
+				const string sortDirection = "Desc";
+
+				_pagedList.Expect(x => x.SortProperty = sortProperty);
+
+				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				result.ShouldNotBeNull();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_set_the_page_number : PagedListExtensionsTestBase<IPagedList>
+		{
+			[Test]
+			public void Should_set_the_PageNumber_property_on_the_PagedList()
+			{
+				const int pageNumber = 4;
+
+				_pagedList.Expect(x => x.PageNumber = pageNumber);
+
+				IPagedList result = _pagedList.PageNumber(pageNumber);
+				result.ShouldNotBeNull();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_set_the_page_number_and_page_size : PagedListExtensionsTestBase<IPagedList>
+		{
+			[Test]
+			public void Should_set_the_PageNumber_property_on_the_PagedList()
+			{
+				const int pageNumber = 4;
+				const int pageSize = 5;
+
+				_pagedList.Expect(x => x.PageNumber = pageNumber);
+
+				IPagedList result = _pagedList.Page(pageNumber, pageSize);
+				result.ShouldNotBeNull();
+			}
+
+			[Test]
+			public void Should_set_the_PageSize_property_on_the_PagedList()
+			{
+				const int pageNumber = 4;
+				const int pageSize = 5;
+
+				_pagedList.Expect(x => x.PageSize = pageSize);
+
+				IPagedList result = _pagedList.Page(pageNumber, pageSize);
+				result.ShouldNotBeNull();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_set_the_page_size : PagedListExtensionsTestBase<IPagedList>
+		{
+			[Test]
+			public void Should_set_the_PageSize_property_on_the_PagedList()
+			{
+				const int pageSize = 5;
+
+				_pagedList.Expect(x => x.PageSize = pageSize);
+
+				IPagedList result = _pagedList.PageSize(pageSize);
+				result.ShouldNotBeNull();
+			}
+		}
+	}
+}
