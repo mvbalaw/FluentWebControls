@@ -8,15 +8,15 @@ namespace FluentWebControls
 	{
 		private readonly string _controllerName;
 		private readonly IPathUtility _pathUtility;
-		private readonly ButtonType _type;
+		private readonly IButtonType _type;
 		private string _text;
 
-		public ButtonData(ButtonType type, IPathUtility pathUtility)
+		public ButtonData(IButtonType type, IPathUtility pathUtility)
 			: this(type, pathUtility, null)
 		{
 		}
 
-		public ButtonData(ButtonType type, IPathUtility pathUtility, string controllerName)
+		public ButtonData(IButtonType type, IPathUtility pathUtility, string controllerName)
 		{
 			_type = type;
 			_pathUtility = pathUtility;
@@ -82,7 +82,7 @@ namespace FluentWebControls
 			return sb.ToString();
 		}
 
-		public class ButtonType
+		public class ButtonType : IButtonType
 		{
 			public static ButtonType Basic = new ButtonType("Basic", "button", JQueryFormValidationType.IgnoreFormOnClick, "");
 			public static ButtonType Cancel = new ButtonType("Cancel", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
@@ -118,5 +118,13 @@ namespace FluentWebControls
 				public string Type { get; private set; }
 			}
 		}
+	}
+
+	public interface IButtonType
+	{
+		string ConfirmationMessage { get; }
+		string CssClass { get; }
+		string Name { get;  }
+		string Type { get; }
 	}
 }
