@@ -8,12 +8,12 @@ namespace FluentWebControls
 {
 	public static class Fluent
 	{
-		public static ButtonData ButtonFor(ButtonData.ButtonType buttonType, object aspxPage)
+		public static ButtonData ButtonFor(IButtonType buttonType, object aspxPage)
 		{
 			return Button.For(buttonType, new ControllerInfo(aspxPage).Name);
 		}
 
-		public static ButtonData ButtonFor(ButtonData.ButtonType buttonType, string controllerName, string actionName)
+		public static ButtonData ButtonFor(IButtonType buttonType, string controllerName, string actionName)
 		{
 			return Button.For(buttonType, controllerName).WithAction(actionName);
 		}

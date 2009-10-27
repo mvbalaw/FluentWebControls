@@ -5,7 +5,7 @@ namespace FluentWebControls
 {
 	public static class Button
 	{
-		public static ButtonData For(ButtonData.ButtonType buttonType, string controllerName)
+		public static ButtonData For(IButtonType buttonType, string controllerName)
 		{
 			return new ButtonData(buttonType, IoCUtility.GetInstance<IPathUtility>(), controllerName);
 		}
