@@ -65,6 +65,11 @@ namespace FluentWebControls
 			return DropDownList.For(propertyForMetaData, items, getKey, getValue);
 		}
 
+		public static DropDownListData DropDownListFor<T>(Expression<Func<string>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
+		{
+			return DropDownList.For(propertyForMetaData, items, getKey, getValue);
+		}
+
 		public static DropDownListData DropDownListFor<T>(string name, IEnumerable<T> items, Func<T, string> getKey, Func<T, int> getValue)
 			where T : class
 		{

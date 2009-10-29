@@ -67,6 +67,12 @@ namespace FluentWebControls
 			return For(metaData.Name.ToCamelCase(), items, getKey, getValue, metaData);
 		}
 
+		public static DropDownListData For<T>(Expression<Func<string>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
+		{
+			IPropertyMetaData metaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyForMetaData);
+			return For(metaData.Name.ToCamelCase(), items, getKey, getValue, metaData);
+		}
+
 		private static DropDownListData For<T>(string name, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue, IPropertyMetaData metaData)
 		{
 			List<KeyValuePair<string, string>> options = new List<KeyValuePair<string, string>>();
