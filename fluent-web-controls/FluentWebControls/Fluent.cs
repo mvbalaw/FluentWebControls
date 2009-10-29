@@ -19,9 +19,15 @@ namespace FluentWebControls
 			return Button.For(buttonType, controllerName).WithAction(actionName);
 		}
 
+		[Obsolete("use Fluent.CheckBoxFor(T source, x=>x.Value)")]
 		public static CheckBoxData CheckBoxFor(Expression<Func<bool>> id)
 		{
 			return CheckBox.For(id);
+		}
+
+		public static CheckBoxData CheckBoxFor<T>(T source, Expression<Func<T,bool>> id)
+		{
+			return CheckBox.For(source, id);
 		}
 
 		public static ComboSelectData ComboSelectFor<T>(string name, IEnumerable<T> items, Func<T, string> getKey, Func<T, int> getValue)
@@ -38,7 +44,7 @@ namespace FluentWebControls
 
 		public static DropDownListData DropDownListFor<T, TParent>(Expression<Func<TParent, T>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
 		{
-			return DropDownList.For(propertyChildForMetaData, items, getKey, getValue);
+			return DropDownList.For<TParent,T, T>(propertyChildForMetaData, items, getKey, getValue);
 		}
 
 		public static DropDownListData DropDownListFor<T, TParent>(Expression<Func<TParent, T>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, int> getValue)
@@ -61,7 +67,11 @@ namespace FluentWebControls
 			return DropDownList.For(propertyParentForMetaData, propertyChildForMetaData, items, getKey, getValue);
 		}
 
-		public static DropDownListData DropDownListFor<T>(Expression<Func<T, string>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
+		public static DropDownListData DropDownListFor<T,K>(Expression<Func<T, K>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
+		{
+			return DropDownList.For<T,K>(propertyForMetaData, items, getKey, getValue);
+		}
+		public static DropDownListData DropDownListFor<TParent, T, K>(Expression<Func<TParent, K>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
 		{
 			return DropDownList.For(propertyForMetaData, items, getKey, getValue);
 		}
@@ -234,6 +244,11 @@ namespace FluentWebControls
 			T parent = nullable();
 
 			return TextBox.For(parent, getValue);
+		}
+
+		public static TextBoxData TextBoxFor<T,K>(T source, Func<T, string> getValue, Expression<Func<T,K>> getNameAndValidationMetadata) where T : class
+		{
+			return TextBox.For(source, getValue, getNameAndValidationMetadata);
 		}
 
 		public static TextBoxData TextBoxFor<T>(T source, Expression<Func<T, string>> getValueAndValidationMetadata) where T : class

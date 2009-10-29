@@ -38,9 +38,11 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_ButtonData_With_action_attribute_set_to_to_the_fileName()
 			{
 				const string fileName = "FileName";
-				ButtonData button = _buttonData.WithQueryParameter(fileName);
+				const string value = "Foo.doc";
+				ButtonData button = _buttonData.WithQueryParameter(fileName, value);
 				Assert.AreSame(_buttonData, button);
-				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["action"].Contains(fileName).ShouldBeTrue();
+				string dictionary = TestWebControlsUtility.HtmlParser(_buttonData.ToString())["action"];
+				dictionary.Contains(fileName).ShouldBeTrue();
 			}
 		}
 

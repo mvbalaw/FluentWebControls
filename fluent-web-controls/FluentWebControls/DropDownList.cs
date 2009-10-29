@@ -25,6 +25,12 @@ namespace FluentWebControls
 			return For(name, items, getKey, getValue, null);
 		}
 
+		public static DropDownListData For<TParent, T, K>(Expression<Func<TParent, K>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
+		{
+			IPropertyMetaData childMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyChildForMetaData);
+			return For(childMetaData.Name.ToCamelCase(), items, getKey, getValue, childMetaData);
+		}
+
 		public static DropDownListData For<T, TParent>(Expression<Func<TParent, T>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, int> getValue)
 		{
 			IPropertyMetaData childMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyChildForMetaData);
@@ -61,7 +67,7 @@ namespace FluentWebControls
 			return For(NameUtility.GetCamelCaseMultiLevelPropertyName(parentMetaData.Name, childMetaData.Name), items, getKey, getValue, childMetaData);
 		}
 
-		public static DropDownListData For<T>(Expression<Func<T, string>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
+		public static DropDownListData For<T,K>(Expression<Func<T, K>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
 		{
 			IPropertyMetaData metaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyForMetaData);
 			return For(NameUtility.GetPropertyName(propertyForMetaData).ToCamelCase(), items, getKey, getValue, metaData);
