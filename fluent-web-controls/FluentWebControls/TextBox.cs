@@ -8,35 +8,32 @@ namespace FluentWebControls
 {
 	public static class TextBox
 	{
-		public static TextBoxData For<T>(Expression<Func<T>> nullableParent, Expression<Func<T, string>> getValue) where T : class
+		public static TextBoxData For<T,K>(T source, Func<T,string> getValue, Expression<Func<T,K>> forNameAndValidationMetadata)
 		{
-			Func<T> nullable = nullableParent.Compile();
-			T parent = nullable();
-			string value = null;
-			if (parent != null)
-			{
-				value = getValue.Compile()(parent);
-			}
-			string name = NameUtility.GetCamelCaseMultiLevelPropertyName(NameUtility.GetPropertyName(nullableParent), NameUtility.GetPropertyName(getValue));
-
-			IPropertyMetaData propertyMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValue);
-			propertyMetaData.Combine(IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(nullableParent));
-			TextBoxData textBoxData = new TextBoxData(value, propertyMetaData)
+			IPropertyMetaData propertyMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(forNameAndValidationMetadata);
+			TextBoxData textBoxData = new TextBoxData(getValue(source), propertyMetaData)
 				{
-					Id = name.ToCamelCase()
+					Id = NameUtility.GetPropertyName(forNameAndValidationMetadata).ToCamelCase()
 				};
 			return textBoxData;
 		}
+		public static TextBoxData For<T>(T source, Expression<Func<T,string>> getValueAndValidationMetadata)
+		{
+			return For(source, getValueAndValidationMetadata.Compile(), getValueAndValidationMetadata);
+		}
 
+		[Obsolete("use TextBox.For(source, x=>x.Value)")]
 		public static TextBoxData For(Expression<Func<string>> getValue)
 		{
-			TextBoxData textBoxData = new TextBoxData(getValue.Compile()(), IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValue))
+			IPropertyMetaData propertyMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValue);
+			TextBoxData textBoxData = new TextBoxData(getValue.Compile()(), propertyMetaData)
 				{
 					Id = NameUtility.GetPropertyName(getValue).ToCamelCase()
 				};
 			return textBoxData;
 		}
 
+		[Obsolete("use TextBox.For(source, x=>x.Value.ToString(), x=>x.Value)")]
 		public static TextBoxData For<T>(Expression<Func<T>> getValue) where T : struct
 		{
 			TextBoxData textBoxData = new TextBoxData(getValue.Compile()().ToString(), IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValue))
@@ -46,6 +43,7 @@ namespace FluentWebControls
 			return textBoxData;
 		}
 
+		[Obsolete("use TextBox.For(source, x=>x.Value==null?\"\":x.Value.ToString(), x=>x.Value)")]
 		public static TextBoxData For<T>(Expression<Func<T?>> getValue) where T : struct
 		{
 			T? value = getValue.Compile()();

@@ -1,3 +1,6 @@
+using System;
+using System.Web;
+
 namespace FluentWebControls.Extensions
 {
 	public static class ButtonDataExtensions
@@ -32,9 +35,19 @@ namespace FluentWebControls.Extensions
 			return buttonData;
 		}
 
-		public static ButtonData WithQueryParameter(this ButtonData buttonData, string fileName)
+		[Obsolete("Use .WithQueryParameter(\"parameterName\",\"parameterValue\")")]
+		public static ButtonData WithQueryParameter(this ButtonData buttonData, string unaryParameterValue)
 		{
-			buttonData.QueryParameter = fileName;
+			buttonData.QueryParameter = unaryParameterValue;
+			return buttonData;
+		}		
+		public static ButtonData WithQueryParameter(this ButtonData buttonData, string parameterName, string parameterValue)
+		{
+			if (!String.IsNullOrEmpty(buttonData.QueryParameter))
+			{
+				buttonData.QueryParameter += "&";
+			}
+			buttonData.QueryParameter = parameterName + "=" + HttpUtility.UrlEncode(parameterValue);
 			return buttonData;
 		}
 

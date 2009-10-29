@@ -41,10 +41,10 @@ namespace FluentWebControls.Tests
 			public void Should_return_html_code_representing_a_textbox_with_its_value_embedded_in_it()
 			{
 				Test test = new Test(10);
-				Expression<Func<int>> valueFunc = () => test.Value;
-				businessObjectPropertyMetaDataFactory.Expect(x => x.GetFor(valueFunc)).IgnoreArguments().Return(PropertyMetaDataMocker.CreateStub("Value", false, null, null, null, null, typeof(int)));
+				Expression<Func<Test,int>> metadataFunc = x => x.Value;
+				businessObjectPropertyMetaDataFactory.Expect(x => x.GetFor(metadataFunc)).IgnoreArguments().Return(PropertyMetaDataMocker.CreateStub("Value", false, null, null, null, null, typeof(int)));
 
-				TextBoxData textBoxData = TextBox.For(valueFunc);
+				TextBoxData textBoxData = TextBox.For(test, x => x.Value.ToString(), x => x.Value);
 				textBoxData.ToString().ShouldBeEqualTo("<input type='text' id='value' name='value' class='textbox digits' value='10'/>");
 			}
 		}

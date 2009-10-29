@@ -63,7 +63,7 @@ namespace FluentWebControls
 			{
 				string actionName = ActionName ?? _type.Name;
 				string url = _pathUtility.GetUrl(String.Format("/{0}.mvc/{1}", _controllerName, actionName));
-				sb.Append(CreateQuotedAttribute("action", String.IsNullOrEmpty(QueryParameter) ? url : String.Format("{0}/{1}", url, QueryParameter)));
+				sb.Append(CreateQuotedAttribute("action", String.IsNullOrEmpty(QueryParameter) ? url : String.Format("{0}?{1}", url, QueryParameter)));
 
 				if (String.IsNullOrEmpty(OnClickMethod))
 				{

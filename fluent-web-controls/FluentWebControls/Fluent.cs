@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 
@@ -88,16 +89,34 @@ namespace FluentWebControls
 			return DropDownList.For(name, items, getKey, getValue);
 		}
 
+		[Obsolete("use Fluent.HiddenFor(T source, x=>x.Value)")]
 		public static HiddenData HiddenFor(Expression<Func<string>> id)
 		{
 			return Hidden.For(id);
 		}
 
+		public static HiddenData HiddenFor<T,K>(Expression<Func<T,K>> id)
+		{
+			return Hidden.For(id);
+		}
+
+		[Obsolete("use Fluent.HiddenFor(T source, x=>x.Value.ToString(), x=>x.Value)")]
 		public static HiddenData HiddenFor<T>(Expression<Func<T>> id) where T : struct
 		{
 			return Hidden.For(id);
 		}
 
+		public static HiddenData HiddenFor<T>(T source, Expression<Func<T, string>> getValueAndValidationMetadata) where T : class
+		{
+			return Hidden.For(source, getValueAndValidationMetadata);
+		}
+
+		public static HiddenData HiddenFor<T,K>(T source, Func<T, string> getValue, Expression<Func<T, K>> getNameAndValidationMetadata)
+		{
+			return Hidden.For(source, getValue, getNameAndValidationMetadata);
+		}
+
+		[Obsolete("use Fluent.HiddenFor(T source, x=>x.Value==null?\"\":x.Value.ToString(), x=>x.Value)")]
 		public static HiddenData HiddenFor<T>(Expression<Func<T?>> id) where T : struct
 		{
 			return Hidden.For(id);
@@ -198,29 +217,46 @@ namespace FluentWebControls
 			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2, filter3);
 		}
 
-		public static TextAreaData TextAreaFor(Expression<Func<string>> getValue)
+		[Obsolete("use Fluent.TextAreaFor(T source, x=>x.Value)")]
+		public static TextAreaData TextAreaFor(Expression<Func<string>> getValueAndValidationMetadata)
 		{
-			return TextArea.For(getValue);
+			return TextArea.For(getValueAndValidationMetadata);
+		}
+
+		public static TextAreaData TextAreaFor<T>(T source, Expression<Func<T, string>> getValueAndValidationMetadata)
+		{
+			return TextArea.For(source, getValueAndValidationMetadata);
 		}
 
 		public static TextBoxData TextBoxFor<T>(Expression<Func<T>> nullableObject, Expression<Func<T, string>> getValue) where T : class
 		{
-			return TextBox.For(nullableObject, getValue);
+			var nullable = nullableObject.Compile();
+			T parent = nullable();
+
+			return TextBox.For(parent, getValue);
 		}
 
-		public static TextBoxData TextBoxFor(Expression<Func<string>> getValue)
+		public static TextBoxData TextBoxFor<T>(T source, Expression<Func<T, string>> getValueAndValidationMetadata) where T : class
 		{
-			return TextBox.For(getValue);
+			return TextBox.For(source, getValueAndValidationMetadata);
 		}
 
-		public static TextBoxData TextBoxFor<T>(Expression<Func<T>> getValue) where T : struct
+		[Obsolete("use Fluent.TextBoxFor(T source, x=>x.Value)")]
+		public static TextBoxData TextBoxFor(Expression<Func<string>> getValueAndValidationMetadata)
 		{
-			return TextBox.For(getValue);
+			return TextBox.For(getValueAndValidationMetadata);
 		}
 
-		public static TextBoxData TextBoxFor<T>(Expression<Func<T?>> getValue) where T : struct
+		[Obsolete("use Fluent.TextBoxFor(T source, x=>x.Value.ToString(), x=>x.Value)")]
+		public static TextBoxData TextBoxFor<T>(Expression<Func<T>> getValueAndValidationMetadata) where T : struct
 		{
-			return TextBox.For(getValue);
+			return TextBox.For(getValueAndValidationMetadata);
+		}
+
+		[Obsolete("use Fluent.TextBoxFor(T source, x=>x.Value==null?\"\":x.Value.ToString(), x=>x.Value)")]
+		public static TextBoxData TextBoxFor<T>(Expression<Func<T?>> getValueAndValidationMetadata) where T : struct
+		{
+			return TextBox.For(getValueAndValidationMetadata);
 		}
 	}
 }

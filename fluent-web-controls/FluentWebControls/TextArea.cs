@@ -8,11 +8,24 @@ namespace FluentWebControls
 {
 	public static class TextArea
 	{
-		public static TextAreaData For(Expression<Func<string>> getValue)
+		public static TextAreaData For(Expression<Func<string>> getValueAndValidationMetadata)
 		{
-			TextAreaData textAreaData = new TextAreaData(getValue.Compile()(), IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValue))
+			IPropertyMetaData propertyMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValueAndValidationMetadata);
+			string value = getValueAndValidationMetadata.Compile()();
+			TextAreaData textAreaData = new TextAreaData(value, propertyMetaData)
 				{
-					Id = NameUtility.GetPropertyName(getValue).ToCamelCase()
+					Id = NameUtility.GetPropertyName(getValueAndValidationMetadata).ToCamelCase()
+				};
+			return textAreaData;
+		}
+
+		public static TextAreaData For<T>(T source, Expression<Func<T, string>> getValueAndValidationMetadata)
+		{
+			IPropertyMetaData propertyMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValueAndValidationMetadata);
+			string value = getValueAndValidationMetadata.Compile()(source);
+			TextAreaData textAreaData = new TextAreaData(value, propertyMetaData)
+				{
+					Id = NameUtility.GetPropertyName(getValueAndValidationMetadata).ToCamelCase()
 				};
 			return textAreaData;
 		}
