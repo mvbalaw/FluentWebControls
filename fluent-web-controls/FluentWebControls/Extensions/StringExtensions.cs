@@ -24,7 +24,7 @@ namespace FluentWebControls.Extensions
 				return str;
 			}
 			str = Char.ToLower(str[0]) + str.Substring(1);
-			return str.Replace(".", "_");
+			return str; //.Replace(".", "_");
 		}
 
 		[NotNull]
