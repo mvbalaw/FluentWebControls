@@ -1,5 +1,7 @@
 using System;
 using System.Text;
+
+using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 
 namespace FluentWebControls
@@ -17,7 +19,6 @@ namespace FluentWebControls
 
 		public int Cols { private get; set; }
 		public string CssClass { private get; set; }
-		public string Id { private get; set; }
 		public LabelData Label { get; set; }
 		public int Rows { private get; set; }
 		public JQueryFieldValidationType ValidationType { get; set; }
@@ -28,44 +29,45 @@ namespace FluentWebControls
 			StringBuilder sb = new StringBuilder();
 			if (Label != null)
 			{
-				Label.ForId = Id;
+				Label.ForId = IdWithPrefix;
 				sb.Append(Label);
 			}
 			sb.Append("<textarea");
-			if (Id != null)
+			if (!IdWithPrefix.IsNullOrEmpty())
 			{
-				sb.Append(CreateQuotedAttribute("id", Id));
-				sb.Append(CreateQuotedAttribute("name", Id));
+				sb.Append(IdWithPrefix.CreateQuotedAttribute("id"));
+				sb.Append(IdWithPrefix.CreateQuotedAttribute("name"));
 			}
 			if (Width != null)
 			{
-				sb.Append(CreateQuotedAttribute("style", "width:" + Width));
+				var value = "width:" + Width;
+				sb.Append(value.CreateQuotedAttribute("style"));
 			}
-			sb.Append(CreateQuotedAttribute("class", BuildJqueryValidation(CssClass)));
+			sb.Append(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
 
 			if (_propertyMetaData != null)
 			{
 				if (_propertyMetaData.MinLength > 0)
 				{
-					sb.Append(CreateQuotedAttribute(JQueryFieldValidationType.MinLength.Text, _propertyMetaData.MinLength));
+					sb.Append(_propertyMetaData.MinLength.CreateQuotedAttribute(JQueryFieldValidationType.MinLength.Text));
 				}
 
 				if (_propertyMetaData.MaxLength > 0)
 				{
-					sb.Append(CreateQuotedAttribute(JQueryFieldValidationType.MaxLength.Text, _propertyMetaData.MaxLength));
+					sb.Append(_propertyMetaData.MaxLength.CreateQuotedAttribute(JQueryFieldValidationType.MaxLength.Text));
 				}
 			}
 
 			if (Rows > 0)
 			{
-				sb.Append(CreateQuotedAttribute("Rows", Rows));
+				sb.Append(Rows.CreateQuotedAttribute("Rows"));
 			}
 			if (Cols > 0)
 			{
-				sb.Append(CreateQuotedAttribute("Cols", Cols));
+				sb.Append(Cols.CreateQuotedAttribute("Cols"));
 			}
 
-			sb.Append(String.Format(">{0}</textarea>", EscapeForHtml(_value)));
+			sb.Append(String.Format(">{0}</textarea>", _value.EscapeForHtml()));
 			if (_propertyMetaData != null)
 			{
 				if (_propertyMetaData.IsRequired)

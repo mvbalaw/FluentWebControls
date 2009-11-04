@@ -97,8 +97,10 @@
     <Compile Include="Extensions\PropertyMetaData.cs" />
     <Compile Include="Extensions\RegularColumnExtensionsTest.cs" />
     <Compile Include="Extensions\SortableColumnExtensionsTest.cs" />
+    <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="Extensions\TextAreaDataExtensionsTest.cs" />
     <Compile Include="Extensions\TextBoxDataExtensionsTest.cs" />
+    <Compile Include="Extensions\TExtensionsTests.cs" />
     <Compile Include="GridColumnTest.cs" />
     <Compile Include="GridDataTest.cs" />
     <Compile Include="HiddenDataTest.cs" />
@@ -120,7 +122,6 @@
     <Compile Include="TextBoxDataTest.cs" />
     <Compile Include="TextBoxTest.cs" />
     <Compile Include="ValidatableWebControlBaseTest.cs" />
-    <Compile Include="WebControlBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentWebControls\FluentWebControls.csproj">

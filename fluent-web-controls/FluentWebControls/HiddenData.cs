@@ -1,8 +1,10 @@
 using System.Text;
 
+using FluentWebControls.Extensions;
+
 namespace FluentWebControls
 {
-	public class HiddenData : WebControlBase
+	public class HiddenData
 	{
 		private readonly string _forId;
 
@@ -17,10 +19,10 @@ namespace FluentWebControls
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.AppendFormat("<input");
-			sb.Append(CreateQuotedAttribute("type", "hidden"));
-			sb.Append(CreateQuotedAttribute("id", _forId));
-			sb.Append(CreateQuotedAttribute("name", _forId));
-			sb.Append(CreateQuotedAttribute("value", Text));
+			sb.Append("hidden".CreateQuotedAttribute("type"));
+			sb.Append(_forId.CreateQuotedAttribute("id"));
+			sb.Append(_forId.CreateQuotedAttribute("name"));
+			sb.Append(Text.CreateQuotedAttribute("value"));
 			sb.Append("/>");
 			return sb.ToString();
 		}

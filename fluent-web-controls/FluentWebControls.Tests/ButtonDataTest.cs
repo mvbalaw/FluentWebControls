@@ -2,6 +2,7 @@ using System;
 
 using FluentAssert;
 
+using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 
 using NUnit.Framework;
@@ -100,7 +101,7 @@ namespace FluentWebControls.Tests
 
 			protected override string HtmlText
 			{
-				get { return String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='/Admin.mvc/Delete' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", _buttonData.EscapeForTagAttribute("\""), ButtonData.ButtonType.Delete.ConfirmationMessage); }
+				get { return String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='/Admin.mvc/Delete' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage); }
 			}
 		}
 
@@ -119,7 +120,7 @@ namespace FluentWebControls.Tests
 
 			protected override string HtmlText
 			{
-				get { return String.Format("<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='/Admin.mvc/Test' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", _buttonData.EscapeForTagAttribute("\""), _buttonData.ConfirmMessage); }
+				get { return String.Format("<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='/Admin.mvc/Test' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), _buttonData.ConfirmMessage); }
 			}
 
 			protected override void SetAdditionalParameters()

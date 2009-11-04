@@ -25,9 +25,7 @@ namespace FluentWebControls
 			List<KeyValuePair<string, string>> options = new List<KeyValuePair<string, string>>();
 			items.Select(item => new KeyValuePair<string, string>(getKey(item), getValue(item))).ForEach(options.Add);
 			ComboSelectData comboSelectData = new ComboSelectData(options, metaData)
-				{
-					Id = name
-				};
+				.WithId(name);
 			return comboSelectData;
 		}
 
@@ -36,9 +34,7 @@ namespace FluentWebControls
 			List<KeyValuePair<string, string>> options = new List<KeyValuePair<string, string>>();
 			items.Select(item => new KeyValuePair<string, string>(getKey(item), getValue(item).ToString())).ForEach(options.Add);
 			ComboSelectData comboSelectData = new ComboSelectData(options, metaData)
-				{
-					Id = name
-				};
+				.WithId(name);
 			return comboSelectData;
 		}
 

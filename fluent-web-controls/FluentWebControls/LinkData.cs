@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using FluentWebControls.Extensions;
+
 namespace FluentWebControls
 {
 	public class LinkData : WebControlBase
@@ -27,9 +29,9 @@ namespace FluentWebControls
 			}
 			StringBuilder sb = new StringBuilder();
 			sb.Append('?');
-			foreach (KeyValuePair<string, string> keyValuePair in _queryStringData)
+			foreach (var keyValuePair in _queryStringData)
 			{
-				sb.AppendFormat("{0}={1}&", EscapeForUrl(keyValuePair.Key), EscapeForUrl(keyValuePair.Value));
+				sb.AppendFormat("{0}={1}&", keyValuePair.Key.EscapeForUrl(), keyValuePair.Value.EscapeForUrl());
 			}
 			return sb.ToString();
 		}
@@ -40,8 +42,8 @@ namespace FluentWebControls
 			sb.AppendFormat("<a");
 			if (Id != null)
 			{
-				sb.Append(CreateQuotedAttribute("id", Id));
-				sb.Append(CreateQuotedAttribute("name", Id));
+				sb.Append(Id.CreateQuotedAttribute("id"));
+				sb.Append(Id.CreateQuotedAttribute("name"));
 			}
 
 			if (Disabled)
@@ -54,19 +56,19 @@ namespace FluentWebControls
 			}
 			if (Rel != null)
 			{
-				sb.Append(CreateQuotedAttribute("rel", Rel));
+				sb.Append(Rel.CreateQuotedAttribute("rel"));
 			}
 			if (CssClass != null)
 			{
-				sb.Append(CreateQuotedAttribute("class", CssClass));
+				sb.Append(CssClass.CreateQuotedAttribute("class"));
 			}
 			if (MouseOverText != null)
 			{
-				sb.Append(CreateQuotedAttribute("title", MouseOverText));
+				sb.Append(MouseOverText.CreateQuotedAttribute("title"));
 			}
 
 			sb.Append('>');
-			sb.Append(EscapeForHtml(LinkText));
+			sb.Append(LinkText.EscapeForHtml());
 			sb.Append("</a>");
 
 			return sb.ToString();

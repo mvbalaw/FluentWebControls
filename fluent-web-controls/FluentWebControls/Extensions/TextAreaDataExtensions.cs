@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using FluentWebControls.Tools;
 
 namespace FluentWebControls.Extensions
 {
@@ -18,10 +17,10 @@ namespace FluentWebControls.Extensions
 			return textAreaData;
 		}
 
+		[Obsolete("Use .WithId(xx, x=>x.Y)")]
 		public static TextAreaData Id(this TextAreaData textAreaData, Expression<Func<string>> id)
 		{
-			textAreaData.Id = NameUtility.GetPropertyName(id).ToCamelCase();
-			return textAreaData;
+			return textAreaData.WithId(id);
 		}
 
 		public static TextAreaData Rows(this TextAreaData textAreaData, int rows)

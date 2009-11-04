@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+
 using FluentWebControls.Tools;
 
 namespace FluentWebControls.Extensions
@@ -45,7 +46,7 @@ namespace FluentWebControls.Extensions
 
 		public static LinkData WithData(this LinkData linkData, IEnumerable<KeyValuePair<string, string>> items)
 		{
-			foreach (KeyValuePair<string, string> item in items)
+			foreach (var item in items)
 			{
 				linkData.AddQueryStringData(item.Key, item.Value);
 			}
@@ -66,7 +67,7 @@ namespace FluentWebControls.Extensions
 
 		public static LinkData WithData<T>(this LinkData linkData, Expression<Func<T?>> fieldNameAndValue) where T : struct
 		{
-			T? value = fieldNameAndValue.Compile()();
+			var value = fieldNameAndValue.Compile()();
 			linkData.AddQueryStringData(NameUtility.GetPropertyName(fieldNameAndValue), value == null ? "" : value.ToString());
 			return linkData;
 		}

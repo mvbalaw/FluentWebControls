@@ -44,9 +44,7 @@ namespace FluentWebControls.Tests
 			public void Should_return_HTML_code_representing_a_DropDownList_with_its_value_embedded_in_it()
 			{
 				_dropDownListData = new DropDownListData(Items, PropertyMetaData)
-					{
-						Id = Id
-					};
+					.WithId(Id);
 
 				SetDefault();
 				SetSelected();

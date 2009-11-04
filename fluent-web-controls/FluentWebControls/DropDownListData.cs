@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 
 namespace FluentWebControls
@@ -30,33 +31,27 @@ namespace FluentWebControls
 			}
 		}
 
-		public string Id { get; set; }
-		public string IdPrefix { get; set; }
 		public LabelData Label { get; set; }
 		public string SelectedValue { get; set; }
 		public bool SubmitOnChange { get; set; }
 
 		public override string ToString()
 		{
-			string id = IdPrefix ?? "";
-			if (!String.IsNullOrEmpty(IdPrefix))
-			{
-				id += ".";
-			}
-			id += Id;
+
 			StringBuilder sb = new StringBuilder();
 			if (Label != null)
 			{
-				Label.ForId = id;
+				Label.ForId = IdWithPrefix;
 				sb.Append(Label);
 			}
 			sb.Append("<select");
-			sb.Append(CreateQuotedAttribute("name", id));
-			sb.Append(CreateQuotedAttribute("id", id));
-			sb.AppendFormat(CreateQuotedAttribute("class", BuildJqueryValidation(CssClass)));
+			sb.Append(IdWithPrefix.CreateQuotedAttribute("name"));
+			sb.Append(IdWithPrefix.CreateQuotedAttribute("id"));
+			sb.AppendFormat(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
 			if (SubmitOnChange)
 			{
-				sb.Append(CreateQuotedAttribute("onchange", _formFieldToSetBeforeSubmitting != null ? "setFormFieldAndSubmit(\"" + _formFieldToSetBeforeSubmitting.Value.Key + "\",\"" + _formFieldToSetBeforeSubmitting.Value.Value + "\", this);" : "this.form.submit();"));
+				var v = _formFieldToSetBeforeSubmitting != null ? "setFormFieldAndSubmit(\"" + _formFieldToSetBeforeSubmitting.Value.Key + "\",\"" + _formFieldToSetBeforeSubmitting.Value.Value + "\", this);" : "this.form.submit();";
+				sb.Append(v.CreateQuotedAttribute("onchange"));
 			}
 			sb.Append('>');
 			if (Default != null)
@@ -75,16 +70,16 @@ namespace FluentWebControls
 			return sb.ToString();
 		}
 
-		private void WriteOption(StringBuilder sb, KeyValuePair<string, string> item, bool selected)
+		private static void WriteOption(StringBuilder sb, KeyValuePair<string, string> item, bool selected)
 		{
 			sb.Append("<option");
-			sb.Append(CreateQuotedAttribute("value", item.Value));
+			sb.Append(item.Value.CreateQuotedAttribute("value"));
 			if (selected)
 			{
-				sb.Append(CreateQuotedAttribute("selected", "selected"));
+				sb.Append("selected".CreateQuotedAttribute("selected"));
 			}
 			sb.Append('>');
-			sb.Append(EscapeForHtml(item.Key));
+			sb.Append(item.Key.EscapeForHtml());
 			sb.Append("</option>");
 		}
 	}

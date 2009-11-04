@@ -44,7 +44,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_TextBoxData_With_Id_initialized()
 			{
-				TextBoxData tBox = _textBoxData.Id(() => _item.ItemName);
+				TextBoxData tBox = _textBoxData.WithId(() => _item.ItemName);
 				Assert.AreSame(_textBoxData, tBox);
 				TestWebControlsUtility.HtmlParser(tBox.ToString())["id"].ShouldBeEqualTo(_item.ItemName.ToCamelCase());
 				tBox.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();
@@ -58,7 +58,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_TextBoxData_With_Id_initialized()
 			{
 				const string expectedId = "Bar";
-				TextBoxData tBox = _textBoxData.Id(expectedId);
+				TextBoxData tBox = _textBoxData.WithId(expectedId);
 				Assert.AreSame(_textBoxData, tBox);
 				TestWebControlsUtility.HtmlParser(tBox.ToString())["id"].ShouldBeEqualTo(expectedId.ToCamelCase());
 				tBox.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();

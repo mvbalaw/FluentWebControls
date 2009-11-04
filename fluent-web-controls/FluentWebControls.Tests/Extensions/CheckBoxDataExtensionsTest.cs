@@ -28,7 +28,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CheckBoxData_With_Id_initialized()
 			{
-				CheckBoxData checkBoxData = _checkBoxData.Id("_isChecked");
+				CheckBoxData checkBoxData = _checkBoxData.WithId("_isChecked");
 				Assert.AreSame(_checkBoxData, checkBoxData);
 				string propertyName = NameUtility.GetPropertyName(() => _isChecked);
 				TestWebControlsUtility.HtmlParser(_checkBoxData.ToString())["id"].ShouldBeEqualTo(propertyName.ToCamelCase());

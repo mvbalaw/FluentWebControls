@@ -1,10 +1,12 @@
 using System;
 using System.Text;
+
+using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 
 namespace FluentWebControls
 {
-	public class ButtonData : WebControlBase
+	public class ButtonData
 	{
 		private readonly string _controllerName;
 		private readonly IPathUtility _pathUtility;
@@ -49,21 +51,22 @@ namespace FluentWebControls
 
 			StringBuilder sb = new StringBuilder();
 			sb.Append("<input");
-			sb.Append(CreateQuotedAttribute("Id", String.Format("btn{0}", _type.Name)));
-			sb.Append(CreateQuotedAttribute("name", String.Format("btn{0}", _type.Name)));
-			sb.Append(CreateQuotedAttribute("value", Text));
-			sb.Append(CreateQuotedAttribute("class", _type.CssClass));
+			sb.Append(String.Format("btn{0}", _type.Name).CreateQuotedAttribute("Id"));
+			sb.Append(String.Format("btn{0}", _type.Name).CreateQuotedAttribute("name"));
+			sb.Append(Text.CreateQuotedAttribute("value"));
+			sb.Append(_type.CssClass.CreateQuotedAttribute("class"));
 			if (!String.IsNullOrEmpty(Width))
 			{
-				sb.Append(CreateQuotedAttribute("style", "width:" + Width));
+				var value = "width:" + Width;
+				sb.Append(value.CreateQuotedAttribute("style"));
 			}
-			sb.Append(CreateQuotedAttribute("type", _type.Type));
+			sb.Append(_type.Type.CreateQuotedAttribute("type"));
 
 			if (_type.Type.Equals("submit", StringComparison.OrdinalIgnoreCase))
 			{
 				string actionName = ActionName ?? _type.Name;
 				string url = _pathUtility.GetUrl(String.Format("/{0}.mvc/{1}", _controllerName, actionName));
-				sb.Append(CreateQuotedAttribute("action", String.IsNullOrEmpty(QueryParameter) ? url : String.Format("{0}?{1}", url, QueryParameter)));
+				sb.Append((String.IsNullOrEmpty(QueryParameter) ? url : String.Format("{0}?{1}", url, QueryParameter)).CreateQuotedAttribute("action"));
 
 				if (String.IsNullOrEmpty(OnClickMethod))
 				{
@@ -76,7 +79,7 @@ namespace FluentWebControls
 
 			if (!String.IsNullOrEmpty(OnClickMethod))
 			{
-				sb.Append(CreateQuotedAttribute("onClick", OnClickMethod));
+				sb.Append(OnClickMethod.CreateQuotedAttribute("onClick"));
 			}
 			sb.Append("/>");
 			return sb.ToString();
@@ -124,7 +127,7 @@ namespace FluentWebControls
 	{
 		string ConfirmationMessage { get; }
 		string CssClass { get; }
-		string Name { get;  }
+		string Name { get; }
 		string Type { get; }
 	}
 }

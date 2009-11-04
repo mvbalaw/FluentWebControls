@@ -13,9 +13,7 @@ namespace FluentWebControls
 			IPropertyMetaData propertyMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValueAndValidationMetadata);
 			string value = getValueAndValidationMetadata.Compile()();
 			TextAreaData textAreaData = new TextAreaData(value, propertyMetaData)
-				{
-					Id = NameUtility.GetPropertyName(getValueAndValidationMetadata).ToCamelCase()
-				};
+				.WithId(NameUtility.GetPropertyName(getValueAndValidationMetadata));
 			return textAreaData;
 		}
 
@@ -24,9 +22,7 @@ namespace FluentWebControls
 			IPropertyMetaData propertyMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValueAndValidationMetadata);
 			string value = getValueAndValidationMetadata.Compile()(source);
 			TextAreaData textAreaData = new TextAreaData(value, propertyMetaData)
-				{
-					Id = NameUtility.GetPropertyName(getValueAndValidationMetadata).ToCamelCase()
-				};
+				.WithId(NameUtility.GetPropertyName(getValueAndValidationMetadata));
 			return textAreaData;
 		}
 	}

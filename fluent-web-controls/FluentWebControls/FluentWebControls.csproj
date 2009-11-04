@@ -60,13 +60,16 @@
   <ItemGroup>
     <Compile Include="ControllerInfo.cs" />
     <Compile Include="Extensions\IEnumerableTExtensions.cs" />
+    <Compile Include="Extensions\IWebControlExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TExtensions.cs" />
     <Compile Include="Interfaces\IBusinessObjectPropertyMetaDataFactory.cs" />
     <Compile Include="Interfaces\IPagedList.cs" />
     <Compile Include="Interfaces\IPagedListParameters.cs" />
     <Compile Include="Interfaces\IPathUtility.cs" />
     <Compile Include="Interfaces\IPropertyMetaData.cs" />
     <Compile Include="Fluent.cs" />
+    <Compile Include="IWebControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AlignAttribute.cs" />
     <Compile Include="Button.cs" />

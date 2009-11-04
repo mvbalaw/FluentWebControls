@@ -31,9 +31,7 @@ namespace FluentWebControls.Tests
 			private TextBoxData GetTextBoxData(IPropertyMetaData propertyMetaData)
 			{
 				return new TextBoxData(Value, propertyMetaData)
-					{
-						Id = Id
-					};
+					.WithId(Id);
 			}
 
 			[Test]

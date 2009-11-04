@@ -18,7 +18,7 @@ namespace FluentWebControls
 
 		protected string BuildJqueryValidation(string cssClass)
 		{
-			List<string> attributes = new List<string>();
+			var attributes = new List<string>();
 
 			if (_propertyMetaData != null && _propertyMetaData.IsRequired)
 			{

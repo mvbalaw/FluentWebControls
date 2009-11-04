@@ -1,6 +1,8 @@
 using System;
 using System.Text;
 
+using FluentWebControls.Extensions;
+
 namespace FluentWebControls
 {
 	public class CheckBoxData : WebControlBase
@@ -12,7 +14,6 @@ namespace FluentWebControls
 		}
 
 		public bool Checked { get; set; }
-		public string Id { private get; set; }
 		public LabelData Label { get; set; }
 		public AlignAttribute LabelAlignAttribute { get; set; }
 
@@ -22,7 +23,7 @@ namespace FluentWebControls
 			{
 				return;
 			}
-			Label.ForId = Id;
+			Label.ForId = IdWithPrefix;
 			if (LabelAlignAttribute == AlignAttribute.Left)
 			{
 				stringBuilder.Insert(0, Label);
@@ -47,15 +48,15 @@ namespace FluentWebControls
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.Append("<input");
-			sb.Append(CreateQuotedAttribute("type", "checkbox"));
-			if (Id != null)
+			sb.Append("checkbox".CreateQuotedAttribute("type"));
+			if (!IdWithPrefix.IsNullOrEmpty())
 			{
-				sb.Append(CreateQuotedAttribute("id", Id));
-				sb.Append(CreateQuotedAttribute("name", Id));
+				sb.Append(IdWithPrefix.CreateQuotedAttribute("id"));
+				sb.Append(IdWithPrefix.CreateQuotedAttribute("name"));
 			}
 			if (Checked)
 			{
-				sb.Append(CreateQuotedAttribute("checked", "checked"));
+				sb.Append("checked".CreateQuotedAttribute("checked"));
 			}
 			sb.Append("/>");
 			AppendLabel(sb);

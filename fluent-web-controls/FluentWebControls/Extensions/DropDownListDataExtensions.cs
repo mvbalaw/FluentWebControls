@@ -13,16 +13,10 @@ namespace FluentWebControls.Extensions
 			return dropDownListData;
 		}
 
+		[Obsolete("use .WithId(xx)")]
 		public static DropDownListData Id(this DropDownListData dropDownListData, string id)
 		{
-			dropDownListData.Id = id.ToCamelCase();
-			return dropDownListData;
-		}
-
-		public static DropDownListData WithIdPrefix(this DropDownListData dropDownListData, string idPrefix)
-		{
-			dropDownListData.IdPrefix = idPrefix.ToCamelCase();
-			return dropDownListData;
+			return dropDownListData.WithId(id);
 		}
 
 		public static DropDownListData SubmitOnChange(this DropDownListData dropDownListData)

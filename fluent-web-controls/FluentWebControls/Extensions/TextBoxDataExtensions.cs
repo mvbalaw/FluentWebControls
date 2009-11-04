@@ -1,6 +1,5 @@
 using System;
 using System.Linq.Expressions;
-using FluentWebControls.Tools;
 
 namespace FluentWebControls.Extensions
 {
@@ -12,16 +11,16 @@ namespace FluentWebControls.Extensions
 			return textBoxData;
 		}
 
+		[Obsolete("use .WithId(xx)")]
 		public static TextBoxData Id(this TextBoxData textBoxData, string id)
 		{
-			textBoxData.Id = id.ToCamelCase();
-			return textBoxData;
+			return textBoxData.WithId(id);
 		}
 
+		[Obsolete("use .WithId(x=>x.Y)")]
 		public static TextBoxData Id(this TextBoxData textBoxData, Expression<Func<string>> id)
 		{
-			textBoxData.Id = NameUtility.GetPropertyName(id).ToCamelCase();
-			return textBoxData;
+			return textBoxData.WithId(id);
 		}
 
 		public static TextBoxData MaxValue(this TextBoxData textBoxData, int maxValue)
@@ -45,7 +44,7 @@ namespace FluentWebControls.Extensions
 		public static TextBoxData WithLabel(this TextBoxData textBoxData, LabelData label)
 		{
 			textBoxData.Label = label;
-			label.ForId = textBoxData.Id;
+			label.ForId = ((IWebControl)textBoxData).Id;
 			return textBoxData;
 		}
 	}

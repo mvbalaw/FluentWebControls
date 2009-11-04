@@ -2,12 +2,6 @@ namespace FluentWebControls.Extensions
 {
 	public static class CheckBoxDataExtensions
 	{
-		public static CheckBoxData Id(this CheckBoxData checkBoxData, string id)
-		{
-			checkBoxData.Id = id.ToCamelCase();
-			return checkBoxData;
-		}
-
 		public static CheckBoxData IsChecked(this CheckBoxData checkBoxData, bool @checked)
 		{
 			checkBoxData.Checked = @checked;

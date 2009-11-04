@@ -21,9 +21,7 @@ namespace FluentWebControls.Tests
 			private CheckBoxData GetCheckBoxData()
 			{
 				return new CheckBoxData(Checked)
-					{
-						Id = Id,
-					};
+					.WithId(Id);
 			}
 
 			protected virtual void SetLabel(CheckBoxData checkBoxData)

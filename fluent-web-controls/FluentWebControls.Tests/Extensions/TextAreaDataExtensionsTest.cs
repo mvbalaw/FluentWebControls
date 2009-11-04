@@ -59,7 +59,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_TextAreaData_With_Id_initialized()
 			{
-				TextAreaData tArea = _textAreaData.Id(() => _item.ItemName);
+				TextAreaData tArea = _textAreaData.WithId(() => _item.ItemName);
 				Assert.AreSame(_textAreaData, tArea);
 				TestWebControlsUtility.HtmlParser(tArea.ToString())["id"].ShouldBeEqualTo(_item.ItemName.ToCamelCase());
 				tArea.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();

@@ -1,5 +1,7 @@
 using System;
 using System.Text;
+
+using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 using FluentWebControls.Validation;
 
@@ -21,9 +23,9 @@ namespace FluentWebControls
 			{
 				if (propertyMetaData.MaxLength > 0)
 				{
-					Width = (propertyMetaData.ValidationType == FieldValidationType.Digits ? 11 : 4)*propertyMetaData.MaxLength.Value + "px";
+					Width = (propertyMetaData.ValidationType == FieldValidationType.Digits ? 11 : 4) * propertyMetaData.MaxLength.Value + "px";
 				}
-				if (propertyMetaData.ReturnType == typeof (DateTime) || propertyMetaData.ReturnType == typeof (DateTime?))
+				if (propertyMetaData.ReturnType == typeof(DateTime) || propertyMetaData.ReturnType == typeof(DateTime?))
 				{
 					CssClass = "datebox";
 				}
@@ -31,17 +33,16 @@ namespace FluentWebControls
 		}
 
 		public string CssClass { private get; set; }
-		public string Id { get; set; }
 		public LabelData Label { get; set; }
 
 		internal int MaxValue
 		{
-			set { _maxValue = value > 0 ? value : (int?) null; }
+			set { _maxValue = value > 0 ? value : (int?)null; }
 		}
 
 		internal int MinValue
 		{
-			set { _minValue = value >= 0 ? value : (int?) null; }
+			set { _minValue = value >= 0 ? value : (int?)null; }
 		}
 
 		public JQueryFieldValidationType ValidationType { get; set; }
@@ -52,46 +53,49 @@ namespace FluentWebControls
 			StringBuilder sb = new StringBuilder();
 			if (Label != null)
 			{
-				Label.ForId = Id;
+				Label.ForId = IdWithPrefix;
 				sb.Append(Label);
 			}
 			sb.Append("<input");
-			sb.Append(CreateQuotedAttribute("type", "text"));
-			if (Id != null)
+			sb.Append("text".CreateQuotedAttribute("type"));
+			if (!IdWithPrefix.IsNullOrEmpty())
 			{
-				sb.Append(CreateQuotedAttribute("id", Id));
-				sb.Append(CreateQuotedAttribute("name", Id));
+				sb.Append(IdWithPrefix.CreateQuotedAttribute("id"));
+				sb.Append(IdWithPrefix.CreateQuotedAttribute("name"));
 			}
 			if (Width != null)
 			{
-				sb.Append(CreateQuotedAttribute("style", "width:" + Width));
+				var value = "width:" + Width;
+				sb.Append(value.CreateQuotedAttribute("style"));
 			}
-			sb.Append(CreateQuotedAttribute("class", BuildJqueryValidation(CssClass)));
+			sb.Append(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
 
 			if (_propertyMetaData != null)
 			{
 				if (_propertyMetaData.MinLength > 0)
 				{
-					sb.Append(CreateQuotedAttribute(JQueryFieldValidationType.MinLength.Text, _propertyMetaData.MinLength));
+					sb.Append(_propertyMetaData.MinLength.CreateQuotedAttribute(JQueryFieldValidationType.MinLength.Text));
 				}
 
 				if (_propertyMetaData.MaxLength > 0)
 				{
-					sb.Append(CreateQuotedAttribute(JQueryFieldValidationType.MaxLength.Text, _propertyMetaData.MaxLength));
+					sb.Append(_propertyMetaData.MaxLength.CreateQuotedAttribute(JQueryFieldValidationType.MaxLength.Text));
 				}
 
 				if (_propertyMetaData.MinValue > 0 || _minValue > 0)
 				{
-					sb.Append(CreateQuotedAttribute(JQueryFieldValidationType.MinValue.Text, _propertyMetaData.MinValue ?? _minValue));
+					var v = _propertyMetaData.MinValue ?? _minValue;
+					sb.Append(v.CreateQuotedAttribute(JQueryFieldValidationType.MinValue.Text));
 				}
 
 				if (_propertyMetaData.MaxValue > 0 || _maxValue > 0)
 				{
-					sb.Append(CreateQuotedAttribute(JQueryFieldValidationType.MaxValue.Text, _propertyMetaData.MaxValue ?? _maxValue));
+					var v = _propertyMetaData.MaxValue ?? _maxValue;
+					sb.Append(v.CreateQuotedAttribute(JQueryFieldValidationType.MaxValue.Text));
 				}
 			}
 
-			sb.Append(CreateQuotedAttribute("value", _value));
+			sb.Append(_value.CreateQuotedAttribute("value"));
 			sb.Append("/>");
 			if (_propertyMetaData != null)
 			{

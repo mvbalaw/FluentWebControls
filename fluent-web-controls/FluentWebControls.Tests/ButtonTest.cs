@@ -2,6 +2,7 @@ using System;
 
 using FluentAssert;
 
+using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 using FluentWebControls.Tools;
 
@@ -24,7 +25,7 @@ namespace FluentWebControls.Tests
 			public void Should_return_html_code_representing_a_Delete_button()
 			{
 				ButtonData buttonData = Button.For(ButtonData.ButtonType.Delete, "AdminDelete");
-				buttonData.ToString().ShouldBeEqualTo(String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='/AdminDelete.mvc/Delete' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", buttonData.EscapeForTagAttribute("\""), ButtonData.ButtonType.Delete.ConfirmationMessage));
+				buttonData.ToString().ShouldBeEqualTo(String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='/AdminDelete.mvc/Delete' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage));
 			}
 
 			[Test]

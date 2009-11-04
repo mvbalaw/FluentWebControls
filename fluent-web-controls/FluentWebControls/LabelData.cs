@@ -1,9 +1,11 @@
 using System;
 using System.Text;
 
+using FluentWebControls.Extensions;
+
 namespace FluentWebControls
 {
-	public class LabelData : WebControlBase
+	public class LabelData
 	{
 		public LabelData()
 		{
@@ -27,7 +29,8 @@ namespace FluentWebControls
 			if (Width != null)
 			{
 				sb.Append("<span");
-				sb.Append(CreateQuotedAttribute("style", "DISPLAY: inline-block; width:" + Width));
+				var v = "DISPLAY: inline-block; width:" + Width;
+				sb.Append(v.CreateQuotedAttribute("style"));
 				sb.Append('>');
 			}
 			sb.AppendFormat("<label");
@@ -37,7 +40,7 @@ namespace FluentWebControls
 			}
 			if (!String.IsNullOrEmpty(Style))
 			{
-				sb.Append(CreateQuotedAttribute("style", Style));
+				sb.Append(Style.CreateQuotedAttribute("style"));
 			}
 			sb.Append('>');
 			sb.Append(Text);
