@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 using FluentWebControls.Interfaces;
 
 namespace FluentWebControls
@@ -30,21 +31,28 @@ namespace FluentWebControls
 		}
 
 		public string Id { get; set; }
+		public string IdPrefix { get; set; }
 		public LabelData Label { get; set; }
 		public string SelectedValue { get; set; }
 		public bool SubmitOnChange { get; set; }
 
 		public override string ToString()
 		{
+			string id = IdPrefix ?? "";
+			if (!String.IsNullOrEmpty(IdPrefix))
+			{
+				id += ".";
+			}
+			id += Id;
 			StringBuilder sb = new StringBuilder();
 			if (Label != null)
 			{
-				Label.ForId = Id;
+				Label.ForId = id;
 				sb.Append(Label);
 			}
 			sb.Append("<select");
-			sb.Append(CreateQuotedAttribute("name", Id));
-			sb.Append(CreateQuotedAttribute("id", Id));
+			sb.Append(CreateQuotedAttribute("name", id));
+			sb.Append(CreateQuotedAttribute("id", id));
 			sb.AppendFormat(CreateQuotedAttribute("class", BuildJqueryValidation(CssClass)));
 			if (SubmitOnChange)
 			{
@@ -55,7 +63,7 @@ namespace FluentWebControls
 			{
 				WriteOption(sb, Default.Value, String.IsNullOrEmpty(SelectedValue));
 			}
-			foreach (KeyValuePair<string, string> item in _items)
+			foreach (var item in _items)
 			{
 				WriteOption(sb, item, item.Value == SelectedValue);
 			}

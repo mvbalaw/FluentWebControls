@@ -19,6 +19,12 @@ namespace FluentWebControls.Extensions
 			return dropDownListData;
 		}
 
+		public static DropDownListData WithIdPrefix(this DropDownListData dropDownListData, string idPrefix)
+		{
+			dropDownListData.IdPrefix = idPrefix.ToCamelCase();
+			return dropDownListData;
+		}
+
 		public static DropDownListData SubmitOnChange(this DropDownListData dropDownListData)
 		{
 			dropDownListData.SubmitOnChange = true;
