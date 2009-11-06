@@ -2,7 +2,6 @@ using System;
 using System.Text;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Interfaces;
 
 namespace FluentWebControls
 {
@@ -10,8 +9,7 @@ namespace FluentWebControls
 	{
 		private readonly string _value;
 
-		public TextAreaData(string value, IPropertyMetaData propertyMetaData)
-			: base(propertyMetaData)
+		public TextAreaData(string value)
 		{
 			_value = value;
 			CssClass = "textbox";
@@ -45,16 +43,16 @@ namespace FluentWebControls
 			}
 			sb.Append(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
 
-			if (_propertyMetaData != null)
+			if (PropertyMetaData != null)
 			{
-				if (_propertyMetaData.MinLength > 0)
+				if (PropertyMetaData.MinLength > 0)
 				{
-					sb.Append(_propertyMetaData.MinLength.CreateQuotedAttribute(JQueryFieldValidationType.MinLength.Text));
+					sb.Append(PropertyMetaData.MinLength.CreateQuotedAttribute(JQueryFieldValidationType.MinLength.Text));
 				}
 
-				if (_propertyMetaData.MaxLength > 0)
+				if (PropertyMetaData.MaxLength > 0)
 				{
-					sb.Append(_propertyMetaData.MaxLength.CreateQuotedAttribute(JQueryFieldValidationType.MaxLength.Text));
+					sb.Append(PropertyMetaData.MaxLength.CreateQuotedAttribute(JQueryFieldValidationType.MaxLength.Text));
 				}
 			}
 
@@ -68,9 +66,9 @@ namespace FluentWebControls
 			}
 
 			sb.Append(String.Format(">{0}</textarea>", _value.EscapeForHtml()));
-			if (_propertyMetaData != null)
+			if (PropertyMetaData != null)
 			{
-				if (_propertyMetaData.IsRequired)
+				if (PropertyMetaData.IsRequired)
 				{
 					sb.Append("<em>*</em>");
 				}

@@ -9,7 +9,7 @@ namespace FluentWebControls
 			if (aspxPage != null)
 			{
 				Type type = aspxPage.GetType().BaseType;
-				string[] parts = type.FullName.Split('.');
+				var parts = type.FullName.Split('.');
 				Action = parts[parts.Length - 1];
 				Name = parts[parts.Length - 2];
 			}

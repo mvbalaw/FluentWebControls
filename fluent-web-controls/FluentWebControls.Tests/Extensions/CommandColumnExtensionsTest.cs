@@ -25,7 +25,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CommandColumn_with_align_set_to_center()
 			{
-				CommandColumn<TestData.Item> column = _commandColumn.AlignCenter();
+				var column = _commandColumn.AlignCenter();
 				Assert.AreSame(_commandColumn, column);
 				column.Align.ShouldBeEqualTo(AlignAttribute.Center);
 			}
@@ -37,7 +37,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CommandColumn_with_align_set_to_left()
 			{
-				CommandColumn<TestData.Item> column = _commandColumn.AlignLeft();
+				var column = _commandColumn.AlignLeft();
 				Assert.AreSame(_commandColumn, column);
 				column.Align.ShouldBeEqualTo(AlignAttribute.Left);
 			}
@@ -49,7 +49,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CommandColumn_with_align_set_to_right()
 			{
-				CommandColumn<TestData.Item> column = _commandColumn.AlignRight();
+				var column = _commandColumn.AlignRight();
 				Assert.AreSame(_commandColumn, column);
 				column.Align.ShouldBeEqualTo(AlignAttribute.Right);
 			}

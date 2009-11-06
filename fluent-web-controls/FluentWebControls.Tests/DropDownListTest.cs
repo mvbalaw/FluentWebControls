@@ -14,14 +14,19 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_DropDownList_with_its_value_embedded_in_it()
 			{
-				List<KeyValuePair<string, string>> items = new List<KeyValuePair<string, string>>
+				var items = new List<KeyValuePair<string, string>>
 					{
 						new KeyValuePair<string, string>("Name1", "Value1"),
 						new KeyValuePair<string, string>("Name2", "Value2")
 					};
 
-				DropDownListData dropDownListData = DropDownList.For("value", items, nvp => nvp.Key, nvp => nvp.Value);
+				DropDownListData dropDownListData = DropDownList.For(items, nvp => nvp.Key, nvp => nvp.Value, (Foo f) => f.Value);
 				dropDownListData.ToString().ShouldBeEqualTo("<select name='value' id='value' class='ddlDetail'><option value='Value1'>Name1</option><option value='Value2'>Name2</option></select>");
+			}
+
+			public class Foo
+			{
+				public string Value { get; set; }
 			}
 		}
 	}

@@ -22,7 +22,7 @@ namespace FluentWebControls.Extensions
 		{
 			if (items != null)
 			{
-				foreach (T item in items)
+				foreach (var item in items)
 				{
 					comboSelectData.SelectedValues.Add(getIdValue.Compile()(item).ToString());
 				}
@@ -34,7 +34,7 @@ namespace FluentWebControls.Extensions
 		{
 			if (items != null)
 			{
-				foreach (T item in items)
+				foreach (var item in items)
 				{
 					comboSelectData.SelectedValues.Add(getIdValue.Compile()(item).ToString());
 				}

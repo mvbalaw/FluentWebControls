@@ -9,18 +9,13 @@ namespace FluentWebControls
 {
 	public abstract class ValidatableWebControlBase : WebControlBase
 	{
-		protected readonly IPropertyMetaData _propertyMetaData;
-
-		protected ValidatableWebControlBase(IPropertyMetaData propertyMetaData)
-		{
-			_propertyMetaData = propertyMetaData;
-		}
+		public IPropertyMetaData PropertyMetaData { get; set; }
 
 		protected string BuildJqueryValidation(string cssClass)
 		{
 			var attributes = new List<string>();
 
-			if (_propertyMetaData != null && _propertyMetaData.IsRequired)
+			if (PropertyMetaData != null && PropertyMetaData.IsRequired)
 			{
 				// required must be first if specified
 				attributes.Add(JQueryFieldValidationType.Required.Text);
@@ -31,22 +26,22 @@ namespace FluentWebControls
 				attributes.Add(cssClass);
 			}
 
-			if (_propertyMetaData != null)
+			if (PropertyMetaData != null)
 			{
-				if (new[] { typeof(int), typeof(int?) }.Any(x => x == _propertyMetaData.ReturnType))
+				if (new[] { typeof(int), typeof(int?) }.Any(x => x == PropertyMetaData.ReturnType))
 				{
 					attributes.Add(JQueryFieldValidationType.Digits.Text);
 				}
-				if (_propertyMetaData.ValidationType != null)
+				if (PropertyMetaData.ValidationType != null)
 				{
-					attributes.Add(_propertyMetaData.ValidationType);
+					attributes.Add(PropertyMetaData.ValidationType);
 				}
-				if (new[] { typeof(DateTime), typeof(DateTime?) }.Any(x => x == _propertyMetaData.ReturnType))
+				if (new[] { typeof(DateTime), typeof(DateTime?) }.Any(x => x == PropertyMetaData.ReturnType))
 				{
 					attributes.Add(JQueryFieldValidationType.Date.Text);
 				}
 
-				if (new[] { typeof(decimal), typeof(decimal?) }.Any(x => x == _propertyMetaData.ReturnType))
+				if (new[] { typeof(decimal), typeof(decimal?) }.Any(x => x == PropertyMetaData.ReturnType))
 				{
 					attributes.Add(JQueryFieldValidationType.Number.Text);
 				}

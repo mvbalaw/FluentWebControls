@@ -3,7 +3,6 @@ using System.Linq;
 using System.Text;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Interfaces;
 
 namespace FluentWebControls
 {
@@ -11,8 +10,7 @@ namespace FluentWebControls
 	{
 		private readonly IEnumerable<KeyValuePair<string, string>> _items;
 
-		public ComboSelectData(IEnumerable<KeyValuePair<string, string>> items, IPropertyMetaData propertyMetaData)
-			: base(propertyMetaData)
+		public ComboSelectData(IEnumerable<KeyValuePair<string, string>> items)
 		{
 			_items = items;
 			CssClass = "comboselect";
@@ -45,7 +43,7 @@ namespace FluentWebControls
 				WriteOption(sb, item, SelectedValues.Any(value => itemValue.Value.Equals(value)));
 			}
 			sb.Append("</select>");
-			if (_propertyMetaData != null && _propertyMetaData.IsRequired)
+			if (PropertyMetaData != null && PropertyMetaData.IsRequired)
 			{
 				sb.Append("<em>*</em>");
 			}

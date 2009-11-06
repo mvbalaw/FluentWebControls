@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Interfaces;
 
 namespace FluentWebControls
 {
@@ -12,8 +11,7 @@ namespace FluentWebControls
 		private readonly IEnumerable<KeyValuePair<string, string>> _items;
 		private KeyValuePair<string, string>? _formFieldToSetBeforeSubmitting;
 
-		public DropDownListData(IEnumerable<KeyValuePair<string, string>> items, IPropertyMetaData propertyMetaData)
-			: base(propertyMetaData)
+		public DropDownListData(IEnumerable<KeyValuePair<string, string>> items)
 		{
 			_items = items;
 			CssClass = "ddlDetail";
@@ -37,7 +35,6 @@ namespace FluentWebControls
 
 		public override string ToString()
 		{
-
 			StringBuilder sb = new StringBuilder();
 			if (Label != null)
 			{
@@ -63,7 +60,7 @@ namespace FluentWebControls
 				WriteOption(sb, item, item.Value == SelectedValue);
 			}
 			sb.Append("</select>");
-			if (_propertyMetaData != null && _propertyMetaData.IsRequired)
+			if (PropertyMetaData != null && PropertyMetaData.IsRequired)
 			{
 				sb.Append("<em>*</em>");
 			}

@@ -2,49 +2,53 @@ using System;
 using System.Linq.Expressions;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Interfaces;
-using FluentWebControls.Tools;
 
 namespace FluentWebControls
 {
 	public static class TextBox
 	{
-		public static TextBoxData For<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forNameAndValidationMetadata)
+		public static TextBoxData For<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId)
 		{
-			IPropertyMetaData propertyMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(forNameAndValidationMetadata);
-			TextBoxData textBoxData = new TextBoxData(getValue(source), propertyMetaData)
-				.WithId(forNameAndValidationMetadata);
+			TextBoxData textBoxData = new TextBoxData(getValue(source))
+				.WithId(forId);
 			return textBoxData;
 		}
 
-		public static TextBoxData For<T>(T source, Expression<Func<T, string>> getValueAndValidationMetadata)
+		public static TextBoxData For<T>(T source, Expression<Func<T, string>> forValueAndId)
 		{
-			return For(source, getValueAndValidationMetadata.Compile(), getValueAndValidationMetadata);
+			var getValue = forValueAndId.Compile();
+			return For(source, getValue, forValueAndId);
 		}
 
-		[Obsolete("use TextBox.For(source, x=>x.Value)")]
-		public static TextBoxData For(Expression<Func<string>> getValue)
+		[Obsolete("use TextBox.For(source, x=>x.Value).WithValidationFrom(x=>x.Value)")]
+		public static TextBoxData For(Expression<Func<string>> forValueIdAndValidationMetadata)
 		{
-			IPropertyMetaData propertyMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValue);
-			TextBoxData textBoxData = new TextBoxData(getValue.Compile()(), propertyMetaData)
-				.WithId(getValue);
+			var getvalue = forValueIdAndValidationMetadata.Compile();
+			TextBoxData textBoxData = new TextBoxData(getvalue())
+				.WithId(forValueIdAndValidationMetadata)
+				.WithValidationFrom(forValueIdAndValidationMetadata);
 			return textBoxData;
 		}
 
-		[Obsolete("use TextBox.For(source, x=>x.Value.ToString(), x=>x.Value)")]
-		public static TextBoxData For<T>(Expression<Func<T>> getValue) where T : struct
+		[Obsolete("use TextBox.For(source, x=>x.Value.ToString(), x=>x.Value).WithValidationFrom(x=>x.Value)")]
+		public static TextBoxData For<T>(Expression<Func<T>> forValueIdAndValidationMetadata) where T : struct
 		{
-			TextBoxData textBoxData = new TextBoxData(getValue.Compile()().ToString(), IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValue))
-				.WithId(getValue);
+			var getValue = forValueIdAndValidationMetadata.Compile();
+			TextBoxData textBoxData = new TextBoxData(getValue().ToString())
+				.WithId(forValueIdAndValidationMetadata)
+				.WithValidationFrom(forValueIdAndValidationMetadata);
 			return textBoxData;
 		}
 
-		[Obsolete("use TextBox.For(source, x=>x.Value==null?\"\":x.Value.ToString(), x=>x.Value)")]
-		public static TextBoxData For<T>(Expression<Func<T?>> getValue) where T : struct
+		[Obsolete("use TextBox.For(source, x=>x.Value==null?\"\":x.Value.ToString(), x=>x.Value).WithValidationFrom(x=>x.Value)")]
+		public static TextBoxData For<T>(Expression<Func<T?>> forValueIdAndValidationMetadata) where T : struct
 		{
-			var value = getValue.Compile()();
-			TextBoxData textBoxData = new TextBoxData(value == null ? "" : value.ToString(), IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValue))
-				.WithId(getValue);
+			var getValue = forValueIdAndValidationMetadata.Compile();
+			var value = getValue();
+			var v = value == null ? "" : value.ToString();
+			TextBoxData textBoxData = new TextBoxData(v)
+				.WithId(forValueIdAndValidationMetadata)
+				.WithValidationFrom(forValueIdAndValidationMetadata);
 			return textBoxData;
 		}
 	}

@@ -23,11 +23,11 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_map_the_constructor_parameters_to_the_right_properties()
 			{
-				List<IGridColumn> gridColumns = new List<IGridColumn>
+				var gridColumns = new List<IGridColumn>
 					{
 						new GridColumn(GridColumnType.Sortable, "Header", "Field", AlignAttribute.Left, false, true, ActionName, _rows)
 					};
-				List<DropDownListData> filters = new List<DropDownListData>();
+				var filters = new List<DropDownListData>();
 				GridData pagedGridData = new GridData(null, ControllerName, ActionName, gridColumns, gridColumns.Count, filters, _rows.Count);
 				pagedGridData.PagedListParameters.ShouldBeEqualTo(null);
 				pagedGridData.ControllerName.ShouldBeEqualTo(ControllerName);
@@ -72,7 +72,7 @@ namespace FluentWebControls.Tests
 			{
 				_gridData.AddColumn(_commandColumn);
 
-				List<IGridColumn> gridColumns = _gridData.GridColumns.ToList();
+				var gridColumns = _gridData.GridColumns.ToList();
 				gridColumns.Count.ShouldBeEqualTo(1);
 				gridColumns[0][0].ShouldBeEqualTo(_items[0].ItemId.ToString());
 				gridColumns[0][1].ShouldBeEqualTo(_items[1].ItemId.ToString());
@@ -94,7 +94,7 @@ namespace FluentWebControls.Tests
 			{
 				_gridData.AddColumn(_sortableColumn);
 
-				List<IGridColumn> gridColumns = _gridData.GridColumns.ToList();
+				var gridColumns = _gridData.GridColumns.ToList();
 				gridColumns.Count.ShouldBeEqualTo(1);
 				gridColumns[0][0].ShouldBeEqualTo(_items[0].ItemName);
 				gridColumns[0][1].ShouldBeEqualTo(_items[1].ItemName);
@@ -121,7 +121,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_map_the_constructor_parameters_to_the_right_properties()
 			{
-				GridData<TestData.Item> gridData = new GridData<TestData.Item>(null, ControllerName, ActionName, _items, _items.Count);
+				var gridData = new GridData<TestData.Item>(null, ControllerName, ActionName, _items, _items.Count);
 				gridData.PagedListParameters.ShouldBeEqualTo(null);
 				gridData.ControllerName.ShouldBeEqualTo(ControllerName);
 				gridData.ActionName.ShouldBeEqualTo(ActionName);

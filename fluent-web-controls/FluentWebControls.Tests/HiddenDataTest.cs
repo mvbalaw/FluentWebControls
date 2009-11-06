@@ -20,10 +20,10 @@ namespace FluentWebControls.Tests
 
 			private HiddenData GetHiddenData()
 			{
-				return new HiddenData(ForId)
+				return new HiddenData
 					{
 						Text = Text
-					};
+					}.WithId(ForId);
 			}
 
 			[Test]

@@ -63,6 +63,7 @@
     <Compile Include="Extensions\IWebControlExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TExtensions.cs" />
+    <Compile Include="Extensions\ValidatableWebControlBaseExtensions.cs" />
     <Compile Include="Interfaces\IBusinessObjectPropertyMetaDataFactory.cs" />
     <Compile Include="Interfaces\IPagedList.cs" />
     <Compile Include="Interfaces\IPagedListParameters.cs" />

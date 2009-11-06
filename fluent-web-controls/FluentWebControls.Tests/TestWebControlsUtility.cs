@@ -11,7 +11,7 @@ namespace FluentWebControls.Tests
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.LoadXml(htmlTag);
 
-			Dictionary<string, string> attributes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+			var attributes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 			foreach (XmlAttribute attribute in xmlDocument.FirstChild.Attributes)
 			{
 				attributes.Add(attribute.Name, attribute.Value);

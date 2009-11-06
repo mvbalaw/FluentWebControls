@@ -15,7 +15,7 @@ namespace FluentWebControls.Tests.Extensions
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				_hiddenData = new HiddenData("Id");
+				_hiddenData = new HiddenData().WithId("Id");
 			}
 		}
 

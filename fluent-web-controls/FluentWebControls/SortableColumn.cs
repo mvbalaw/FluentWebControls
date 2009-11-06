@@ -4,8 +4,8 @@ namespace FluentWebControls
 {
 	public class SortableColumn<T> : RegularColumn<T>
 	{
-		public SortableColumn(Func<T, string> getItemValueFunction, string fieldName, string columnHeader)
-			: base(getItemValueFunction, fieldName, columnHeader)
+		public SortableColumn(Func<T, string> getValue, string fieldName, string columnHeader)
+			: base(getValue, fieldName, columnHeader)
 		{
 		}
 

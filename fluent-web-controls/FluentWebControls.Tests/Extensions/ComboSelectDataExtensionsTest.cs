@@ -27,7 +27,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void BeforeEachTest()
 			{
 				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Name", false, null, null, null, null, typeof(string));
-				_comboSelectData = new ComboSelectData(_items, _propertyMetaData);
+				_comboSelectData = new ComboSelectData(_items).WithValidationFrom(_propertyMetaData);
 			}
 		}
 

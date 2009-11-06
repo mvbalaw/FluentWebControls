@@ -12,7 +12,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_Sortable()
 			{
-				RegularColumn<int> column = new RegularColumn<int>(i => i.ToString(), "Bar", "Int");
+				var column = new RegularColumn<int>(i => i.ToString(), "Bar", "Int");
 				column.Type.ShouldBeEqualTo(GridColumnType.Regular);
 			}
 		}

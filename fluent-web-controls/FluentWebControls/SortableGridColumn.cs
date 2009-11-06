@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+
 using FluentWebControls.Tools;
 
 namespace FluentWebControls
@@ -28,7 +29,7 @@ namespace FluentWebControls
 		{
 			return new SortableColumn<T>(t =>
 			                             	{
-			                             		int? i = columnName.Compile()(t);
+			                             		var i = columnName.Compile()(t);
 			                             		return i == null ? "" : i.ToString();
 			                             	}, NameUtility.GetPropertyName(columnName), columnHeader);
 		}

@@ -27,7 +27,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void BeforeEachTest()
 			{
 				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Name", false, null, null, null, null, typeof(string));
-				_dropDownListData = new DropDownListData(_items, _propertyMetaData);
+				_dropDownListData = new DropDownListData(_items).WithValidationFrom(_propertyMetaData);
 			}
 		}
 

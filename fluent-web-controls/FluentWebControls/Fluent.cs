@@ -25,74 +25,113 @@ namespace FluentWebControls
 			return CheckBox.For(id);
 		}
 
-		public static CheckBoxData CheckBoxFor<T>(T source, Expression<Func<T,bool>> id)
+		public static CheckBoxData CheckBoxFor<T>(T source, bool value, Expression<Func<T, bool>> forId)
 		{
-			return CheckBox.For(source, id);
+			return CheckBox.For(source, forId);
 		}
 
+		public static CheckBoxData CheckBoxFor<T>(T source, Expression<Func<T, bool>> forIdAndValue)
+		{
+			return CheckBox.For(source, forIdAndValue);
+		}
+
+		public static ComboSelectData ComboSelectFor<TListItemType, TContainerType, TPropertyType>(IEnumerable<TListItemType> itemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
+		{
+			return ComboSelect.For(itemSource, getListItemDisplayText, getListItemValue, forId);
+		}
+
+		public static ComboSelectData ComboSelectFor<TListItemType, TPropertyType>(IEnumerable<TListItemType> itemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TPropertyType>> forId)
+		{
+			return ComboSelect.For(itemSource, getListItemDisplayText, getListItemValue, forId);
+		}
+
+		[Obsolete("use Fluent.ComboSelectFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId)")]
 		public static ComboSelectData ComboSelectFor<T>(string name, IEnumerable<T> items, Func<T, string> getKey, Func<T, int> getValue)
 			where T : class
 		{
 			return ComboSelect.For(name, items, getKey, getValue);
 		}
 
+		[Obsolete("use Fluent.ComboSelectFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithIdPrefix(x=>x.Prefix).WithValidationFrom(x=>x.StorageId)")]
 		public static ComboSelectData ComboSelectFor<T, TParent>(Expression<Func<TParent>> propertyParentForMetaData, Expression<Func<TParent, int>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, int> getValue)
 			where T : class
 		{
 			return ComboSelect.For(propertyParentForMetaData, propertyChildForMetaData, items, getKey, getValue);
 		}
 
-		public static DropDownListData DropDownListFor<T, TParent>(Expression<Func<TParent, T>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
+		public static DropDownListData DropDownListFor<TListItemType, TContainerType, TPropertyType>(IEnumerable<TListItemType> listItemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
 		{
-			return DropDownList.For<TParent,T, T>(propertyChildForMetaData, items, getKey, getValue);
+			return DropDownList.For(listItemSource, getListItemDisplayText, getListItemValue, forId);
 		}
 
+		public static DropDownListData DropDownListFor<TListItemType, TPropertyType>(IEnumerable<TListItemType> listItemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TPropertyType>> forId)
+		{
+			return DropDownList.For(listItemSource, getListItemDisplayText, getListItemValue, forId);
+		}
+
+		[Obsolete("use Fluent.DropDownListFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
+		public static DropDownListData DropDownListFor<T, TParent>(Expression<Func<TParent, T>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
+		{
+			return DropDownList.For(items, getKey, getValue, propertyChildForMetaData).WithValidationFrom(propertyChildForMetaData);
+		}
+
+		[Obsolete("use Fluent.DropDownListFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
 		public static DropDownListData DropDownListFor<T, TParent>(Expression<Func<TParent, T>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, int> getValue)
 		{
 			return DropDownList.For(propertyChildForMetaData, items, getKey, getValue);
 		}
 
+		[Obsolete("use Fluent.DropDownListFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
 		public static DropDownListData DropDownListFor<T, TParent>(Expression<Func<TParent>> propertyParentForMetaData, Expression<Func<TParent, string>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
 		{
 			return DropDownList.For(propertyParentForMetaData, propertyChildForMetaData, items, getKey, getValue);
 		}
 
+		[Obsolete("use Fluent.DropDownListFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
 		public static DropDownListData DropDownListFor<T, TParent>(Expression<Func<TParent>> propertyParentForMetaData, Expression<Func<TParent, int>> propertyChildForMetaData, IEnumerable<T> items, Func<T, int> getKey, Func<T, int> getValue)
 		{
 			return DropDownList.For(propertyParentForMetaData, propertyChildForMetaData, items, getKey, getValue);
 		}
 
+		[Obsolete("use Fluent.DropDownListFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
 		public static DropDownListData DropDownListFor<T, TParent>(Expression<Func<TParent>> propertyParentForMetaData, Expression<Func<TParent, int>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, int> getValue)
 		{
 			return DropDownList.For(propertyParentForMetaData, propertyChildForMetaData, items, getKey, getValue);
 		}
 
-		public static DropDownListData DropDownListFor<T,K>(Expression<Func<T, K>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
+		[Obsolete("use Fluent.DropDownListFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
+		public static DropDownListData DropDownListFor<T, K>(Expression<Func<T, K>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
 		{
-			return DropDownList.For<T,K>(propertyForMetaData, items, getKey, getValue);
-		}
-		public static DropDownListData DropDownListFor<TParent, T, K>(Expression<Func<TParent, K>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
-		{
-			return DropDownList.For(propertyForMetaData, items, getKey, getValue);
+			return DropDownList.For(items, getKey, getValue, propertyForMetaData).WithValidationFrom(propertyForMetaData);
 		}
 
+		[Obsolete("use Fluent.DropDownListFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
+		public static DropDownListData DropDownListFor<TParent, T, K>(Expression<Func<TParent, K>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
+		{
+			return DropDownList.For(items, getKey, getValue, propertyForMetaData).WithValidationFrom(propertyForMetaData);
+		}
+
+		[Obsolete("use Fluent.DropDownListFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
 		public static DropDownListData DropDownListFor<T>(Expression<Func<string>> propertyForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
 		{
 			return DropDownList.For(propertyForMetaData, items, getKey, getValue);
 		}
 
+		[Obsolete("use Fluent.DropDownListFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
 		public static DropDownListData DropDownListFor<T>(string name, IEnumerable<T> items, Func<T, string> getKey, Func<T, int> getValue)
 			where T : class
 		{
 			return DropDownList.For(name, items, getKey, getValue);
 		}
 
+		[Obsolete("use Fluent.DropDownListFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
 		public static DropDownListData DropDownListFor<T>(string name, IEnumerable<T> items, Func<T, int> getKey, Func<T, string> getValue)
 			where T : class
 		{
 			return DropDownList.For(name, items, getKey, getValue);
 		}
 
+		[Obsolete("use Fluent.DropDownListFor(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
 		public static DropDownListData DropDownListFor<T>(string name, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue)
 			where T : class
 		{
@@ -105,7 +144,7 @@ namespace FluentWebControls
 			return Hidden.For(id);
 		}
 
-		public static HiddenData HiddenFor<T,K>(Expression<Func<T,K>> id)
+		public static HiddenData HiddenFor<T, K>(Expression<Func<T, K>> id)
 		{
 			return Hidden.For(id);
 		}
@@ -116,14 +155,14 @@ namespace FluentWebControls
 			return Hidden.For(id);
 		}
 
-		public static HiddenData HiddenFor<T>(T source, Expression<Func<T, string>> getValueAndValidationMetadata) where T : class
+		public static HiddenData HiddenFor<T>(T source, Expression<Func<T, string>> forValueAndId) where T : class
 		{
-			return Hidden.For(source, getValueAndValidationMetadata);
+			return Hidden.For(source, forValueAndId);
 		}
 
-		public static HiddenData HiddenFor<T,K>(T source, Func<T, string> getValue, Expression<Func<T, K>> getNameAndValidationMetadata)
+		public static HiddenData HiddenFor<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forValueAndId)
 		{
-			return Hidden.For(source, getValue, getNameAndValidationMetadata);
+			return Hidden.For(source, getValue, forValueAndId);
 		}
 
 		[Obsolete("use Fluent.HiddenFor(T source, x=>x.Value==null?\"\":x.Value.ToString(), x=>x.Value)")]
@@ -227,15 +266,21 @@ namespace FluentWebControls
 			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2, filter3);
 		}
 
-		[Obsolete("use Fluent.TextAreaFor(T source, x=>x.Value)")]
+		[Obsolete("use Fluent.TextAreaFor(T source, x=>x.Value).WithValidationFrom(x=>x.Value)")]
 		public static TextAreaData TextAreaFor(Expression<Func<string>> getValueAndValidationMetadata)
 		{
 			return TextArea.For(getValueAndValidationMetadata);
 		}
 
+		[Obsolete("use Fluent.TextAreaFor(T source, x=>x.Value, x=>x.Value).WithValidationFrom(x=>x.Value)")]
 		public static TextAreaData TextAreaFor<T>(T source, Expression<Func<T, string>> getValueAndValidationMetadata)
 		{
 			return TextArea.For(source, getValueAndValidationMetadata);
+		}
+
+		public static TextAreaData TextAreaFor<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId)
+		{
+			return TextArea.For(source, getValue, forId);
 		}
 
 		public static TextBoxData TextBoxFor<T>(Expression<Func<T>> nullableObject, Expression<Func<T, string>> getValue) where T : class
@@ -246,29 +291,29 @@ namespace FluentWebControls
 			return TextBox.For(parent, getValue);
 		}
 
-		public static TextBoxData TextBoxFor<T,K>(T source, Func<T, string> getValue, Expression<Func<T,K>> getNameAndValidationMetadata) where T : class
+		public static TextBoxData TextBoxFor<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId) where T : class
 		{
-			return TextBox.For(source, getValue, getNameAndValidationMetadata);
+			return TextBox.For(source, getValue, forId);
 		}
 
-		public static TextBoxData TextBoxFor<T>(T source, Expression<Func<T, string>> getValueAndValidationMetadata) where T : class
+		public static TextBoxData TextBoxFor<T>(T source, Expression<Func<T, string>> forValueAndId) where T : class
 		{
-			return TextBox.For(source, getValueAndValidationMetadata);
+			return TextBox.For(source, forValueAndId);
 		}
 
-		[Obsolete("use Fluent.TextBoxFor(T source, x=>x.Value)")]
+		[Obsolete("use Fluent.TextBoxFor(T source, x=>x.Value).WithValidationFrom(x=>x.Value)")]
 		public static TextBoxData TextBoxFor(Expression<Func<string>> getValueAndValidationMetadata)
 		{
 			return TextBox.For(getValueAndValidationMetadata);
 		}
 
-		[Obsolete("use Fluent.TextBoxFor(T source, x=>x.Value.ToString(), x=>x.Value)")]
+		[Obsolete("use Fluent.TextBoxFor(T source, x=>x.Value.ToString(), x=>x.Value).WithValidationFrom(x=>x.Value)")]
 		public static TextBoxData TextBoxFor<T>(Expression<Func<T>> getValueAndValidationMetadata) where T : struct
 		{
 			return TextBox.For(getValueAndValidationMetadata);
 		}
 
-		[Obsolete("use Fluent.TextBoxFor(T source, x=>x.Value==null?\"\":x.Value.ToString(), x=>x.Value)")]
+		[Obsolete("use Fluent.TextBoxFor(T source, x=>x.Value==null?\"\":x.Value.ToString(), x=>x.Value).WithValidationFrom(x=>x.Value)")]
 		public static TextBoxData TextBoxFor<T>(Expression<Func<T?>> getValueAndValidationMetadata) where T : struct
 		{
 			return TextBox.For(getValueAndValidationMetadata);

@@ -1,28 +1,40 @@
 using System;
 using System.Linq.Expressions;
+
 using FluentWebControls.Extensions;
-using FluentWebControls.Interfaces;
 using FluentWebControls.Tools;
 
 namespace FluentWebControls
 {
 	public static class TextArea
 	{
-		public static TextAreaData For(Expression<Func<string>> getValueAndValidationMetadata)
+		public static TextAreaData For<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId)
 		{
-			IPropertyMetaData propertyMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValueAndValidationMetadata);
-			string value = getValueAndValidationMetadata.Compile()();
-			TextAreaData textAreaData = new TextAreaData(value, propertyMetaData)
-				.WithId(NameUtility.GetPropertyName(getValueAndValidationMetadata));
+			string value = getValue(source);
+			TextAreaData textAreaData = new TextAreaData(value)
+				.WithId(forId);
 			return textAreaData;
 		}
 
-		public static TextAreaData For<T>(T source, Expression<Func<T, string>> getValueAndValidationMetadata)
+		[Obsolete("use .For(source, x=>x.Value, x=>x.Value).WithValidationFrom(x=>x.Value)")]
+		public static TextAreaData For(Expression<Func<string>> getValueIdAndValidationMetadata)
 		{
-			IPropertyMetaData propertyMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(getValueAndValidationMetadata);
-			string value = getValueAndValidationMetadata.Compile()(source);
-			TextAreaData textAreaData = new TextAreaData(value, propertyMetaData)
-				.WithId(NameUtility.GetPropertyName(getValueAndValidationMetadata));
+			var getValue = getValueIdAndValidationMetadata.Compile();
+			string value = getValue();
+			TextAreaData textAreaData = new TextAreaData(value)
+				.WithId(NameUtility.GetPropertyName(getValueIdAndValidationMetadata))
+				.WithValidationFrom(getValueIdAndValidationMetadata);
+			return textAreaData;
+		}
+
+		[Obsolete("use .For(source, x=>x.Value, x=>x.Value).WithValidationFrom(x=>x.Value)")]
+		public static TextAreaData For<T>(T source, Expression<Func<T, string>> getValueIdAndValidationMetadata)
+		{
+			var getValue = getValueIdAndValidationMetadata.Compile();
+			string value = getValue(source);
+			TextAreaData textAreaData = new TextAreaData(value)
+				.WithId(NameUtility.GetPropertyName(getValueIdAndValidationMetadata))
+				.WithValidationFrom(getValueIdAndValidationMetadata);
 			return textAreaData;
 		}
 	}

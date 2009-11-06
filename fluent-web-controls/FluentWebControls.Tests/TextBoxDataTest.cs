@@ -30,7 +30,8 @@ namespace FluentWebControls.Tests
 
 			private TextBoxData GetTextBoxData(IPropertyMetaData propertyMetaData)
 			{
-				return new TextBoxData(Value, propertyMetaData)
+				return new TextBoxData(Value)
+					.WithValidationFrom(propertyMetaData)
 					.WithId(Id);
 			}
 

@@ -14,7 +14,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_map_the_constructor_parameters_to_the_right_properties()
 			{
-				List<string> rows = new List<string>
+				var rows = new List<string>
 					{
 						"Row1",
 						"Row2"

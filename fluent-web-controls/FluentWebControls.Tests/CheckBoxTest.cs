@@ -9,11 +9,6 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_checkbox_for_a_property
 		{
-			public class Foo
-			{
-				public bool Value { get; set; }
-			}
-
 			[Test]
 			public void Should_return_html_code_representing_a_checkbox_with_its_value_embedded_in_it()
 			{
@@ -24,6 +19,11 @@ namespace FluentWebControls.Tests
 					};
 				CheckBoxData checkBoxData = CheckBox.For(foo, x => x.Value);
 				checkBoxData.ToString().ShouldBeEqualTo("<input type='checkbox' id='value' name='value' checked='checked'/>");
+			}
+
+			public class Foo
+			{
+				public bool Value { get; set; }
 			}
 		}
 	}

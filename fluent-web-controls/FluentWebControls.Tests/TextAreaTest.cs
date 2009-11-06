@@ -34,7 +34,7 @@ namespace FluentWebControls.Tests
 			public void Should_return_html_code_representing_a_textarea_with_its_value_embedded_in_it()
 			{
 				Test test = new Test("text");
-				TextAreaData textAreaData = TextArea.For(() => test.Value);
+				TextAreaData textAreaData = TextArea.For(test, x => x.Value, x => x.Value);
 				textAreaData.ToString().ShouldBeEqualTo("<textarea id='value' name='value' class='textbox'>text</textarea>");
 			}
 		}

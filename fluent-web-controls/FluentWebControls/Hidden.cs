@@ -2,46 +2,48 @@ using System;
 using System.Linq.Expressions;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Tools;
 
 namespace FluentWebControls
 {
 	public static class Hidden
 	{
-		public static HiddenData For<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> getNameAndMetadata)
+		public static HiddenData For<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId)
 		{
-			string name = NameUtility.GetPropertyName(getNameAndMetadata).ToCamelCase();
 			string value = getValue(source);
-			return new HiddenData(name).Text(value);
+			return new HiddenData().WithId(forId).Text(value);
 		}
 
-		public static HiddenData For<T>(T source, Expression<Func<T, string>> getValueAndValidationMetadata)
+		public static HiddenData For<T>(T source, Expression<Func<T, string>> forIdAndValue)
 		{
-			return For(source, getValueAndValidationMetadata.Compile(), getValueAndValidationMetadata);
+			var getValue = forIdAndValue.Compile();
+			return For(source, getValue, forIdAndValue);
 		}
 
 		[Obsolete("use Hidden.For(source, x=>x.Value)")]
-		public static HiddenData For(Expression<Func<string>> id)
+		public static HiddenData For(Expression<Func<string>> forIdAndValue)
 		{
-			return new HiddenData(NameUtility.GetPropertyName(id).ToCamelCase()).Text(id.Compile()());
+			var getValue = forIdAndValue.Compile();
+			return new HiddenData().WithId(forIdAndValue).Text(getValue());
 		}
 
-		public static HiddenData For<T,K>(Expression<Func<T,K>> id)
+		public static HiddenData For<T, K>(Expression<Func<T, K>> forId)
 		{
-			return new HiddenData(NameUtility.GetPropertyName(id).ToCamelCase());
+			return new HiddenData().WithId(forId);
 		}
 
 		[Obsolete("use Hidden.For(source, x=>x.Value.ToString(), x=>x.Value)")]
-		public static HiddenData For<T>(Expression<Func<T>> id) where T : struct
+		public static HiddenData For<T>(Expression<Func<T>> forIdAndValue) where T : struct
 		{
-			return new HiddenData(NameUtility.GetPropertyName(id).ToCamelCase()).Text(id.Compile()().ToString());
+			var getValue = forIdAndValue.Compile();
+			return new HiddenData().WithId(forIdAndValue).Text(getValue().ToString());
 		}
 
 		[Obsolete("use Hidden.For(source, x=>x.Value==null?\"\":x.Value.ToString(), x=>x.Value)")]
-		public static HiddenData For<T>(Expression<Func<T?>> id) where T : struct
+		public static HiddenData For<T>(Expression<Func<T?>> forIdAndValue) where T : struct
 		{
-			var value = id.Compile()();
-			return new HiddenData(NameUtility.GetPropertyName(id).ToCamelCase()).Text(value == null ? "" : value.ToString());
+			var getValue = forIdAndValue.Compile();
+			var value = getValue();
+			return new HiddenData().WithId(forIdAndValue).Text(value == null ? "" : value.ToString());
 		}
 	}
 }

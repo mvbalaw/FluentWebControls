@@ -35,7 +35,8 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_ComboSelect_with_its_value_embedded_in_it()
 			{
-				_comboSelectData = new ComboSelectData(Items, PropertyMetaData)
+				_comboSelectData = new ComboSelectData(Items)
+					.WithValidationFrom(PropertyMetaData)
 					.WithId(Id);
 
 				SetSelected();

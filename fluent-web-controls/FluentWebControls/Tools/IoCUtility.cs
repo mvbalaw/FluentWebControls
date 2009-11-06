@@ -1,4 +1,5 @@
 using System;
+
 using StructureMap;
 
 namespace FluentWebControls.Tools
@@ -7,7 +8,7 @@ namespace FluentWebControls.Tools
 	{
 		public static InterfaceType GetInstance<InterfaceType>(Type interfaceType)
 		{
-			return (InterfaceType) ObjectFactory.GetInstance(interfaceType);
+			return (InterfaceType)ObjectFactory.GetInstance(interfaceType);
 		}
 
 		public static InterfaceType GetInstance<InterfaceType>()

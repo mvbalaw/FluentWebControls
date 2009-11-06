@@ -20,7 +20,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				_item = new TestData.Item(1, "ItemName");
 				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Name", false, null, 100, null, 100, _item.ItemId.GetType());
-				_textAreaData = new TextAreaData("value", _propertyMetaData);
+				_textAreaData = new TextAreaData("value").WithValidationFrom(_propertyMetaData);
 			}
 		}
 

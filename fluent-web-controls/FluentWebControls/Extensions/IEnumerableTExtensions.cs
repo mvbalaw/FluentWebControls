@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using JetBrains.Annotations;
 
 namespace FluentWebControls.Extensions
@@ -16,7 +17,7 @@ namespace FluentWebControls.Extensions
 				throw new ArgumentNullException("items", "collection cannot be null");
 			}
 
-			foreach (T item in items)
+			foreach (var item in items)
 			{
 				action(item);
 			}
@@ -30,7 +31,7 @@ namespace FluentWebControls.Extensions
 			if (items != null && items.Any())
 			{
 				delimiter = delimiter ?? "";
-				foreach (T item in items)
+				foreach (var item in items)
 				{
 					result.Append(item);
 					result.Append(delimiter);

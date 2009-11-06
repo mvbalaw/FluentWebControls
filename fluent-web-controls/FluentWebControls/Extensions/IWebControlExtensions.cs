@@ -20,12 +20,12 @@ namespace FluentWebControls.Extensions
 			return webControl;
 		}
 
-		public static T WithId<T,TFuncResult>(this T webControl, Expression<Func<TFuncResult>> id) where T : IWebControl
+		public static T WithId<T, TFuncResult>(this T webControl, Expression<Func<TFuncResult>> id) where T : IWebControl
 		{
 			return webControl.WithId(NameUtility.GetPropertyName(id));
 		}
 
-		public static T WithId<T,TFuncInput,TFuncResult>(this T webControl, Expression<Func<TFuncInput,TFuncResult>> id) where T : IWebControl
+		public static T WithId<T, TFuncInput, TFuncResult>(this T webControl, Expression<Func<TFuncInput, TFuncResult>> id) where T : IWebControl
 		{
 			return webControl.WithId(NameUtility.GetPropertyName(id));
 		}

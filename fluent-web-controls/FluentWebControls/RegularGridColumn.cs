@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+
 using FluentWebControls.Tools;
 
 namespace FluentWebControls
@@ -34,19 +35,22 @@ namespace FluentWebControls
 		{
 			return new RegularColumn<T>(t =>
 			                            	{
-			                            		int? i = columnName.Compile()(t);
+			                            		var getValue = columnName.Compile();
+			                            		var i = getValue(t);
 			                            		return i == null ? "" : i.ToString();
 			                            	}, NameUtility.GetPropertyName(columnName), columnHeader);
 		}
 
 		public static RegularColumn<T> For<T>(Expression<Func<T, int>> columnName, string columnHeader)
 		{
-			return new RegularColumn<T>(t => columnName.Compile()(t).ToString(), NameUtility.GetPropertyName(columnName), columnHeader);
+			var getValue = columnName.Compile();
+			return new RegularColumn<T>(t => getValue(t).ToString(), NameUtility.GetPropertyName(columnName), columnHeader);
 		}
 
 		public static RegularColumn<T> For<T>(Expression<Func<T, bool>> columnName, string columnHeader)
 		{
-			return new RegularColumn<T>(t => columnName.Compile()(t).ToString(), NameUtility.GetPropertyName(columnName), columnHeader);
+			var getValue = columnName.Compile();
+			return new RegularColumn<T>(t => getValue(t).ToString(), NameUtility.GetPropertyName(columnName), columnHeader);
 		}
 
 		public static RegularColumn<T> For<T>(Expression<Func<T, string>> columnName, string columnHeader)

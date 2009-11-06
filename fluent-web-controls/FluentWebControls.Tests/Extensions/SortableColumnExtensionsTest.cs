@@ -25,7 +25,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_SortableColumn_with_align_set_to_center()
 			{
-				SortableColumn<TestData.Item> column = _sortableColumn.AlignCenter();
+				var column = _sortableColumn.AlignCenter();
 				Assert.AreSame(_sortableColumn, column);
 				column.Align.ShouldBeEqualTo(AlignAttribute.Center);
 			}
@@ -37,7 +37,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_SortableColumn_with_align_set_to_left()
 			{
-				SortableColumn<TestData.Item> column = _sortableColumn.AlignLeft();
+				var column = _sortableColumn.AlignLeft();
 				Assert.AreSame(_sortableColumn, column);
 				column.Align.ShouldBeEqualTo(AlignAttribute.Left);
 			}
@@ -49,7 +49,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_SortableColumn_with_align_set_to_right()
 			{
-				SortableColumn<TestData.Item> column = _sortableColumn.AlignRight();
+				var column = _sortableColumn.AlignRight();
 				Assert.AreSame(_sortableColumn, column);
 				column.Align.ShouldBeEqualTo(AlignAttribute.Right);
 			}

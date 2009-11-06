@@ -37,8 +37,8 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_GridData_With_the_newly_added_CommandColumn()
 			{
-				CommandColumn<TestData.Item> commandColumn = new CommandColumn<TestData.Item>(item => item.ItemName, "FieldName", ActionName);
-				GridData<TestData.Item> grid = _gridData.WithColumn(commandColumn);
+				var commandColumn = new CommandColumn<TestData.Item>(item => item.ItemName, "FieldName", ActionName);
+				var grid = _gridData.WithColumn(commandColumn);
 				Assert.AreSame(_gridData, grid);
 				_gridData.GridColumns.ToList().Count.ShouldBeEqualTo(1);
 				_gridData.ActionName.ShouldBeEqualTo(ActionName);
@@ -51,15 +51,17 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_GridData_With_the_newly_added_filter()
 			{
-				List<KeyValuePair<string, string>> kvpList = new List<KeyValuePair<string, string>>
+				var kvpList = new List<KeyValuePair<string, string>>
 					{
 						new KeyValuePair<string, string>("Name1", "Value2"),
 						new KeyValuePair<string, string>("Name1", "Value2")
 					};
 
-				DropDownListData dropDownListData = new DropDownListData(kvpList, null);
-				dropDownListData.SubmitOnChange = true;
-				GridData<TestData.Item> grid = _gridData.WithFilter(dropDownListData);
+				DropDownListData dropDownListData = new DropDownListData(kvpList)
+					{
+						SubmitOnChange = true
+					};
+				var grid = _gridData.WithFilter(dropDownListData);
 				Assert.AreSame(_gridData, grid);
 			}
 		}
@@ -70,8 +72,8 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_GridData_With_the_newly_added_SortableColumn()
 			{
-				SortableColumn<TestData.Item> sortableColumn = new SortableColumn<TestData.Item>(item => item.ItemName, "FieldName", "ColumnHeader");
-				GridData<TestData.Item> grid = _gridData.WithColumn(sortableColumn);
+				var sortableColumn = new SortableColumn<TestData.Item>(item => item.ItemName, "FieldName", "ColumnHeader");
+				var grid = _gridData.WithColumn(sortableColumn);
 				Assert.AreSame(_gridData, grid);
 				_gridData.GridColumns.ToList().Count.ShouldBeEqualTo(1);
 			}

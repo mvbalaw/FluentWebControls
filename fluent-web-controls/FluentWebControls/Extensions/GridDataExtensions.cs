@@ -22,7 +22,7 @@ namespace FluentWebControls.Extensions
 
 		public static GridData<T> WithFilter<T>(this GridData<T> gridData, params DropDownListData[] gridFilter)
 		{
-			foreach (DropDownListData dropDownListData in gridFilter)
+			foreach (var dropDownListData in gridFilter)
 			{
 				gridData.AddFilter(dropDownListData.SubmitOnChange(() => gridData.PagedListParameters.PageNumber, 1));
 			}
