@@ -33,7 +33,10 @@ namespace FluentWebControls.Tests
 				var controllerName = ControllerName();
 
 				IPathUtility pathUtility = new TestPathUtility();
-				_buttonData = controllerName == null ? new ButtonData(ButtonType, pathUtility) : new ButtonData(ButtonType, pathUtility, controllerName);
+				_buttonData = controllerName == null ? new ButtonData(ButtonType, pathUtility) : new ButtonData(ButtonType, pathUtility, controllerName)
+					{
+						ControllerExtension = ".mvc"
+					};
 				SetAdditionalParameters();
 				_buttonData.ToString().ShouldBeEqualTo(HtmlText);
 			}

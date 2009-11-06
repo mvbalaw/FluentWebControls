@@ -29,6 +29,12 @@ namespace FluentWebControls.Extensions
 			return buttonData;
 		}
 
+		public static ButtonData WithControllerExtension(this ButtonData buttonData, string controllerExtension)
+		{
+			buttonData.ControllerExtension = controllerExtension;
+			return buttonData;
+		}
+
 		public static ButtonData WithOnClick(this ButtonData buttonData, string onClickMethod)
 		{
 			buttonData.OnClickMethod = onClickMethod;

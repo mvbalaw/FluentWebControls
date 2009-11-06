@@ -196,9 +196,14 @@ namespace FluentWebControls
 			return Label.ForIt();
 		}
 
+		public static LinkData LinkTo(string controllerName, string controllerExtension, string actionName)
+		{
+			return Link.To(controllerName, controllerExtension, actionName);
+		}
+
 		public static LinkData LinkTo(string controllerName, string actionName)
 		{
-			return Link.To(controllerName, actionName);
+			return LinkTo(controllerName, "", actionName);
 		}
 
 		public static LinkData LinkTo()

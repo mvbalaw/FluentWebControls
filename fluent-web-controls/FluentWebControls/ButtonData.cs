@@ -6,7 +6,7 @@ using FluentWebControls.Interfaces;
 
 namespace FluentWebControls
 {
-	public class ButtonData
+	public class ButtonData : IControllerAwareWebControl
 	{
 		private readonly string _controllerName;
 		private readonly IPathUtility _pathUtility;
@@ -29,6 +29,7 @@ namespace FluentWebControls
 
 		public string ActionName { get; set; }
 		public string ConfirmMessage { get; set; }
+		public string ControllerExtension { get; set; }
 		public string CssClass { get; set; }
 		public string OnClickMethod { get; set; }
 		public string QueryParameter { get; set; }
@@ -65,7 +66,7 @@ namespace FluentWebControls
 			if (_type.Type.Equals("submit", StringComparison.OrdinalIgnoreCase))
 			{
 				string actionName = ActionName ?? _type.Name;
-				string url = _pathUtility.GetUrl(String.Format("/{0}.mvc/{1}", _controllerName, actionName));
+				string url = _pathUtility.GetUrl(String.Format("/{0}{1}/{2}", _controllerName, ControllerExtension ?? "", actionName));
 				sb.Append((String.IsNullOrEmpty(QueryParameter) ? url : String.Format("{0}?{1}", url, QueryParameter)).CreateQuotedAttribute("action"));
 
 				if (String.IsNullOrEmpty(OnClickMethod))

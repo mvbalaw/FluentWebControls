@@ -15,6 +15,7 @@ namespace FluentWebControls
 		public string LinkText { get; set; }
 		public string MouseOverText { get; set; }
 		public string Rel { get; set; }
+		public string ControllerExtension { get; set; }
 
 		public void AddQueryStringData(string key, string value)
 		{

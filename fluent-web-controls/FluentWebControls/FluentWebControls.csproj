@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IControllerAwareWebControl.cs" />
     <Compile Include="ControllerInfo.cs" />
     <Compile Include="Extensions\IEnumerableTExtensions.cs" />
     <Compile Include="Extensions\IWebControlExtensions.cs" />

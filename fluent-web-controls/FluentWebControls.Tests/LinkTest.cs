@@ -36,7 +36,7 @@ namespace FluentWebControls.Tests
 			{
 				const string virtualdirectory = "/AdminTest.mvc/Test";
 				_pathUtility.Expect(x => x.GetUrl(null)).IgnoreArguments().Return(virtualdirectory);
-				LinkData linkData = Link.To("AdminTest", "Test");
+				LinkData linkData = Link.To("AdminTest", ".mvc", "Test");
 				string expected = String.Format("<a href='{0}'></a>", virtualdirectory);
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}
@@ -46,7 +46,7 @@ namespace FluentWebControls.Tests
 			{
 				const string virtualdirectory = "/AdminTest.mvc";
 				_pathUtility.Expect(x => x.GetUrl(null)).IgnoreArguments().Return(virtualdirectory);
-				LinkData linkData = Link.To("AdminTest");
+				LinkData linkData = Link.To("AdminTest", ".mvc", "");
 				linkData.ToString().ShouldBeEqualTo("<a href='" + virtualdirectory + "'></a>");
 			}
 
@@ -55,7 +55,7 @@ namespace FluentWebControls.Tests
 			{
 				const string virtualdirectory = "/AdminTest.mvc/Test";
 				_pathUtility.Expect(x => x.GetUrl(null)).IgnoreArguments().Return(virtualdirectory);
-				LinkData linkData = Link.To("AdminTest", "Test");
+				LinkData linkData = Link.To("AdminTest", ".mvc", "Test");
 				linkData.ToString().ShouldBeEqualTo("<a href='" + virtualdirectory + "'></a>");
 			}
 		}

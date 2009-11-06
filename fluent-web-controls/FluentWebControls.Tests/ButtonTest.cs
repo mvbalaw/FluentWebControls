@@ -24,14 +24,14 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_html_code_representing_a_Delete_button()
 			{
-				ButtonData buttonData = Button.For(ButtonData.ButtonType.Delete, "AdminDelete");
+				ButtonData buttonData = Button.For(ButtonData.ButtonType.Delete, "AdminDelete").WithControllerExtension(".mvc");
 				buttonData.ToString().ShouldBeEqualTo(String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='/AdminDelete.mvc/Delete' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage));
 			}
 
 			[Test]
 			public void Should_return_html_code_representing_a_Save_button()
 			{
-				ButtonData buttonData = Button.For(ButtonData.ButtonType.Save, "AdminSave");
+				ButtonData buttonData = Button.For(ButtonData.ButtonType.Save, "AdminSave").WithControllerExtension(".mvc");
 				buttonData.ToString().ShouldBeEqualTo("<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='/AdminSave.mvc/Save' onClick='javascript:return changeFormAction(this)'/>");
 			}
 
