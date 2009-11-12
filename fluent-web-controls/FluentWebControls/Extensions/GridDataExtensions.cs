@@ -2,19 +2,19 @@ namespace FluentWebControls.Extensions
 {
 	public static class GridDataExtensions
 	{
-		public static GridData<T> WithColumn<T>(this GridData<T> gridData, SortableColumn<T> gridColumn)
+		public static TGridData WithColumn<TGridData, T>(this TGridData gridData, SortableColumn<T> gridColumn) where TGridData : GridData<T>
 		{
 			gridData.AddColumn(gridColumn);
 			return gridData;
 		}
 
-		public static GridData<T> WithColumn<T>(this GridData<T> gridData, RegularColumn<T> gridColumn)
+		public static TGridData WithColumn<TGridData, T>(this TGridData gridData, RegularColumn<T> gridColumn) where TGridData : GridData<T>
 		{
 			gridData.AddColumn(gridColumn);
 			return gridData;
 		}
 
-		public static GridData<T> WithColumn<T>(this GridData<T> gridData, CommandColumn<T> gridColumn)
+		public static TGridData WithColumn<TGridData, T>(this TGridData gridData, CommandColumn<T> gridColumn) where TGridData : GridData<T>
 		{
 			gridData.AddColumn(gridColumn);
 			return gridData;

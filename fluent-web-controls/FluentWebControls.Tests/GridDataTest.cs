@@ -127,25 +127,5 @@ namespace FluentWebControls.Tests
 				gridData.ActionName.ShouldBeEqualTo(ActionName);
 			}
 		}
-
-		[TestFixture]
-		public class When_ToModel_on_GridData_is_called_ : GridDataTest_of_Type_T_base
-		{
-			private readonly CommandColumn<TestData.Item> _commandColumn = new CommandColumn<TestData.Item>(item => item.ItemId.ToString(), "Edit", ActionName);
-
-			[Test]
-			public void Should_return_a_Generic_GridData_object()
-			{
-				_gridData.AddColumn(_commandColumn);
-				GridData pagedGridData = _gridData.ToModel();
-				pagedGridData.ShouldBeOfType<GridData>("wrong type");
-				pagedGridData.ControllerName.ShouldBeEqualTo(_gridData.ControllerName);
-				pagedGridData.ActionName.ShouldBeEqualTo(_gridData.ActionName);
-				Assert.AreSame(_gridData.GridColumns, pagedGridData.GridColumns);
-				pagedGridData.Total.ShouldBeEqualTo(_gridData.Total);
-				pagedGridData.RowCount.ShouldBeEqualTo(_items.Count);
-				pagedGridData.Filters.Count().ShouldBeEqualTo(0);
-			}
-		}
 	}
 }
