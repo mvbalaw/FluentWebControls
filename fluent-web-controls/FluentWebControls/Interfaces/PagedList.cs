@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FluentWebControls.Interfaces
 {
-	public class PagedList<TReturn> : IPagedList<TReturn>
+	internal class PagedList<TReturn> : IPagedList<TReturn>
 	{
 		private readonly IEnumerable<TReturn> _list;
 		private int? _total;
