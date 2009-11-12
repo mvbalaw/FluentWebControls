@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\PagedList.cs" />
     <Compile Include="PagedGridData.cs" />
     <Compile Include="ScrollableGridData.cs" />
     <Compile Include="IControllerAwareWebControl.cs" />

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 
@@ -5,6 +7,17 @@ namespace FluentWebControls
 {
 	public class ScrollableGrid
 	{
+		public static ScrollableGridData<TReturn> For<TReturn>(IEnumerable<TReturn> list, IPagedListParameters pagedListParameters, string controllerName, string actionName)
+		{
+			var pagedList = new PagedList<TReturn>(list);
+			if (pagedListParameters != null)
+			{
+				pagedList.OrderBy(pagedListParameters.SortField, pagedListParameters.SortDirection);
+			}
+			var items = pagedList.ToList();
+			return new ScrollableGridData<TReturn>(pagedListParameters, controllerName, actionName, items, pagedList.Total());
+		}
+
 		public static ScrollableGridData<TReturn> For<TReturn>(IPagedList<TReturn> pagedList, IPagedListParameters pagedListParameters, string controllerName, string actionName)
 		{
 			var items = pagedList

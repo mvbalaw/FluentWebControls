@@ -241,6 +241,18 @@ namespace FluentWebControls
 			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2, filter3);
 		}
 
+		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IEnumerable<TReturn> list, object aspxPage)
+		{
+			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			return ScrollableGrid.For(list, new PagedListParameters(), controllerInfo.Name, controllerInfo.Action);
+		}
+
+		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IEnumerable<TReturn> list, IPagedListParameters pagedListParameters, object aspxPage)
+		{
+			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			return ScrollableGrid.For(list, pagedListParameters, controllerInfo.Name, controllerInfo.Action);
+		}
+
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage)
 		{
 			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);

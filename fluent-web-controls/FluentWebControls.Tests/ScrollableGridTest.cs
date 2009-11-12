@@ -1,5 +1,7 @@
 using System;
 
+using FluentWebControls.Interfaces;
+
 using NUnit.Framework;
 
 namespace FluentWebControls.Tests
@@ -16,7 +18,7 @@ namespace FluentWebControls.Tests
 			[ExpectedException(typeof(NullReferenceException))]
 			public void Should_throw_an_exception_for_null_pagedList()
 			{
-				ScrollableGrid.For<TestData.Item>(null, null, ControllerName, ActionName);
+				ScrollableGrid.For((IPagedList<TestData.Item>)null, null, ControllerName, ActionName);
 			}
 		}
 	}
