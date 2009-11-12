@@ -136,8 +136,11 @@
     <Compile Include="WebControlBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\PagedGridControl.ascx" />
-    <Content Include="Views\ScrollableGridControl.ascx" />
+    <Content Include="Views\PagedGridControl.ascx">
+    </Content>
+    <Content Include="Views\ScrollableGridControl.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,7 @@
-﻿<%@ Import Namespace="Mvba.Enterprise.Mvc"%>
-<%@ Control Language="C#" AutoEventWireup="false" Codebehind="ScrollableGridControl.ascx.cs" Inherits="Mvba.Enterprise.Views.Shared.ScrollableGridControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Codebehind="ScrollableGridControl.ascx.cs" Inherits="FluentWebControls.Views.ScrollableGridControl" %>
+<%@ Import Namespace="System.Linq"%>
 <%@ Import Namespace="FluentWebControls"%>
-<%@ Import Namespace="Mvba.Enterprise.Views.Shared"%>
+<%@ Import Namespace="FluentWebControls.Views"%>
 
 <style type="text/css">
 	div.tableContainer { /* add the scroll bar */

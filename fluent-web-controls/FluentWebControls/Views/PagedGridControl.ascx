@@ -1,10 +1,9 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Codebehind="PagedGridControl.ascx.cs" Inherits="Mvba.Enterprise.Views.Shared.PagedGridControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Codebehind="PagedGridControl.ascx.cs" Inherits="FluentWebControls.Views.PagedGridControl" %>
+<%@ Import Namespace="System.Linq"%>
+<%@ Import Namespace="System.Collections.Generic"%>
 <%@ Import Namespace="FluentWebControls.Interfaces"%>
 <%@ Import Namespace="FluentWebControls.Extensions"%>
 <%@ Import Namespace="FluentWebControls"%>
-
-
-<%@ Import Namespace="Mvba.Enterprise.Views.Shared"%>
 
 <%= BuildFilters %>
 <table class="list" cellspacing="0" rules="cols" border="1" style="border-color:Gray;border-collapse:collapse;">
