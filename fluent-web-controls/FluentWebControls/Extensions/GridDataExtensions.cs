@@ -20,6 +20,12 @@ namespace FluentWebControls.Extensions
 			return gridData;
 		}
 
+		public static GridData<T> WithControllerExtension<T>(this GridData<T> gridData, string controllerExtension)
+		{
+			gridData.ControllerExtension = controllerExtension;
+			return gridData;
+		}
+
 		public static GridData<T> WithFilter<T>(this GridData<T> gridData, params DropDownListData[] gridFilter)
 		{
 			foreach (var dropDownListData in gridFilter)

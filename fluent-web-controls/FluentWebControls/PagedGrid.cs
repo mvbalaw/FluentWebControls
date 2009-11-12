@@ -34,7 +34,7 @@ namespace FluentWebControls
 
 		public static GridData<TReturn> For<TReturn>(IPagedList<int?, int?, TReturn> pagedList, IPagedListParameters pagedListParameters, string controllerName, string actionName, int? filter1, int? filter2)
 		{
-			var items = pagedList
+			var items = pagedList	
 				.Page(pagedListParameters.PageNumber, pagedListParameters.PageSize)
 				.OrderBy(pagedListParameters.SortField, pagedListParameters.SortDirection)
 				.ToList(filter1, filter2);

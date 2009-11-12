@@ -13,6 +13,7 @@ namespace FluentWebControls
 
 		public AlignAttribute Align { get; set; }
 		public string ColumnHeader { get; private set; }
+		public string ControllerExtension { get; set; }
 		public string FieldName { get; private set; }
 		public bool IsClientSideSortable { get; set; }
 		public bool IsDefaultSortColumn { get; set; }

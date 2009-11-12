@@ -8,11 +8,12 @@ namespace FluentWebControls
 {
 	public class GridData
 	{
-		public GridData(IPagedListParameters pagedListParameters, string controllerName, string actionName, IEnumerable<IGridColumn> gridColumns, int total, IEnumerable<DropDownListData> filters, int rowCount)
+		public GridData(IPagedListParameters pagedListParameters, string controllerName, string controllerExtension, string actionName, IEnumerable<IGridColumn> gridColumns, int total, IEnumerable<DropDownListData> filters, int rowCount)
 		{
 			Filters = filters;
 			PagedListParameters = pagedListParameters;
 			ControllerName = controllerName;
+			ControllerExtension = controllerExtension;
 			ActionName = actionName;
 			GridColumns = gridColumns;
 			Total = total;
@@ -20,6 +21,7 @@ namespace FluentWebControls
 		}
 
 		public string ActionName { get; private set; }
+		public string ControllerExtension { get; private set; }
 		public string ControllerName { get; private set; }
 		public IEnumerable<DropDownListData> Filters { get; private set; }
 		public IEnumerable<IGridColumn> GridColumns { get; private set; }
@@ -44,6 +46,7 @@ namespace FluentWebControls
 		}
 
 		public string ActionName { get; private set; }
+		public string ControllerExtension { get; set; }
 		public string ControllerName { get; private set; }
 
 		public IEnumerable<IGridColumn> GridColumns
@@ -90,7 +93,7 @@ namespace FluentWebControls
 
 		public GridData ToModel()
 		{
-			return new GridData(PagedListParameters, ControllerName, ActionName, _gridColumns, Total, _filters, _items.Count());
+			return new GridData(PagedListParameters, ControllerName, ControllerExtension, ActionName, _gridColumns, Total, _filters, _items.Count());
 		}
 	}
 }

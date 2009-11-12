@@ -28,7 +28,7 @@ namespace FluentWebControls.Tests
 						new GridColumn(GridColumnType.Sortable, "Header", "Field", AlignAttribute.Left, false, true, ActionName, _rows)
 					};
 				var filters = new List<DropDownListData>();
-				GridData pagedGridData = new GridData(null, ControllerName, ActionName, gridColumns, gridColumns.Count, filters, _rows.Count);
+				GridData pagedGridData = new GridData(null, ControllerName, ".mvc", ActionName, gridColumns, gridColumns.Count, filters, _rows.Count);
 				pagedGridData.PagedListParameters.ShouldBeEqualTo(null);
 				pagedGridData.ControllerName.ShouldBeEqualTo(ControllerName);
 				pagedGridData.ActionName.ShouldBeEqualTo(ActionName);

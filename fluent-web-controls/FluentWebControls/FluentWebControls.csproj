@@ -58,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\GridControlBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="IControllerAwareWebControl.cs" />
     <Compile Include="ControllerInfo.cs" />
     <Compile Include="Extensions\IEnumerableTExtensions.cs" />
@@ -72,6 +75,12 @@
     <Compile Include="Interfaces\IPropertyMetaData.cs" />
     <Compile Include="Fluent.cs" />
     <Compile Include="IWebControl.cs" />
+    <Compile Include="Views\MvcControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\PagedGridControl.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AlignAttribute.cs" />
     <Compile Include="Button.cs" />
@@ -111,6 +120,9 @@
     <Compile Include="RegularColumn.cs" />
     <Compile Include="RegularGridColumn.cs" />
     <Compile Include="ScrollableGrid.cs" />
+    <Compile Include="Views\ScrollableGridControl.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="SortableColumn.cs" />
     <Compile Include="SortableGridColumn.cs" />
     <Compile Include="TextArea.cs" />
@@ -122,6 +134,10 @@
     <Compile Include="ValidatableWebControlBase.cs" />
     <Compile Include="Validation\FieldValidationType.cs" />
     <Compile Include="WebControlBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PagedGridControl.ascx" />
+    <Content Include="Views\ScrollableGridControl.ascx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
