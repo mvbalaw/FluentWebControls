@@ -18,7 +18,7 @@
 </table>
 <div id="pager">
 	<%=
-		Fluent.LinkTo(ControllerName, ".mvc", ActionName)
+		Fluent.LinkTo(ControllerName, ControllerExtension, ActionName)
 			.WithLinkText("<<")
 			.WithMouseOverText("First Page")
 			.CssClass("linkHighlight")
@@ -29,7 +29,7 @@
 			.WithData(() => PagedListParameters.SortField)
 			.WithData(Filters.Select(f=> new KeyValuePair<string,string>(((IWebControl)f).Id, f.SelectedValue)))
 	%>&nbsp;<%=
-		Fluent.LinkTo(ControllerName, ".mvc", ActionName)
+		Fluent.LinkTo(ControllerName, ControllerExtension, ActionName)
 			.WithLinkText("<")
 			.WithMouseOverText("Previous Page")
 			.CssClass("linkHighlight")
@@ -40,7 +40,7 @@
 			.WithData(() => PagedListParameters.SortField)
 			.WithData(Filters.Select(f=> new KeyValuePair<string,string>(((IWebControl)f).Id, f.SelectedValue)))
 	%>&nbsp;&nbsp;&nbsp;<%=
-		Fluent.LinkTo(ControllerName, ".mvc", ActionName)
+		Fluent.LinkTo(ControllerName, ControllerExtension, ActionName)
 			.WithLinkText(">")
 			.WithMouseOverText("Next Page")
 			.CssClass("linkHighlight")
@@ -51,7 +51,7 @@
 			.WithData(() => PagedListParameters.SortField)
 			.WithData(Filters.Select(f=> new KeyValuePair<string,string>(((IWebControl)f).Id, f.SelectedValue)))
 	%>&nbsp;<%=
-		Fluent.LinkTo(ControllerName, ".mvc", ActionName)
+		Fluent.LinkTo(ControllerName, ControllerExtension, ActionName)
 			.WithLinkText(">>")
 			.WithMouseOverText("Last Page")
 			.CssClass("linkHighlight")
