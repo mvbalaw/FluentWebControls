@@ -13,10 +13,9 @@ namespace FluentWebControls.Tests
 			private const string ControllerName = "ControllerName";
 
 			[Test]
-			[ExpectedException(typeof(NullReferenceException))]
 			public void Should_throw_an_exception_for_null_pagedList()
 			{
-				PagedGrid.For<TestData.Item>(null, null, ControllerName, ActionName);
+				Assert.Throws<NullReferenceException>(() => PagedGrid.For<TestData.Item>(null, null, ControllerName, ActionName));
 			}
 		}
 	}

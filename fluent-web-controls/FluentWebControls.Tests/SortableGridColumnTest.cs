@@ -34,10 +34,9 @@ namespace FluentWebControls.Tests
 			}
 
 			[Test]
-			[ExpectedException(typeof(NullReferenceException))]
 			public void Should_throw_an_exception_if_columnName_expression_is_null()
 			{
-				SortableGridColumn.For((Expression<Func<Item, int?>>)null);
+				Assert.Throws<NullReferenceException>(() => SortableGridColumn.For((Expression<Func<Item, int?>>)null));
 			}
 
 			public class Item

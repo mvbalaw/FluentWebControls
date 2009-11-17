@@ -40,12 +40,12 @@ namespace FluentWebControls.Tests
 			}
 
 			[Test]
-			[ExpectedException(typeof(NullReferenceException))]
 			public void Should_throw_an_exception_if_getItemId_expression_is_null()
 			{
-				CommandGridColumn.For((Expression<Func<TestData.Item, string>>)null, "Edit");
+				Assert.Throws<NullReferenceException>(() => CommandGridColumn.For((Expression<Func<TestData.Item, string>>)null, "Edit"));
 			}
 		}
+
 		[TestFixture]
 		public class When_asked_to_create_a_command_column_for_a_string_function_with_Controller_function
 		{
@@ -116,10 +116,9 @@ namespace FluentWebControls.Tests
 			}
 
 			[Test]
-			[ExpectedException(typeof(NullReferenceException))]
 			public void Should_throw_an_exception_if_getItemId_expression_is_null()
 			{
-				CommandGridColumn.For((Expression<Func<TestData.Item, int>>)null, "Edit");
+				Assert.Throws<NullReferenceException>(() => CommandGridColumn.For((Expression<Func<TestData.Item, int>>)null, "Edit"));
 			}
 		}
 	}

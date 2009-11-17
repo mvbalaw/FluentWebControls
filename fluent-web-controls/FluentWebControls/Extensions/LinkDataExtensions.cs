@@ -78,6 +78,12 @@ namespace FluentWebControls.Extensions
 			return linkData;
 		}
 
+		public static LinkData WithData<T, K>(this LinkData linkData, T source, Expression<Func<T, K>> fieldName, Func<T, string> fieldValue)
+		{
+			linkData.AddQueryStringData(NameUtility.GetPropertyName(fieldName), fieldValue(source));
+			return linkData;
+		}
+
 		public static LinkData WithHref(this LinkData linkData, string href)
 		{
 			linkData.Href = href;

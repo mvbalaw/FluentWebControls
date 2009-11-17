@@ -99,6 +99,14 @@ namespace FluentWebControls.Tests.Extensions
 				Assert.AreSame(_linkData, link);
 				_linkData.ToString().Contains(String.Format("{0}=Value", NameUtility.GetPropertyName(() => _item.ItemName))).ShouldBeTrue();
 			}
+
+			[Test]
+			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_object_that_contains_the_specified_property()
+			{
+				LinkData link = _linkData.WithData(_item, item => item.ItemId, item => item.ItemId.ToString());
+				Assert.AreSame(_linkData, link);
+				_linkData.ToString().Contains(String.Format("{0}={1}", NameUtility.GetPropertyName(() => _item.ItemId), _item.ItemId)).ShouldBeTrue();
+			}
 		}
 
 		[TestFixture]
