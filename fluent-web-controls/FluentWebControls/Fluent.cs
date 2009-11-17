@@ -15,25 +15,35 @@ namespace FluentWebControls
 			return Button.For(buttonType, new ControllerInfo(aspxPage).Name);
 		}
 
+		public static ButtonData ButtonFor<TController>(IButtonType buttonType, Expression<Func<TController,object>> forControllerAndActionNames)
+		{
+			return Button.For(buttonType, GetControllerName<TController>()).WithAction(NameUtility.GetMethodName(forControllerAndActionNames));
+		}
+
 		public static ButtonData ButtonFor(IButtonType buttonType, string controllerName, string actionName)
 		{
 			return Button.For(buttonType, controllerName).WithAction(actionName);
 		}
 
-		[Obsolete("use Fluent.CheckBoxFor(T source, x=>x.Value)")]
+		[Obsolete("use Fluent.CheckBoxFor<T,TModel>(T source, x=>x.IsChecked, x=>x.Value.ToString(), y=>y.Name)")]
 		public static CheckBoxData CheckBoxFor(Expression<Func<bool>> id)
 		{
 			return CheckBox.For(id);
 		}
 
-		public static CheckBoxData CheckBoxFor<T>(T source, bool value, Expression<Func<T, object>> forId)
+		public static CheckBoxData CheckBoxFor<T>(T source, bool @checked, Expression<Func<T, object>> forId)
 		{
-			return CheckBox.For(source, value, forId);
+			return CheckBox.For(source, @checked, forId);
 		}
 
-		public static CheckBoxData CheckBoxFor<T>(T source, Expression<Func<T, bool>> forIdAndValue)
+		public static CheckBoxData CheckBoxFor<T>(T source, Expression<Func<T, bool>> forIdAndChecked)
 		{
-			return CheckBox.For(source, forIdAndValue);
+			return CheckBox.For(source, forIdAndChecked);
+		}
+
+		public static CheckBoxData CheckBoxFor<TSource, TModel>(TSource source, bool @checked, Func<TSource, string> forValue, Expression<Func<TModel, object>> forId)
+		{
+			return CheckBox.For(source, @checked, forValue, forId);
 		}
 
 		public static ComboSelectData ComboSelectFor<TListItemType, TContainerType, TPropertyType>(IEnumerable<TListItemType> itemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
@@ -251,13 +261,19 @@ namespace FluentWebControls
 
 		public static ScrollableGridData<TItemType> ScrollableGridFor<TItemType, TControllerType>(IEnumerable<TItemType> list, Expression<Func<TControllerType,object>> listAction)
 		{
+			string name = GetControllerName<TControllerType>();
+			return ScrollableGrid.For(list, new PagedListParameters(), name, NameUtility.GetMethodName(listAction));
+		}
+
+		private static string GetControllerName<TControllerType>()
+		{
 			string name = typeof(TControllerType).Name;
 			const string controller = "Controller";
 			if (name.EndsWith(controller))
 			{
 				name = name.Substring(0, name.Length - controller.Length);
 			}
-			return ScrollableGrid.For(list, new PagedListParameters(), name, NameUtility.GetMethodName(listAction));
+			return name;
 		}
 
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IEnumerable<TReturn> list, IPagedListParameters pagedListParameters, object aspxPage)

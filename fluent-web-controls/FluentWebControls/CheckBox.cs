@@ -8,29 +8,36 @@ namespace FluentWebControls
 {
 	public static class CheckBox
 	{
-		public static CheckBoxData For<T>(T source, bool value, Expression<Func<T, object>> forId)
+		public static CheckBoxData For<TSource, TModel>(TSource source, bool @checked, Func<TSource, string> getValue, Expression<Func<TModel, object>> forId)
 		{
-			bool isChecked = value;
-			var checkBoxData = new CheckBoxData(isChecked)
+			var checkBoxData = new CheckBoxData(@checked)
+				.WithValue(getValue(source))
 				.WithId(forId);
 			return checkBoxData;
 		}
 
-		public static CheckBoxData For<T>(T source, Expression<Func<T, bool>> forValueAndId)
+		public static CheckBoxData For<T>(T source, bool @checked, Expression<Func<T, object>> forId)
 		{
-			var getValue = forValueAndId.Compile();
+			var checkBoxData = new CheckBoxData(@checked)
+				.WithId(forId);
+			return checkBoxData;
+		}
+
+		public static CheckBoxData For<T>(T source, Expression<Func<T, bool>> forCheckedAndId)
+		{
+			var getValue = forCheckedAndId.Compile();
 			bool isChecked = getValue(source);
 			var checkBoxData = new CheckBoxData(isChecked)
-				.WithId(forValueAndId);
+				.WithId(forCheckedAndId);
 			return checkBoxData;
 		}
 
 		[Obsolete("use CheckBox.For(source, x=>x.Value")]
-		public static CheckBoxData For(Expression<Func<bool>> forValueAndId)
+		public static CheckBoxData For(Expression<Func<bool>> forCheckedAndId)
 		{
-			var getValue = forValueAndId.Compile();
+			var getValue = forCheckedAndId.Compile();
 			CheckBoxData checkBoxData = new CheckBoxData(getValue())
-				.WithId(NameUtility.GetPropertyName(forValueAndId));
+				.WithId(NameUtility.GetPropertyName(forCheckedAndId));
 			return checkBoxData;
 		}
 	}

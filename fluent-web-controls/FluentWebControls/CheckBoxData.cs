@@ -58,9 +58,15 @@ namespace FluentWebControls
 			{
 				sb.Append("checked".CreateQuotedAttribute("checked"));
 			}
+			if (Value != null)
+			{
+				sb.Append(Value.CreateQuotedAttribute("value"));
+			}
 			sb.Append("/>");
 			AppendLabel(sb);
 			return sb.ToString();
 		}
+
+		public string Value { get; set; }
 	}
 }
