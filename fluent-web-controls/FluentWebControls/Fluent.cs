@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
+using FluentWebControls.Tools;
 
 namespace FluentWebControls
 {
@@ -241,10 +242,22 @@ namespace FluentWebControls
 			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2, filter3);
 		}
 
+		[Obsolete("Use Fluent.ScrollableGridFor(x=>listData,(Controller c)=>c.ListAction()")]
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IEnumerable<TReturn> list, object aspxPage)
 		{
 			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(list, new PagedListParameters(), controllerInfo.Name, controllerInfo.Action);
+		}
+
+		public static ScrollableGridData<TItemType> ScrollableGridFor<TItemType, TControllerType>(IEnumerable<TItemType> list, Expression<Func<TControllerType,object>> listAction)
+		{
+			string name = typeof(TControllerType).Name;
+			const string controller = "Controller";
+			if (name.EndsWith(controller))
+			{
+				name = name.Substring(0, name.Length - controller.Length);
+			}
+			return ScrollableGrid.For(list, new PagedListParameters(), name, NameUtility.GetMethodName(listAction));
 		}
 
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IEnumerable<TReturn> list, IPagedListParameters pagedListParameters, object aspxPage)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using FluentWebControls.Extensions;
@@ -8,6 +9,7 @@ namespace FluentWebControls
 	public class LinkData : WebControlBase
 	{
 		private readonly Dictionary<string, string> _queryStringData = new Dictionary<string, string>();
+		public string ControllerExtension { get; set; }
 		public string CssClass { private get; set; }
 		public bool Disabled { get; set; }
 		public string Href { get; set; }
@@ -15,7 +17,6 @@ namespace FluentWebControls
 		public string LinkText { get; set; }
 		public string MouseOverText { get; set; }
 		public string Rel { get; set; }
-		public string ControllerExtension { get; set; }
 
 		public void AddQueryStringData(string key, string value)
 		{
@@ -29,10 +30,21 @@ namespace FluentWebControls
 				return "";
 			}
 			StringBuilder sb = new StringBuilder();
-			sb.Append('?');
-			foreach (var keyValuePair in _queryStringData)
+			var keylessItems = _queryStringData.Where(x => x.Key == "").ToList();
+			foreach (var item in keylessItems)
 			{
-				sb.AppendFormat("{0}={1}&", keyValuePair.Key.EscapeForUrl(), keyValuePair.Value.EscapeForUrl());
+				sb.Append('/')
+					.Append(item.Value);
+			}
+
+			var keyedItems = _queryStringData.Where(x => x.Key.Length > 0);
+			if (keyedItems.Any())
+			{
+				sb.Append('?');
+				foreach (var keyValuePair in keyedItems)
+				{
+					sb.AppendFormat("{0}={1}&", keyValuePair.Key.EscapeForUrl(), keyValuePair.Value.EscapeForUrl());
+				}
 			}
 			return sb.ToString();
 		}
