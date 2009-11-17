@@ -8,7 +8,7 @@ namespace FluentWebControls
 {
 	public static class CheckBox
 	{
-		public static CheckBoxData For<T>(T source, bool value, Expression<Func<T, bool>> forId)
+		public static CheckBoxData For<T>(T source, bool value, Expression<Func<T, object>> forId)
 		{
 			bool isChecked = value;
 			var checkBoxData = new CheckBoxData(isChecked)

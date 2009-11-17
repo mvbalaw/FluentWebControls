@@ -18,7 +18,9 @@ namespace FluentWebControls.Tests
 			public void BeforeEachTest()
 			{
 				Expression<Func<TestData.Item, string>> expr = item => item.ItemName;
+#pragma warning disable 618,612
 				_commandColumn = CommandGridColumn.For(expr, "Edit");
+#pragma warning restore 618,612
 			}
 
 			[Test]
@@ -42,7 +44,9 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_throw_an_exception_if_getItemId_expression_is_null()
 			{
+#pragma warning disable 618,612
 				Assert.Throws<NullReferenceException>(() => CommandGridColumn.For((Expression<Func<TestData.Item, string>>)null, "Edit"));
+#pragma warning restore 618,612
 			}
 		}
 
@@ -94,7 +98,9 @@ namespace FluentWebControls.Tests
 			public void BeforeEachTest()
 			{
 				Expression<Func<TestData.Item, int>> expr = item => item.ItemId;
+#pragma warning disable 618,612
 				_commandColumn = CommandGridColumn.For(expr, "Edit");
+#pragma warning restore 618,612
 			}
 
 			[Test]
@@ -118,7 +124,9 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_throw_an_exception_if_getItemId_expression_is_null()
 			{
+#pragma warning disable 618,612
 				Assert.Throws<NullReferenceException>(() => CommandGridColumn.For((Expression<Func<TestData.Item, int>>)null, "Edit"));
+#pragma warning restore 618,612
 			}
 		}
 	}

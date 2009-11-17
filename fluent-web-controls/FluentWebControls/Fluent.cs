@@ -26,9 +26,9 @@ namespace FluentWebControls
 			return CheckBox.For(id);
 		}
 
-		public static CheckBoxData CheckBoxFor<T>(T source, bool value, Expression<Func<T, bool>> forId)
+		public static CheckBoxData CheckBoxFor<T>(T source, bool value, Expression<Func<T, object>> forId)
 		{
-			return CheckBox.For(source, forId);
+			return CheckBox.For(source, value, forId);
 		}
 
 		public static CheckBoxData CheckBoxFor<T>(T source, Expression<Func<T, bool>> forIdAndValue)
