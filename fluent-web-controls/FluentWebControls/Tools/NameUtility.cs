@@ -62,14 +62,24 @@ namespace FluentWebControls.Tools
 			return names;
 		}
 
-		[DebuggerStepThrough]
+		//[DebuggerStepThrough]
 		public static string GetPropertyName<T, TReturn>(Expression<Func<T, TReturn>> expression)
 		{
 			MemberExpression memberExpression = expression.Body as MemberExpression;
 			if (memberExpression == null)
 			{
-				throw new ArgumentException(
-					"expression must be in the form: (Thing instance) => instance.Property[.Optional.Other.Properties.In.Chain]");
+				var unaryExpression = expression.Body as UnaryExpression;
+				if (unaryExpression == null)
+				{
+					throw new ArgumentException(
+						"expression must be in the form: (Thing instance) => instance.Property[.Optional.Other.Properties.In.Chain]");
+				}
+				memberExpression = unaryExpression.Operand as MemberExpression;
+				if (memberExpression == null)
+				{
+						throw new ArgumentException(
+							"expression must be in the form: (Thing instance) => instance.Property[.Optional.Other.Properties.In.Chain]");
+				}
 			}
 			var names = GetNames(memberExpression);
 			string name = names.Join(".");
