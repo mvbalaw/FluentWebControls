@@ -118,6 +118,7 @@
     <Compile Include="TextBoxData.cs" />
     <Compile Include="Tools\IoCUtility.cs" />
     <Compile Include="Tools\NameUtility.cs" />
+    <Compile Include="Tools\ReflectionUtility.cs" />
     <Compile Include="ValidatableWebControlBase.cs" />
     <Compile Include="Validation\FieldValidationType.cs" />
     <Compile Include="WebControlBase.cs" />

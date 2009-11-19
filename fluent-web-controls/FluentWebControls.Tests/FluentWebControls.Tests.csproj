@@ -117,6 +117,7 @@
     <Compile Include="TextAreaTest.cs" />
     <Compile Include="TextBoxDataTest.cs" />
     <Compile Include="TextBoxTest.cs" />
+    <Compile Include="Utilities\ReflectionUtilityTests.cs" />
     <Compile Include="ValidatableWebControlBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
