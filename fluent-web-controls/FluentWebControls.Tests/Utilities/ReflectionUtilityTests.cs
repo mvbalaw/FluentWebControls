@@ -22,9 +22,17 @@ namespace FluentWebControls.Tests.Utilities
 			}
 
 			[Test]
-			public void Should_be_able_to_get_the_value_if_it_is_a_method()
+			public void Should_be_able_to_get_the_value_if_it_is_a_static_method()
 			{
 				Expression<Func<int>> expr = () => TestClass.GetId();
+				ReflectionUtility.GetValueAsString(expr.Body).ShouldBeEqualTo(TestClass.Id.ToString());
+			}
+
+			[Test]
+			public void Should_be_able_to_get_the_value_if_it_is_a_property()
+			{
+				TestClass testClass = new TestClass();
+				Expression<Func<int>> expr = () => testClass.MyId;
 				ReflectionUtility.GetValueAsString(expr.Body).ShouldBeEqualTo(TestClass.Id.ToString());
 			}
 
@@ -36,6 +44,8 @@ namespace FluentWebControls.Tests.Utilities
 				{
 					return Id;
 				}
+
+				public int MyId { get{ return Id; } }
 			}
 		}
 	}
