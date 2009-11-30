@@ -98,5 +98,17 @@ namespace FluentWebControls.Tools
 			string name = names.Count > 1 ? names.Skip(1).Join(".") : names.Join(".");
 			return name;
 		}
+
+
+		public static string GetControllerName<TControllerType>()
+		{
+			string name = typeof(TControllerType).Name;
+			const string controller = "Controller";
+			if (name.EndsWith(controller))
+			{
+				name = name.Substring(0, name.Length - controller.Length);
+			}
+			return name;
+		}
 	}
 }

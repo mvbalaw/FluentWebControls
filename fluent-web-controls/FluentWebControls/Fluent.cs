@@ -17,7 +17,7 @@ namespace FluentWebControls
 
 		public static ButtonData ButtonFor<TController>(IButtonType buttonType, Expression<Func<TController,object>> forControllerAndActionNames)
 		{
-			return Button.For(buttonType, GetControllerName<TController>()).WithAction(NameUtility.GetMethodName(forControllerAndActionNames));
+			return Button.For(buttonType, NameUtility.GetControllerName<TController>()).WithAction(NameUtility.GetMethodName(forControllerAndActionNames));
 		}
 
 		public static ButtonData ButtonFor(IButtonType buttonType, string controllerName, string actionName)
@@ -261,19 +261,8 @@ namespace FluentWebControls
 
 		public static ScrollableGridData<TItemType> ScrollableGridFor<TItemType, TControllerType>(IEnumerable<TItemType> list, Expression<Func<TControllerType,object>> listAction)
 		{
-			string name = GetControllerName<TControllerType>();
+			string name = NameUtility.GetControllerName<TControllerType>();
 			return ScrollableGrid.For(list, new PagedListParameters(), name, NameUtility.GetMethodName(listAction));
-		}
-
-		private static string GetControllerName<TControllerType>()
-		{
-			string name = typeof(TControllerType).Name;
-			const string controller = "Controller";
-			if (name.EndsWith(controller))
-			{
-				name = name.Substring(0, name.Length - controller.Length);
-			}
-			return name;
 		}
 
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IEnumerable<TReturn> list, IPagedListParameters pagedListParameters, object aspxPage)
