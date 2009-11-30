@@ -35,12 +35,12 @@ namespace FluentWebControls.Tools
 		[DebuggerStepThrough]
 		public static string GetMethodName<T, TReturn>(Expression<Func<T, TReturn>> expression)
 		{
-			var memberExpression = expression.Body as MethodCallExpression;
-			if (memberExpression == null)
+			var methodCallExpression = expression.Body as MethodCallExpression;
+			if (methodCallExpression == null)
 			{
 				throw new ArgumentException("expression must be in the form: (Foo instance) => instance.Method");
 			}
-			return memberExpression.Method.Name;
+			return methodCallExpression.Method.Name;
 		}
 
 		public static string GetMultiLevelPropertyName(params string[] propertyNames)
@@ -62,6 +62,17 @@ namespace FluentWebControls.Tools
 			return names;
 		}
 
+		public static List<string> GetArguments<T, TReturn>(Expression<Func<T, TReturn>> expression)
+		{
+			var methodCallExpression = expression.Body as MethodCallExpression;
+			if (methodCallExpression == null)
+			{
+				throw new ArgumentException("expression must be in the form: (Foo instance) => instance.Method");
+			}
+			var arguments = methodCallExpression.Arguments;
+            return arguments.Select(p => Expression.Lambda(p).Compile().DynamicInvoke().ToString()).ToList();
+		}
+
 		//[DebuggerStepThrough]
 		public static string GetPropertyName<T, TReturn>(Expression<Func<T, TReturn>> expression)
 		{
@@ -77,8 +88,8 @@ namespace FluentWebControls.Tools
 				memberExpression = unaryExpression.Operand as MemberExpression;
 				if (memberExpression == null)
 				{
-						throw new ArgumentException(
-							"expression must be in the form: (Thing instance) => instance.Property[.Optional.Other.Properties.In.Chain]");
+					throw new ArgumentException(
+						"expression must be in the form: (Thing instance) => instance.Property[.Optional.Other.Properties.In.Chain]");
 				}
 			}
 			var names = GetNames(memberExpression);
@@ -98,7 +109,6 @@ namespace FluentWebControls.Tools
 			string name = names.Count > 1 ? names.Skip(1).Join(".") : names.Join(".");
 			return name;
 		}
-
 
 		public static string GetControllerName<TControllerType>()
 		{

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace FluentWebControls
 	public class LinkData : WebControlBase
 	{
 		private readonly Dictionary<string, string> _queryStringData = new Dictionary<string, string>();
+		private readonly List<string> _urlParameters = new List<string>();
+
 		public string ControllerExtension { get; set; }
 		public string CssClass { private get; set; }
 		public bool Disabled { get; set; }
@@ -21,6 +24,25 @@ namespace FluentWebControls
 		public void AddQueryStringData(string key, string value)
 		{
 			_queryStringData.Add(key, value);
+		}
+
+		public void AddUrlParameters(string parameter)
+		{
+			_urlParameters.Add(parameter);
+		}
+
+		public void AddUrlParameters(List<string> parameters)
+		{
+			_urlParameters.AddRange(parameters);
+		}
+
+		private string BuildUrlParameters()
+		{
+			if (_urlParameters.Count <= 0)
+			{
+				return "";
+			}
+			return String.Format("/{0}", _urlParameters.Join("/"));
 		}
 
 		private string BuildQueryString()
@@ -65,7 +87,7 @@ namespace FluentWebControls
 			}
 			else
 			{
-				sb.AppendFormat(" href='{0}{1}'", Href, BuildQueryString());
+				sb.AppendFormat(" href='{0}{1}{2}'", Href, BuildUrlParameters(), BuildQueryString());
 			}
 			if (Rel != null)
 			{

@@ -131,7 +131,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_LinkData_With_CssClass_initialized()
 			{
 				const string cssClass = "Link";
-				LinkData link = _linkData.CssClass(cssClass);
+				LinkData link = _linkData.WithCssClass(cssClass);
 				Assert.AreSame(_linkData, link);
 				TestWebControlsUtility.HtmlParser(link.ToString())["class"].ShouldBeEqualTo(cssClass);
 				_linkData.ToString().Contains(cssClass).ShouldBeTrue();

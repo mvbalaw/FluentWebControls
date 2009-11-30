@@ -15,7 +15,7 @@ namespace FluentWebControls
 			return Button.For(buttonType, new ControllerInfo(aspxPage).Name);
 		}
 
-		public static ButtonData ButtonFor<TController>(IButtonType buttonType, Expression<Func<TController,object>> forControllerAndActionNames)
+		public static ButtonData ButtonFor<TController>(IButtonType buttonType, Expression<Func<TController, object>> forControllerAndActionNames)
 		{
 			return Button.For(buttonType, NameUtility.GetControllerName<TController>()).WithAction(NameUtility.GetMethodName(forControllerAndActionNames));
 		}
@@ -207,6 +207,11 @@ namespace FluentWebControls
 			return Label.ForIt();
 		}
 
+		public static LinkData LinkTo()
+		{
+			return Link.To();
+		}
+
 		public static LinkData LinkTo(string controllerName, string controllerExtension, string actionName)
 		{
 			return Link.To(controllerName, controllerExtension, actionName);
@@ -217,9 +222,9 @@ namespace FluentWebControls
 			return LinkTo(controllerName, "", actionName);
 		}
 
-		public static LinkData LinkTo()
+		public static LinkData LinkTo<TControllerType>(Expression<Func<TControllerType, object>> targetControllerAction)
 		{
-			return Link.To();
+			return Link.To(targetControllerAction);
 		}
 
 		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage)
@@ -259,7 +264,7 @@ namespace FluentWebControls
 			return ScrollableGrid.For(list, new PagedListParameters(), controllerInfo.Name, controllerInfo.Action);
 		}
 
-		public static ScrollableGridData<TItemType> ScrollableGridFor<TItemType, TControllerType>(IEnumerable<TItemType> list, Expression<Func<TControllerType,object>> listAction)
+		public static ScrollableGridData<TItemType> ScrollableGridFor<TItemType, TControllerType>(IEnumerable<TItemType> list, Expression<Func<TControllerType, object>> listAction)
 		{
 			string name = NameUtility.GetControllerName<TControllerType>();
 			return ScrollableGrid.For(list, new PagedListParameters(), name, NameUtility.GetMethodName(listAction));

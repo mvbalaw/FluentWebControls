@@ -8,7 +8,7 @@ namespace FluentWebControls.Extensions
 {
 	public static class LinkDataExtensions
 	{
-		public static LinkData CssClass(this LinkData linkData, string cssClass)
+		public static LinkData WithCssClass(this LinkData linkData, string cssClass)
 		{
 			linkData.CssClass = cssClass;
 			return linkData;
@@ -41,6 +41,18 @@ namespace FluentWebControls.Extensions
 		public static LinkData WithData(this LinkData linkData, string fieldName, string value)
 		{
 			linkData.AddQueryStringData(fieldName, value);
+			return linkData;
+		}
+
+		public static LinkData WithUrlParameters(this LinkData linkData, string urlParameter)
+		{
+			linkData.AddUrlParameters(urlParameter);
+			return linkData;
+		}
+
+		public static LinkData WithUrlParameters(this LinkData linkData, List<string> urlParameters)
+		{
+			linkData.AddUrlParameters(urlParameters);
 			return linkData;
 		}
 

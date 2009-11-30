@@ -22,6 +22,7 @@ namespace FluentWebControls
 		public string Style { get; set; }
 		public string Text { get; set; }
 		public string Width { private get; set; }
+		public string Value { get; set; }
 
 		public override string ToString()
 		{
@@ -45,6 +46,10 @@ namespace FluentWebControls
 			sb.Append('>');
 			sb.Append(Text);
 			sb.Append("</label>");
+			if (Value != null)
+			{
+				sb.AppendFormat("<div style='float:left'>{0}</div>", Value);
+			}
 			if (Width != null)
 			{
 				sb.Append("</span>");
