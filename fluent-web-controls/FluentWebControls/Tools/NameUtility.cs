@@ -35,11 +35,7 @@ namespace FluentWebControls.Tools
 		[DebuggerStepThrough]
 		public static string GetMethodName<T, TReturn>(Expression<Func<T, TReturn>> expression)
 		{
-			var methodCallExpression = expression.Body as MethodCallExpression;
-			if (methodCallExpression == null)
-			{
-				throw new ArgumentException("expression must be in the form: (Foo instance) => instance.Method");
-			}
+			var methodCallExpression = ReflectionUtility.GetMethodCallExpression(expression);
 			return methodCallExpression.Method.Name;
 		}
 
