@@ -84,5 +84,23 @@ namespace FluentWebControls.Extensions
 			dropDownListData.SelectedValue = value == null ? "" : value.ToString();
 			return dropDownListData;
 		}
+
+		public static DropDownListData Exclude(this DropDownListData dropDownListData, Expression<Func<string>> getValue)
+		{
+			dropDownListData.Remove(getValue.Compile()());
+			return dropDownListData;
+		}
+
+		public static DropDownListData Exclude<T>(this DropDownListData dropDownListData, Func<T> nullableParent, Func<T, string> getValue) where T : class
+		{
+			T parentValue = nullableParent();
+			string value = null;
+			if (parentValue != null)
+			{
+				value = getValue(parentValue);
+			}
+			dropDownListData.Remove(value);
+			return dropDownListData;
+		}
 	}
 }

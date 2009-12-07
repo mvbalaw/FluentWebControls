@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using FluentWebControls.Extensions;
@@ -8,8 +9,8 @@ namespace FluentWebControls
 {
 	public class DropDownListData : ValidatableWebControlBase
 	{
-		private readonly IEnumerable<KeyValuePair<string, string>> _items;
 		private KeyValuePair<string, string>? _formFieldToSetBeforeSubmitting;
+		private IEnumerable<KeyValuePair<string, string>> _items;
 
 		public DropDownListData(IEnumerable<KeyValuePair<string, string>> items)
 		{
@@ -33,6 +34,11 @@ namespace FluentWebControls
 		public string SelectedValue { get; set; }
 		public bool SubmitOnChange { get; set; }
 
+		public void Remove(string value)
+		{
+			_items = _items.Where(x => x.Value != value);	
+		}
+
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -54,6 +60,7 @@ namespace FluentWebControls
 			if (Default != null)
 			{
 				WriteOption(sb, Default.Value, String.IsNullOrEmpty(SelectedValue));
+				_items = _items.Where(x => x.Value != Default.Value.Value);
 			}
 			foreach (var item in _items)
 			{

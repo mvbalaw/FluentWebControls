@@ -74,6 +74,53 @@ namespace FluentWebControls.Tests.Extensions
 		}
 
 		[TestFixture]
+		public class When_asked_to_assign_Set_a_Default_value_that_already_exists_in_the_items_list : DropDownListDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_DropDownListData_with_Default_value_appearing_only_once_in_the_list()
+			{
+				const string defaultText = "";
+				const string defaultValue = "Value2";
+				DropDownListData listData = _dropDownListData.WithDefault(defaultText, defaultValue);
+				Assert.AreSame(_dropDownListData, listData);
+				_dropDownListData.ToString().Contains("<option value='Value2' selected='selected'></option>").ShouldBeTrue();
+				_dropDownListData.ToString().Contains("<option value='Value2'>Name2</option>").ShouldBeFalse();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_Exclude_a_Value_of_a_nullable_parent : DropDownListDataExtensionsTestBase
+		{
+			public class Test
+			{
+				public string Value = "Value2";
+			}
+
+			[Test]
+			public void Should_return_a_DropDownListData_with_passed_value_excluded()
+			{
+				Test test = new Test();
+				DropDownListData listData = _dropDownListData.Exclude(() => test, t => t.Value);
+				Assert.AreSame(_dropDownListData, listData);
+				_dropDownListData.ToString().Contains("<option value='Value2'>Name2</option>").ShouldBeFalse();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_Exclude_a_Value : DropDownListDataExtensionsTestBase
+		{
+			public string Value = "Value2";
+
+			[Test]
+			public void Should_return_a_DropDownListData_with_passed_value_excluded()
+			{
+				DropDownListData listData = _dropDownListData.Exclude(() => Value);
+				Assert.AreSame(_dropDownListData, listData);
+				_dropDownListData.ToString().Contains("<option value='Value2'>Name2</option>").ShouldBeFalse();
+			}
+		}
+
+		[TestFixture]
 		public class When_asked_to_assign_Set_a_selected_Value : DropDownListDataExtensionsTestBase
 		{
 			[Test]
