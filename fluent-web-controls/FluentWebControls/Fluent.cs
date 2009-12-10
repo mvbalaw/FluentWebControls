@@ -15,9 +15,9 @@ namespace FluentWebControls
 			return Button.For(buttonType, new ControllerInfo(aspxPage).Name);
 		}
 
-		public static ButtonData ButtonFor<TController>(IButtonType buttonType, Expression<Func<TController, object>> forControllerAndActionNames)
+		public static ButtonData ButtonFor<TController>(IButtonType buttonType, Expression<Func<TController, object>> forControllerAndActionName) where TController : class
 		{
-			return Button.For(buttonType, NameUtility.GetControllerName<TController>()).WithAction(NameUtility.GetMethodName(forControllerAndActionNames));
+			return Button.For(buttonType, forControllerAndActionName);
 		}
 
 		public static ButtonData ButtonFor(IButtonType buttonType, string controllerName, string actionName)
@@ -222,7 +222,7 @@ namespace FluentWebControls
 			return LinkTo(controllerName, "", actionName);
 		}
 
-		public static LinkData LinkTo<TControllerType>(Expression<Func<TControllerType, object>> targetControllerAction)
+		public static LinkData LinkTo<TControllerType>(Expression<Func<TControllerType, object>> targetControllerAction) where TControllerType : class
 		{
 			return Link.To(targetControllerAction);
 		}

@@ -4,14 +4,16 @@ using System.Linq.Expressions;
 using FluentWebControls.Interfaces;
 using FluentWebControls.Tools;
 
+using System.Linq;
+
 namespace FluentWebControls
 {
 	public static class Link
 	{
-		public static LinkData To<TControllerType>(Expression<Func<TControllerType, object>> targetControllerAction)
+		public static LinkData To<TControllerType>(Expression<Func<TControllerType, object>> targetControllerAction) where TControllerType : class
 		{
 			var linkData = To(NameUtility.GetControllerName<TControllerType>(), NameUtility.GetMethodName(targetControllerAction));
-			linkData.AddUrlParameters(NameUtility.GetArguments(targetControllerAction));
+			linkData.AddUrlParameters(ReflectionUtility.GetMethodCallData(targetControllerAction).ParameterValues.Values.ToList());
 			return linkData;
 		}
 

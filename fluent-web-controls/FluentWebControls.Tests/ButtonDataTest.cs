@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using FluentAssert;
 
@@ -174,6 +175,32 @@ namespace FluentWebControls.Tests
 			protected override void SetAdditionalParameters()
 			{
 				_buttonData.Visible = false;
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_create_a_Link_Button : ButtonDataTestBase
+		{
+			protected override ButtonData.ButtonType ButtonType
+			{
+				get { return ButtonData.ButtonType.Link; }
+			}
+
+			protected override string HtmlText
+			{
+				get { return String.Format("<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;/Test/Action/4/name&quot;'/>"); }
+			}
+
+			protected override void SetAdditionalParameters()
+			{
+				_buttonData.Text = "Cancel";
+				_buttonData.ControllerName = "Test";
+				_buttonData.ActionName = "Action";
+				_buttonData.AddUrlParameters(new List<string>
+					{
+						"4",
+						"name"
+					});
 			}
 		}
 	}

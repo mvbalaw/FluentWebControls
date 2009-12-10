@@ -12,6 +12,14 @@ namespace FluentWebControls.Tests
 {
 	public class ButtonTest
 	{
+		private class TestPathUtility : IPathUtility
+		{
+			public string GetUrl(string virtualDirectory)
+			{
+				return virtualDirectory;
+			}
+		}
+
 		[TestFixture]
 		public class When_asked_to_create_a_button
 		{
@@ -34,12 +42,29 @@ namespace FluentWebControls.Tests
 				ButtonData buttonData = Button.For(ButtonData.ButtonType.Save, "AdminSave").WithControllerExtension(".mvc");
 				buttonData.ToString().ShouldBeEqualTo("<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='/AdminSave.mvc/Save' onClick='javascript:return changeFormAction(this)'/>");
 			}
+		}
 
-			private class TestPathUtility : IPathUtility
+		[TestFixture]
+		public class When_asked_to_create_a_linkbutton
+		{
+			[SetUp]
+			public void BeforeEachTest()
 			{
-				public string GetUrl(string virtualDirectory)
+				IoCUtility.Inject<IPathUtility>(new TestPathUtility());
+			}
+
+			[Test]
+			public void Should_return_html_code_representing_a_Link_button()
+			{
+				ButtonData buttonData = Button.For(ButtonData.ButtonType.Link, (TestController controller) => controller.Action(4, "name"));
+				buttonData.ToString().ShouldBeEqualTo(String.Format("<input Id='btnLink' name='btnLink' value='Link' class='cancel' type='button' onClick='javascript:location.href=&quot;/Test/Action/4/name&quot;'/>"));
+			}
+
+			public class TestController
+			{
+				public object Action(int id, string name)
 				{
-					return virtualDirectory;
+					return 0;
 				}
 			}
 		}

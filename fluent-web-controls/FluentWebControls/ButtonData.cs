@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 using FluentWebControls.Extensions;
@@ -8,9 +9,9 @@ namespace FluentWebControls
 {
 	public class ButtonData : IControllerAwareWebControl
 	{
-		private readonly string _controllerName;
 		private readonly IPathUtility _pathUtility;
 		private readonly IButtonType _type;
+		private readonly List<string> _urlParameters = new List<string>();
 		private string _text;
 
 		public ButtonData(IButtonType type, IPathUtility pathUtility)
@@ -22,7 +23,7 @@ namespace FluentWebControls
 		{
 			_type = type;
 			_pathUtility = pathUtility;
-			_controllerName = controllerName;
+			ControllerName = controllerName;
 			Text = type.Name;
 			Visible = true;
 		}
@@ -30,6 +31,7 @@ namespace FluentWebControls
 		public string ActionName { get; set; }
 		public string ConfirmMessage { get; set; }
 		public string ControllerExtension { get; set; }
+		public string ControllerName { get; set; }
 		public string CssClass { get; set; }
 		public string OnClickMethod { get; set; }
 		public string QueryParameter { get; set; }
@@ -42,6 +44,25 @@ namespace FluentWebControls
 
 		public bool Visible { get; set; }
 		public string Width { get; set; }
+
+		public void AddUrlParameter(string parameter)
+		{
+			_urlParameters.Add(parameter);
+		}
+
+		public void AddUrlParameters(List<string> parameters)
+		{
+			_urlParameters.AddRange(parameters);
+		}
+
+		private string BuildUrlParameters()
+		{
+			if (_urlParameters.Count <= 0)
+			{
+				return "";
+			}
+			return String.Format("/{0}", _urlParameters.Join("/"));
+		}
 
 		public override string ToString()
 		{
@@ -66,7 +87,7 @@ namespace FluentWebControls
 			if (_type.Type.Equals("submit", StringComparison.OrdinalIgnoreCase))
 			{
 				string actionName = ActionName ?? _type.Name;
-				string url = _pathUtility.GetUrl(String.Format("/{0}{1}/{2}", _controllerName, ControllerExtension ?? "", actionName));
+				string url = _pathUtility.GetUrl(String.Format("/{0}{1}/{2}", ControllerName, ControllerExtension ?? "", actionName));
 				sb.Append((String.IsNullOrEmpty(QueryParameter) ? url : String.Format("{0}?{1}", url, QueryParameter)).CreateQuotedAttribute("action"));
 
 				if (String.IsNullOrEmpty(OnClickMethod))
@@ -75,6 +96,15 @@ namespace FluentWebControls
 					                              _type == ButtonType.Delete
 					                              	? String.Format("confirmThenChangeFormAction(\"{0}\", this)", ConfirmMessage ?? ButtonType.Delete.ConfirmationMessage)
 					                              	: "changeFormAction(this)");
+				}
+			}
+			else if (_type.Type.Equals("button", StringComparison.OrdinalIgnoreCase))
+			{
+				string url = _pathUtility.GetUrl(String.Format("/{0}{1}/{2}{3}", ControllerName, ControllerExtension ?? "", ActionName, BuildUrlParameters()));
+
+				if (String.IsNullOrEmpty(OnClickMethod) && _type == ButtonType.Link)
+				{
+					OnClickMethod = String.Format("javascript:location.href=\"{0}\"", url);
 				}
 			}
 
@@ -93,6 +123,7 @@ namespace FluentWebControls
 			public static ButtonType Delete = new ButtonType("Delete", "submit", JQueryFormValidationType.IgnoreFormOnClick, "Are you sure you want to delete this");
 			public static ButtonType Download = new ButtonType("Download", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
 			public static ButtonType Go = new ButtonType("Go", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
+			public static ButtonType Link = new ButtonType("Link", "button", JQueryFormValidationType.IgnoreFormOnClick, "");
 			public static ButtonType New = new ButtonType("New", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
 			public static ButtonType Save = new ButtonType("Save", "submit", JQueryFormValidationType.ValidateFormOnClick, "");
 
