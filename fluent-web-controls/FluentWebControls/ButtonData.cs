@@ -28,6 +28,7 @@ namespace FluentWebControls
 			Visible = true;
 		}
 
+		public string Id { get; set; }
 		public string ActionName { get; set; }
 		public string ConfirmMessage { get; set; }
 		public string ControllerExtension { get; set; }
@@ -73,7 +74,7 @@ namespace FluentWebControls
 
 			StringBuilder sb = new StringBuilder();
 			sb.Append("<input");
-			sb.Append(String.Format("btn{0}", _type.Name).CreateQuotedAttribute("Id"));
+			sb.Append(String.Format("btn{0}", Id ?? _type.Name).CreateQuotedAttribute("Id"));
 			sb.Append(String.Format("btn{0}", _type.Name).CreateQuotedAttribute("name"));
 			sb.Append(Text.CreateQuotedAttribute("value"));
 			sb.Append(_type.CssClass.CreateQuotedAttribute("class"));

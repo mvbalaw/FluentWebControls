@@ -74,6 +74,29 @@ namespace FluentWebControls.Tests.Extensions
 		}
 
 		[TestFixture]
+		public class When_asked_to_assign_Id : ButtonDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_ButtonData_With_Id_initialized()
+			{
+				const string id = "Id";
+				ButtonData button = _buttonData.WithId(id);
+				Assert.AreSame(_buttonData, button);
+				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["id"].ShouldBeEqualTo("btn" + id);
+				button.ToString().Contains("btn" + id).ShouldBeTrue();
+			}
+
+			[Test]
+			public void Should_return_a_ButtonData_With_Text_initialized_if_no_Id_is_specified()
+			{
+				ButtonData button = _buttonData;
+				Assert.AreSame(_buttonData, button);
+				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["id"].ShouldBeEqualTo("btn" + _buttonData.Text);
+				button.ToString().Contains("btn" + _buttonData.Text).ShouldBeTrue();
+			}
+		}
+
+		[TestFixture]
 		public class When_asked_to_assign_Text : ButtonDataExtensionsTestBase
 		{
 			[Test]
