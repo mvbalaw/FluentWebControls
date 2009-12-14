@@ -33,6 +33,13 @@ namespace FluentWebControls.Extensions
 			return dropDownListData;
 		}
 
+		public static DropDownListData WithSlaveDdl<TFuncInput, TFuncResult, TControllerType>(this DropDownListData dropDownListData, Expression<Func<TFuncInput, TFuncResult>> forSlaveId, Expression<Func<TControllerType, object>> targetControllerJsonActionToGetSlaveData) where TControllerType : class
+		{
+			dropDownListData.SlaveId = NameUtility.GetPropertyName(forSlaveId);
+			dropDownListData.SlaveDataSource = ReflectionUtility.GetMethodCallData(targetControllerJsonActionToGetSlaveData);
+			return dropDownListData;
+		}
+
 		public static DropDownListData WithDefault(this DropDownListData dropDownListData, string text, string value)
 		{
 			dropDownListData.Default = new KeyValuePair<string, string>(text, value);

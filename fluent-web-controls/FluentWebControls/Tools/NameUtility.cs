@@ -109,6 +109,11 @@ namespace FluentWebControls.Tools
 		public static string GetControllerName<TControllerType>()
 		{
 			string name = typeof(TControllerType).Name;
+			return GetControllerName(name);
+		}
+
+		public static string GetControllerName(string name)
+		{
 			const string controller = "Controller";
 			if (name.EndsWith(controller))
 			{

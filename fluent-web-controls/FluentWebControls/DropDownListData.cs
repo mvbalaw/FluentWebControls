@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using FluentWebControls.Extensions;
+using FluentWebControls.Tools;
 
 namespace FluentWebControls
 {
@@ -33,6 +34,8 @@ namespace FluentWebControls
 		public LabelData Label { get; set; }
 		public string SelectedValue { get; set; }
 		public bool SubmitOnChange { get; set; }
+		public string SlaveId { get; set; }
+		public MethodCallData SlaveDataSource { get; set; }
 
 		public void Remove(string value)
 		{
@@ -56,6 +59,19 @@ namespace FluentWebControls
 				var v = _formFieldToSetBeforeSubmitting != null ? "setFormFieldAndSubmit(\"" + _formFieldToSetBeforeSubmitting.Value.Key + "\",\"" + _formFieldToSetBeforeSubmitting.Value.Value + "\", this);" : "this.form.submit();";
 				sb.Append(v.CreateQuotedAttribute("onchange"));
 			}
+			else if (SlaveId != null)
+			{
+//				StringBuilder secondaryDdlScript = new StringBuilder();
+//				secondaryDdlScript.Append(" $(\"select[id$='"+SlaveId+"']\").html(\"\");");
+//				secondaryDdlScript.Append(" if ($(\"select[id$='"+IdWithPrefix+"'] > option[selected]\").attr(\"value\") != \"\") {");
+//				secondaryDdlScript.Append(" $.getJSON('" + NameUtility.GetControllerName(SlaveDataSource.ClassName)
+//					+ "/" + SlaveDataSource.MethodName 
+//					+ "?" + SlaveDataSource.ParameterValues.First().Key + "='+ $(\"select[id$='"+IdWithPrefix+"'] > option[selected]\").attr(\"value\"),"
+//					+ "function(valuesB) { $each(valuesB,function(){$(\"select[id$='" + SlaveId + "']\").append($\"<option></option>\").val(this['ID']).html(this['Name']);});});");
+//				secondaryDdlScript.Append("}");
+				string secondaryDdlScript = String.Format("UpdateSecondDropDown('{0}', '{1}', '{2}', '{3}', '{4}');", IdWithPrefix, SlaveId.ToCamelCase(), NameUtility.GetControllerName(SlaveDataSource.ClassName), SlaveDataSource.MethodName, SlaveDataSource.ParameterValues.First().Key);
+				sb.Append(secondaryDdlScript.CreateQuotedAttribute("onchange"));
+			}
 			sb.Append('>');
 			if (Default != null)
 			{
@@ -70,6 +86,31 @@ namespace FluentWebControls
 			if (PropertyMetaData != null && PropertyMetaData.IsRequired)
 			{
 				sb.Append("<em>*</em>");
+			}
+			if (SlaveId != null)
+			{
+				StringBuilder script = new StringBuilder();
+				script.Append(@"
+<script language=""JavaScript"">
+	function UpdateSecondDropDown(parentId, childId, controller, action, variable)
+	{
+		$(""select[id$='""+childId+""']"").html(""""); 
+		var parentValue = $(""select[id$='""+parentId+""'] > option[selected]"").attr(""value"");
+		if (parentValue != """") 
+		{ 
+			$.getJSON('/'+controller+'/'+action+'?'+variable+'='+ parentValue, function(valuesB) 
+				{ 
+					$.each(valuesB,function()
+						{
+							$(""select[id$='""+childId+""']"").append($(""<option></option>"").val(this['ID']).html(this['Name']));
+						}
+					);
+				}
+			);
+		}
+	}
+</script>");
+				sb.Append(script);
 			}
 			return sb.ToString();
 		}
