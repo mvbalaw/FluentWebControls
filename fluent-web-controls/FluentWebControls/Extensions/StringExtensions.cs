@@ -10,7 +10,7 @@ namespace FluentWebControls.Extensions
 	{
 		public static string CreateQuotedAttribute(this string value, string name)
 		{
-			return String.Format(" {0}=\"{1}\"", name, EscapeForTagAttribute(value));
+			return String.Format(" {0}='{1}'", name, EscapeForTagAttribute(value));
 		}
 
 		[CanBeNull]
@@ -40,7 +40,7 @@ namespace FluentWebControls.Extensions
 
 		public static string EscapeForTagAttribute(this string value)
 		{
-			return value == null ? "" : value.Replace("&", "&amp;").Replace("\"", "\\\"").Replace("<", "&lt;").Replace(">", "&gt;");
+			return value == null ? "" : value.Replace("&", "&amp;").Replace("\"", "&quot;").Replace("<", "&lt;");
 		}
 
 		public static string EscapeForUrl(this string value)
