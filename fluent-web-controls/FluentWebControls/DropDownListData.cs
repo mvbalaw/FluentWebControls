@@ -61,15 +61,7 @@ namespace FluentWebControls
 			}
 			else if (SlaveId != null)
 			{
-//				StringBuilder secondaryDdlScript = new StringBuilder();
-//				secondaryDdlScript.Append(" $(\"select[id$='"+SlaveId+"']\").html(\"\");");
-//				secondaryDdlScript.Append(" if ($(\"select[id$='"+IdWithPrefix+"'] > option[selected]\").attr(\"value\") != \"\") {");
-//				secondaryDdlScript.Append(" $.getJSON('" + NameUtility.GetControllerName(SlaveDataSource.ClassName)
-//					+ "/" + SlaveDataSource.MethodName 
-//					+ "?" + SlaveDataSource.ParameterValues.First().Key + "='+ $(\"select[id$='"+IdWithPrefix+"'] > option[selected]\").attr(\"value\"),"
-//					+ "function(valuesB) { $each(valuesB,function(){$(\"select[id$='" + SlaveId + "']\").append($\"<option></option>\").val(this['ID']).html(this['Name']);});});");
-//				secondaryDdlScript.Append("}");
-				string secondaryDdlScript = String.Format("UpdateSecondDropDown('{0}', '{1}', '{2}', '{3}', '{4}');", IdWithPrefix, SlaveId.ToCamelCase(), NameUtility.GetControllerName(SlaveDataSource.ClassName), SlaveDataSource.MethodName, SlaveDataSource.ParameterValues.First().Key);
+				string secondaryDdlScript = String.Format("UpdateSecondDropDown(\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\");", IdWithPrefix, SlaveId.ToCamelCase(), NameUtility.GetControllerName(SlaveDataSource.ClassName), SlaveDataSource.MethodName, SlaveDataSource.ParameterValues.First().Key);
 				sb.Append(secondaryDdlScript.CreateQuotedAttribute("onchange"));
 			}
 			sb.Append('>');
