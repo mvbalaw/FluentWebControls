@@ -194,5 +194,31 @@ namespace FluentWebControls.Tests
 				get { return value; }
 			}
 		}
+
+		[TestFixture]
+		public class When_asked_to_make_the_textbox_readonly
+		{
+			[Test]
+			public void Should_add_the_READONLY_attribute_if_ReadOnly_is_true()
+			{
+				var textBox = new TextBoxData("World")
+					{
+						ReadOnly = true
+					};
+				var result = textBox.ToString();
+				result.ShouldBeEqualTo("<input type='text' class='textbox' value='World' READONLY/>");
+			}
+
+			[Test]
+			public void Should_not_add_the_READONLY_attribute_if_ReadOnly_is_false()
+			{
+				var textBox = new TextBoxData("World")
+					{
+						ReadOnly = false
+					};
+				var result = textBox.ToString();
+				result.ShouldBeEqualTo("<input type='text' class='textbox' value='World'/>");
+			}
+		}
 	}
 }

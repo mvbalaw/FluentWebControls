@@ -31,6 +31,7 @@ namespace FluentWebControls
 		{
 			set { _minValue = value >= 0 ? value : (int?)null; }
 		}
+		public bool ReadOnly { get; set; }
 
 		public JQueryFieldValidationType ValidationType { get; set; }
 		public string Width { private get; set; }
@@ -100,6 +101,10 @@ namespace FluentWebControls
 			}
 
 			sb.Append(_value.CreateQuotedAttribute("value"));
+			if (ReadOnly)
+			{
+				sb.Append(" READONLY");
+			}
 			sb.Append("/>");
 			if (PropertyMetaData != null)
 			{

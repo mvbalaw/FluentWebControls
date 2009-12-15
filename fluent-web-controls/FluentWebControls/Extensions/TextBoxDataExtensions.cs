@@ -5,6 +5,12 @@ namespace FluentWebControls.Extensions
 {
 	public static class TextBoxDataExtensions
 	{
+		public static TextBoxData AsReadOnly(this TextBoxData textBoxData)
+		{
+			textBoxData.ReadOnly = true;
+			return textBoxData;
+		}
+
 		public static TextBoxData CssClass(this TextBoxData textBoxData, string cssClass)
 		{
 			textBoxData.CssClass = cssClass;
