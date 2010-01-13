@@ -8,7 +8,7 @@ namespace FluentWebControls
 		{
 			get
 			{
-				var id = ((IWebControl)this).IdPrefix ?? "";
+				string id = ((IWebControl)this).IdPrefix ?? "";
 				if (!String.IsNullOrEmpty(((IWebControl)this).IdPrefix))
 				{
 					id += ".";

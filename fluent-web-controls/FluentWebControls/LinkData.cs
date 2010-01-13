@@ -36,22 +36,13 @@ namespace FluentWebControls
 			_urlParameters.AddRange(parameters);
 		}
 
-		private string BuildUrlParameters()
-		{
-			if (_urlParameters.Count <= 0)
-			{
-				return "";
-			}
-			return String.Format("/{0}", _urlParameters.Join("/"));
-		}
-
 		private string BuildQueryString()
 		{
 			if (_queryStringData.Count == 0)
 			{
 				return "";
 			}
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			var keylessItems = _queryStringData.Where(x => x.Key == "").ToList();
 			foreach (var item in keylessItems)
 			{
@@ -71,9 +62,18 @@ namespace FluentWebControls
 			return sb.ToString();
 		}
 
+		private string BuildUrlParameters()
+		{
+			if (_urlParameters.Count <= 0)
+			{
+				return "";
+			}
+			return String.Format("/{0}", _urlParameters.Join("/"));
+		}
+
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			sb.AppendFormat("<a");
 			if (Id != null)
 			{

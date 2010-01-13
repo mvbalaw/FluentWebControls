@@ -29,15 +29,15 @@ namespace FluentWebControls.Extensions
 			return buttonData;
 		}
 
-		public static ButtonData WithId(this ButtonData buttonData, string id)
-		{
-			buttonData.Id = id;
-			return buttonData;
-		}
-
 		public static ButtonData WithControllerExtension(this ButtonData buttonData, string controllerExtension)
 		{
 			buttonData.ControllerExtension = controllerExtension;
+			return buttonData;
+		}
+
+		public static ButtonData WithId(this ButtonData buttonData, string id)
+		{
+			buttonData.Id = id;
 			return buttonData;
 		}
 

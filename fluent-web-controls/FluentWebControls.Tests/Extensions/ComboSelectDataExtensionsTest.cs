@@ -50,7 +50,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_ComboSelectData_With_CssClass_initialized()
 			{
 				const string cssClass = "cssClass";
-				ComboSelectData listData = _comboSelectData.CssClass(cssClass);
+				var listData = _comboSelectData.CssClass(cssClass);
 				Assert.AreSame(_comboSelectData, listData);
 				TestWebControlsUtility.HtmlParser(listData.ToString())["class"].ShouldBeEqualTo(cssClass);
 				_comboSelectData.ToString().Contains(cssClass).ShouldBeTrue();
@@ -63,9 +63,9 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_ComboSelectData_With_Label_initialized()
 			{
-				LabelData label = new LabelData("Id");
+				var label = new LabelData("Id");
 
-				ComboSelectData listData = _comboSelectData.WithLabel(label);
+				var listData = _comboSelectData.WithLabel(label);
 				Assert.AreSame(_comboSelectData, listData);
 				listData.ToString().Contains(label.ToString()).ShouldBeTrue();
 			}
@@ -85,7 +85,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				if (_comboSelectData != null)
 				{
-					ComboSelectData listData = _comboSelectData.WithSelectedValues(_selectedValues, values => values.Value);
+					var listData = _comboSelectData.WithSelectedValues(_selectedValues, values => values.Value);
 					Assert.AreSame(_comboSelectData, listData);
 				}
 				_comboSelectData.ToString().Contains("<option value='1'>Name1</option>").ShouldBeTrue();

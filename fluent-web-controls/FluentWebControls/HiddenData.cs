@@ -10,7 +10,7 @@ namespace FluentWebControls
 
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			sb.AppendFormat("<input");
 			sb.Append("hidden".CreateQuotedAttribute("type"));
 			sb.Append(IdWithPrefix.CreateQuotedAttribute("id"));

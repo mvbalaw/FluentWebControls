@@ -8,7 +8,7 @@ namespace FluentWebControls.Tests
 	{
 		public static Dictionary<string, string> HtmlParser(string htmlTag)
 		{
-			XmlDocument xmlDocument = new XmlDocument();
+			var xmlDocument = new XmlDocument();
 			xmlDocument.LoadXml(htmlTag);
 
 			var attributes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);

@@ -55,18 +55,9 @@ namespace FluentWebControls.Tests
 		{
 			private CommandColumn<TestData.Item> _commandColumn;
 
-			public class FakeController
-			{
-				public string Edit()
-				{
-					return "";
-				}
-			}
-
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				TestData.Item source = new TestData.Item(6, "James");
 				_commandColumn = CommandGridColumn.For<TestData.Item, FakeController>(x => x.ItemName, x => x.ItemName, c => c.Edit());
 			}
 
@@ -86,6 +77,14 @@ namespace FluentWebControls.Tests
 			public void Should_set_the_FieldName()
 			{
 				_commandColumn.FieldName.ShouldBeEqualTo("itemName");
+			}
+
+			public class FakeController
+			{
+				public string Edit()
+				{
+					return "";
+				}
 			}
 		}
 

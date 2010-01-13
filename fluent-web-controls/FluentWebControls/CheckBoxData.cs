@@ -16,6 +16,7 @@ namespace FluentWebControls
 		public bool Checked { get; set; }
 		public LabelData Label { get; set; }
 		public AlignAttribute LabelAlignAttribute { get; set; }
+		public string Value { get; set; }
 
 		private void AppendLabel(StringBuilder stringBuilder)
 		{
@@ -30,7 +31,7 @@ namespace FluentWebControls
 			}
 			else
 			{
-				LabelData blankLabel = new LabelData
+				var blankLabel = new LabelData
 					{
 						Text = "&nbsp;"
 					};
@@ -46,7 +47,7 @@ namespace FluentWebControls
 
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			sb.Append("<input");
 			sb.Append("checkbox".CreateQuotedAttribute("type"));
 			if (!IdWithPrefix.IsNullOrEmpty())
@@ -66,7 +67,5 @@ namespace FluentWebControls
 			AppendLabel(sb);
 			return sb.ToString();
 		}
-
-		public string Value { get; set; }
 	}
 }

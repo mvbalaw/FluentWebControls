@@ -33,18 +33,18 @@ namespace FluentWebControls
 
 		public LabelData Label { get; set; }
 		public string SelectedValue { get; set; }
-		public bool SubmitOnChange { get; set; }
-		public string SlaveId { get; set; }
 		public MethodCallData SlaveDataSource { get; set; }
+		public string SlaveId { get; set; }
+		public bool SubmitOnChange { get; set; }
 
 		public void Remove(string value)
 		{
-			_items = _items.Where(x => x.Value != value);	
+			_items = _items.Where(x => x.Value != value);
 		}
 
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			if (Label != null)
 			{
 				Label.ForId = IdWithPrefix;
@@ -56,7 +56,7 @@ namespace FluentWebControls
 			sb.AppendFormat(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
 			if (SubmitOnChange)
 			{
-				var v = _formFieldToSetBeforeSubmitting != null ? "setFormFieldAndSubmit(\"" + _formFieldToSetBeforeSubmitting.Value.Key + "\",\"" + _formFieldToSetBeforeSubmitting.Value.Value + "\", this);" : "this.form.submit();";
+				string v = _formFieldToSetBeforeSubmitting != null ? "setFormFieldAndSubmit(\"" + _formFieldToSetBeforeSubmitting.Value.Key + "\",\"" + _formFieldToSetBeforeSubmitting.Value.Value + "\", this);" : "this.form.submit();";
 				sb.Append(v.CreateQuotedAttribute("onchange"));
 			}
 			else if (SlaveId != null)
@@ -81,7 +81,7 @@ namespace FluentWebControls
 			}
 			if (SlaveId != null)
 			{
-				StringBuilder script = new StringBuilder();
+				var script = new StringBuilder();
 				script.Append(@"
 <script language=""JavaScript"">
 	function UpdateSecondDropDown(parentId, childId, controller, action, variable)

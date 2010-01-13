@@ -32,7 +32,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const int cols = 10;
 
-				TextAreaData tArea = _textAreaData.Cols(cols);
+				var tArea = _textAreaData.Cols(cols);
 				Assert.AreSame(_textAreaData, tArea);
 				TestWebControlsUtility.HtmlParser(tArea.ToString())["cols"].ShouldBeEqualTo(cols.ToString());
 				tArea.ToString().Contains(cols.ToString()).ShouldBeTrue();
@@ -47,7 +47,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string cssClass = "textBox";
 
-				TextAreaData tArea = _textAreaData.CssClass(cssClass);
+				var tArea = _textAreaData.CssClass(cssClass);
 				Assert.AreSame(_textAreaData, tArea);
 				tArea.ToString().Contains(cssClass).ShouldBeTrue();
 			}
@@ -59,7 +59,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_TextAreaData_With_Id_initialized()
 			{
-				TextAreaData tArea = _textAreaData.WithId(() => _item.ItemName);
+				var tArea = _textAreaData.WithId(() => _item.ItemName);
 				Assert.AreSame(_textAreaData, tArea);
 				TestWebControlsUtility.HtmlParser(tArea.ToString())["id"].ShouldBeEqualTo(_item.ItemName.ToCamelCase());
 				tArea.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();
@@ -72,9 +72,9 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_TextAreaData_With_Width_initialized()
 			{
-				LabelData label = new LabelData("Id");
+				var label = new LabelData("Id");
 
-				TextAreaData tArea = _textAreaData.WithLabel(label);
+				var tArea = _textAreaData.WithLabel(label);
 				Assert.AreSame(_textAreaData, tArea);
 				tArea.ToString().Contains(label.ToString()).ShouldBeTrue();
 			}
@@ -88,7 +88,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const int rows = 10;
 
-				TextAreaData tArea = _textAreaData.Rows(rows);
+				var tArea = _textAreaData.Rows(rows);
 				Assert.AreSame(_textAreaData, tArea);
 				TestWebControlsUtility.HtmlParser(tArea.ToString())["rows"].ShouldBeEqualTo(rows.ToString());
 				tArea.ToString().Contains(rows.ToString()).ShouldBeTrue();
@@ -103,7 +103,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string width = "32px";
 
-				TextAreaData tArea = _textAreaData.Width(width);
+				var tArea = _textAreaData.Width(width);
 				Assert.AreSame(_textAreaData, tArea);
 				tArea.ToString().Contains(width).ShouldBeTrue();
 			}

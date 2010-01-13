@@ -9,7 +9,7 @@ namespace FluentWebControls
 	{
 		public static TextBoxData For<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId)
 		{
-			TextBoxData textBoxData = new TextBoxData(getValue(source))
+			var textBoxData = new TextBoxData(getValue(source))
 				.WithId(forId);
 			return textBoxData;
 		}
@@ -24,7 +24,7 @@ namespace FluentWebControls
 		public static TextBoxData For(Expression<Func<string>> forValueIdAndValidationMetadata)
 		{
 			var getvalue = forValueIdAndValidationMetadata.Compile();
-			TextBoxData textBoxData = new TextBoxData(getvalue())
+			var textBoxData = new TextBoxData(getvalue())
 				.WithId(forValueIdAndValidationMetadata)
 				.WithValidationFrom(forValueIdAndValidationMetadata);
 			return textBoxData;
@@ -34,7 +34,7 @@ namespace FluentWebControls
 		public static TextBoxData For<T>(Expression<Func<T>> forValueIdAndValidationMetadata) where T : struct
 		{
 			var getValue = forValueIdAndValidationMetadata.Compile();
-			TextBoxData textBoxData = new TextBoxData(getValue().ToString())
+			var textBoxData = new TextBoxData(getValue().ToString())
 				.WithId(forValueIdAndValidationMetadata)
 				.WithValidationFrom(forValueIdAndValidationMetadata);
 			return textBoxData;
@@ -45,8 +45,8 @@ namespace FluentWebControls
 		{
 			var getValue = forValueIdAndValidationMetadata.Compile();
 			var value = getValue();
-			var v = value == null ? "" : value.ToString();
-			TextBoxData textBoxData = new TextBoxData(v)
+			string v = value == null ? "" : value.ToString();
+			var textBoxData = new TextBoxData(v)
 				.WithId(forValueIdAndValidationMetadata)
 				.WithValidationFrom(forValueIdAndValidationMetadata);
 			return textBoxData;

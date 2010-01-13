@@ -1,10 +1,9 @@
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 using FluentWebControls.Interfaces;
 using FluentWebControls.Tools;
-
-using System.Linq;
 
 namespace FluentWebControls
 {

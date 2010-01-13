@@ -55,7 +55,7 @@ namespace FluentWebControls
 				}
 			}
 
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			if (Label != null)
 			{
 				Label.ForId = IdWithPrefix;
@@ -70,7 +70,7 @@ namespace FluentWebControls
 			}
 			if (Width != null)
 			{
-				var value = "width:" + Width;
+				string value = "width:" + Width;
 				sb.Append(value.CreateQuotedAttribute("style"));
 			}
 			sb.Append(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));

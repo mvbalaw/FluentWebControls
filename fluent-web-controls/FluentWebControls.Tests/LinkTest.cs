@@ -42,7 +42,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_html_code_representing_a_link()
 			{
-				LinkData linkData = Link.To("AdminTest", ".mvc", "");
+				var linkData = Link.To("AdminTest", ".mvc", "");
 				string expected = String.Format("<a href='{0}'></a>", "/AdminTest.mvc/");
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}
@@ -50,7 +50,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_html_code_representing_a_link_with_the_url()
 			{
-				LinkData linkData = Link.To("AdminTest", ".mvc", "Test");
+				var linkData = Link.To("AdminTest", ".mvc", "Test");
 				string expected = String.Format("<a href='{0}'></a>", "/AdminTest.mvc/Test");
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}
@@ -69,11 +69,14 @@ namespace FluentWebControls.Tests
 			}
 
 			[Test]
-			public void Should_return_html_code_representing_a_link_when_arguments_are_constants()
+			public void Should_return_html_code_representing_a_link_when_argument_values_are_properties_of_an_object()
 			{
-				const int id = 4;
-				const string name = "Name";
-				LinkData linkData = Link.To((TestController controller) => controller.Action(id, name));
+				var test = new Test
+					{
+						Id = 4,
+						Name = "Name"
+					};
+				var linkData = Link.To((TestController controller) => controller.Action(test.Id, test.Name));
 				string expected = String.Format("<a href='{0}'></a>", "/Test/Action/4/Name");
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}
@@ -81,22 +84,19 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_html_code_representing_a_link_when_argument_values_are_variables()
 			{
-				var id = 4;
-				var name = "Name";
-				LinkData linkData = Link.To((TestController controller) => controller.Action(id, name));
+				const int id = 4;
+				const string name = "Name";
+				var linkData = Link.To((TestController controller) => controller.Action(id, name));
 				string expected = String.Format("<a href='{0}'></a>", "/Test/Action/4/Name");
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}
 
 			[Test]
-			public void Should_return_html_code_representing_a_link_when_argument_values_are_properties_of_an_object()
+			public void Should_return_html_code_representing_a_link_when_arguments_are_constants()
 			{
-				Test test = new Test
-					{
-						Id = 4,
-						Name = "Name"
-					};
-				LinkData linkData = Link.To((TestController controller) => controller.Action(test.Id, test.Name));
+				const int id = 4;
+				const string name = "Name";
+				var linkData = Link.To((TestController controller) => controller.Action(id, name));
 				string expected = String.Format("<a href='{0}'></a>", "/Test/Action/4/Name");
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}

@@ -17,7 +17,7 @@ namespace FluentWebControls
 
 		public static ButtonData For<TController>(IButtonType buttonType, Expression<Func<TController, object>> controllerAndActionName) where TController : class
 		{
-			ButtonData buttonData = new ButtonData(buttonType, IoCUtility.GetInstance<IPathUtility>(), NameUtility.GetControllerName<TController>())
+			var buttonData = new ButtonData(buttonType, IoCUtility.GetInstance<IPathUtility>(), NameUtility.GetControllerName<TController>())
 				.WithAction(NameUtility.GetMethodName(controllerAndActionName));
 			if (buttonType == ButtonData.ButtonType.Link)
 			{

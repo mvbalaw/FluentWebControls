@@ -28,7 +28,7 @@ namespace FluentWebControls.Tests
 						new GridColumn(GridColumnType.Sortable, "Header", "Field", AlignAttribute.Left, false, true, ActionName, _rows)
 					};
 				var filters = new List<DropDownListData>();
-				GridData pagedGridData = new GridData(null, ControllerName, ".mvc", ActionName, gridColumns, gridColumns.Count, filters, _rows.Count);
+				var pagedGridData = new GridData(null, ControllerName, ".mvc", ActionName, gridColumns, gridColumns.Count, filters, _rows.Count);
 				pagedGridData.PagedListParameters.ShouldBeEqualTo(null);
 				pagedGridData.ControllerName.ShouldBeEqualTo(ControllerName);
 				pagedGridData.ActionName.ShouldBeEqualTo(ActionName);
@@ -40,9 +40,9 @@ namespace FluentWebControls.Tests
 		}
 	}
 
-	public class GridDataTest_of_Type_T
+	public class GridDataTestT
 	{
-		public abstract class GridDataTest_of_Type_T_base
+		public abstract class GridDataTestTBase
 		{
 			protected const string ActionName = "Action";
 			protected const string ControllerName = "Controller";
@@ -63,7 +63,7 @@ namespace FluentWebControls.Tests
 		}
 
 		[TestFixture]
-		public class When_asked_to_add_a_CommandColumn_to_GridData_of_Type_T : GridDataTest_of_Type_T_base
+		public class When_asked_to_add_a_CommandColumn_to_GridData_of_Type_T : GridDataTestTBase
 		{
 			private readonly CommandColumn<TestData.Item> _commandColumn = new CommandColumn<TestData.Item>(item => item.ItemId.ToString(), "Edit", ActionName);
 
@@ -85,7 +85,7 @@ namespace FluentWebControls.Tests
 		}
 
 		[TestFixture]
-		public class When_asked_to_add_a_SortableColumn_to_GridData_of_Type_T : GridDataTest_of_Type_T_base
+		public class When_asked_to_add_a_SortableColumn_to_GridData_of_Type_T : GridDataTestTBase
 		{
 			private readonly SortableColumn<TestData.Item> _sortableColumn = new SortableColumn<TestData.Item>(item => item.ItemName, "ItemName", "ColumnHeader");
 

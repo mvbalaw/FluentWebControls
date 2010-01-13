@@ -26,7 +26,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_HiddenData_With_Text_initialized()
 			{
 				const string text = "Text";
-				HiddenData hiddenData = _hiddenData.Text(text);
+				var hiddenData = _hiddenData.Text(text);
 				Assert.AreSame(_hiddenData, hiddenData);
 				TestWebControlsUtility.HtmlParser(_hiddenData.ToString())["value"].ShouldBeEqualTo(text);
 				hiddenData.ToString().Contains(text).ShouldBeTrue();

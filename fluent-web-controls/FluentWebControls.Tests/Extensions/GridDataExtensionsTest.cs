@@ -57,7 +57,7 @@ namespace FluentWebControls.Tests.Extensions
 						new KeyValuePair<string, string>("Name1", "Value2")
 					};
 
-				DropDownListData dropDownListData = new DropDownListData(kvpList)
+				var dropDownListData = new DropDownListData(kvpList)
 					{
 						SubmitOnChange = true
 					};

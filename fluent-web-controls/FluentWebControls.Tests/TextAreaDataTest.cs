@@ -52,7 +52,9 @@ namespace FluentWebControls.Tests
 		public class When_asked_to_create_a_textarea_for_a_property : TextAreaDataTestBase
 		{
 // ReSharper disable ConvertToConstant.Local
+// ReSharper disable InconsistentNaming
 			private string value = "value";
+// ReSharper restore InconsistentNaming
 // ReSharper restore ConvertToConstant.Local
 			protected override string HtmlText
 			{

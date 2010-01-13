@@ -31,9 +31,14 @@ namespace FluentWebControls
 		{
 		}
 
+		protected int LastPage
+		{
+			get { return (int)Math.Ceiling((decimal)Total / PagedListParameters.PageSize); }
+		}
+
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			sb.AppendFormat(Body,
 			                base.BuildFilters(),
 			                BuildHeaderColumns(),
@@ -89,11 +94,6 @@ namespace FluentWebControls
 			                Fluent.HiddenFor(PagedListParameters, x => x.SortField)
 				);
 			return sb.ToString();
-		}
-
-		protected int LastPage
-		{
-			get { return (int)Math.Ceiling((decimal)Total / PagedListParameters.PageSize); }
 		}
 	}
 }

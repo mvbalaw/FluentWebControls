@@ -15,16 +15,6 @@ namespace FluentWebControls.Tests.Utilities
 		[TestFixture]
 		public class When_asked_to_get_method_call_data
 		{
-			public class TestCalculator
-			{
-				private int total;
-				public int Add(int addend)
-				{
-					total += addend;
-					return total;
-				}
-			}
-
 			[Test]
 			public void Should_get_the_correct_class_name()
 			{
@@ -56,6 +46,16 @@ namespace FluentWebControls.Tests.Utilities
 				methodCallData.ParameterValues.Values.First().ShouldBeEqualTo(expected.ToString());
 			}
 
+			public class TestCalculator
+			{
+				private int _total;
+
+				public int Add(int addend)
+				{
+					_total += addend;
+					return _total;
+				}
+			}
 		}
 
 		[TestFixture]
@@ -69,17 +69,17 @@ namespace FluentWebControls.Tests.Utilities
 			}
 
 			[Test]
-			public void Should_be_able_to_get_the_value_if_it_is_a_static_method()
+			public void Should_be_able_to_get_the_value_if_it_is_a_property()
 			{
-				Expression<Func<int>> expr = () => TestClass.GetId();
+				var testClass = new TestClass();
+				Expression<Func<int>> expr = () => testClass.MyId;
 				ReflectionUtility.GetValueAsString(expr.Body).ShouldBeEqualTo(TestClass.Id.ToString());
 			}
 
 			[Test]
-			public void Should_be_able_to_get_the_value_if_it_is_a_property()
+			public void Should_be_able_to_get_the_value_if_it_is_a_static_method()
 			{
-				TestClass testClass = new TestClass();
-				Expression<Func<int>> expr = () => testClass.MyId;
+				Expression<Func<int>> expr = () => TestClass.GetId();
 				ReflectionUtility.GetValueAsString(expr.Body).ShouldBeEqualTo(TestClass.Id.ToString());
 			}
 
@@ -87,12 +87,15 @@ namespace FluentWebControls.Tests.Utilities
 			{
 				public const int Id = 1234;
 
+				public int MyId
+				{
+					get { return Id; }
+				}
+
 				public static int GetId()
 				{
 					return Id;
 				}
-
-				public int MyId { get{ return Id; } }
 			}
 		}
 	}

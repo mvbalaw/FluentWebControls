@@ -13,9 +13,11 @@ namespace FluentWebControls.Tests
 			public void Should_return_html_code_representing_a_label_with_its_value_embedded_in_it()
 			{
 // ReSharper disable ConvertToConstant
+// ReSharper disable ConvertToConstant.Local
 				int value = 10;
+// ReSharper restore ConvertToConstant.Local
 // ReSharper restore ConvertToConstant
-				LabelData labelData = Label.For(() => value);
+				var labelData = Label.For(() => value);
 				labelData.ToString().ShouldBeEqualTo("<label for='value' style='float:left;text-align:right'></label>");
 			}
 		}
@@ -27,7 +29,7 @@ namespace FluentWebControls.Tests
 			public void Should_return_html_code_representing_a_label_with_its_value_embedded_in_it()
 			{
 				int? value = 10;
-				LabelData labelData = Label.For(() => value);
+				var labelData = Label.For(() => value);
 				labelData.ToString().ShouldBeEqualTo("<label for='value' style='float:left;text-align:right'></label>");
 			}
 		}
@@ -38,8 +40,10 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_html_code_representing_a_label_with_its_value_embedded_in_it()
 			{
+// ReSharper disable ConvertToConstant.Local
 				string value = "Bar";
-				LabelData labelData = Label.For(() => value);
+// ReSharper restore ConvertToConstant.Local
+				var labelData = Label.For(() => value);
 				labelData.ToString().ShouldBeEqualTo("<label for='value' style='float:left;text-align:right'></label>");
 			}
 		}

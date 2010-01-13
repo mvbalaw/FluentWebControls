@@ -25,9 +25,9 @@ namespace FluentWebControls
 		public static CommandColumn<T> For<T, TController>(Func<T, string> getValue, Expression<Func<TController, object>> targetControllerAction) where T : class
 		{
 			return new CommandColumn<T>(getValue, "", NameUtility.GetMethodName(targetControllerAction));
-		}	
-		
-		public static CommandColumn<T> For<T, TController>(Func<T, string> getValue, Expression<Func<T,object>> forQueryStringId, Expression<Func<TController, object>> targetControllerAction) where T : class
+		}
+
+		public static CommandColumn<T> For<T, TController>(Func<T, string> getValue, Expression<Func<T, object>> forQueryStringId, Expression<Func<TController, object>> targetControllerAction) where T : class
 		{
 			return new CommandColumn<T>(getValue, NameUtility.GetPropertyName(forQueryStringId).ToCamelCase(), NameUtility.GetMethodName(targetControllerAction));
 		}

@@ -13,10 +13,10 @@ namespace FluentWebControls.Tests.Extensions
 {
 	public class PagedListExtensionsTest
 	{
-		public class PagedListExtensionsTestBase<PagedListInterface>
-			where PagedListInterface : class
+		public class PagedListExtensionsTestBase<TPagedListInterface>
+			where TPagedListInterface : class
 		{
-			protected PagedListInterface _pagedList;
+			protected TPagedListInterface _pagedList;
 
 			[TearDown]
 			public void AfterEachTest()
@@ -27,7 +27,7 @@ namespace FluentWebControls.Tests.Extensions
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				_pagedList = MockRepository.GenerateMock<PagedListInterface>();
+				_pagedList = MockRepository.GenerateMock<TPagedListInterface>();
 			}
 		}
 
@@ -39,7 +39,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				_pagedList.Expect(x => x.SortDirection = ListSortDirection.Ascending);
 
-				IPagedList result = _pagedList.Ascending();
+				var result = _pagedList.Ascending();
 				result.ShouldNotBeNull();
 			}
 		}
@@ -52,7 +52,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				_pagedList.Expect(x => x.SortDirection = ListSortDirection.Descending);
 
-				IPagedList result = _pagedList.Descending();
+				var result = _pagedList.Descending();
 				result.ShouldNotBeNull();
 			}
 		}
@@ -67,7 +67,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				_pagedList.Expect(x => x.SortProperty = sortProperty);
 
-				IPagedList result = _pagedList.OrderBy(sortProperty);
+				var result = _pagedList.OrderBy(sortProperty);
 				result.ShouldNotBeNull();
 			}
 		}
@@ -83,7 +83,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				_pagedList.Expect(x => x.SortDirection = ListSortDirection.Descending);
 
-				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				var result = _pagedList.OrderBy(sortProperty, sortDirection);
 				result.ShouldNotBeNull();
 			}
 
@@ -95,7 +95,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				_pagedList.Expect(x => x.SortProperty = sortProperty);
 
-				IPagedList result = _pagedList.OrderBy(sortProperty, sortDirection);
+				var result = _pagedList.OrderBy(sortProperty, sortDirection);
 				result.ShouldNotBeNull();
 			}
 		}
@@ -222,7 +222,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				_pagedList.Expect(x => x.PageNumber = pageNumber);
 
-				IPagedList result = _pagedList.PageNumber(pageNumber);
+				var result = _pagedList.PageNumber(pageNumber);
 				result.ShouldNotBeNull();
 			}
 		}
@@ -238,7 +238,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				_pagedList.Expect(x => x.PageNumber = pageNumber);
 
-				IPagedList result = _pagedList.Page(pageNumber, pageSize);
+				var result = _pagedList.Page(pageNumber, pageSize);
 				result.ShouldNotBeNull();
 			}
 
@@ -250,7 +250,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				_pagedList.Expect(x => x.PageSize = pageSize);
 
-				IPagedList result = _pagedList.Page(pageNumber, pageSize);
+				var result = _pagedList.Page(pageNumber, pageSize);
 				result.ShouldNotBeNull();
 			}
 		}
@@ -265,7 +265,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				_pagedList.Expect(x => x.PageSize = pageSize);
 
-				IPagedList result = _pagedList.PageSize(pageSize);
+				var result = _pagedList.PageSize(pageSize);
 				result.ShouldNotBeNull();
 			}
 		}

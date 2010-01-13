@@ -28,7 +28,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CheckBoxData_With_Id_initialized()
 			{
-				CheckBoxData checkBoxData = _checkBoxData.WithId("_isChecked");
+				var checkBoxData = _checkBoxData.WithId("_isChecked");
 				Assert.AreSame(_checkBoxData, checkBoxData);
 				string propertyName = NameUtility.GetPropertyName(() => _isChecked);
 				TestWebControlsUtility.HtmlParser(_checkBoxData.ToString())["id"].ShouldBeEqualTo(propertyName.ToCamelCase());
@@ -42,7 +42,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CheckBoxData_With_IsChecked_initialized()
 			{
-				CheckBoxData checkBoxData = _checkBoxData.IsChecked(_isChecked);
+				var checkBoxData = _checkBoxData.IsChecked(_isChecked);
 				Assert.AreSame(_checkBoxData, checkBoxData);
 				const string checkedAttribute = "checked";
 				TestWebControlsUtility.HtmlParser(_checkBoxData.ToString())[checkedAttribute].ShouldBeEqualTo("checked");
@@ -56,13 +56,13 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CheckBoxData_With_Label_initialized()
 			{
-				LabelData label = new LabelData("Id");
-				LabelData blankLabel = new LabelData
+				var label = new LabelData("Id");
+				var blankLabel = new LabelData
 					{
 						Text = "&nbsp;"
 					};
 
-				CheckBoxData checkBoxData = _checkBoxData.WithLabel(label);
+				var checkBoxData = _checkBoxData.WithLabel(label);
 				Assert.AreSame(_checkBoxData, checkBoxData);
 				checkBoxData.ToString().Contains(label.ToString()).ShouldBeTrue();
 				checkBoxData.ToString().Contains(blankLabel.ToString()).ShouldBeTrue();
@@ -75,13 +75,13 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CheckBoxData_With_Label_initialized()
 			{
-				LabelData label = new LabelData("Id");
-				LabelData blankLabel = new LabelData
+				var label = new LabelData("Id");
+				var blankLabel = new LabelData
 					{
 						Text = "&nbsp;"
 					};
 
-				CheckBoxData checkBoxData = _checkBoxData.WithLabelAlignedLeft(label);
+				var checkBoxData = _checkBoxData.WithLabelAlignedLeft(label);
 				Assert.AreSame(_checkBoxData, checkBoxData);
 				checkBoxData.ToString().Contains(label.ToString()).ShouldBeTrue();
 				checkBoxData.ToString().Contains(blankLabel.ToString()).ShouldBeFalse();

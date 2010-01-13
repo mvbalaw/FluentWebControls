@@ -36,11 +36,6 @@ namespace FluentWebControls.Tests
 			}
 
 			[Test]
-			public void Should_return_HTML_code_representing_a_textbox_with_all_the_validations_embedded_in_it()
-			{
-			}
-
-			[Test]
 			public void Should_return_HTML_code_representing_a_textbox_with_its_value_embedded_in_it()
 			{
 				AssertAreEqual(HtmlText, GetTextBoxData(PropertyMetaData));
@@ -50,8 +45,9 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_textbox_for_a_property_of_type_int : TextBoxDataTestBase
 		{
-// ReSharper disable ConvertToConstant
+// ReSharper disable InconsistentNaming
 			private readonly int value = 10;
+// ReSharper restore InconsistentNaming
 			protected override string HtmlText
 			{
 				get { return "<input type='text' id='value' name='value' class='textbox digits' value='10'/>"; }
@@ -87,7 +83,9 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_textbox_for_a_property_of_type_nullable_date_time : TextBoxDataTestBase
 		{
+// ReSharper disable InconsistentNaming
 			private DateTime? value = Convert.ToDateTime("12/1/2008");
+// ReSharper restore InconsistentNaming
 			protected override string HtmlText
 			{
 				get { return "<input type='text' id='value' name='value' class='datebox date' value='12/1/2008 12:00:00 AM'/>"; }
@@ -123,7 +121,9 @@ namespace FluentWebControls.Tests
 		public class When_asked_to_create_a_textbox_for_a_property_of_type_nullable_int : TextBoxDataTestBase
 		{
 // ReSharper disable RedundantDefaultFieldInitializer
+// ReSharper disable InconsistentNaming
 			private int? value = null;
+// ReSharper restore InconsistentNaming
 			protected override string HtmlText
 			{
 				get { return "<input type='text' id='value' name='value' class='textbox digits' value=''/>"; }
@@ -161,7 +161,9 @@ namespace FluentWebControls.Tests
 		{
 // ReSharper disable ConvertToConstant
 // ReSharper disable ConvertToConstant.Local
+// ReSharper disable InconsistentNaming
 			private string value = "value";
+// ReSharper restore InconsistentNaming
 // ReSharper restore ConvertToConstant.Local
 			protected override string HtmlText
 			{
@@ -205,7 +207,7 @@ namespace FluentWebControls.Tests
 					{
 						ReadOnly = true
 					};
-				var result = textBox.ToString();
+				string result = textBox.ToString();
 				result.ShouldBeEqualTo("<input type='text' class='textbox' value='World' READONLY/>");
 			}
 
@@ -216,7 +218,7 @@ namespace FluentWebControls.Tests
 					{
 						ReadOnly = false
 					};
-				var result = textBox.ToString();
+				string result = textBox.ToString();
 				result.ShouldBeEqualTo("<input type='text' class='textbox' value='World'/>");
 			}
 		}

@@ -10,6 +10,17 @@ namespace FluentWebControls.Tools
 {
 	public static class NameUtility
 	{
+		public static List<string> GetArguments<T, TReturn>(Expression<Func<T, TReturn>> expression)
+		{
+			var methodCallExpression = expression.Body as MethodCallExpression;
+			if (methodCallExpression == null)
+			{
+				throw new ArgumentException("expression must be in the form: (Foo instance) => instance.Method");
+			}
+			var arguments = methodCallExpression.Arguments;
+			return arguments.Select(p => Expression.Lambda(p).Compile().DynamicInvoke().ToString()).ToList();
+		}
+
 		public static string GetCamelCaseMultiLevelPropertyName(params string[] propertyNames)
 		{
 			return GetMultiLevelPropertyName(propertyNames).ToCamelCase();
@@ -20,10 +31,26 @@ namespace FluentWebControls.Tools
 			return GetPropertyName(expression).ToCamelCase();
 		}
 
+		public static string GetControllerName<TControllerType>()
+		{
+			string name = typeof(TControllerType).Name;
+			return GetControllerName(name);
+		}
+
+		public static string GetControllerName(string name)
+		{
+			const string controller = "Controller";
+			if (name.EndsWith(controller))
+			{
+				name = name.Substring(0, name.Length - controller.Length);
+			}
+			return name;
+		}
+
 		[DebuggerStepThrough]
 		public static string GetFinalPropertyName<T>(Expression<Func<T>> expression)
 		{
-			MemberExpression memberExpression = expression.Body as MemberExpression;
+			var memberExpression = expression.Body as MemberExpression;
 			if (memberExpression == null)
 			{
 				throw new ArgumentException("expression must be in the form: () => instance.Property");
@@ -58,21 +85,10 @@ namespace FluentWebControls.Tools
 			return names;
 		}
 
-		public static List<string> GetArguments<T, TReturn>(Expression<Func<T, TReturn>> expression)
-		{
-			var methodCallExpression = expression.Body as MethodCallExpression;
-			if (methodCallExpression == null)
-			{
-				throw new ArgumentException("expression must be in the form: (Foo instance) => instance.Method");
-			}
-			var arguments = methodCallExpression.Arguments;
-            return arguments.Select(p => Expression.Lambda(p).Compile().DynamicInvoke().ToString()).ToList();
-		}
-
 		//[DebuggerStepThrough]
 		public static string GetPropertyName<T, TReturn>(Expression<Func<T, TReturn>> expression)
 		{
-			MemberExpression memberExpression = expression.Body as MemberExpression;
+			var memberExpression = expression.Body as MemberExpression;
 			if (memberExpression == null)
 			{
 				var unaryExpression = expression.Body as UnaryExpression;
@@ -96,29 +112,13 @@ namespace FluentWebControls.Tools
 		[DebuggerStepThrough]
 		public static string GetPropertyName<T>(Expression<Func<T>> expression)
 		{
-			MemberExpression memberExpression = expression.Body as MemberExpression;
+			var memberExpression = expression.Body as MemberExpression;
 			if (memberExpression == null)
 			{
 				throw new ArgumentException("expression must be in the form: () => instance.Property");
 			}
 			var names = GetNames(memberExpression);
 			string name = names.Count > 1 ? names.Skip(1).Join(".") : names.Join(".");
-			return name;
-		}
-
-		public static string GetControllerName<TControllerType>()
-		{
-			string name = typeof(TControllerType).Name;
-			return GetControllerName(name);
-		}
-
-		public static string GetControllerName(string name)
-		{
-			const string controller = "Controller";
-			if (name.EndsWith(controller))
-			{
-				name = name.Substring(0, name.Length - controller.Length);
-			}
 			return name;
 		}
 	}

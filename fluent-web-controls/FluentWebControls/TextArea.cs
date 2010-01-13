@@ -11,7 +11,7 @@ namespace FluentWebControls
 		public static TextAreaData For<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId)
 		{
 			string value = getValue(source);
-			TextAreaData textAreaData = new TextAreaData(value)
+			var textAreaData = new TextAreaData(value)
 				.WithId(forId);
 			return textAreaData;
 		}
@@ -21,7 +21,7 @@ namespace FluentWebControls
 		{
 			var getValue = getValueIdAndValidationMetadata.Compile();
 			string value = getValue();
-			TextAreaData textAreaData = new TextAreaData(value)
+			var textAreaData = new TextAreaData(value)
 				.WithId(NameUtility.GetPropertyName(getValueIdAndValidationMetadata))
 				.WithValidationFrom(getValueIdAndValidationMetadata);
 			return textAreaData;
@@ -32,7 +32,7 @@ namespace FluentWebControls
 		{
 			var getValue = getValueIdAndValidationMetadata.Compile();
 			string value = getValue(source);
-			TextAreaData textAreaData = new TextAreaData(value)
+			var textAreaData = new TextAreaData(value)
 				.WithId(NameUtility.GetPropertyName(getValueIdAndValidationMetadata))
 				.WithValidationFrom(getValueIdAndValidationMetadata);
 			return textAreaData;

@@ -14,7 +14,7 @@ namespace FluentWebControls
 		public static ComboSelectData For<TListItemType, TContainerType, TPropertyType>(IEnumerable<TListItemType> itemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
 		{
 			var options = itemSource.Select(item => new KeyValuePair<string, string>(getListItemDisplayText(item), getListItemValue(item))).ToList();
-			ComboSelectData comboSelectData = new ComboSelectData(options)
+			var comboSelectData = new ComboSelectData(options)
 				.WithId(forId);
 			return comboSelectData;
 		}
@@ -22,7 +22,7 @@ namespace FluentWebControls
 		public static ComboSelectData For<TListItemType, TPropertyType>(IEnumerable<TListItemType> itemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TPropertyType>> forId)
 		{
 			var options = itemSource.Select(item => new KeyValuePair<string, string>(getListItemDisplayText(item), getListItemValue(item))).ToList();
-			ComboSelectData comboSelectData = new ComboSelectData(options)
+			var comboSelectData = new ComboSelectData(options)
 				.WithId(forId);
 			return comboSelectData;
 		}
@@ -42,8 +42,8 @@ namespace FluentWebControls
 		[Obsolete("use .For(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithIdPrefix(x=>x.Prefix).WithValidationFrom(x=>x.StorageId)")]
 		public static ComboSelectData For<T, TParent>(Expression<Func<TParent>> propertyParentForMetaData, Expression<Func<TParent, int>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, int> getValue)
 		{
-			IPropertyMetaData childMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyChildForMetaData);
-			IPropertyMetaData parentMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyParentForMetaData);
+			var childMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyChildForMetaData);
+			var parentMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyParentForMetaData);
 			childMetaData.Combine(parentMetaData);
 			return For(NameUtility.GetCamelCaseMultiLevelPropertyName(parentMetaData.Name, childMetaData.Name), items, getKey, getValue, childMetaData);
 		}
@@ -52,7 +52,7 @@ namespace FluentWebControls
 		{
 			var options = new List<KeyValuePair<string, string>>();
 			items.Select(item => new KeyValuePair<string, string>(getKey(item), getValue(item))).ForEach(options.Add);
-			ComboSelectData comboSelectData = new ComboSelectData(options)
+			var comboSelectData = new ComboSelectData(options)
 				.WithId(name)
 				.WithValidationFrom(metaData);
 			return comboSelectData;
@@ -62,7 +62,7 @@ namespace FluentWebControls
 		{
 			var options = new List<KeyValuePair<string, string>>();
 			items.Select(item => new KeyValuePair<string, string>(getKey(item), getValue(item).ToString())).ForEach(options.Add);
-			ComboSelectData comboSelectData = new ComboSelectData(options)
+			var comboSelectData = new ComboSelectData(options)
 				.WithId(name)
 				.WithValidationFrom(metaData);
 			return comboSelectData;

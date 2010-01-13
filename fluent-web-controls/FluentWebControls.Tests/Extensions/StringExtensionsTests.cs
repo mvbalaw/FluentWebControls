@@ -20,7 +20,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_remove_characters_leading_to_Cross_Site_Scripting()
 			{
 				const string teststring = "<" + TestString + ">&";
-				var result = teststring.EscapeForHtml();
+				string result = teststring.EscapeForHtml();
 				result.ShouldBeEqualTo(Lesser + TestString + Greater + Ampersand);
 			}
 		}
@@ -36,7 +36,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_remove_characters_leading_to_Cross_Site_Scripting()
 			{
 				const string value = TestString + "\"   ";
-				var result = value.EscapeForUrl();
+				string result = value.EscapeForUrl();
 				result.ShouldBeEqualTo(TestString + Quote + Space + Space + Space);
 			}
 		}

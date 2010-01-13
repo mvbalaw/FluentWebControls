@@ -16,18 +16,9 @@ namespace FluentWebControls.Interfaces
 			_total = null;
 		}
 
-		public int? PageNumber
-		{
-			set; private get;
-		}
-		public int? PageSize
-		{
-			set; private get;
-		}
-		public ListSortDirection SortDirection
-		{
-			set; private get;
-		}
+		public int? PageNumber { set; private get; }
+		public int? PageSize { set; private get; }
+		public ListSortDirection SortDirection { set; private get; }
 		public string SortProperty { set; private get; }
 
 		public IEnumerable<TReturn> ToList()

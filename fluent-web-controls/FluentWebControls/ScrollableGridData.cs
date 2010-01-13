@@ -91,8 +91,8 @@ namespace FluentWebControls
 
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
-			var tipVisibility = GridColumns.Where(c => c.Type != GridColumnType.Command && c.IsClientSideSortable).Count() > 1 ? "visible" : "hidden";
+			var sb = new StringBuilder();
+			string tipVisibility = GridColumns.Where(c => c.Type != GridColumnType.Command && c.IsClientSideSortable).Count() > 1 ? "visible" : "hidden";
 			sb.AppendFormat(Body, BuildFilters(), GetDefaultSortColumnIndex(), BuildHeaderColumns(), BuildRows(), tipVisibility);
 			return sb.ToString();
 		}

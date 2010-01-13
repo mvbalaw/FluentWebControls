@@ -36,7 +36,7 @@ namespace FluentWebControls
 		public static CheckBoxData For(Expression<Func<bool>> forCheckedAndId)
 		{
 			var getValue = forCheckedAndId.Compile();
-			CheckBoxData checkBoxData = new CheckBoxData(getValue())
+			var checkBoxData = new CheckBoxData(getValue())
 				.WithId(NameUtility.GetPropertyName(forCheckedAndId));
 			return checkBoxData;
 		}

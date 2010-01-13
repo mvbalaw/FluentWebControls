@@ -31,7 +31,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
 			{
-				CheckBoxData checkBoxData = GetCheckBoxData();
+				var checkBoxData = GetCheckBoxData();
 				SetLabel(checkBoxData);
 				string actual = checkBoxData.ToString();
 				actual.ShouldBeEqualTo(HtmlText, actual);
@@ -42,7 +42,9 @@ namespace FluentWebControls.Tests
 		public class When_asked_to_create_a_checkbox_that_is_checked : CheckBoxDataTestBase
 		{
 // ReSharper disable ConvertToConstant.Local
+// ReSharper disable InconsistentNaming
 			private bool value = true;
+// ReSharper restore InconsistentNaming
 // ReSharper restore ConvertToConstant.Local
 
 			protected override bool Checked
@@ -68,7 +70,9 @@ namespace FluentWebControls.Tests
 		{
 // ReSharper disable RedundantDefaultFieldInitializer
 // ReSharper disable ConvertToConstant.Local
+// ReSharper disable InconsistentNaming
 			private bool value = false;
+// ReSharper restore InconsistentNaming
 // ReSharper restore ConvertToConstant.Local
 // ReSharper restore RedundantDefaultFieldInitializer
 
@@ -95,7 +99,9 @@ namespace FluentWebControls.Tests
 		{
 // ReSharper disable ConvertToConstant.Local
 // ReSharper disable RedundantDefaultFieldInitializer
+// ReSharper disable InconsistentNaming
 			private bool value = false;
+// ReSharper restore InconsistentNaming
 // ReSharper restore RedundantDefaultFieldInitializer
 // ReSharper restore ConvertToConstant.Local
 
@@ -118,7 +124,7 @@ namespace FluentWebControls.Tests
 
 			protected override void SetLabel(CheckBoxData checkBoxData)
 			{
-				LabelData label = new LabelData
+				var label = new LabelData
 					{
 						Text = "Label"
 					};
@@ -132,7 +138,9 @@ namespace FluentWebControls.Tests
 		{
 // ReSharper disable RedundantDefaultFieldInitializer
 // ReSharper disable ConvertToConstant.Local
+// ReSharper disable InconsistentNaming
 			private bool value = false;
+// ReSharper restore InconsistentNaming
 // ReSharper restore ConvertToConstant.Local
 // ReSharper restore RedundantDefaultFieldInitializer
 
@@ -155,7 +163,7 @@ namespace FluentWebControls.Tests
 
 			protected override void SetLabel(CheckBoxData checkBoxData)
 			{
-				LabelData label = new LabelData
+				var label = new LabelData
 					{
 						Text = "Label:"
 					};

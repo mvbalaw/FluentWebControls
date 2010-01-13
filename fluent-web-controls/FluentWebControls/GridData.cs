@@ -103,7 +103,7 @@ namespace FluentWebControls
 
 		protected string BuildFilters()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			if (_filters.Any())
 			{
 				sb.Append("<table width='700px'><tr>");
@@ -120,7 +120,7 @@ namespace FluentWebControls
 
 		protected string BuildHeaderColumns()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			int columnNumber = 0;
 			foreach (var column in GridColumns)
 			{
@@ -180,9 +180,9 @@ namespace FluentWebControls
 
 		protected string BuildRows()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 
-			var count = _items.Count();
+			int count = _items.Count();
 			foreach (int rowId in Enumerable.Range(0, count))
 			{
 				BuildRow(rowId, sb);

@@ -27,7 +27,7 @@ namespace FluentWebControls.Extensions
 		[NotNull]
 		public static string Join<T>([CanBeNull] this IEnumerable<T> items, [CanBeNull] string delimiter)
 		{
-			StringBuilder result = new StringBuilder();
+			var result = new StringBuilder();
 			if (items != null && items.Any())
 			{
 				delimiter = delimiter ?? "";

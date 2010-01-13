@@ -32,7 +32,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string cssClass = "textBox";
 
-				TextBoxData tBox = _textBoxData.CssClass(cssClass);
+				var tBox = _textBoxData.CssClass(cssClass);
 				Assert.AreSame(_textBoxData, tBox);
 				tBox.ToString().Contains(cssClass).ShouldBeTrue();
 			}
@@ -44,7 +44,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_TextBoxData_With_Id_initialized()
 			{
-				TextBoxData tBox = _textBoxData.WithId(() => _item.ItemName);
+				var tBox = _textBoxData.WithId(() => _item.ItemName);
 				Assert.AreSame(_textBoxData, tBox);
 				TestWebControlsUtility.HtmlParser(tBox.ToString())["id"].ShouldBeEqualTo(_item.ItemName.ToCamelCase());
 				tBox.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();
@@ -58,7 +58,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_TextBoxData_With_Id_initialized()
 			{
 				const string expectedId = "Bar";
-				TextBoxData tBox = _textBoxData.WithId(expectedId);
+				var tBox = _textBoxData.WithId(expectedId);
 				Assert.AreSame(_textBoxData, tBox);
 				TestWebControlsUtility.HtmlParser(tBox.ToString())["id"].ShouldBeEqualTo(expectedId.ToCamelCase());
 				tBox.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();
@@ -71,9 +71,9 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_TextBoxData_With_Width_initialized()
 			{
-				LabelData label = new LabelData("Id");
+				var label = new LabelData("Id");
 
-				TextBoxData tBox = _textBoxData.WithLabel(label);
+				var tBox = _textBoxData.WithLabel(label);
 				Assert.AreSame(_textBoxData, tBox);
 				tBox.ToString().Contains(label.ToString()).ShouldBeTrue();
 			}
@@ -87,7 +87,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const int maxValue = 10;
 
-				TextBoxData tBox = _textBoxData.MaxValue(maxValue);
+				var tBox = _textBoxData.MaxValue(maxValue);
 				Assert.AreSame(_textBoxData, tBox);
 				TestWebControlsUtility.HtmlParser(tBox.ToString())[ValidatableWebControlBase.JQueryFieldValidationType.MaxValue.Text].ShouldBeEqualTo(_propertyMetaData.MaxValue.ToString());
 				tBox.ToString().Contains(maxValue.ToString()).ShouldBeTrue();
@@ -102,7 +102,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const int minValue = 1;
 
-				TextBoxData tBox = _textBoxData.MinValue(minValue);
+				var tBox = _textBoxData.MinValue(minValue);
 				Assert.AreSame(_textBoxData, tBox);
 				TestWebControlsUtility.HtmlParser(tBox.ToString())[ValidatableWebControlBase.JQueryFieldValidationType.MinValue.Text].ShouldBeEqualTo(minValue.ToString());
 				tBox.ToString().Contains(minValue.ToString()).ShouldBeTrue();
@@ -117,7 +117,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string width = "32px";
 
-				TextBoxData tBox = _textBoxData.Width(width);
+				var tBox = _textBoxData.Width(width);
 				Assert.AreSame(_textBoxData, tBox);
 				tBox.ToString().Contains(width).ShouldBeTrue();
 			}

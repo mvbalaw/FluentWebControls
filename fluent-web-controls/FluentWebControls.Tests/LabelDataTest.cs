@@ -62,7 +62,11 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_label_for_a_string : LabelDataTestBase
 		{
+// ReSharper disable ConvertToConstant.Local
+// ReSharper disable InconsistentNaming
 			private string value = "value";
+// ReSharper restore InconsistentNaming
+// ReSharper restore ConvertToConstant.Local
 
 			protected override string ForId
 			{

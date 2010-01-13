@@ -26,7 +26,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_LabelData_With_Text_initialized()
 			{
 				const string labelText = "Text";
-				LabelData labelData = _labelData.WithText(labelText);
+				var labelData = _labelData.WithText(labelText);
 				Assert.AreSame(_labelData, labelData);
 				labelData.ToString().Contains(labelText).ShouldBeTrue();
 			}
@@ -40,7 +40,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string width = "32px";
 
-				LabelData labelData = _labelData.Width(width);
+				var labelData = _labelData.Width(width);
 				Assert.AreSame(_labelData, labelData);
 				labelData.ToString().Contains(width).ShouldBeTrue();
 			}

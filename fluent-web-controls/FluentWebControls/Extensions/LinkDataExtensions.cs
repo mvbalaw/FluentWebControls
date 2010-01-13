@@ -8,12 +8,6 @@ namespace FluentWebControls.Extensions
 {
 	public static class LinkDataExtensions
 	{
-		public static LinkData WithCssClass(this LinkData linkData, string cssClass)
-		{
-			linkData.CssClass = cssClass;
-			return linkData;
-		}
-
 		public static LinkData DisabledIf(this LinkData linkData, bool disabled)
 		{
 			linkData.Disabled = disabled;
@@ -23,6 +17,12 @@ namespace FluentWebControls.Extensions
 		public static LinkData Id(this LinkData linkData, string id)
 		{
 			linkData.Id = id;
+			return linkData;
+		}
+
+		public static LinkData WithCssClass(this LinkData linkData, string cssClass)
+		{
+			linkData.CssClass = cssClass;
 			return linkData;
 		}
 
@@ -41,18 +41,6 @@ namespace FluentWebControls.Extensions
 		public static LinkData WithData(this LinkData linkData, string fieldName, string value)
 		{
 			linkData.AddQueryStringData(fieldName, value);
-			return linkData;
-		}
-
-		public static LinkData WithUrlParameters(this LinkData linkData, string urlParameter)
-		{
-			linkData.AddUrlParameters(urlParameter);
-			return linkData;
-		}
-
-		public static LinkData WithUrlParameters(this LinkData linkData, List<string> urlParameters)
-		{
-			linkData.AddUrlParameters(urlParameters);
 			return linkData;
 		}
 
@@ -117,6 +105,18 @@ namespace FluentWebControls.Extensions
 		public static LinkData WithRel(this LinkData linkData, string rel)
 		{
 			linkData.Rel = rel;
+			return linkData;
+		}
+
+		public static LinkData WithUrlParameters(this LinkData linkData, string urlParameter)
+		{
+			linkData.AddUrlParameters(urlParameter);
+			return linkData;
+		}
+
+		public static LinkData WithUrlParameters(this LinkData linkData, List<string> urlParameters)
+		{
+			linkData.AddUrlParameters(urlParameters);
 			return linkData;
 		}
 	}

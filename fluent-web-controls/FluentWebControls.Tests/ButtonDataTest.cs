@@ -31,7 +31,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_button()
 			{
-				var controllerName = ControllerName();
+				string controllerName = ControllerName();
 
 				IPathUtility pathUtility = new TestPathUtility();
 				_buttonData = controllerName == null ? new ButtonData(ButtonType, pathUtility) : new ButtonData(ButtonType, pathUtility, controllerName)

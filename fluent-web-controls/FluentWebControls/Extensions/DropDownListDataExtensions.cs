@@ -14,6 +14,24 @@ namespace FluentWebControls.Extensions
 			return dropDownListData;
 		}
 
+		public static DropDownListData Exclude(this DropDownListData dropDownListData, Expression<Func<string>> getValue)
+		{
+			dropDownListData.Remove(getValue.Compile()());
+			return dropDownListData;
+		}
+
+		public static DropDownListData Exclude<T>(this DropDownListData dropDownListData, Func<T> nullableParent, Func<T, string> getValue) where T : class
+		{
+			var parentValue = nullableParent();
+			string value = null;
+			if (parentValue != null)
+			{
+				value = getValue(parentValue);
+			}
+			dropDownListData.Remove(value);
+			return dropDownListData;
+		}
+
 		[Obsolete("use .WithId(xx)")]
 		public static DropDownListData Id(this DropDownListData dropDownListData, string id)
 		{
@@ -33,13 +51,6 @@ namespace FluentWebControls.Extensions
 			return dropDownListData;
 		}
 
-		public static DropDownListData WithSlaveDdl<TFuncInput, TFuncResult, TControllerType>(this DropDownListData dropDownListData, Expression<Func<TFuncInput, TFuncResult>> forSlaveId, Expression<Func<TControllerType, object>> targetControllerJsonActionToGetSlaveData) where TControllerType : class
-		{
-			dropDownListData.SlaveId = NameUtility.GetPropertyName(forSlaveId);
-			dropDownListData.SlaveDataSource = ReflectionUtility.GetMethodCallData(targetControllerJsonActionToGetSlaveData);
-			return dropDownListData;
-		}
-
 		public static DropDownListData WithDefault(this DropDownListData dropDownListData, string text, string value)
 		{
 			dropDownListData.Default = new KeyValuePair<string, string>(text, value);
@@ -54,7 +65,7 @@ namespace FluentWebControls.Extensions
 
 		public static DropDownListData WithSelectedValue<T>(this DropDownListData dropDownListData, Func<T> nullableParent, Func<T, string> getValue) where T : class
 		{
-			T parentValue = nullableParent();
+			var parentValue = nullableParent();
 			string value = null;
 			if (parentValue != null)
 			{
@@ -65,7 +76,7 @@ namespace FluentWebControls.Extensions
 
 		public static DropDownListData WithSelectedValue<T>(this DropDownListData dropDownListData, Func<T> nullableParent, Func<T, int> getValue) where T : class
 		{
-			T parentValue = nullableParent();
+			var parentValue = nullableParent();
 			string value = null;
 			if (parentValue != null)
 			{
@@ -92,21 +103,10 @@ namespace FluentWebControls.Extensions
 			return dropDownListData;
 		}
 
-		public static DropDownListData Exclude(this DropDownListData dropDownListData, Expression<Func<string>> getValue)
+		public static DropDownListData WithSlaveDdl<TFuncInput, TFuncResult, TControllerType>(this DropDownListData dropDownListData, Expression<Func<TFuncInput, TFuncResult>> forSlaveId, Expression<Func<TControllerType, object>> targetControllerJsonActionToGetSlaveData) where TControllerType : class
 		{
-			dropDownListData.Remove(getValue.Compile()());
-			return dropDownListData;
-		}
-
-		public static DropDownListData Exclude<T>(this DropDownListData dropDownListData, Func<T> nullableParent, Func<T, string> getValue) where T : class
-		{
-			T parentValue = nullableParent();
-			string value = null;
-			if (parentValue != null)
-			{
-				value = getValue(parentValue);
-			}
-			dropDownListData.Remove(value);
+			dropDownListData.SlaveId = NameUtility.GetPropertyName(forSlaveId);
+			dropDownListData.SlaveDataSource = ReflectionUtility.GetMethodCallData(targetControllerJsonActionToGetSlaveData);
 			return dropDownListData;
 		}
 	}

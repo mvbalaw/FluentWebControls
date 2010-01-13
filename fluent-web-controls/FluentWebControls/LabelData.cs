@@ -21,16 +21,16 @@ namespace FluentWebControls
 		public string ForId { get; set; }
 		public string Style { get; set; }
 		public string Text { get; set; }
-		public string Width { private get; set; }
 		public string Value { get; set; }
+		public string Width { private get; set; }
 
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			if (Width != null)
 			{
 				sb.Append("<span");
-				var v = "DISPLAY: inline-block; width:" + Width;
+				string v = "DISPLAY: inline-block; width:" + Width;
 				sb.Append(v.CreateQuotedAttribute("style"));
 				sb.Append('>');
 			}

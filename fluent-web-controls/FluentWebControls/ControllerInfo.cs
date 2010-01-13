@@ -1,5 +1,3 @@
-using System;
-
 namespace FluentWebControls
 {
 	public class ControllerInfo
@@ -8,7 +6,7 @@ namespace FluentWebControls
 		{
 			if (aspxPage != null)
 			{
-				Type type = aspxPage.GetType().BaseType;
+				var type = aspxPage.GetType().BaseType;
 				var parts = type.FullName.Split('.');
 				Action = parts[parts.Length - 1];
 				Name = parts[parts.Length - 2];

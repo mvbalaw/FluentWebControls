@@ -11,7 +11,7 @@ namespace FluentWebControls.Tools
 			string className = typeof(TClass).Name;
 			string methodName = NameUtility.GetMethodName(methodCall);
 
-			MethodCallExpression expression = GetMethodCallExpression(methodCall);
+			var expression = GetMethodCallExpression(methodCall);
 			var parameters = expression.Method.GetParameters();
 			var parameterDictionary = parameters.Select((x, i) => new
 				{
@@ -81,13 +81,13 @@ namespace FluentWebControls.Tools
 
 		private static string GetValueAsString(MemberExpression expression)
 		{
-			object result = GetValue(expression);
+			var result = GetValue(expression);
 			return result.ToString();
 		}
 
 		private static string GetValueAsString(MethodCallExpression expression)
 		{
-			object result = GetValue(expression);
+			var result = GetValue(expression);
 			return result.ToString();
 		}
 	}

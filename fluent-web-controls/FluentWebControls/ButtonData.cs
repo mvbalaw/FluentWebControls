@@ -28,12 +28,12 @@ namespace FluentWebControls
 			Visible = true;
 		}
 
-		public string Id { get; set; }
 		public string ActionName { get; set; }
 		public string ConfirmMessage { get; set; }
 		public string ControllerExtension { get; set; }
 		public string ControllerName { get; set; }
 		public string CssClass { get; set; }
+		public string Id { get; set; }
 		public string OnClickMethod { get; set; }
 		public string QueryParameter { get; set; }
 
@@ -72,7 +72,7 @@ namespace FluentWebControls
 				return "";
 			}
 
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			sb.Append("<input");
 			sb.Append(String.Format("btn{0}", Id ?? _type.Name).CreateQuotedAttribute("Id"));
 			sb.Append(String.Format("btn{0}", _type.Name).CreateQuotedAttribute("name"));
@@ -80,7 +80,7 @@ namespace FluentWebControls
 			sb.Append(_type.CssClass.CreateQuotedAttribute("class"));
 			if (!String.IsNullOrEmpty(Width))
 			{
-				var value = "width:" + Width;
+				string value = "width:" + Width;
 				sb.Append(value.CreateQuotedAttribute("style"));
 			}
 			sb.Append(_type.Type.CreateQuotedAttribute("type"));

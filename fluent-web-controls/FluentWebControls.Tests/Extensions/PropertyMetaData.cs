@@ -10,7 +10,7 @@ namespace FluentWebControls.Tests.Extensions
 	{
 		public static IPropertyMetaData CreateStub(string name, bool isRequired, int? minLength, int? maxLength, int? minValue, int? maxValue, Type type)
 		{
-			IPropertyMetaData stub = MockRepository.GenerateStub<IPropertyMetaData>();
+			var stub = MockRepository.GenerateStub<IPropertyMetaData>();
 			stub.Expect(x => x.Name).Return(name).Repeat.Any();
 			stub.Expect(x => x.IsRequired).Return(isRequired).Repeat.Any();
 			stub.Expect(x => x.MinLength).Return(minLength).Repeat.Any();

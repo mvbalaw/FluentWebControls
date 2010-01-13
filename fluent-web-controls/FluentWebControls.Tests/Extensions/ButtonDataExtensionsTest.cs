@@ -39,7 +39,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string fileName = "FileName";
 				const string value = "Foo.doc";
-				ButtonData button = _buttonData.WithQueryParameter(fileName, value);
+				var button = _buttonData.WithQueryParameter(fileName, value);
 				Assert.AreSame(_buttonData, button);
 				string dictionary = TestWebControlsUtility.HtmlParser(_buttonData.ToString())["action"];
 				dictionary.Contains(fileName).ShouldBeTrue();
@@ -54,7 +54,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string action = "Save";
 				_pathUtility.Expect(x => x.GetUrl(null)).IgnoreArguments().Return(action);
-				ButtonData button = _buttonData.WithAction(action);
+				var button = _buttonData.WithAction(action);
 				Assert.AreSame(_buttonData, button);
 				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["action"].Contains(action).ShouldBeTrue(_buttonData.ToString());
 			}
@@ -67,7 +67,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_ButtonData_With_OnClick_attribute_set_to_to_the_new_message()
 			{
 				const string message = "Test";
-				ButtonData button = _buttonData.Confirm(message);
+				var button = _buttonData.Confirm(message);
 				Assert.AreSame(_buttonData, button);
 				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["onClick"].Contains(message).ShouldBeTrue();
 			}
@@ -80,7 +80,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_ButtonData_With_Id_initialized()
 			{
 				const string id = "Id";
-				ButtonData button = _buttonData.WithId(id);
+				var button = _buttonData.WithId(id);
 				Assert.AreSame(_buttonData, button);
 				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["id"].ShouldBeEqualTo("btn" + id);
 				button.ToString().Contains("btn" + id).ShouldBeTrue();
@@ -89,7 +89,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_ButtonData_With_Text_initialized_if_no_Id_is_specified()
 			{
-				ButtonData button = _buttonData;
+				var button = _buttonData;
 				Assert.AreSame(_buttonData, button);
 				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["id"].ShouldBeEqualTo("btn" + _buttonData.Text);
 				button.ToString().Contains("btn" + _buttonData.Text).ShouldBeTrue();
@@ -103,7 +103,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_ButtonData_With_Text_initialized()
 			{
 				const string text = "text";
-				ButtonData button = _buttonData.WithText(text);
+				var button = _buttonData.WithText(text);
 				Assert.AreSame(_buttonData, button);
 				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["value"].ShouldBeEqualTo(text);
 				button.ToString().Contains(text).ShouldBeTrue();
@@ -116,14 +116,14 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_ButtonData_if_visibility_is_set_to_true()
 			{
-				ButtonData button = _buttonData.VisibleIf(true);
+				var button = _buttonData.VisibleIf(true);
 				Assert.AreSame(_buttonData, button);
 			}
 
 			[Test]
 			public void Should_return_empty_string_if_visibility_is_set_to_false()
 			{
-				ButtonData button = _buttonData.VisibleIf(false);
+				var button = _buttonData.VisibleIf(false);
 				button.ToString().ShouldBeEqualTo("");
 			}
 		}
@@ -135,7 +135,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_ButtonData_With_OnClick_appended_to_the_new_value()
 			{
 				const string onClickFunction = "validate()";
-				ButtonData button = _buttonData.WithOnClick(onClickFunction);
+				var button = _buttonData.WithOnClick(onClickFunction);
 				Assert.AreSame(_buttonData, button);
 				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["onClick"].Contains(onClickFunction).ShouldBeTrue();
 			}
@@ -148,7 +148,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_ButtonData_With_OnClick_appended_to_the_new_value()
 			{
 				const string width = "400px";
-				ButtonData button = _buttonData.Width(width);
+				var button = _buttonData.Width(width);
 				Assert.AreSame(_buttonData, button);
 				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["style"].Contains(width).ShouldBeTrue();
 			}

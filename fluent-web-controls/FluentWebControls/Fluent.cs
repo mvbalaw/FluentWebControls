@@ -229,38 +229,38 @@ namespace FluentWebControls
 
 		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action);
 		}
 
 		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<string, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, string filter)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter.EmptyToNull(false));
 		}
 
 		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter);
 		}
 
 		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<int?, int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter1, int? filter2)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2);
 		}
 
 		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<int?, int?, int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter1, int? filter2, int? filter3)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2, filter3);
 		}
 
 		[Obsolete("Use Fluent.ScrollableGridFor(x=>listData,(Controller c)=>c.ListAction()")]
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IEnumerable<TReturn> list, object aspxPage)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(list, new PagedListParameters(), controllerInfo.Name, controllerInfo.Action);
 		}
 
@@ -272,37 +272,37 @@ namespace FluentWebControls
 
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IEnumerable<TReturn> list, IPagedListParameters pagedListParameters, object aspxPage)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(list, pagedListParameters, controllerInfo.Name, controllerInfo.Action);
 		}
 
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action);
 		}
 
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<string, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, string filter)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter.EmptyToNull(false));
 		}
 
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter);
 		}
 
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<int?, int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter1, int? filter2)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2);
 		}
 
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<int?, int?, int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter1, int? filter2, int? filter3)
 		{
-			ControllerInfo controllerInfo = new ControllerInfo(aspxPage);
+			var controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2, filter3);
 		}
 
@@ -326,7 +326,7 @@ namespace FluentWebControls
 		public static TextBoxData TextBoxFor<T>(Expression<Func<T>> nullableObject, Expression<Func<T, string>> getValue) where T : class
 		{
 			var nullable = nullableObject.Compile();
-			T parent = nullable();
+			var parent = nullable();
 
 			return TextBox.For(parent, getValue);
 		}

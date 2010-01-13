@@ -23,7 +23,7 @@ namespace FluentWebControls.Tests
 				const GridColumnType gridColumnType = GridColumnType.Sortable;
 				const string columnheader = "ColumnHeader";
 				const string fieldname = "FieldName";
-				AlignAttribute left = AlignAttribute.Left;
+				var left = AlignAttribute.Left;
 				const string actionname = "ActionName";
 				IGridColumn gridColumn = new GridColumn(gridColumnType, columnheader, fieldname, left, true, false, actionname, rows);
 

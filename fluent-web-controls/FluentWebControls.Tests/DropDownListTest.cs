@@ -20,7 +20,7 @@ namespace FluentWebControls.Tests
 						new KeyValuePair<string, string>("Name2", "Value2")
 					};
 
-				DropDownListData dropDownListData = DropDownList.For(items, nvp => nvp.Key, nvp => nvp.Value, (Foo f) => f.Value);
+				var dropDownListData = DropDownList.For(items, nvp => nvp.Key, nvp => nvp.Value, (Foo f) => f.Value);
 				dropDownListData.ToString().ShouldBeEqualTo("<select name='value' id='value' class='ddlDetail'><option value='Value1'>Name1</option><option value='Value2'>Name2</option></select>");
 			}
 
