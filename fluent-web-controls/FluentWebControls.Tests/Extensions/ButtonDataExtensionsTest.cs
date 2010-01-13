@@ -77,17 +77,16 @@ namespace FluentWebControls.Tests.Extensions
 		public class When_asked_to_assign_Id : ButtonDataExtensionsTestBase
 		{
 			[Test]
-			public void Should_return_a_ButtonData_With_Id_initialized()
+			public void Should_return_a_ButtonData_with_Id_initialized()
 			{
 				const string id = "Id";
 				var button = _buttonData.WithId(id);
 				Assert.AreSame(_buttonData, button);
-				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["id"].ShouldBeEqualTo("btn" + id);
-				button.ToString().Contains("btn" + id).ShouldBeTrue();
+				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["id"].ShouldBeEqualTo(id);
 			}
 
 			[Test]
-			public void Should_return_a_ButtonData_With_Text_initialized_if_no_Id_is_specified()
+			public void Should_return_a_ButtonData_with_Text_initialized_if_no_Id_is_specified()
 			{
 				var button = _buttonData;
 				Assert.AreSame(_buttonData, button);
@@ -100,7 +99,7 @@ namespace FluentWebControls.Tests.Extensions
 		public class When_asked_to_assign_Text : ButtonDataExtensionsTestBase
 		{
 			[Test]
-			public void Should_return_a_ButtonData_With_Text_initialized()
+			public void Should_return_a_ButtonData_with_Text_initialized()
 			{
 				const string text = "text";
 				var button = _buttonData.WithText(text);
@@ -132,7 +131,7 @@ namespace FluentWebControls.Tests.Extensions
 		public class When_asked_to_create_a_button_with_OnClick : ButtonDataExtensionsTestBase
 		{
 			[Test]
-			public void Should_return_a_ButtonData_With_OnClick_appended_to_the_new_value()
+			public void Should_return_a_ButtonData_with_OnClick_appended_to_the_new_value()
 			{
 				const string onClickFunction = "validate()";
 				var button = _buttonData.WithOnClick(onClickFunction);
@@ -145,7 +144,7 @@ namespace FluentWebControls.Tests.Extensions
 		public class When_asked_to_create_a_button_with_width : ButtonDataExtensionsTestBase
 		{
 			[Test]
-			public void Should_return_a_ButtonData_With_OnClick_appended_to_the_new_value()
+			public void Should_return_a_ButtonData_with_OnClick_appended_to_the_new_value()
 			{
 				const string width = "400px";
 				var button = _buttonData.Width(width);

@@ -74,8 +74,9 @@ namespace FluentWebControls
 
 			var sb = new StringBuilder();
 			sb.Append("<input");
-			sb.Append(String.Format("btn{0}", Id ?? _type.Name).CreateQuotedAttribute("Id"));
-			sb.Append(String.Format("btn{0}", _type.Name).CreateQuotedAttribute("name"));
+			string id = String.Format("{0}", Id ?? "btn" + _type.Name);
+			sb.Append(id.CreateQuotedAttribute("Id"));
+			sb.Append(id.CreateQuotedAttribute("name"));
 			sb.Append(Text.CreateQuotedAttribute("value"));
 			sb.Append(_type.CssClass.CreateQuotedAttribute("class"));
 			if (!String.IsNullOrEmpty(Width))
@@ -119,14 +120,14 @@ namespace FluentWebControls
 
 		public class ButtonType : IButtonType
 		{
-			public static ButtonType Basic = new ButtonType("Basic", "button", JQueryFormValidationType.IgnoreFormOnClick, "");
-			public static ButtonType Cancel = new ButtonType("Cancel", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
-			public static ButtonType Delete = new ButtonType("Delete", "submit", JQueryFormValidationType.IgnoreFormOnClick, "Are you sure you want to delete this");
-			public static ButtonType Download = new ButtonType("Download", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
-			public static ButtonType Go = new ButtonType("Go", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
-			public static ButtonType Link = new ButtonType("Link", "button", JQueryFormValidationType.IgnoreFormOnClick, "");
-			public static ButtonType New = new ButtonType("New", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
-			public static ButtonType Save = new ButtonType("Save", "submit", JQueryFormValidationType.ValidateFormOnClick, "");
+			public static readonly ButtonType Basic = new ButtonType("Basic", "button", JQueryFormValidationType.IgnoreFormOnClick, "");
+			public static readonly ButtonType Cancel = new ButtonType("Cancel", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
+			public static readonly ButtonType Delete = new ButtonType("Delete", "submit", JQueryFormValidationType.IgnoreFormOnClick, "Are you sure you want to delete this");
+			public static readonly ButtonType Download = new ButtonType("Download", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
+			public static readonly ButtonType Go = new ButtonType("Go", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
+			public static readonly ButtonType Link = new ButtonType("Link", "button", JQueryFormValidationType.IgnoreFormOnClick, "");
+			public static readonly ButtonType New = new ButtonType("New", "submit", JQueryFormValidationType.IgnoreFormOnClick, "");
+			public static readonly ButtonType Save = new ButtonType("Save", "submit", JQueryFormValidationType.ValidateFormOnClick, "");
 
 			private ButtonType(string name, string type, JQueryFormValidationType validationType, string confirmationMessage)
 			{
