@@ -177,6 +177,29 @@ namespace FluentWebControls.Tests
 				_buttonData.Visible = false;
 			}
 		}
+		[TestFixture]
+		public class When_asked_to_create_a_Button_with_Default_set : ButtonDataTestBase
+		{
+			protected override ButtonData.ButtonType ButtonType
+			{
+				get { return ButtonData.ButtonType.Save; }
+			}
+
+			protected override string ControllerName()
+			{
+				return "Admin";
+			}
+
+			protected override string HtmlText
+			{
+				get { return "<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='/Admin.mvc/Save' onClick='javascript:return changeFormAction(this)' default/>"; }
+			}
+
+			protected override void SetAdditionalParameters()
+			{
+				_buttonData.AsDefault();
+			}
+		}
 
 		[TestFixture]
 		public class When_asked_to_create_a_Link_Button : ButtonDataTestBase

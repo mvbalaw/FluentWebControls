@@ -41,6 +41,12 @@ namespace FluentWebControls.Extensions
 			return buttonData;
 		}
 
+		public static ButtonData AsDefault(this ButtonData buttonData)
+		{
+			buttonData.Default = true;
+			return buttonData;
+		}
+
 		public static ButtonData WithOnClick(this ButtonData buttonData, string onClickMethod)
 		{
 			buttonData.OnClickMethod = onClickMethod;

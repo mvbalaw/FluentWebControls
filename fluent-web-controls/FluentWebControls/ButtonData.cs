@@ -45,6 +45,7 @@ namespace FluentWebControls
 
 		public bool Visible { get; set; }
 		public string Width { get; set; }
+		public bool Default { get; set; }
 
 		public void AddUrlParameter(string parameter)
 		{
@@ -113,6 +114,10 @@ namespace FluentWebControls
 			if (!String.IsNullOrEmpty(OnClickMethod))
 			{
 				sb.Append(OnClickMethod.CreateQuotedAttribute("onClick"));
+			}
+			if (Default)
+			{
+				sb.Append(" default");
 			}
 			sb.Append("/>");
 			return sb.ToString();
