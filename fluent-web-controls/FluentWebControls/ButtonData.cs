@@ -33,6 +33,7 @@ namespace FluentWebControls
 		public string ControllerExtension { get; set; }
 		public string ControllerName { get; set; }
 		public string CssClass { get; set; }
+		public bool Default { get; set; }
 		public string Id { get; set; }
 		public string OnClickMethod { get; set; }
 		public string QueryParameter { get; set; }
@@ -45,7 +46,6 @@ namespace FluentWebControls
 
 		public bool Visible { get; set; }
 		public string Width { get; set; }
-		public bool Default { get; set; }
 
 		public void AddUrlParameter(string parameter)
 		{
@@ -79,7 +79,7 @@ namespace FluentWebControls
 			sb.Append(id.CreateQuotedAttribute("Id"));
 			sb.Append(id.CreateQuotedAttribute("name"));
 			sb.Append(Text.CreateQuotedAttribute("value"));
-			sb.Append(_type.CssClass.CreateQuotedAttribute("class"));
+			sb.Append((_type.CssClass + (Default ? " default" : "")).CreateQuotedAttribute("class"));
 			if (!String.IsNullOrEmpty(Width))
 			{
 				string value = "width:" + Width;
@@ -114,10 +114,6 @@ namespace FluentWebControls
 			if (!String.IsNullOrEmpty(OnClickMethod))
 			{
 				sb.Append(OnClickMethod.CreateQuotedAttribute("onClick"));
-			}
-			if (Default)
-			{
-				sb.Append(" default");
 			}
 			sb.Append("/>");
 			return sb.ToString();

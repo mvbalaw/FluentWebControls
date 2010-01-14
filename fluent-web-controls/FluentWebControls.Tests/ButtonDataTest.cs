@@ -192,7 +192,7 @@ namespace FluentWebControls.Tests
 
 			protected override string HtmlText
 			{
-				get { return "<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='/Admin.mvc/Save' onClick='javascript:return changeFormAction(this)' default/>"; }
+				get { return "<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='/Admin.mvc/Save' onClick='javascript:return changeFormAction(this)'/>"; }
 			}
 
 			protected override void SetAdditionalParameters()
