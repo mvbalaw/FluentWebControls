@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Web;
 
 using JetBrains.Annotations;
@@ -45,12 +47,14 @@ namespace FluentWebControls.Extensions
 
 		public static string EscapeForUrl(this string value)
 		{
-			return HttpUtility.UrlEncode(value);
-		}
+			if (value == null)
+			{
+				return "";
+			}
 
-		public static bool IsNullOrEmpty(this string item)
-		{
-			return item == null ? true : item.Length == 0 ? true : false;
+			var parts = value.Split(' ');
+			string result = parts.Select(x => HttpUtility.UrlEncode(x)).Join("%20");
+			return result;
 		}
 
 		public static string ToCamelCase([CanBeNull] this string str)

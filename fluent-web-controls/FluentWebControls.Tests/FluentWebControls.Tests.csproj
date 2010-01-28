@@ -55,6 +55,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ASP.Net MVC\System.Web.Routing.dll</HintPath>
@@ -87,6 +88,7 @@
     <Compile Include="Extensions\DropDownListDataExtensionsTest.cs" />
     <Compile Include="Extensions\GridDataExtensionsTest.cs" />
     <Compile Include="Extensions\HiddenDataExtensionsTest.cs" />
+    <Compile Include="Extensions\KeyValuePairExtensionsTests.cs" />
     <Compile Include="Extensions\LabelDataExtensionsTest.cs" />
     <Compile Include="Extensions\LinkDataExtensionsTest.cs" />
     <Compile Include="Extensions\PagedListExtensionsTest.cs" />

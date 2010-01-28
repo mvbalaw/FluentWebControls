@@ -1,3 +1,5 @@
+using System.Web;
+
 using FluentAssert;
 
 using FluentWebControls.Extensions;
@@ -28,16 +30,39 @@ namespace FluentWebControls.Tests.Extensions
 		[TestFixture]
 		public class When_asked_to_escape_for_url_string
 		{
+			private const string LessThan = "%3c";
 			private const string Quote = "%22";
-			private const string Space = "+";
+			private const string Space = "%20";
 			private const string TestString = "TestString";
 
 			[Test]
 			public void Should_remove_characters_leading_to_Cross_Site_Scripting()
 			{
-				const string value = TestString + "\"   ";
+				const string value = TestString + "\" <  ";
 				string result = value.EscapeForUrl();
-				result.ShouldBeEqualTo(TestString + Quote + Space + Space + Space);
+				result.ShouldBeEqualTo(TestString + Quote + Space + LessThan + Space + Space);
+
+				string decoded = HttpUtility.UrlDecode(result);
+				decoded.ShouldBeEqualTo(value);
+			}
+
+			[Test]
+			public void Should_return_correct_result_if_the_input_contains_percent_followed_by_20()
+			{
+				const string value = "%20";
+				string result = value.EscapeForUrl();
+				result.ShouldBeEqualTo("%2520");
+
+				string decoded = HttpUtility.UrlDecode(result);
+				decoded.ShouldBeEqualTo(value);
+			}
+
+			[Test]
+			public void Should_return_empty_if_the_input_is_null()
+			{
+				const string value = null;
+				string result = value.EscapeForUrl();
+				result.ShouldBeEqualTo("");
 			}
 		}
 	}

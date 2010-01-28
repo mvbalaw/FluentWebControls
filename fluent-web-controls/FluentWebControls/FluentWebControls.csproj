@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\JetBrains.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="MvbaCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\MvbaCore.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\StructureMap.dll</HintPath>
@@ -54,12 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\KeyValuePairExtensions.cs" />
     <Compile Include="Interfaces\PagedList.cs" />
     <Compile Include="PagedGridData.cs" />
     <Compile Include="ScrollableGridData.cs" />
     <Compile Include="IControllerAwareWebControl.cs" />
     <Compile Include="ControllerInfo.cs" />
-    <Compile Include="Extensions\IEnumerableTExtensions.cs" />
     <Compile Include="Extensions\IWebControlExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TExtensions.cs" />
