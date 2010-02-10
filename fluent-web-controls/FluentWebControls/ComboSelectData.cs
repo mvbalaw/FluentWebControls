@@ -15,7 +15,6 @@ namespace FluentWebControls
 			_items = items;
 			CssClass = "comboselect";
 			SelectedValues = new List<string>();
-			Size = 6;
 		}
 
 		public string CssClass { get; set; }
