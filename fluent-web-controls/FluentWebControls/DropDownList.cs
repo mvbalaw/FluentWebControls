@@ -7,6 +7,8 @@ using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 using FluentWebControls.Tools;
 
+using MvbaCore;
+
 namespace FluentWebControls
 {
 	public static class DropDownList
@@ -60,7 +62,7 @@ namespace FluentWebControls
 		public static DropDownListData For<T, TParent>(Expression<Func<TParent, T>> propertyChildForMetaData, IEnumerable<T> items, Func<T, string> getKey, Func<T, int> getValue)
 		{
 			var childMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyChildForMetaData);
-			return For(NameUtility.GetPropertyName(propertyChildForMetaData).ToCamelCase(), items, getKey, getValue, childMetaData);
+			return For(Reflection.GetPropertyName(propertyChildForMetaData).ToCamelCase(), items, getKey, getValue, childMetaData);
 		}
 
 		[Obsolete("use .For(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]
@@ -76,7 +78,7 @@ namespace FluentWebControls
 			var childMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyChildForMetaData);
 			var parentMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyParentForMetaData);
 			childMetaData.Combine(parentMetaData);
-			return For(NameUtility.GetCamelCaseMultiLevelPropertyName(parentMetaData.Name, childMetaData.Name), items, getKey, getValue, childMetaData);
+			return For(Reflection.GetCamelCaseMultiLevelPropertyName(parentMetaData.Name, childMetaData.Name), items, getKey, getValue, childMetaData);
 		}
 
 		[Obsolete("use .For(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithIdPrefix(x=>x.Prefix).WithValidationFrom(x=>x.Storage)")]
@@ -85,7 +87,7 @@ namespace FluentWebControls
 			var childMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyChildForMetaData);
 			var parentMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyParentForMetaData);
 			childMetaData.Combine(parentMetaData);
-			return For(NameUtility.GetCamelCaseMultiLevelPropertyName(parentMetaData.Name, childMetaData.Name), items, getKey, getValue, childMetaData);
+			return For(Reflection.GetCamelCaseMultiLevelPropertyName(parentMetaData.Name, childMetaData.Name), items, getKey, getValue, childMetaData);
 		}
 
 		[Obsolete("use .For(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithIdPrefix(x=>x.Prefix).WithValidationFrom(x=>x.Storage)")]
@@ -94,7 +96,7 @@ namespace FluentWebControls
 			var childMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyChildForMetaData);
 			var parentMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyParentForMetaData);
 			childMetaData.Combine(parentMetaData);
-			return For(NameUtility.GetCamelCaseMultiLevelPropertyName(parentMetaData.Name, childMetaData.Name), items, getKey, getValue, childMetaData);
+			return For(Reflection.GetCamelCaseMultiLevelPropertyName(parentMetaData.Name, childMetaData.Name), items, getKey, getValue, childMetaData);
 		}
 
 		[Obsolete("use .For(source, x=>x.DisplayText, x=>x.Value.ToString(), x=>x.StorageId).WithValidationFrom(x=>x.Storage)")]

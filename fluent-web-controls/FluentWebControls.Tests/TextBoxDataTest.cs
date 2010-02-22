@@ -6,7 +6,8 @@ using FluentAssert;
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 using FluentWebControls.Tests.Extensions;
-using FluentWebControls.Tools;
+
+using MvbaCore;
 
 using NUnit.Framework;
 
@@ -61,7 +62,7 @@ namespace FluentWebControls.Tests
 				get
 				{
 					Expression<Func<int>> expr = () => value;
-					return NameUtility.GetPropertyName(expr).ToCamelCase();
+					return Reflection.GetPropertyName(expr).ToCamelCase();
 				}
 			}
 // ReSharper restore ConvertToConstant
@@ -99,7 +100,7 @@ namespace FluentWebControls.Tests
 				get
 				{
 					Expression<Func<DateTime?>> expr = () => value;
-					return NameUtility.GetPropertyName(expr).ToCamelCase();
+					return Reflection.GetPropertyName(expr).ToCamelCase();
 				}
 			}
 
@@ -137,7 +138,7 @@ namespace FluentWebControls.Tests
 				get
 				{
 					Expression<Func<int?>> expr = () => value;
-					return NameUtility.GetPropertyName(expr).ToCamelCase();
+					return Reflection.GetPropertyName(expr).ToCamelCase();
 				}
 			}
 // ReSharper restore RedundantDefaultFieldInitializer
@@ -178,7 +179,7 @@ namespace FluentWebControls.Tests
 				get
 				{
 					Expression<Func<string>> expr = () => value;
-					return NameUtility.GetPropertyName(expr).ToCamelCase();
+					return Reflection.GetPropertyName(expr).ToCamelCase();
 				}
 			}
 // ReSharper restore ConvertToConstant

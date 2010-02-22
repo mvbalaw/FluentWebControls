@@ -1,7 +1,10 @@
-﻿using FluentAssert;
+﻿using System;
+
+using FluentAssert;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Tools;
+
+using MvbaCore;
 
 using NUnit.Framework;
 
@@ -30,7 +33,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var checkBoxData = _checkBoxData.WithId("_isChecked");
 				Assert.AreSame(_checkBoxData, checkBoxData);
-				string propertyName = NameUtility.GetPropertyName(() => _isChecked);
+				string propertyName = Reflection.GetPropertyName(() => _isChecked);
 				TestWebControlsUtility.HtmlParser(_checkBoxData.ToString())["id"].ShouldBeEqualTo(propertyName.ToCamelCase());
 				checkBoxData.ToString().Contains(propertyName).ShouldBeTrue();
 			}

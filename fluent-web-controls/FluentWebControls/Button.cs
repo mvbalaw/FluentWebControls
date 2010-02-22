@@ -6,6 +6,8 @@ using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 using FluentWebControls.Tools;
 
+using MvbaCore;
+
 namespace FluentWebControls
 {
 	public static class Button
@@ -17,11 +19,11 @@ namespace FluentWebControls
 
 		public static ButtonData For<TController>(IButtonType buttonType, Expression<Func<TController, object>> controllerAndActionName) where TController : class
 		{
-			var buttonData = new ButtonData(buttonType, IoCUtility.GetInstance<IPathUtility>(), NameUtility.GetControllerName<TController>())
-				.WithAction(NameUtility.GetMethodName(controllerAndActionName));
+			var buttonData = new ButtonData(buttonType, IoCUtility.GetInstance<IPathUtility>(), Reflection.GetControllerName<TController>())
+				.WithAction(Reflection.GetMethodName(controllerAndActionName));
 			if (buttonType == ButtonData.ButtonType.Link)
 			{
-				buttonData.AddUrlParameters(ReflectionUtility.GetMethodCallData(controllerAndActionName).ParameterValues.Values.ToList());
+				buttonData.AddUrlParameters(Reflection.GetMethodCallData(controllerAndActionName).ParameterValues.Values.ToList());
 			}
 			return buttonData;
 		}

@@ -57,16 +57,6 @@ namespace FluentWebControls.Extensions
 			return result;
 		}
 
-		public static string ToCamelCase([CanBeNull] this string str)
-		{
-			if (String.IsNullOrEmpty(str))
-			{
-				return str;
-			}
-			str = Char.ToLower(str[0]) + str.Substring(1);
-			return str; //.Replace(".", "_");
-		}
-
 		[NotNull]
 		public static ListSortDirection ToSortDirection([CanBeNull] this string sortDirection)
 		{

@@ -2,7 +2,8 @@ using System;
 using System.Linq.Expressions;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Tools;
+
+using MvbaCore;
 
 namespace FluentWebControls
 {
@@ -22,7 +23,7 @@ namespace FluentWebControls
 			var getValue = getValueIdAndValidationMetadata.Compile();
 			string value = getValue();
 			var textAreaData = new TextAreaData(value)
-				.WithId(NameUtility.GetPropertyName(getValueIdAndValidationMetadata))
+				.WithId(Reflection.GetPropertyName(getValueIdAndValidationMetadata))
 				.WithValidationFrom(getValueIdAndValidationMetadata);
 			return textAreaData;
 		}
@@ -33,7 +34,7 @@ namespace FluentWebControls
 			var getValue = getValueIdAndValidationMetadata.Compile();
 			string value = getValue(source);
 			var textAreaData = new TextAreaData(value)
-				.WithId(NameUtility.GetPropertyName(getValueIdAndValidationMetadata))
+				.WithId(Reflection.GetPropertyName(getValueIdAndValidationMetadata))
 				.WithValidationFrom(getValueIdAndValidationMetadata);
 			return textAreaData;
 		}

@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Tools;
+
+using MvbaCore;
 
 namespace FluentWebControls
 {
@@ -61,7 +62,7 @@ namespace FluentWebControls
 			}
 			else if (SlaveId != null)
 			{
-				string secondaryDdlScript = String.Format("UpdateSecondDropDown(\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\");", IdWithPrefix, SlaveId.ToCamelCase(), NameUtility.GetControllerName(SlaveDataSource.ClassName), SlaveDataSource.MethodName, SlaveDataSource.ParameterValues.First().Key);
+				string secondaryDdlScript = String.Format("UpdateSecondDropDown(\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\");", IdWithPrefix, SlaveId.ToCamelCase(), Reflection.GetControllerName(SlaveDataSource.ClassName), SlaveDataSource.MethodName, SlaveDataSource.ParameterValues.First().Key);
 				sb.Append(secondaryDdlScript.CreateQuotedAttribute("onchange"));
 			}
 			sb.Append('>');

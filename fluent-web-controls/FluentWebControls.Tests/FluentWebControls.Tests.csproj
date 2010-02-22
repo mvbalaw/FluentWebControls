@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\FluentAssert.dll</HintPath>
     </Reference>
+    <Reference Include="MvbaCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\MvbaCore.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\nunit.framework.dll</HintPath>
@@ -119,7 +123,6 @@
     <Compile Include="TextAreaTest.cs" />
     <Compile Include="TextBoxDataTest.cs" />
     <Compile Include="TextBoxTest.cs" />
-    <Compile Include="Utilities\ReflectionUtilityTests.cs" />
     <Compile Include="ValidatableWebControlBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +130,9 @@
       <Project>{2D4D3CE3-9CE6-4CFF-8CC5-57ABE00986BB}</Project>
       <Name>FluentWebControls</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

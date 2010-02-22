@@ -1,8 +1,7 @@
 using System;
 using System.Linq.Expressions;
 
-using FluentWebControls.Extensions;
-using FluentWebControls.Tools;
+using MvbaCore;
 
 namespace FluentWebControls
 {
@@ -10,17 +9,17 @@ namespace FluentWebControls
 	{
 		public static LabelData For(Expression<Func<string>> id)
 		{
-			return new LabelData(NameUtility.GetPropertyName(id).ToCamelCase());
+			return new LabelData(Reflection.GetPropertyName(id).ToCamelCase());
 		}
 
 		public static LabelData For<T>(Expression<Func<T>> id) where T : struct
 		{
-			return new LabelData(NameUtility.GetPropertyName(id).ToCamelCase());
+			return new LabelData(Reflection.GetPropertyName(id).ToCamelCase());
 		}
 
 		public static LabelData For<T>(Expression<Func<T?>> id) where T : struct
 		{
-			return new LabelData(NameUtility.GetPropertyName(id).ToCamelCase());
+			return new LabelData(Reflection.GetPropertyName(id).ToCamelCase());
 		}
 
 		public static LabelData For(string id)

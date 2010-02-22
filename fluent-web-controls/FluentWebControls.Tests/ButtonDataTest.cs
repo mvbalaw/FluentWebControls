@@ -155,29 +155,6 @@ namespace FluentWebControls.Tests
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_Button_with_Visibility_set_to_false : ButtonDataTestBase
-		{
-			protected override ButtonData.ButtonType ButtonType
-			{
-				get { return ButtonData.ButtonType.Save; }
-			}
-
-			protected override string ControllerName()
-			{
-				return "Admin";
-			}
-
-			protected override string HtmlText
-			{
-				get { return ""; }
-			}
-
-			protected override void SetAdditionalParameters()
-			{
-				_buttonData.Visible = false;
-			}
-		}
-		[TestFixture]
 		public class When_asked_to_create_a_Button_with_Default_set : ButtonDataTestBase
 		{
 			protected override ButtonData.ButtonType ButtonType
@@ -198,6 +175,30 @@ namespace FluentWebControls.Tests
 			protected override void SetAdditionalParameters()
 			{
 				_buttonData.AsDefault();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_create_a_Button_with_Visibility_set_to_false : ButtonDataTestBase
+		{
+			protected override ButtonData.ButtonType ButtonType
+			{
+				get { return ButtonData.ButtonType.Save; }
+			}
+
+			protected override string ControllerName()
+			{
+				return "Admin";
+			}
+
+			protected override string HtmlText
+			{
+				get { return ""; }
+			}
+
+			protected override void SetAdditionalParameters()
+			{
+				_buttonData.Visible = false;
 			}
 		}
 

@@ -7,7 +7,8 @@ using FluentAssert;
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 using FluentWebControls.Tests.Extensions;
-using FluentWebControls.Tools;
+
+using MvbaCore;
 
 using NUnit.Framework;
 
@@ -57,7 +58,7 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_DropDownList_for_a_property : DropDownListDataTestBase
 		{
-			// cannot be const or NameUtility.GetPropertyName won't handle it correctly
+			// cannot be const or Reflection.GetPropertyName won't handle it correctly
 // ReSharper disable ConvertToConstant.Local
 			private string _value = "value";
 // ReSharper restore ConvertToConstant.Local
@@ -71,7 +72,7 @@ namespace FluentWebControls.Tests
 				get
 				{
 					Expression<Func<string>> expr = () => _value;
-					return NameUtility.GetPropertyName(expr).ToCamelCase();
+					return Reflection.GetPropertyName(expr).ToCamelCase();
 				}
 			}
 			protected override IEnumerable<KeyValuePair<string, string>> Items
@@ -99,7 +100,7 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_DropDownList_for_a_property_with_Default_value : DropDownListDataTestBase
 		{
-			// cannot be const or NameUtility.GetPropertyName won't handle it correctly
+			// cannot be const or Reflection.GetPropertyName won't handle it correctly
 // ReSharper disable ConvertToConstant.Local
 			private string _value = "value";
 // ReSharper restore ConvertToConstant.Local
@@ -113,7 +114,7 @@ namespace FluentWebControls.Tests
 				get
 				{
 					Expression<Func<string>> expr = () => _value;
-					return NameUtility.GetPropertyName(expr).ToCamelCase();
+					return Reflection.GetPropertyName(expr).ToCamelCase();
 				}
 			}
 			protected override IEnumerable<KeyValuePair<string, string>> Items
@@ -159,7 +160,7 @@ namespace FluentWebControls.Tests
 				get
 				{
 					Expression<Func<string>> expr = () => _value;
-					return NameUtility.GetPropertyName(expr).ToCamelCase();
+					return Reflection.GetPropertyName(expr).ToCamelCase();
 				}
 			}
 			protected override IEnumerable<KeyValuePair<string, string>> Items

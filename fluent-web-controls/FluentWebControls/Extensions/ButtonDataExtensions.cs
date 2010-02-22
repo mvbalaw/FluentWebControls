@@ -5,6 +5,12 @@ namespace FluentWebControls.Extensions
 {
 	public static class ButtonDataExtensions
 	{
+		public static ButtonData AsDefault(this ButtonData buttonData)
+		{
+			buttonData.Default = true;
+			return buttonData;
+		}
+
 		public static ButtonData Confirm(this ButtonData buttonData, string message)
 		{
 			buttonData.ConfirmMessage = message;
@@ -38,12 +44,6 @@ namespace FluentWebControls.Extensions
 		public static ButtonData WithId(this ButtonData buttonData, string id)
 		{
 			buttonData.Id = id;
-			return buttonData;
-		}
-
-		public static ButtonData AsDefault(this ButtonData buttonData)
-		{
-			buttonData.Default = true;
 			return buttonData;
 		}
 

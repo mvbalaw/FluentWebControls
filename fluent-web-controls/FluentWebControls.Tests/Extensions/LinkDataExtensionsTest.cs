@@ -3,7 +3,8 @@
 using FluentAssert;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Tools;
+
+using MvbaCore;
 
 using NUnit.Framework;
 
@@ -54,7 +55,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var link = _linkData.WithData(() => _item.ItemId);
 				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}={1}", NameUtility.GetPropertyName(() => _item.ItemId), _item.ItemId)).ShouldBeTrue();
+				_linkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemId), _item.ItemId)).ShouldBeTrue();
 			}
 
 			[Test]
@@ -62,7 +63,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var link = _linkData.WithData(() => _item.ItemId, 10);
 				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}=10", NameUtility.GetPropertyName(() => _item.ItemId))).ShouldBeTrue();
+				_linkData.ToString().Contains(String.Format("{0}=10", Reflection.GetPropertyName(() => _item.ItemId))).ShouldBeTrue();
 			}
 
 			[Test]
@@ -71,7 +72,7 @@ namespace FluentWebControls.Tests.Extensions
 				int? itemId = 5;
 				var link = _linkData.WithData(() => itemId);
 				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}={1}", NameUtility.GetPropertyName(() => itemId), itemId)).ShouldBeTrue();
+				_linkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => itemId), itemId)).ShouldBeTrue();
 			}
 
 			[Test]
@@ -81,7 +82,7 @@ namespace FluentWebControls.Tests.Extensions
 				int? newValue = 10;
 				var link = _linkData.WithData(() => itemId, newValue);
 				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}=10", NameUtility.GetPropertyName(() => itemId))).ShouldBeTrue();
+				_linkData.ToString().Contains(String.Format("{0}=10", Reflection.GetPropertyName(() => itemId))).ShouldBeTrue();
 			}
 
 			[Test]
@@ -89,7 +90,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var link = _linkData.WithData(() => _item.ItemName);
 				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}={1}", NameUtility.GetPropertyName(() => _item.ItemName), _item.ItemName)).ShouldBeTrue();
+				_linkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemName), _item.ItemName)).ShouldBeTrue();
 			}
 
 			[Test]
@@ -97,7 +98,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var link = _linkData.WithData(() => _item.ItemName, "Value");
 				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}=Value", NameUtility.GetPropertyName(() => _item.ItemName))).ShouldBeTrue();
+				_linkData.ToString().Contains(String.Format("{0}=Value", Reflection.GetPropertyName(() => _item.ItemName))).ShouldBeTrue();
 			}
 
 			[Test]
@@ -105,7 +106,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var link = _linkData.WithData(_item, item => item.ItemId, item => item.ItemId.ToString());
 				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}={1}", NameUtility.GetPropertyName(() => _item.ItemId), _item.ItemId)).ShouldBeTrue();
+				_linkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemId), _item.ItemId)).ShouldBeTrue();
 			}
 		}
 

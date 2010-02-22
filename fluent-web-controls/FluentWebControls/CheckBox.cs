@@ -2,7 +2,8 @@ using System;
 using System.Linq.Expressions;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Tools;
+
+using MvbaCore;
 
 namespace FluentWebControls
 {
@@ -37,7 +38,7 @@ namespace FluentWebControls
 		{
 			var getValue = forCheckedAndId.Compile();
 			var checkBoxData = new CheckBoxData(getValue())
-				.WithId(NameUtility.GetPropertyName(forCheckedAndId));
+				.WithId(Reflection.GetPropertyName(forCheckedAndId));
 			return checkBoxData;
 		}
 	}

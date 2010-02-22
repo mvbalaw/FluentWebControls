@@ -7,6 +7,8 @@ using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 using FluentWebControls.Tools;
 
+using MvbaCore;
+
 namespace FluentWebControls
 {
 	public static class ComboSelect
@@ -45,7 +47,7 @@ namespace FluentWebControls
 			var childMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyChildForMetaData);
 			var parentMetaData = IoCUtility.GetInstance<IBusinessObjectPropertyMetaDataFactory>().GetFor(propertyParentForMetaData);
 			childMetaData.Combine(parentMetaData);
-			return For(NameUtility.GetCamelCaseMultiLevelPropertyName(parentMetaData.Name, childMetaData.Name), items, getKey, getValue, childMetaData);
+			return For(Reflection.GetCamelCaseMultiLevelPropertyName(parentMetaData.Name, childMetaData.Name), items, getKey, getValue, childMetaData);
 		}
 
 		private static ComboSelectData For<T>(string name, IEnumerable<T> items, Func<T, string> getKey, Func<T, string> getValue, IPropertyMetaData metaData)

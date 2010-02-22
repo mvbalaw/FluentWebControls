@@ -1,4 +1,6 @@
-﻿using FluentAssert;
+﻿using System;
+
+using FluentAssert;
 
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;

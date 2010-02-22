@@ -4,7 +4,8 @@ using System.Linq.Expressions;
 
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
-using FluentWebControls.Tools;
+
+using MvbaCore;
 
 namespace FluentWebControls
 {
@@ -266,8 +267,8 @@ namespace FluentWebControls
 
 		public static ScrollableGridData<TItemType> ScrollableGridFor<TItemType, TControllerType>(IEnumerable<TItemType> list, Expression<Func<TControllerType, object>> listAction)
 		{
-			string name = NameUtility.GetControllerName<TControllerType>();
-			return ScrollableGrid.For(list, new PagedListParameters(), name, NameUtility.GetMethodName(listAction));
+			string name = Reflection.GetControllerName<TControllerType>();
+			return ScrollableGrid.For(list, new PagedListParameters(), name, Reflection.GetMethodName(listAction));
 		}
 
 		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IEnumerable<TReturn> list, IPagedListParameters pagedListParameters, object aspxPage)

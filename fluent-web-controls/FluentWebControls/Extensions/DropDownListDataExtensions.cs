@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-using FluentWebControls.Tools;
+using MvbaCore;
 
 namespace FluentWebControls.Extensions
 {
@@ -47,7 +47,7 @@ namespace FluentWebControls.Extensions
 		public static DropDownListData SubmitOnChange<T>(this DropDownListData dropDownListData, Expression<Func<T>> formFieldToSetBeforeSubmitting, T value)
 		{
 			dropDownListData.SubmitOnChange = true;
-			dropDownListData.FormFieldToSetBeforeSubmitOnChange = new KeyValuePair<string, string>(NameUtility.GetPropertyName(formFieldToSetBeforeSubmitting).ToCamelCase(), value.ToString());
+			dropDownListData.FormFieldToSetBeforeSubmitOnChange = new KeyValuePair<string, string>(Reflection.GetPropertyName(formFieldToSetBeforeSubmitting).ToCamelCase(), value.ToString());
 			return dropDownListData;
 		}
 
@@ -105,8 +105,8 @@ namespace FluentWebControls.Extensions
 
 		public static DropDownListData WithSlaveDdl<TFuncInput, TFuncResult, TControllerType>(this DropDownListData dropDownListData, Expression<Func<TFuncInput, TFuncResult>> forSlaveId, Expression<Func<TControllerType, object>> targetControllerJsonActionToGetSlaveData) where TControllerType : class
 		{
-			dropDownListData.SlaveId = NameUtility.GetPropertyName(forSlaveId);
-			dropDownListData.SlaveDataSource = ReflectionUtility.GetMethodCallData(targetControllerJsonActionToGetSlaveData);
+			dropDownListData.SlaveId = Reflection.GetPropertyName(forSlaveId);
+			dropDownListData.SlaveDataSource = Reflection.GetMethodCallData(targetControllerJsonActionToGetSlaveData);
 			return dropDownListData;
 		}
 	}

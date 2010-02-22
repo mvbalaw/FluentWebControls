@@ -7,7 +7,8 @@ using FluentAssert;
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 using FluentWebControls.Tests.Extensions;
-using FluentWebControls.Tools;
+
+using MvbaCore;
 
 using NUnit.Framework;
 
@@ -47,7 +48,7 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_ComboSelect_for_a_property : ComboSelectDataTestBase
 		{
-			// cannot be const or NameUtility.GetPropertyName won't handle it correctly
+			// cannot be const or Reflection.GetPropertyName won't handle it correctly
 // ReSharper disable ConvertToConstant.Local
 			private string _value = "value";
 // ReSharper restore ConvertToConstant.Local
@@ -61,9 +62,10 @@ namespace FluentWebControls.Tests
 				get
 				{
 					Expression<Func<string>> expr = () => _value;
-					return NameUtility.GetPropertyName(expr).ToCamelCase();
+					return Reflection.GetPropertyName(expr).ToCamelCase();
 				}
 			}
+
 			protected override IEnumerable<KeyValuePair<string, string>> Items
 			{
 				get
@@ -77,6 +79,7 @@ namespace FluentWebControls.Tests
 						};
 				}
 			}
+
 			protected override IPropertyMetaData PropertyMetaData
 			{
 				get { return PropertyMetaDataMocker.CreateStub(Id, true, null, null, null, null, typeof(string)); }

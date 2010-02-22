@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 
 namespace FluentWebControls
