@@ -17,6 +17,7 @@ namespace FluentWebControls
 		public string FieldName { get; private set; }
 		public bool IsClientSideSortable { get; set; }
 		public bool IsDefaultSortColumn { get; set; }
+		public string Sorter { get; set; }
 		public abstract GridColumnType Type { get; }
 	}
 
@@ -28,6 +29,7 @@ namespace FluentWebControls
 		                  AlignAttribute align,
 		                  bool isDefaultSortColumn,
 		                  bool isClientSideSortable,
+		                  string sorter,
 		                  string actionName,
 		                  IList<string> rows)
 		{
@@ -37,12 +39,14 @@ namespace FluentWebControls
 			Align = align;
 			IsDefaultSortColumn = isDefaultSortColumn;
 			IsClientSideSortable = isClientSideSortable;
+			Sorter = sorter;
 			ActionName = actionName;
 			Rows = rows;
 			Count = rows.Count;
 		}
 
 		private IList<string> Rows { get; set; }
+		public string Sorter { get; set; }
 
 		public GridColumnType Type { get; private set; }
 		public string ColumnHeader { get; private set; }

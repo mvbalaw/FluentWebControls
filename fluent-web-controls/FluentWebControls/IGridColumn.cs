@@ -16,6 +16,7 @@ namespace FluentWebControls
 		string FieldName { get; }
 		bool IsClientSideSortable { get; }
 		bool IsDefaultSortColumn { get; }
+		string Sorter { get; }
 		string this[int rowId] { get; }
 		GridColumnType Type { get; }
 	}

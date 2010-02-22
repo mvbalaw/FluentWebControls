@@ -25,5 +25,11 @@ namespace FluentWebControls.Extensions
 			regularColumn.IsClientSideSortable = false;
 			return regularColumn;
 		}
+		
+		public static RegularColumn<T> AddSorterType<T>(this RegularColumn<T> regularColumn, string sorterType)
+		{
+			regularColumn.Sorter = sorterType;
+			return regularColumn;
+		}
 	}
 }

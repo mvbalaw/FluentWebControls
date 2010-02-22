@@ -91,6 +91,7 @@ namespace FluentWebControls
 				               column.Align,
 				               column.IsDefaultSortColumn,
 				               column.IsClientSideSortable,
+							   column.Sorter,
 				               actionName,
 				               _items.Select(getItemValue).ToList())
 				);
@@ -124,7 +125,9 @@ namespace FluentWebControls
 			int columnNumber = 0;
 			foreach (var column in GridColumns)
 			{
-				sb.AppendFormat("<th{0}{1}>", AlignAttribute.Center, ClientSideSortingEnabled && !column.IsClientSideSortable ? " class=\"{sorter: false}\"" : "");
+				sb.AppendFormat("<th{0}{1}", AlignAttribute.Center, ClientSideSortingEnabled && !column.IsClientSideSortable ? " class=\"{sorter: false}\"" : "");
+				var columnSorter = !column.Sorter.IsNullOrEmpty(true) ? " class=\"{sorter: '" + column.Sorter + "'}\"" : "";
+				sb.AppendFormat("{0}>", columnSorter);
 				switch (column.Type)
 				{
 					case GridColumnType.Sortable:

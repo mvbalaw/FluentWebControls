@@ -25,7 +25,7 @@ namespace FluentWebControls.Tests
 				const string fieldname = "FieldName";
 				var left = AlignAttribute.Left;
 				const string actionname = "ActionName";
-				IGridColumn gridColumn = new GridColumn(gridColumnType, columnheader, fieldname, left, true, false, actionname, rows);
+				IGridColumn gridColumn = new GridColumn(gridColumnType, columnheader, fieldname, left, true, false, "", actionname, rows);
 
 				gridColumn.Type.ShouldBeEqualTo(gridColumnType);
 				gridColumn.ColumnHeader.ShouldBeEqualTo(columnheader);
