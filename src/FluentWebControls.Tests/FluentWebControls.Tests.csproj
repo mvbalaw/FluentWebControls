@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{99BF4D3C-90B8-4AC5-B706-3576C3AC46B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FluentWebControls.Tests</RootNamespace>
+    <AssemblyName>FluentWebControls.Tests</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentAssert, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\FluentAssert\FluentAssert.dll</HintPath>
+    </Reference>
+    <Reference Include="MvbaCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\MvbaCore\MvbaCore.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\RhinoMocks\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.5.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\StructureMap\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.AutoMocking, Version=2.5.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\StructureMap\StructureMap.AutoMocking.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\ASP.Net MVC\System.Web.Routing.dll</HintPath>
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlignAttributeTest.cs" />
+    <Compile Include="ButtonDataTest.cs" />
+    <Compile Include="ButtonTest.cs" />
+    <Compile Include="CheckBoxDataTest.cs" />
+    <Compile Include="CheckBoxTest.cs" />
+    <Compile Include="ComboSelectDataTest.cs" />
+    <Compile Include="CommandColumnTest.cs" />
+    <Compile Include="CommandGridColumnTest.cs" />
+    <Compile Include="DropDownListDataTest.cs" />
+    <Compile Include="DropDownListTest.cs" />
+    <Compile Include="Extensions\ButtonDataExtensionsTest.cs" />
+    <Compile Include="Extensions\CheckBoxDataExtensionsTest.cs" />
+    <Compile Include="Extensions\ComboSelectDataExtensionsTest.cs" />
+    <Compile Include="Extensions\CommandColumnExtensionsTest.cs" />
+    <Compile Include="Extensions\DropDownListDataExtensionsTest.cs" />
+    <Compile Include="Extensions\GridDataExtensionsTest.cs" />
+    <Compile Include="Extensions\HiddenDataExtensionsTest.cs" />
+    <Compile Include="Extensions\KeyValuePairExtensionsTests.cs" />
+    <Compile Include="Extensions\LabelDataExtensionsTest.cs" />
+    <Compile Include="Extensions\LinkDataExtensionsTest.cs" />
+    <Compile Include="Extensions\PagedListExtensionsTest.cs" />
+    <Compile Include="Extensions\PropertyMetaData.cs" />
+    <Compile Include="Extensions\RegularColumnExtensionsTest.cs" />
+    <Compile Include="Extensions\SortableColumnExtensionsTest.cs" />
+    <Compile Include="Extensions\StringExtensionsTests.cs" />
+    <Compile Include="Extensions\TextAreaDataExtensionsTest.cs" />
+    <Compile Include="Extensions\TextBoxDataExtensionsTest.cs" />
+    <Compile Include="Extensions\TExtensionsTests.cs" />
+    <Compile Include="GridColumnTest.cs" />
+    <Compile Include="GridDataTest.cs" />
+    <Compile Include="HiddenDataTest.cs" />
+    <Compile Include="HiddenTest.cs" />
+    <Compile Include="LabelDataTest.cs" />
+    <Compile Include="LabelTest.cs" />
+    <Compile Include="LinkDataTest.cs" />
+    <Compile Include="LinkTest.cs" />
+    <Compile Include="PagedGridTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegularColumnTest.cs" />
+    <Compile Include="ScrollableGridTest.cs" />
+    <Compile Include="SortableColumnTest.cs" />
+    <Compile Include="SortableGridColumnTest.cs" />
+    <Compile Include="TestData.cs" />
+    <Compile Include="TestWebControlsUtility.cs" />
+    <Compile Include="TextAreaDataTest.cs" />
+    <Compile Include="TextAreaTest.cs" />
+    <Compile Include="TextBoxDataTest.cs" />
+    <Compile Include="TextBoxTest.cs" />
+    <Compile Include="ValidatableWebControlBaseTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FluentWebControls\FluentWebControls.csproj">
+      <Project>{2D4D3CE3-9CE6-4CFF-8CC5-57ABE00986BB}</Project>
+      <Name>FluentWebControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
