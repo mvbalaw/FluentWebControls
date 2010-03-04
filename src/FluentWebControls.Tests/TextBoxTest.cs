@@ -6,7 +6,6 @@ using FluentAssert;
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 using FluentWebControls.Tests.Extensions;
-using FluentWebControls.Tools;
 
 using NUnit.Framework;
 
@@ -35,7 +34,7 @@ namespace FluentWebControls.Tests
 			public void BeforeEachTest()
 			{
 				_businessObjectPropertyMetaDataFactory = MockRepository.GenerateStub<IBusinessObjectPropertyMetaDataFactory>();
-				IoCUtility.Inject(_businessObjectPropertyMetaDataFactory);
+				Configuration.ValidationMetaDataFactory = _businessObjectPropertyMetaDataFactory;
 			}
 
 			[Test]

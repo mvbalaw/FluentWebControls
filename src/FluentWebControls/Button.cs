@@ -3,8 +3,6 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Interfaces;
-using FluentWebControls.Tools;
 
 using MvbaCore;
 
@@ -14,12 +12,12 @@ namespace FluentWebControls
 	{
 		public static ButtonData For(IButtonType buttonType, string controllerName)
 		{
-			return new ButtonData(buttonType, IoCUtility.GetInstance<IPathUtility>(), controllerName);
+			return new ButtonData(buttonType, Configuration.PathUtility, controllerName);
 		}
 
 		public static ButtonData For<TController>(IButtonType buttonType, Expression<Func<TController, object>> controllerAndActionName) where TController : class
 		{
-			var buttonData = new ButtonData(buttonType, IoCUtility.GetInstance<IPathUtility>(), Reflection.GetControllerName<TController>())
+			var buttonData = new ButtonData(buttonType, Configuration.PathUtility, Reflection.GetControllerName<TController>())
 				.WithAction(Reflection.GetMethodName(controllerAndActionName));
 			if (buttonType == ButtonData.ButtonType.Link)
 			{

@@ -3,7 +3,6 @@ using System;
 using FluentAssert;
 
 using FluentWebControls.Interfaces;
-using FluentWebControls.Tools;
 
 using NUnit.Framework;
 
@@ -13,7 +12,7 @@ namespace FluentWebControls.Tests
 	{
 		public string GetUrl(string virtualDirectory)
 		{
-			return String.Format("/{0}", virtualDirectory);
+			return String.Format("/someapp/{0}", virtualDirectory);
 		}
 	}
 
@@ -36,22 +35,31 @@ namespace FluentWebControls.Tests
 			public void BeforeEachTest()
 			{
 				_pathUtility = new TestPathUtility();
-				IoCUtility.Inject(_pathUtility);
+				Configuration.PathUtility = _pathUtility;
 			}
 
 			[Test]
 			public void Should_return_html_code_representing_a_link()
 			{
 				var linkData = Link.To("AdminTest", ".mvc", "");
-				string expected = String.Format("<a href='{0}'></a>", "/AdminTest.mvc/");
+				string expected = String.Format("<a href='{0}'></a>", _pathUtility.GetUrl("AdminTest.mvc/"));
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}
 
 			[Test]
-			public void Should_return_html_code_representing_a_link_with_the_url()
+			public void Should_return_html_code_representing_a_link_with_the_full_url_if_PathUtility_is_configured()
 			{
 				var linkData = Link.To("AdminTest", ".mvc", "Test");
-				string expected = String.Format("<a href='{0}'></a>", "/AdminTest.mvc/Test");
+				string expected = String.Format("<a href='{0}'></a>", _pathUtility.GetUrl("AdminTest.mvc/Test"));
+				linkData.ToString().ShouldBeEqualTo(expected);
+			}
+
+			[Test]
+			public void Should_return_html_code_representing_a_link_with_the_partial_url_if_PathUtility_is_not_configured()
+			{
+				Configuration.PathUtility = null;
+				var linkData = Link.To("AdminTest", ".mvc", "Test");
+				string expected = String.Format("<a href='{0}'></a>", "AdminTest.mvc/Test");
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}
 		}
@@ -65,7 +73,7 @@ namespace FluentWebControls.Tests
 			public void BeforeEachTest()
 			{
 				_pathUtility = new TestPathUtility();
-				IoCUtility.Inject(_pathUtility);
+				Configuration.PathUtility = _pathUtility;
 			}
 
 			[Test]
@@ -77,7 +85,7 @@ namespace FluentWebControls.Tests
 						Name = "Name"
 					};
 				var linkData = Link.To((TestController controller) => controller.Action(test.Id, test.Name));
-				string expected = String.Format("<a href='{0}'></a>", "/Test/Action/4/Name");
+				string expected = String.Format("<a href='{0}'></a>", _pathUtility.GetUrl("Test/Action/4/Name"));
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}
 
@@ -87,7 +95,7 @@ namespace FluentWebControls.Tests
 				const int id = 4;
 				const string name = "Name";
 				var linkData = Link.To((TestController controller) => controller.Action(id, name));
-				string expected = String.Format("<a href='{0}'></a>", "/Test/Action/4/Name");
+				string expected = String.Format("<a href='{0}'></a>", _pathUtility.GetUrl("Test/Action/4/Name"));
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}
 
@@ -97,7 +105,7 @@ namespace FluentWebControls.Tests
 				const int id = 4;
 				const string name = "Name";
 				var linkData = Link.To((TestController controller) => controller.Action(id, name));
-				string expected = String.Format("<a href='{0}'></a>", "/Test/Action/4/Name");
+				string expected = String.Format("<a href='{0}'></a>", _pathUtility.GetUrl("Test/Action/4/Name"));
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}
 

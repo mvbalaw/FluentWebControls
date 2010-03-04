@@ -118,7 +118,6 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string rel = "external";
 				var link = _linkData.WithRel(rel);
-				Console.WriteLine(link.ToString());
 				Assert.AreSame(_linkData, link);
 				TestWebControlsUtility.HtmlParser(link.ToString())["rel"].ShouldBeEqualTo(rel);
 				_linkData.ToString().Contains(rel).ShouldBeTrue();

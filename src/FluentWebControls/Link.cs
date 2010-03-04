@@ -2,9 +2,6 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-using FluentWebControls.Interfaces;
-using FluentWebControls.Tools;
-
 using MvbaCore;
 
 namespace FluentWebControls
@@ -20,9 +17,12 @@ namespace FluentWebControls
 
 		public static LinkData To(string controllerName, string controllerExtension, string actionName)
 		{
+			var pathUtility = Configuration.PathUtility;
+			string virtualDirectory = String.Format("{0}{1}/{2}", controllerName, controllerExtension, actionName);
+			string href = pathUtility != null ? pathUtility.GetUrl(virtualDirectory) : virtualDirectory;
 			return new LinkData
 				{
-					Href = IoCUtility.GetInstance<IPathUtility>().GetUrl(String.Format("{0}{1}/{2}", controllerName, controllerExtension, actionName))
+					Href = href
 				};
 		}
 

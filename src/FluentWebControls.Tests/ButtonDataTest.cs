@@ -12,59 +12,40 @@ namespace FluentWebControls.Tests
 {
 	public class ButtonDataTest
 	{
-		public abstract class ButtonDataTestBase
+		private class TestPathUtility : IPathUtility
 		{
-			protected ButtonData _buttonData;
-			protected abstract ButtonData.ButtonType ButtonType { get; }
-
-			protected abstract string HtmlText { get; }
-
-			protected virtual string ControllerName()
+			public string GetUrl(string virtualDirectory)
 			{
-				return null;
-			}
-
-			protected virtual void SetAdditionalParameters()
-			{
-			}
-
-			[Test]
-			public void Should_return_HTML_code_representing_a_button()
-			{
-				string controllerName = ControllerName();
-
-				IPathUtility pathUtility = new TestPathUtility();
-				_buttonData = controllerName == null ? new ButtonData(ButtonType, pathUtility) : new ButtonData(ButtonType, pathUtility, controllerName)
-					{
-						ControllerExtension = ".mvc"
-					};
-				SetAdditionalParameters();
-				_buttonData.ToString().ShouldBeEqualTo(HtmlText);
-			}
-
-			private class TestPathUtility : IPathUtility
-			{
-				public string GetUrl(string virtualDirectory)
-				{
-					return virtualDirectory;
-				}
+				return String.Format("someapp/{0}", virtualDirectory);
 			}
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_Basic_Button : ButtonDataTestBase
+		public class When_asked_to_create_a_Basic_Button
 		{
-			protected override ButtonData.ButtonType ButtonType
+			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Basic;
+			private readonly string _htmlText = String.Format("<input Id='btnBasic' name='btnBasic' value='Populate Button' class='cancel' type='button' onClick='validate()'/>");
+			private ButtonData _buttonData;
+
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_full_path_if_pathUtility_is_configured()
 			{
-				get { return ButtonData.ButtonType.Basic; }
+				IPathUtility pathUtility = new TestPathUtility();
+				_buttonData = new ButtonData(_buttonType, pathUtility);
+				SetAdditionalParameters();
+				_buttonData.ToString().ShouldBeEqualTo(_htmlText);
 			}
 
-			protected override string HtmlText
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
 			{
-				get { return String.Format("<input Id='btnBasic' name='btnBasic' value='Populate Button' class='cancel' type='button' onClick='validate()'/>"); }
+				const IPathUtility pathUtility = null;
+				_buttonData = new ButtonData(_buttonType, pathUtility);
+				SetAdditionalParameters();
+				_buttonData.ToString().ShouldBeEqualTo(_htmlText);
 			}
 
-			protected override void SetAdditionalParameters()
+			private void SetAdditionalParameters()
 			{
 				_buttonData.Text = "Populate Button";
 				_buttonData.OnClickMethod = "validate()";
@@ -72,62 +53,104 @@ namespace FluentWebControls.Tests
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_Basic_Button_with_given_width : ButtonDataTestBase
+		public class When_asked_to_create_a_Basic_Button_with_given_width
 		{
-			protected override ButtonData.ButtonType ButtonType
+			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Basic;
+			private readonly string _htmlText = String.Format("<input Id='btnBasic' name='btnBasic' value='Basic' class='cancel' style='width:400px' type='button'/>");
+			private ButtonData _buttonData;
+
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_full_path_if_pathUtility_is_configured()
 			{
-				get { return ButtonData.ButtonType.Basic; }
+				IPathUtility pathUtility = new TestPathUtility();
+				_buttonData = new ButtonData(_buttonType, pathUtility);
+				SetAdditionalParameters();
+				_buttonData.ToString().ShouldBeEqualTo(_htmlText);
 			}
 
-			protected override string HtmlText
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
 			{
-				get { return String.Format("<input Id='btnBasic' name='btnBasic' value='Basic' class='cancel' style='width:400px' type='button'/>"); }
+				const IPathUtility pathUtility = null;
+				_buttonData = new ButtonData(_buttonType, pathUtility);
+				SetAdditionalParameters();
+				_buttonData.ToString().ShouldBeEqualTo(_htmlText);
 			}
 
-			protected override void SetAdditionalParameters()
+			private void SetAdditionalParameters()
 			{
 				_buttonData.Width = "400px";
 			}
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_Button_for_Delete : ButtonDataTestBase
+		public class When_asked_to_create_a_Button_for_Delete
 		{
-			protected override ButtonData.ButtonType ButtonType
+			private const string ControllerName = "Admin";
+			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Delete;
+			private ButtonData _buttonData;
+
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_full_path_if_pathUtility_is_configured()
 			{
-				get { return ButtonData.ButtonType.Delete; }
+				IPathUtility pathUtility = new TestPathUtility();
+				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
+					{
+						ControllerExtension = ".mvc"
+					};
+
+				string htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage, pathUtility.GetUrl("/Admin.mvc/Delete"));
+				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
-			protected override string ControllerName()
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
 			{
-				return "Admin";
-			}
+				const IPathUtility pathUtility = null;
+				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
+					{
+						ControllerExtension = ".mvc"
+					};
 
-			protected override string HtmlText
-			{
-				get { return String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='/Admin.mvc/Delete' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage); }
+				string htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage, "/Admin.mvc/Delete");
+				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_Button_for_Delete_with_additional_parameters : ButtonDataTestBase
+		public class When_asked_to_create_a_Button_for_Delete_with_additional_parameters
 		{
-			protected override ButtonData.ButtonType ButtonType
+			private const string ControllerName = "Admin";
+			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Delete;
+			private ButtonData _buttonData;
+
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_full_path_if_pathUtility_is_configured()
 			{
-				get { return ButtonData.ButtonType.Delete; }
+				IPathUtility pathUtility = new TestPathUtility();
+				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
+					{
+						ControllerExtension = ".mvc"
+					};
+				SetAdditionalParameters();
+				string htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), _buttonData.ConfirmMessage, pathUtility.GetUrl("/Admin.mvc/Test"));
+				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
-			protected override string ControllerName()
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
 			{
-				return "Admin";
+				const IPathUtility pathUtility = null;
+				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
+					{
+						ControllerExtension = ".mvc"
+					};
+				SetAdditionalParameters();
+				string htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), _buttonData.ConfirmMessage, "/Admin.mvc/Test");
+				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
-			protected override string HtmlText
-			{
-				get { return String.Format("<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='/Admin.mvc/Test' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), _buttonData.ConfirmMessage); }
-			}
-
-			protected override void SetAdditionalParameters()
+			private void SetAdditionalParameters()
 			{
 				_buttonData.Text = "Text";
 				_buttonData.ActionName = "Test";
@@ -136,86 +159,142 @@ namespace FluentWebControls.Tests
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_Button_for_Save : ButtonDataTestBase
+		public class When_asked_to_create_a_Button_for_Save
 		{
-			protected override ButtonData.ButtonType ButtonType
+			private const string ControllerName = "Admin";
+			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Save;
+			private ButtonData _buttonData;
+
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_full_path_if_pathUtility_is_configured()
 			{
-				get { return ButtonData.ButtonType.Save; }
+				IPathUtility pathUtility = new TestPathUtility();
+				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
+					{
+						ControllerExtension = ".mvc"
+					};
+
+				string htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", pathUtility.GetUrl("/Admin.mvc/Save"));
+				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
-			protected override string ControllerName()
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
 			{
-				return "Admin";
-			}
-
-			protected override string HtmlText
-			{
-				get { return "<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='/Admin.mvc/Save' onClick='javascript:return changeFormAction(this)'/>"; }
+				const IPathUtility pathUtility = null;
+				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
+					{
+						ControllerExtension = ".mvc"
+					};
+				string htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", "/Admin.mvc/Save");
+				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_Button_with_Default_set : ButtonDataTestBase
+		public class When_asked_to_create_a_Button_with_Default_set
 		{
-			protected override ButtonData.ButtonType ButtonType
+			private const string ControllerName = "Admin";
+			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Save;
+			private ButtonData _buttonData;
+
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_full_path_if_pathUtility_is_configured()
 			{
-				get { return ButtonData.ButtonType.Save; }
+				IPathUtility pathUtility = new TestPathUtility();
+				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
+					{
+						ControllerExtension = ".mvc"
+					};
+				SetAdditionalParameters();
+				string htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", pathUtility.GetUrl("/Admin.mvc/Save"));
+				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
-			protected override string ControllerName()
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
 			{
-				return "Admin";
+				const IPathUtility pathUtility = null;
+				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
+					{
+						ControllerExtension = ".mvc"
+					};
+				SetAdditionalParameters();
+				string htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", "/Admin.mvc/Save");
+				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
-			protected override string HtmlText
-			{
-				get { return "<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='/Admin.mvc/Save' onClick='javascript:return changeFormAction(this)'/>"; }
-			}
-
-			protected override void SetAdditionalParameters()
+			protected void SetAdditionalParameters()
 			{
 				_buttonData.AsDefault();
 			}
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_Button_with_Visibility_set_to_false : ButtonDataTestBase
+		public class When_asked_to_create_a_Button_with_Visibility_set_to_false
 		{
-			protected override ButtonData.ButtonType ButtonType
+			private const string ControllerName = "Admin";
+			private const string HtmlText = "";
+			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Save;
+			private ButtonData _buttonData;
+
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_full_path_if_pathUtility_is_configured()
 			{
-				get { return ButtonData.ButtonType.Save; }
+				IPathUtility pathUtility = new TestPathUtility();
+				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
+					{
+						ControllerExtension = ".mvc"
+					};
+				SetAdditionalParameters();
+				_buttonData.ToString().ShouldBeEqualTo(HtmlText);
 			}
 
-			protected override string ControllerName()
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
 			{
-				return "Admin";
+				const IPathUtility pathUtility = null;
+				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
+					{
+						ControllerExtension = ".mvc"
+					};
+				SetAdditionalParameters();
+				_buttonData.ToString().ShouldBeEqualTo(HtmlText);
 			}
 
-			protected override string HtmlText
-			{
-				get { return ""; }
-			}
-
-			protected override void SetAdditionalParameters()
+			protected void SetAdditionalParameters()
 			{
 				_buttonData.Visible = false;
 			}
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_Link_Button : ButtonDataTestBase
+		public class When_asked_to_create_a_Link_Button
 		{
-			protected override ButtonData.ButtonType ButtonType
+			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Link;
+			private ButtonData _buttonData;
+
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_full_path_if_pathUtility_is_configured()
 			{
-				get { return ButtonData.ButtonType.Link; }
+				IPathUtility pathUtility = new TestPathUtility();
+				_buttonData = new ButtonData(_buttonType, pathUtility);
+				SetAdditionalParameters();
+				string htmlText = String.Format("<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;{0}&quot;'/>", pathUtility.GetUrl("/Test/Action/4/name"));
+				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
-			protected override string HtmlText
+			[Test]
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
 			{
-				get { return String.Format("<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;/Test/Action/4/name&quot;'/>"); }
+				const IPathUtility pathUtility = null;
+				_buttonData = new ButtonData(_buttonType, pathUtility);
+				SetAdditionalParameters();
+				string htmlText = String.Format("<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;{0}&quot;'/>", "/Test/Action/4/name");
+				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
-			protected override void SetAdditionalParameters()
+			protected void SetAdditionalParameters()
 			{
 				_buttonData.Text = "Cancel";
 				_buttonData.ControllerName = "Test";

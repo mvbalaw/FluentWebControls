@@ -4,7 +4,6 @@ using FluentAssert;
 
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
-using FluentWebControls.Tools;
 
 using NUnit.Framework;
 
@@ -26,7 +25,7 @@ namespace FluentWebControls.Tests
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				IoCUtility.Inject<IPathUtility>(new TestPathUtility());
+				Configuration.PathUtility = new TestPathUtility();
 			}
 
 			[Test]
@@ -43,7 +42,7 @@ namespace FluentWebControls.Tests
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				IoCUtility.Inject<IPathUtility>(new TestPathUtility());
+				Configuration.PathUtility = new TestPathUtility();
 			}
 
 			[Test]
@@ -61,7 +60,7 @@ namespace FluentWebControls.Tests
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				IoCUtility.Inject<IPathUtility>(new TestPathUtility());
+				Configuration.PathUtility = new TestPathUtility();
 			}
 
 			[Test]
