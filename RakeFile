@@ -9,8 +9,8 @@ require 'zip/zip'
 require 'zip/zipfilesystem'
 
 RESULTS_DIR = "results"
-BUILD_NUMBER = "0.1.0."
-PRODUCT = "SuitSystem"
+BUILD_NUMBER = "0.2.0.0"
+PRODUCT = "FluentWebControls"
 COPYRIGHT = 'Copyright 2009 McCreary, Veselka, Bragg & Allen, P.C. All rights reserved.';
 COMMON_ASSEMBLY_INFO = 'src/CommonAssemblyInfo.cs';
 CLR_VERSION = "v3.5"

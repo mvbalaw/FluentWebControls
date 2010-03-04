@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-
-namespace FluentWebControls.Extensions
+﻿namespace FluentWebControls.Extensions
 {
 	public static class TextAreaDataExtensions
 	{
@@ -15,12 +12,6 @@ namespace FluentWebControls.Extensions
 		{
 			textAreaData.CssClass = cssClass;
 			return textAreaData;
-		}
-
-		[Obsolete("Use .WithId(xx, x=>x.Y)")]
-		public static TextAreaData Id(this TextAreaData textAreaData, Expression<Func<string>> id)
-		{
-			return textAreaData.WithId(id);
 		}
 
 		public static TextAreaData Rows(this TextAreaData textAreaData, int rows)

@@ -32,12 +32,6 @@ namespace FluentWebControls.Extensions
 			return dropDownListData;
 		}
 
-		[Obsolete("use .WithId(xx)")]
-		public static DropDownListData Id(this DropDownListData dropDownListData, string id)
-		{
-			return dropDownListData.WithId(id);
-		}
-
 		public static DropDownListData SubmitOnChange(this DropDownListData dropDownListData)
 		{
 			dropDownListData.SubmitOnChange = true;

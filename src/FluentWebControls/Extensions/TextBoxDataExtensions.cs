@@ -1,6 +1,3 @@
-using System;
-using System.Linq.Expressions;
-
 namespace FluentWebControls.Extensions
 {
 	public static class TextBoxDataExtensions
@@ -15,18 +12,6 @@ namespace FluentWebControls.Extensions
 		{
 			textBoxData.CssClass = cssClass;
 			return textBoxData;
-		}
-
-		[Obsolete("use .WithId(xx)")]
-		public static TextBoxData Id(this TextBoxData textBoxData, string id)
-		{
-			return textBoxData.WithId(id);
-		}
-
-		[Obsolete("use .WithId(x=>x.Y)")]
-		public static TextBoxData Id(this TextBoxData textBoxData, Expression<Func<string>> id)
-		{
-			return textBoxData.WithId(id);
 		}
 
 		public static TextBoxData MaxValue(this TextBoxData textBoxData, int maxValue)

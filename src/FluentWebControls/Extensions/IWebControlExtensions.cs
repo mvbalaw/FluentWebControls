@@ -7,13 +7,6 @@ namespace FluentWebControls.Extensions
 {
 	public static class IWebControlExtensions
 	{
-		[Obsolete("Use .WithId(xx)")]
-		public static T Id<T>(this T webControl, string id) where T : IWebControl
-		{
-			webControl.Id = id.ToCamelCase();
-			return webControl;
-		}
-
 		public static T WithId<T>(this T webControl, string id) where T : IWebControl
 		{
 			webControl.Id = id.ToCamelCase();

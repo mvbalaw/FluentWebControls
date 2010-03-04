@@ -53,13 +53,6 @@ namespace FluentWebControls.Extensions
 			return buttonData;
 		}
 
-		[Obsolete("Use .WithQueryParameter(\"parameterName\",\"parameterValue\")")]
-		public static ButtonData WithQueryParameter(this ButtonData buttonData, string unaryParameterValue)
-		{
-			buttonData.QueryParameter = unaryParameterValue;
-			return buttonData;
-		}
-
 		public static ButtonData WithQueryParameter(this ButtonData buttonData, string parameterName, string parameterValue)
 		{
 			if (!String.IsNullOrEmpty(buttonData.QueryParameter))

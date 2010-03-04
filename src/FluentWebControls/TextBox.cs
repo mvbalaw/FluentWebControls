@@ -19,37 +19,5 @@ namespace FluentWebControls
 			var getValue = forValueAndId.Compile();
 			return For(source, getValue, forValueAndId);
 		}
-
-		[Obsolete("use TextBox.For(source, x=>x.Value).WithValidationFrom(x=>x.Value)")]
-		public static TextBoxData For(Expression<Func<string>> forValueIdAndValidationMetadata)
-		{
-			var getvalue = forValueIdAndValidationMetadata.Compile();
-			var textBoxData = new TextBoxData(getvalue())
-				.WithId(forValueIdAndValidationMetadata)
-				.WithValidationFrom(forValueIdAndValidationMetadata);
-			return textBoxData;
-		}
-
-		[Obsolete("use TextBox.For(source, x=>x.Value.ToString(), x=>x.Value).WithValidationFrom(x=>x.Value)")]
-		public static TextBoxData For<T>(Expression<Func<T>> forValueIdAndValidationMetadata) where T : struct
-		{
-			var getValue = forValueIdAndValidationMetadata.Compile();
-			var textBoxData = new TextBoxData(getValue().ToString())
-				.WithId(forValueIdAndValidationMetadata)
-				.WithValidationFrom(forValueIdAndValidationMetadata);
-			return textBoxData;
-		}
-
-		[Obsolete("use TextBox.For(source, x=>x.Value==null?\"\":x.Value.ToString(), x=>x.Value).WithValidationFrom(x=>x.Value)")]
-		public static TextBoxData For<T>(Expression<Func<T?>> forValueIdAndValidationMetadata) where T : struct
-		{
-			var getValue = forValueIdAndValidationMetadata.Compile();
-			var value = getValue();
-			string v = value == null ? "" : value.ToString();
-			var textBoxData = new TextBoxData(v)
-				.WithId(forValueIdAndValidationMetadata)
-				.WithValidationFrom(forValueIdAndValidationMetadata);
-			return textBoxData;
-		}
 	}
 }

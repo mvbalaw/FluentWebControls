@@ -31,12 +31,6 @@ namespace FluentWebControls
 			return To(controllerName, "", actionName);
 		}
 
-		[Obsolete("Use .To(controllerName, \".mvc\", \"\")")]
-		public static LinkData To(string controllerName)
-		{
-			return To(controllerName, ".mvc", "");
-		}
-
 		public static LinkData To()
 		{
 			return new LinkData();

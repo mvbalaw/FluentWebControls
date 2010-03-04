@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
 
 using FluentAssert;
 
@@ -9,6 +8,14 @@ namespace FluentWebControls.Tests
 {
 	public class CommandGridColumnTest
 	{
+		private class FakeController
+		{
+			public object Edit()
+			{
+				return "";
+			}
+		}
+
 		[TestFixture]
 		public class When_asked_to_create_a_command_column_for_a_string_function
 		{
@@ -17,10 +24,7 @@ namespace FluentWebControls.Tests
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				Expression<Func<TestData.Item, string>> expr = item => item.ItemName;
-#pragma warning disable 618,612
-				_commandColumn = CommandGridColumn.For(expr, "Edit");
-#pragma warning restore 618,612
+				_commandColumn = CommandGridColumn.For<TestData.Item, FakeController>(item => item.ItemName, x => x.Edit());
 			}
 
 			[Test]
@@ -44,9 +48,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_throw_an_exception_if_getItemId_expression_is_null()
 			{
-#pragma warning disable 618,612
-				Assert.Throws<NullReferenceException>(() => CommandGridColumn.For((Expression<Func<TestData.Item, string>>)null, "Edit"));
-#pragma warning restore 618,612
+				Assert.Throws<NullReferenceException>(() => CommandGridColumn.For<TestData.Item, FakeController>(null, x => x.Edit()));
 			}
 		}
 
@@ -96,10 +98,7 @@ namespace FluentWebControls.Tests
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				Expression<Func<TestData.Item, int>> expr = item => item.ItemId;
-#pragma warning disable 618,612
-				_commandColumn = CommandGridColumn.For(expr, "Edit");
-#pragma warning restore 618,612
+				_commandColumn = CommandGridColumn.For<TestData.Item, FakeController>(item => item.ItemId.ToString(), item => item.ItemId, x => x.Edit());
 			}
 
 			[Test]
@@ -123,9 +122,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_throw_an_exception_if_getItemId_expression_is_null()
 			{
-#pragma warning disable 618,612
-				Assert.Throws<NullReferenceException>(() => CommandGridColumn.For((Expression<Func<TestData.Item, int>>)null, "Edit"));
-#pragma warning restore 618,612
+				Assert.Throws<NullReferenceException>(() => CommandGridColumn.For<TestData.Item, FakeController>(null, x => x.Edit()));
 			}
 		}
 	}
