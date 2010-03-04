@@ -26,6 +26,11 @@
 			return textAreaData;
 		}
 
+		public static TextAreaData WithLabel(this TextAreaData textAreaData, string labelText)
+		{
+			return textAreaData.WithLabel(Label.ForIt().WithText(labelText));
+		}
+
 		public static TextAreaData WithLabel(this TextAreaData textAreaData, LabelData label)
 		{
 			textAreaData.Label = label;

@@ -35,7 +35,7 @@ namespace FluentWebControls
 				sb.Append('>');
 			}
 			sb.AppendFormat("<label");
-			if (ForId != null)
+			if (!ForId.IsNullOrEmpty())
 			{
 				sb.AppendFormat(" for='{0}'", ForId);
 			}

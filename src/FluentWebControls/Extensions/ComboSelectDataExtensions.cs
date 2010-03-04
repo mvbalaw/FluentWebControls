@@ -12,6 +12,12 @@ namespace FluentWebControls.Extensions
 			return comboSelectData;
 		}
 
+		public static ComboSelectData WithLabel(this ComboSelectData comboSelectData, string labelText)
+		{
+			var label = Label.ForIt().WithText(labelText);
+			return comboSelectData.WithLabel(label);
+		}
+
 		public static ComboSelectData WithLabel(this ComboSelectData comboSelectData, LabelData label)
 		{
 			comboSelectData.Label = label;

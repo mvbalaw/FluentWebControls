@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace FluentWebControls.Extensions
 {
 	public static class TextBoxDataExtensions
@@ -32,10 +34,15 @@ namespace FluentWebControls.Extensions
 			return textBoxData;
 		}
 
+		public static TextBoxData WithLabel(this TextBoxData textBoxData, string labelText)
+		{
+			var label = Label.ForIt().WithText(labelText);
+			return textBoxData.WithLabel(label);
+		}
+
 		public static TextBoxData WithLabel(this TextBoxData textBoxData, LabelData label)
 		{
 			textBoxData.Label = label;
-			label.ForId = ((IWebControl)textBoxData).Id;
 			return textBoxData;
 		}
 	}

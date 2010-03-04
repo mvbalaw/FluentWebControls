@@ -51,6 +51,11 @@ namespace FluentWebControls.Extensions
 			return dropDownListData;
 		}
 
+		public static DropDownListData WithLabel(this DropDownListData dropDownListData, string labelText)
+		{
+			return dropDownListData.WithLabel(Label.ForIt().WithText(labelText));
+		}
+
 		public static DropDownListData WithLabel(this DropDownListData dropDownListData, LabelData label)
 		{
 			dropDownListData.Label = label;

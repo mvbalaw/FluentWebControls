@@ -8,6 +8,12 @@ namespace FluentWebControls.Extensions
 			return checkBoxData;
 		}
 
+		public static CheckBoxData WithLabel(this CheckBoxData checkBoxData, string labelText)
+		{
+			var label = Label.ForIt().WithText(labelText);
+			return checkBoxData.WithLabel(label);
+		}
+
 		public static CheckBoxData WithLabel(this CheckBoxData checkBoxData, LabelData label)
 		{
 			checkBoxData.Label = label;

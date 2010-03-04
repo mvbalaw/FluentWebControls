@@ -71,12 +71,30 @@ namespace FluentWebControls.Tests.Extensions
 		public class When_asked_to_assign_Label : TextBoxDataExtensionsTestBase
 		{
 			[Test]
-			public void Should_return_a_TextBoxData_With_Width_initialized()
+			public void Should_return_a_TextBoxData_with_Label_initialized_given_a_Label_object()
 			{
-				var label = new LabelData("Id");
+				var label = new LabelData
+					{
+						Text = "Id"
+					};
 
 				var tBox = _textBoxData.WithLabel(label);
 				Assert.AreSame(_textBoxData, tBox);
+				string textBox = tBox.ToString();
+				textBox.Contains(label.ToString()).ShouldBeTrue();
+			}
+
+			[Test]
+			public void Should_return_a_TextBoxData_with_Label_initialized_given_a_string_label_text()
+			{
+				const string labeltext = "Id";
+
+				var tBox = _textBoxData.WithLabel(labeltext);
+				Assert.AreSame(_textBoxData, tBox);
+				var label = new LabelData
+					{
+						Text = labeltext
+					};
 				tBox.ToString().Contains(label.ToString()).ShouldBeTrue();
 			}
 		}
