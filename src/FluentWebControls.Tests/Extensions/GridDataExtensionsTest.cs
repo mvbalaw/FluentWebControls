@@ -57,10 +57,9 @@ namespace FluentWebControls.Tests.Extensions
 						new KeyValuePair<string, string>("Name1", "Value2")
 					};
 
-				var dropDownListData = new DropDownListData(kvpList)
-					{
-						SubmitOnChange = true
-					};
+				var dropDownListData = new DropDownListData(kvpList);
+				dropDownListData.SubmitOnChange();
+
 				var grid = _gridData.WithFilter(dropDownListData);
 				Assert.AreSame(_gridData, grid);
 			}

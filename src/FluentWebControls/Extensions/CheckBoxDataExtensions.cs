@@ -22,9 +22,14 @@ namespace FluentWebControls.Extensions
 
 		public static CheckBoxData WithLabelAlignedLeft(this CheckBoxData checkBoxData, LabelData label)
 		{
-			checkBoxData.Label = label;
 			checkBoxData.LabelAlignAttribute = AlignAttribute.Left;
-			return checkBoxData;
+			return checkBoxData.WithLabel(label);
+		}
+
+		public static CheckBoxData WithLabelAlignedLeft(this CheckBoxData checkBoxData, string labelText)
+		{
+			checkBoxData.LabelAlignAttribute = AlignAttribute.Left;
+			return checkBoxData.WithLabel(labelText);
 		}
 
 		public static CheckBoxData WithValue(this CheckBoxData checkBoxData, string value)

@@ -5,7 +5,15 @@ using FluentWebControls.Extensions;
 
 namespace FluentWebControls
 {
-	public class CheckBoxData : WebControlBase
+	public interface ICheckBoxData
+	{
+		bool Checked { get; }
+		LabelData Label { get; }
+		AlignAttribute LabelAlignAttribute { get; }
+		string Value { get; }
+	}
+
+	public class CheckBoxData : WebControlBase, ICheckBoxData
 	{
 		public CheckBoxData(bool isChecked)
 		{
@@ -13,10 +21,28 @@ namespace FluentWebControls
 			LabelAlignAttribute = AlignAttribute.Right;
 		}
 
-		public bool Checked { get; set; }
-		public LabelData Label { get; set; }
-		public AlignAttribute LabelAlignAttribute { get; set; }
-		public string Value { get; set; }
+		internal bool Checked { private get; set; }
+		internal LabelData Label { private get; set; }
+		internal AlignAttribute LabelAlignAttribute { private get; set; }
+		internal string Value { private get; set; }
+
+		LabelData ICheckBoxData.Label
+		{
+			get { return Label; }
+		}
+		AlignAttribute ICheckBoxData.LabelAlignAttribute
+		{
+			get { return LabelAlignAttribute; }
+		}
+		bool ICheckBoxData.Checked
+		{
+			get { return Checked; }
+		}
+
+		string ICheckBoxData.Value
+		{
+			get { return Value; }
+		}
 
 		private void AppendLabel(StringBuilder stringBuilder)
 		{

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace FluentWebControls.Extensions
 {
 	public static class TextBoxDataExtensions

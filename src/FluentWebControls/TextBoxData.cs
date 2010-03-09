@@ -6,7 +6,20 @@ using FluentWebControls.Validation;
 
 namespace FluentWebControls
 {
-	public class TextBoxData : ValidatableWebControlBase
+	public interface ITextBoxData
+	{
+		string CssClass { get; }
+		string IdWithPrefix { get; }
+		LabelData Label { get; }
+		int? MaxValue { get; }
+		int? MinValue { get; }
+		bool ReadOnly { get; }
+		ValidatableWebControlBase.JQueryFieldValidationType ValidationType { get; }
+		string Value { get; }
+		string Width { get; }
+	}
+
+	public class TextBoxData : ValidatableWebControlBase, ITextBoxData
 	{
 		private const string DefaultCssClass = "textbox";
 		private readonly string _value;
@@ -19,22 +32,62 @@ namespace FluentWebControls
 			CssClass = DefaultCssClass;
 		}
 
-		public string CssClass { private get; set; }
-		public LabelData Label { get; set; }
-
+		internal string CssClass { private get; set; }
+		internal LabelData Label { private get; set; }
 		internal int MaxValue
 		{
 			set { _maxValue = value > 0 ? value : (int?)null; }
 		}
-
 		internal int MinValue
 		{
 			set { _minValue = value >= 0 ? value : (int?)null; }
 		}
-		public bool ReadOnly { get; set; }
+		internal bool ReadOnly { private get; set; }
+		internal JQueryFieldValidationType ValidationType { private get; set; }
+		internal string Width { private get; set; }
 
-		public JQueryFieldValidationType ValidationType { get; set; }
-		public string Width { private get; set; }
+		string ITextBoxData.IdWithPrefix
+		{
+			get { return IdWithPrefix; }
+		}
+		string ITextBoxData.CssClass
+		{
+			get { return CssClass; }
+		}
+		LabelData ITextBoxData.Label
+		{
+			get { return Label; }
+		}
+
+		string ITextBoxData.Value
+		{
+			get { return _value; }
+		}
+
+		int? ITextBoxData.MaxValue
+		{
+			get { return _maxValue; }
+		}
+
+		int? ITextBoxData.MinValue
+		{
+			get { return _minValue; }
+		}
+
+		bool ITextBoxData.ReadOnly
+		{
+			get { return ReadOnly; }
+		}
+
+		JQueryFieldValidationType ITextBoxData.ValidationType
+		{
+			get { return ValidationType; }
+		}
+
+		string ITextBoxData.Width
+		{
+			get { return Width; }
+		}
 
 		public override string ToString()
 		{

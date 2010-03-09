@@ -204,10 +204,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_add_the_READONLY_attribute_if_ReadOnly_is_true()
 			{
-				var textBox = new TextBoxData("World")
-					{
-						ReadOnly = true
-					};
+				var textBox = new TextBoxData("World").AsReadOnly();
 				string result = textBox.ToString();
 				result.ShouldBeEqualTo("<input type='text' class='textbox' value='World' READONLY/>");
 			}
@@ -215,10 +212,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_not_add_the_READONLY_attribute_if_ReadOnly_is_false()
 			{
-				var textBox = new TextBoxData("World")
-					{
-						ReadOnly = false
-					};
+				var textBox = new TextBoxData("World");
 				string result = textBox.ToString();
 				result.ShouldBeEqualTo("<input type='text' class='textbox' value='World'/>");
 			}

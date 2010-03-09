@@ -9,7 +9,19 @@ using MvbaCore;
 
 namespace FluentWebControls
 {
-	public class DropDownListData : ValidatableWebControlBase
+	public interface IDropDownListData
+	{
+		string CssClass { get; }
+		KeyValuePair<string, string>? Default { get; }
+		KeyValuePair<string, string>? FormFieldToSetBeforeSubmitOnChange { get; }
+		string IdWithPrefix { get; }
+		LabelData Label { get; }
+		IEnumerable<KeyValuePair<string, string>> ListItems { get; }
+		string SelectedValue { get; }
+		bool SubmitOnChange { get; }
+	}
+
+	public class DropDownListData : ValidatableWebControlBase, IDropDownListData
 	{
 		private KeyValuePair<string, string>? _formFieldToSetBeforeSubmitting;
 		private IEnumerable<KeyValuePair<string, string>> _items;
@@ -20,10 +32,8 @@ namespace FluentWebControls
 			CssClass = "ddlDetail";
 		}
 
-		public string CssClass { get; set; }
-		public KeyValuePair<string, string>? Default { get; set; }
-
-		public KeyValuePair<string, string> FormFieldToSetBeforeSubmitOnChange
+		internal KeyValuePair<string, string>? Default { private get; set; }
+		internal KeyValuePair<string, string> FormFieldToSetBeforeSubmitOnChange
 		{
 			set
 			{
@@ -31,12 +41,46 @@ namespace FluentWebControls
 				_formFieldToSetBeforeSubmitting = value;
 			}
 		}
+		internal LabelData Label { private get; set; }
+		internal string SelectedValue { private get; set; }
 
-		public LabelData Label { get; set; }
-		public string SelectedValue { get; set; }
 		public MethodCallData SlaveDataSource { get; set; }
 		public string SlaveId { get; set; }
-		public bool SubmitOnChange { get; set; }
+		internal bool SubmitOnChange { private get; set; }
+
+		bool IDropDownListData.SubmitOnChange
+		{
+			get { return SubmitOnChange; }
+		}
+		string IDropDownListData.IdWithPrefix
+		{
+			get { return IdWithPrefix; }
+		}
+		IEnumerable<KeyValuePair<string, string>> IDropDownListData.ListItems
+		{
+			get { return _items; }
+		}
+
+		public string CssClass { get; set; }
+
+		KeyValuePair<string, string>? IDropDownListData.Default
+		{
+			get { return Default; }
+		}
+		KeyValuePair<string, string>? IDropDownListData.FormFieldToSetBeforeSubmitOnChange
+		{
+			get { return _formFieldToSetBeforeSubmitting; }
+		}
+
+		LabelData IDropDownListData.Label
+		{
+			get { return Label; }
+		}
+
+		string IDropDownListData.SelectedValue
+		{
+			get { return SelectedValue; }
+		}
 
 		public void Remove(string value)
 		{

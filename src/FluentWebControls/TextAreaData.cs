@@ -5,7 +5,19 @@ using FluentWebControls.Extensions;
 
 namespace FluentWebControls
 {
-	public class TextAreaData : ValidatableWebControlBase
+	public interface ITextAreaData
+	{
+		int Cols { get; }
+		string CssClass { get; }
+		string IdWithPrefix { get; }
+		LabelData Label { get; }
+		int Rows { get; }
+		ValidatableWebControlBase.JQueryFieldValidationType ValidationType { get; }
+		string Value { get; }
+		string Width { get; }
+	}
+
+	public class TextAreaData : ValidatableWebControlBase, ITextAreaData
 	{
 		private readonly string _value;
 
@@ -15,12 +27,45 @@ namespace FluentWebControls
 			CssClass = "textbox";
 		}
 
-		public int Cols { private get; set; }
-		public string CssClass { private get; set; }
-		public LabelData Label { get; set; }
-		public int Rows { private get; set; }
-		public JQueryFieldValidationType ValidationType { get; set; }
-		public string Width { private get; set; }
+		internal int Cols { private get; set; }
+		internal string CssClass { private get; set; }
+		internal LabelData Label { private get; set; }
+		internal int Rows { private get; set; }
+		internal JQueryFieldValidationType ValidationType { private get; set; }
+		internal string Width { private get; set; }
+
+		int ITextAreaData.Cols
+		{
+			get { return Cols; }
+		}
+		string ITextAreaData.CssClass
+		{
+			get { return CssClass; }
+		}
+		LabelData ITextAreaData.Label
+		{
+			get { return Label; }
+		}
+		int ITextAreaData.Rows
+		{
+			get { return Rows; }
+		}
+		JQueryFieldValidationType ITextAreaData.ValidationType
+		{
+			get { return ValidationType; }
+		}
+		string ITextAreaData.Width
+		{
+			get { return Width; }
+		}
+		string ITextAreaData.Value
+		{
+			get { return _value; }
+		}
+		string ITextAreaData.IdWithPrefix
+		{
+			get { return IdWithPrefix; }
+		}
 
 		public override string ToString()
 		{
