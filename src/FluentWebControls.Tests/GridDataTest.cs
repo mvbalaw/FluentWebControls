@@ -65,21 +65,21 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_add_a_CommandColumn_to_GridData_of_Type_T : GridDataTestTBase
 		{
-			private readonly CommandColumn<TestData.Item> _commandColumn = new CommandColumn<TestData.Item>(item => item.ItemId.ToString(), "Edit", ActionName);
+			private readonly GridCommandColumn<TestData.Item> _gridCommandColumn = new GridCommandColumn<TestData.Item>(item => item.ItemId.ToString(), "Edit", ActionName);
 
 			[Test]
 			public void Should_add_the_GridColumn_to_the_Paged_Grid_using_items_supplied_in_the_constructor()
 			{
-				_gridData.AddColumn(_commandColumn);
+				_gridData.AddColumn(_gridCommandColumn);
 
 				var gridColumns = _gridData.GridColumns.ToList();
 				gridColumns.Count.ShouldBeEqualTo(1);
 				gridColumns[0][0].ShouldBeEqualTo(_items[0].ItemId.ToString());
 				gridColumns[0][1].ShouldBeEqualTo(_items[1].ItemId.ToString());
 
-				gridColumns[0].ColumnHeader.ShouldBeEqualTo(_commandColumn.ColumnHeader);
-				gridColumns[0].FieldName.ShouldBeEqualTo(_commandColumn.FieldName);
-				gridColumns[0].Align.ShouldBeEqualTo(_commandColumn.Align);
+				gridColumns[0].ColumnHeader.ShouldBeEqualTo(_gridCommandColumn.ColumnHeader);
+				gridColumns[0].FieldName.ShouldBeEqualTo(_gridCommandColumn.FieldName);
+				gridColumns[0].Align.ShouldBeEqualTo(_gridCommandColumn.Align);
 				gridColumns[0].ActionName.ShouldBeEqualTo(_gridData.ActionName);
 			}
 		}

@@ -51,6 +51,16 @@ namespace FluentWebControls
 			return ComboSelect.For(itemSource, getListItemDisplayText, getListItemValue, forId);
 		}
 
+		public static DataColumn<T> DataColumnFor<T>(Func<T, string> getItemText)
+		{
+			return DataColumn.For(getItemText);
+		}
+
+		public static CommandColumn<T> CommandColumnFor<T>(Func<T, string> getHref)
+		{
+			return CommandColumn.For(getHref);
+		}
+
 		public static DropDownListData DropDownListFor<TListItemType, TContainerType, TPropertyType>(IEnumerable<TListItemType> listItemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
 		{
 			return DropDownList.For(listItemSource, getListItemDisplayText, getListItemValue, forId);
@@ -191,6 +201,11 @@ namespace FluentWebControls
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2, filter3);
+		}
+
+		public static TableData<TItemType> TableFor<TItemType>(IEnumerable<TItemType> list)
+		{
+			return Table.For(list);
 		}
 
 		public static TextAreaData TextAreaFor<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId)

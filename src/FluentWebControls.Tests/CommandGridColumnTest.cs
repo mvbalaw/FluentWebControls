@@ -19,30 +19,30 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_command_column_for_a_string_function
 		{
-			private CommandColumn<TestData.Item> _commandColumn;
+			private GridCommandColumn<TestData.Item> _gridCommandColumn;
 
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				_commandColumn = CommandGridColumn.For<TestData.Item, FakeController>(item => item.ItemName, x => x.Edit());
+				_gridCommandColumn = CommandGridColumn.For<TestData.Item, FakeController>(item => item.ItemName, x => x.Edit());
 			}
 
 			[Test]
 			public void Should_call_the_function_when_GetItemId_is_called()
 			{
-				_commandColumn.GetItemId(new TestData.Item(10, "Item")).ShouldBeEqualTo("Item");
+				_gridCommandColumn.GetItemId(new TestData.Item(10, "Item")).ShouldBeEqualTo("Item");
 			}
 
 			[Test]
 			public void Should_set_the_ActionName()
 			{
-				_commandColumn.ActionName.ShouldBeEqualTo("Edit");
+				_gridCommandColumn.ActionName.ShouldBeEqualTo("Edit");
 			}
 
 			[Test]
 			public void Should_set_the_FieldName()
 			{
-				_commandColumn.FieldName.ShouldBeEqualTo("itemName");
+				_gridCommandColumn.FieldName.ShouldBeEqualTo("itemName");
 			}
 
 			[Test]
@@ -55,30 +55,30 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_command_column_for_a_string_function_with_Controller_function
 		{
-			private CommandColumn<TestData.Item> _commandColumn;
+			private GridCommandColumn<TestData.Item> _gridCommandColumn;
 
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				_commandColumn = CommandGridColumn.For<TestData.Item, FakeController>(x => x.ItemName, x => x.ItemName, c => c.Edit());
+				_gridCommandColumn = CommandGridColumn.For<TestData.Item, FakeController>(x => x.ItemName, x => x.ItemName, c => c.Edit());
 			}
 
 			[Test]
 			public void Should_call_the_function_when_GetItemId_is_called()
 			{
-				_commandColumn.GetItemId(new TestData.Item(10, "Item")).ShouldBeEqualTo("Item");
+				_gridCommandColumn.GetItemId(new TestData.Item(10, "Item")).ShouldBeEqualTo("Item");
 			}
 
 			[Test]
 			public void Should_set_the_ActionName()
 			{
-				_commandColumn.ActionName.ShouldBeEqualTo("Edit");
+				_gridCommandColumn.ActionName.ShouldBeEqualTo("Edit");
 			}
 
 			[Test]
 			public void Should_set_the_FieldName()
 			{
-				_commandColumn.FieldName.ShouldBeEqualTo("itemName");
+				_gridCommandColumn.FieldName.ShouldBeEqualTo("itemName");
 			}
 
 			public class FakeController
@@ -93,30 +93,30 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_command_column_for_an_int_function
 		{
-			private CommandColumn<TestData.Item> _commandColumn;
+			private GridCommandColumn<TestData.Item> _gridCommandColumn;
 
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				_commandColumn = CommandGridColumn.For<TestData.Item, FakeController>(item => item.ItemId.ToString(), item => item.ItemId, x => x.Edit());
+				_gridCommandColumn = CommandGridColumn.For<TestData.Item, FakeController>(item => item.ItemId.ToString(), item => item.ItemId, x => x.Edit());
 			}
 
 			[Test]
 			public void Should_call_the_function_when_GetItemId_is_called()
 			{
-				_commandColumn.GetItemId(new TestData.Item(10, "Item")).ShouldBeEqualTo("10");
+				_gridCommandColumn.GetItemId(new TestData.Item(10, "Item")).ShouldBeEqualTo("10");
 			}
 
 			[Test]
 			public void Should_set_the_ActionName()
 			{
-				_commandColumn.ActionName.ShouldBeEqualTo("Edit");
+				_gridCommandColumn.ActionName.ShouldBeEqualTo("Edit");
 			}
 
 			[Test]
 			public void Should_set_the_FieldName()
 			{
-				_commandColumn.FieldName.ShouldBeEqualTo("itemId");
+				_gridCommandColumn.FieldName.ShouldBeEqualTo("itemId");
 			}
 
 			[Test]

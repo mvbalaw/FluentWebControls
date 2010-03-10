@@ -54,8 +54,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandColumn.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="DataColumn.cs" />
+    <Compile Include="Extensions\CommandColumnExtensions.cs" />
+    <Compile Include="Extensions\DataColumnExtensions.cs" />
     <Compile Include="Extensions\KeyValuePairExtensions.cs" />
+    <Compile Include="Extensions\TableDataExtensions.cs" />
+    <Compile Include="IHtmlColumn.cs" />
     <Compile Include="Interfaces\PagedList.cs" />
     <Compile Include="PagedGridData.cs" />
     <Compile Include="ScrollableGridData.cs" />
@@ -80,14 +86,14 @@
     <Compile Include="CheckBoxData.cs" />
     <Compile Include="ComboSelect.cs" />
     <Compile Include="ComboSelectData.cs" />
-    <Compile Include="CommandColumn.cs" />
+    <Compile Include="GridCommandColumn.cs" />
     <Compile Include="CommandGridColumn.cs" />
     <Compile Include="DropDownList.cs" />
     <Compile Include="DropDownListData.cs" />
     <Compile Include="Extensions\ButtonDataExtensions.cs" />
     <Compile Include="Extensions\CheckBoxDataExtensions.cs" />
     <Compile Include="Extensions\ComboSelectDataExtensions.cs" />
-    <Compile Include="Extensions\CommandColumnExtensions.cs" />
+    <Compile Include="Extensions\GridCommandColumnExtensions.cs" />
     <Compile Include="Extensions\DropDownListDataExtensions.cs" />
     <Compile Include="Extensions\HiddenDataExtensions.cs" />
     <Compile Include="Extensions\LabelDataExtensions.cs" />
@@ -113,6 +119,8 @@
     <Compile Include="ScrollableGrid.cs" />
     <Compile Include="SortableColumn.cs" />
     <Compile Include="SortableGridColumn.cs" />
+    <Compile Include="Table.cs" />
+    <Compile Include="TableData.cs" />
     <Compile Include="TextArea.cs" />
     <Compile Include="TextAreaData.cs" />
     <Compile Include="TextBox.cs" />

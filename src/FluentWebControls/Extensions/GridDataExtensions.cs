@@ -14,7 +14,7 @@ namespace FluentWebControls.Extensions
 			return gridData;
 		}
 
-		public static TGridData WithColumn<TGridData, T>(this TGridData gridData, CommandColumn<T> gridColumn) where TGridData : GridData<T>
+		public static TGridData WithColumn<TGridData, T>(this TGridData gridData, GridCommandColumn<T> gridColumn) where TGridData : GridData<T>
 		{
 			gridData.AddColumn(gridColumn);
 			return gridData;

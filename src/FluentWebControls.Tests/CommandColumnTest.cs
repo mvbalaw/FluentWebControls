@@ -12,7 +12,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_Sortable()
 			{
-				var column = new CommandColumn<int>(i => i.ToString(), "Bar", "Int");
+				var column = new GridCommandColumn<int>(i => i.ToString(), "Bar", "Int");
 				column.Type.ShouldBeEqualTo(GridColumnType.Command);
 			}
 		}

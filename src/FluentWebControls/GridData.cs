@@ -77,7 +77,7 @@ namespace FluentWebControls
 			AddColumn(column, ActionName, column.GetItemValue);
 		}
 
-		public void AddColumn(CommandColumn<T> column)
+		public void AddColumn(GridCommandColumn<T> column)
 		{
 			AddColumn(column, column.ActionName, column.GetItemId);
 		}

@@ -1,29 +1,82 @@
 using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace FluentWebControls
 {
-	public class CommandColumn<T> : GridColumnBuilder
+	public class CommandColumn
 	{
-		private readonly Func<T, string> _getItemIdFunction;
-
-		public CommandColumn(Func<T, string> getItemIdFunction, string fieldName, string actionName)
-			: base("", fieldName)
+		public static CommandColumn<T> For<T>(Func<T, string> getHref)
 		{
-			_getItemIdFunction = getItemIdFunction;
-			ActionName = actionName;
-			IsClientSideSortable = false;
+			return new CommandColumn<T>(getHref);
+		}
+	}
+
+	public interface ICommandColumn
+	{
+		AlignAttribute Align { get; }
+		//string Href { get; }
+		string CssClass { get; }
+		string Text { get; }
+	}
+
+	public class CommandColumn<T> : ICommandColumn, IHtmlColumn<T>
+	{
+		private readonly Func<T, string> _getHref;
+
+		public CommandColumn(Func<T, string> getHref)
+		{
+			_getHref = getHref;
+			Align = AlignAttribute.Center;
 		}
 
-		public string ActionName { get; private set; }
+		internal AlignAttribute Align { private get; set; }
+		internal string CssClass { private get; set; }
 
-		public override GridColumnType Type
+		internal string Text { private get; set; }
+		string ICommandColumn.Text
 		{
-			get { return GridColumnType.Command; }
+			get { return Text; }
 		}
 
-		public string GetItemId(T item)
+		AlignAttribute ICommandColumn.Align
 		{
-			return _getItemIdFunction(item);
+			get { return Align; }
+		}
+
+		string ICommandColumn.CssClass
+		{
+			get { return CssClass; }
+		}
+
+		public void Render(T item, HtmlTextWriter writer)
+		{
+			var link = new HyperLink
+				{
+					NavigateUrl = _getHref(item),
+					Text = Text
+				};
+			var cell = new TableCell
+				{
+					HorizontalAlign = Align.ToHorizontalAlign(),
+					CssClass = CssClass
+				};
+			cell.Controls.Add(link);
+
+			cell.RenderBeginTag(writer);
+			cell.RenderControl(writer);
+			cell.RenderEndTag(writer);
+		}
+
+		public void RenderHeader(HtmlTextWriter writer)
+		{
+			var cell = new TableHeaderCell
+				{
+					Text = "&nbsp;"
+				};
+			cell.RenderBeginTag(writer);
+			cell.RenderControl(writer);
+			cell.RenderEndTag(writer);
 		}
 	}
 }

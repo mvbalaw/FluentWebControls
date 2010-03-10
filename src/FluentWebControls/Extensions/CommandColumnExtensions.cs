@@ -2,22 +2,28 @@ namespace FluentWebControls.Extensions
 {
 	public static class CommandColumnExtensions
 	{
-		public static CommandColumn<T> AlignCenter<T>(this CommandColumn<T> sortableColumn)
+		public static CommandColumn<T> AlignRight<T>(this CommandColumn<T> commandColumn)
 		{
-			sortableColumn.Align = AlignAttribute.Center;
-			return sortableColumn;
+			commandColumn.Align = AlignAttribute.Right;
+			return commandColumn;
 		}
 
-		public static CommandColumn<T> AlignLeft<T>(this CommandColumn<T> sortableColumn)
+		public static CommandColumn<T> AlignLeft<T>(this CommandColumn<T> commandColumn)
 		{
-			sortableColumn.Align = AlignAttribute.Left;
-			return sortableColumn;
+			commandColumn.Align = AlignAttribute.Left;
+			return commandColumn;
 		}
 
-		public static CommandColumn<T> AlignRight<T>(this CommandColumn<T> sortableColumn)
+		public static CommandColumn<T> WithCssClass<T>(this CommandColumn<T> commandColumn, string cssClass)
 		{
-			sortableColumn.Align = AlignAttribute.Right;
-			return sortableColumn;
+			commandColumn.CssClass = cssClass;
+			return commandColumn;
+		}
+
+		public static CommandColumn<T> WithText<T>(this CommandColumn<T> commandColumn, string text)
+		{
+			commandColumn.Text = text;
+			return commandColumn;
 		}
 	}
 }

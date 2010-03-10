@@ -10,12 +10,12 @@ namespace FluentWebControls.Tests.Extensions
 	{
 		public abstract class CommandColumnExtensionsTestBase
 		{
-			protected CommandColumn<TestData.Item> _commandColumn;
+			protected GridCommandColumn<TestData.Item> _gridCommandColumn;
 
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				_commandColumn = new CommandColumn<TestData.Item>(item => item.ItemName, "FieldName", "ActionName");
+				_gridCommandColumn = new GridCommandColumn<TestData.Item>(item => item.ItemName, "FieldName", "ActionName");
 			}
 		}
 
@@ -25,8 +25,8 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CommandColumn_with_align_set_to_center()
 			{
-				var column = _commandColumn.AlignCenter();
-				Assert.AreSame(_commandColumn, column);
+				var column = _gridCommandColumn.AlignCenter();
+				Assert.AreSame(_gridCommandColumn, column);
 				column.Align.ShouldBeEqualTo(AlignAttribute.Center);
 			}
 		}
@@ -37,8 +37,8 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CommandColumn_with_align_set_to_left()
 			{
-				var column = _commandColumn.AlignLeft();
-				Assert.AreSame(_commandColumn, column);
+				var column = _gridCommandColumn.AlignLeft();
+				Assert.AreSame(_gridCommandColumn, column);
 				column.Align.ShouldBeEqualTo(AlignAttribute.Left);
 			}
 		}
@@ -49,8 +49,8 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CommandColumn_with_align_set_to_right()
 			{
-				var column = _commandColumn.AlignRight();
-				Assert.AreSame(_commandColumn, column);
+				var column = _gridCommandColumn.AlignRight();
+				Assert.AreSame(_gridCommandColumn, column);
 				column.Align.ShouldBeEqualTo(AlignAttribute.Right);
 			}
 		}

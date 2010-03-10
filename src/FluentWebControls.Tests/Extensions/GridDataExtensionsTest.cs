@@ -37,7 +37,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_GridData_With_the_newly_added_CommandColumn()
 			{
-				var commandColumn = new CommandColumn<TestData.Item>(item => item.ItemName, "FieldName", ActionName);
+				var commandColumn = new GridCommandColumn<TestData.Item>(item => item.ItemName, "FieldName", ActionName);
 				var grid = _gridData.WithColumn(commandColumn);
 				Assert.AreSame(_gridData, grid);
 				_gridData.GridColumns.ToList().Count.ShouldBeEqualTo(1);
