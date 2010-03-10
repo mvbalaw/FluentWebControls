@@ -8,6 +8,12 @@ namespace FluentWebControls.Extensions
 {
 	public static class DropDownListDataExtensions
 	{
+		public static DropDownListData AsReadOnly(this DropDownListData dropDownListData)
+		{
+			dropDownListData.ReadOnly = true;
+			return dropDownListData;
+		}
+
 		public static DropDownListData CssClass(this DropDownListData dropDownListData, string cssClass)
 		{
 			dropDownListData.CssClass = cssClass;

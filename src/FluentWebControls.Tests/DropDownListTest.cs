@@ -21,7 +21,7 @@ namespace FluentWebControls.Tests
 					};
 
 				var dropDownListData = DropDownList.For(items, nvp => nvp.Key, nvp => nvp.Value, (Foo f) => f.Value);
-				dropDownListData.ToString().ShouldBeEqualTo("<select name='value' id='value' class='ddlDetail'><option value='Value1'>Name1</option><option value='Value2'>Name2</option></select>");
+				dropDownListData.ToString().ShouldBeEqualTo("<select name='value' id='value' class='ddlDetail'><option value='Value1' selected='selected'>Name1</option><option value='Value2'>Name2</option></select>");
 			}
 
 			public class Foo

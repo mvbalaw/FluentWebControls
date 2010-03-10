@@ -10,7 +10,7 @@ namespace FluentWebControls
 		public static HiddenData For<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId)
 		{
 			string value = getValue(source);
-			return new HiddenData().WithId(forId).Text(value);
+			return new HiddenData().WithId(forId).WithValue(value);
 		}
 
 		public static HiddenData For<T>(T source, Expression<Func<T, string>> forIdAndValue)

@@ -83,8 +83,9 @@ namespace FluentWebControls.Tests.Extensions
 				const string defaultValue = "Value2";
 				var listData = _dropDownListData.WithDefault(defaultText, defaultValue);
 				Assert.AreSame(_dropDownListData, listData);
-				_dropDownListData.ToString().Contains("<option value='Value2' selected='selected'></option>").ShouldBeTrue();
-				_dropDownListData.ToString().Contains("<option value='Value2'>Name2</option>").ShouldBeFalse();
+				var html = _dropDownListData.ToString();
+				html.Contains("<option value='Value2' selected='selected'></option>").ShouldBeTrue(html);
+				html.Contains("<option value='Value2'>Name2</option>").ShouldBeFalse(html);
 			}
 		}
 

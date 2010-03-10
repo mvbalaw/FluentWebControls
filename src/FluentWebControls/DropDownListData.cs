@@ -17,6 +17,7 @@ namespace FluentWebControls
 		string IdWithPrefix { get; }
 		LabelData Label { get; }
 		IEnumerable<KeyValuePair<string, string>> ListItems { get; }
+		bool ReadOnly { get; }
 		string SelectedValue { get; }
 		bool SubmitOnChange { get; }
 	}
@@ -42,7 +43,30 @@ namespace FluentWebControls
 			}
 		}
 		internal LabelData Label { private get; set; }
-		internal string SelectedValue { private get; set; }
+		internal bool ReadOnly { private get; set; }
+		private string _selectedValue;
+		internal string SelectedValue
+		{
+			private get
+			{
+				if (_selectedValue != null)
+				{
+					return _selectedValue;
+				}
+				if (Default != null)
+				{
+					return Default.Value.Value;
+				}
+
+				if (_items.Any())
+				{
+					_selectedValue = _items.First().Value;
+					return _selectedValue;
+				}
+				return null;
+			}
+			set { _selectedValue = value; }
+		}
 
 		public MethodCallData SlaveDataSource { get; set; }
 		public string SlaveId { get; set; }
@@ -81,6 +105,10 @@ namespace FluentWebControls
 		{
 			get { return SelectedValue; }
 		}
+		bool IDropDownListData.ReadOnly
+		{
+			get { return ReadOnly; }
+		}
 
 		public void Remove(string value)
 		{
@@ -96,8 +124,13 @@ namespace FluentWebControls
 				sb.Append(Label);
 			}
 			sb.Append("<select");
-			sb.Append(IdWithPrefix.CreateQuotedAttribute("name"));
-			sb.Append(IdWithPrefix.CreateQuotedAttribute("id"));
+			string idWithPrefix = IdWithPrefix;
+			if (ReadOnly)
+			{
+				idWithPrefix += "_readonly";
+			}
+			sb.Append(idWithPrefix.CreateQuotedAttribute("name"));
+			sb.Append(idWithPrefix.CreateQuotedAttribute("id"));
 			sb.AppendFormat(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
 			if (SubmitOnChange)
 			{
@@ -109,10 +142,14 @@ namespace FluentWebControls
 				string secondaryDdlScript = String.Format("UpdateSecondDropDown(\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\");", IdWithPrefix, SlaveId.ToCamelCase(), Reflection.GetControllerName(SlaveDataSource.ClassName), SlaveDataSource.MethodName, SlaveDataSource.ParameterValues.First().Key);
 				sb.Append(secondaryDdlScript.CreateQuotedAttribute("onchange"));
 			}
+			if (ReadOnly)
+			{
+				sb.Append("disabled".CreateQuotedAttribute("disabled"));
+			}
 			sb.Append('>');
 			if (Default != null)
 			{
-				WriteOption(sb, Default.Value, String.IsNullOrEmpty(SelectedValue));
+				WriteOption(sb, Default.Value, SelectedValue == null || SelectedValue == Default.Value.Value);
 				_items = _items.Where(x => x.Value != Default.Value.Value);
 			}
 			foreach (var item in _items)
@@ -123,6 +160,15 @@ namespace FluentWebControls
 			if (PropertyMetaData != null && PropertyMetaData.IsRequired)
 			{
 				sb.Append("<em>*</em>");
+			}
+			if (ReadOnly)
+			{
+				var hidden = new HiddenData()
+					.WithValue(SelectedValue)
+					.WithId(((IWebControl)this).Id)
+					.WithIdPrefix(((IWebControl)this).IdPrefix);
+
+				sb.Append(hidden.ToString());
 			}
 			if (SlaveId != null)
 			{
