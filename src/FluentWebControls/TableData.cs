@@ -26,6 +26,8 @@ namespace FluentWebControls
 			_columns.Add(commandColumn);
 		}
 
+		internal string Id { get;  set; }
+
 		public override string ToString()
 		{
 			var stream = new MemoryStream();
@@ -33,26 +35,31 @@ namespace FluentWebControls
 			{
 				using (var writer = new HtmlTextWriter(streamWriter))
 				{
-					var table = new System.Web.UI.WebControls.Table();
+					var table = new System.Web.UI.WebControls.Table
+						{
+							ID = Id
+						};
 					table.RenderBeginTag(writer);
 					{
 						var tableHeader = new TableHeaderRow();
-						tableHeader.RenderBeginTag(writer);
-
-						foreach (var column in _columns)
 						{
-							column.RenderHeader(writer);
+							tableHeader.RenderBeginTag(writer);
+							foreach (var column in _columns)
+							{
+								column.RenderHeader(writer);
+							}
 						}
-
 						tableHeader.RenderEndTag(writer);
 
 						foreach (var item in _items)
 						{
 							var tableRow = new TableRow();
 							tableRow.RenderBeginTag(writer);
-							foreach (var column in _columns)
 							{
-								column.Render(item, writer);
+								foreach (var column in _columns)
+								{
+									column.Render(item, writer);
+								}
 							}
 							tableRow.RenderEndTag(writer);
 						}

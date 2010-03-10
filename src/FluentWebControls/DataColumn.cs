@@ -66,9 +66,7 @@ namespace FluentWebControls
 					Text = _getColumnText(item),
 					CssClass = CssClass
 				};
-			cell.RenderBeginTag(writer);
 			cell.RenderControl(writer);
-			cell.RenderEndTag(writer);
 		}
 
 		public void RenderHeader(HtmlTextWriter writer)
@@ -79,9 +77,7 @@ namespace FluentWebControls
 					Text = HeaderText,
 					CssClass = HeaderCssClass
 				};
-			cell.RenderBeginTag(writer);
 			cell.RenderControl(writer);
-			cell.RenderEndTag(writer);
 		}
 	}
 }

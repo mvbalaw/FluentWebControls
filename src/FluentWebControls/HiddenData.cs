@@ -7,7 +7,7 @@ namespace FluentWebControls
 	public interface IHiddenData
 	{
 		string IdWithPrefix { get; }
-		string Text { get; }
+		string Value { get; }
 	}
 
 	public class HiddenData : WebControlBase, IHiddenData
@@ -17,7 +17,7 @@ namespace FluentWebControls
 		{
 			get { return IdWithPrefix; }
 		}
-		string IHiddenData.Text
+		string IHiddenData.Value
 		{
 			get { return Value; }
 		}

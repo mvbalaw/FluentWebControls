@@ -62,10 +62,7 @@ namespace FluentWebControls
 					CssClass = CssClass
 				};
 			cell.Controls.Add(link);
-
-			cell.RenderBeginTag(writer);
 			cell.RenderControl(writer);
-			cell.RenderEndTag(writer);
 		}
 
 		public void RenderHeader(HtmlTextWriter writer)
@@ -74,9 +71,7 @@ namespace FluentWebControls
 				{
 					Text = "&nbsp;"
 				};
-			cell.RenderBeginTag(writer);
 			cell.RenderControl(writer);
-			cell.RenderEndTag(writer);
 		}
 	}
 }

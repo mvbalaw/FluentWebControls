@@ -30,7 +30,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_LinkData_with_href()
 			{
 				const string href = "LinkPage";
-				var link = _linkData.WithHref(href);
+				var link = _linkData.WithUrl(href);
 				Assert.AreSame(_linkData, link);
 				TestWebControlsUtility.HtmlParser(link.ToString())["href"].ShouldBeEqualTo(href);
 				_linkData.ToString().Contains(href).ShouldBeTrue();

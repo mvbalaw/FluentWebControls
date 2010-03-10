@@ -7,19 +7,80 @@ using FluentWebControls.Extensions;
 
 namespace FluentWebControls
 {
-	public class LinkData : WebControlBase
+	public interface ILinkData
+	{
+		string ControllerExtension { get; }
+		string CssClass { get; }
+		bool Disabled { get; }
+		string Href { get; }
+		string Id { get; }
+		string IdWithPrefix { get; }
+		string LinkText { get; }
+		string MouseOverText { get; }
+		string Rel { get; }
+		string Url { get; }
+	}
+
+	public class LinkData : WebControlBase, ILinkData
 	{
 		private readonly Dictionary<string, string> _queryStringData = new Dictionary<string, string>();
 		private readonly List<string> _urlParameters = new List<string>();
 
-		public string ControllerExtension { get; set; }
-		public string CssClass { private get; set; }
-		public bool Disabled { get; set; }
-		public string Href { get; set; }
-		public string Id { get; set; }
-		public string LinkText { get; set; }
-		public string MouseOverText { get; set; }
-		public string Rel { get; set; }
+		internal string ControllerExtension { private get; set; }
+
+		internal string CssClass { private get; set; }
+
+		internal bool Disabled { private get; set; }
+		internal string Id { private get; set; }
+		internal string LinkText { private get; set; }
+		internal string MouseOverText { private get; set; }
+		internal string Rel { private get; set; }
+		internal string Url { private get; set; }
+		string ILinkData.ControllerExtension
+		{
+			get { return ControllerExtension; }
+		}
+		string ILinkData.CssClass
+		{
+			get { return CssClass; }
+		}
+		bool ILinkData.Disabled
+		{
+			get { return Disabled; }
+		}
+		string ILinkData.IdWithPrefix
+		{
+			get { return IdWithPrefix; }
+		}
+		string ILinkData.Url
+		{
+			get { return Url; }
+		}
+
+		public string Href
+		{
+			get { return Url + BuildUrlParameters() + BuildQueryString(); }
+		}
+
+		string ILinkData.Id
+		{
+			get { return Id; }
+		}
+
+		string ILinkData.LinkText
+		{
+			get { return LinkText; }
+		}
+
+		string ILinkData.MouseOverText
+		{
+			get { return MouseOverText; }
+		}
+
+		string ILinkData.Rel
+		{
+			get { return Rel; }
+		}
 
 		public void AddQueryStringData(string key, string value)
 		{
@@ -87,7 +148,7 @@ namespace FluentWebControls
 			}
 			else
 			{
-				sb.AppendFormat(" href='{0}{1}{2}'", Href, BuildUrlParameters(), BuildQueryString());
+				sb.AppendFormat(" href='{0}{1}{2}'", Url, BuildUrlParameters(), BuildQueryString());
 			}
 			if (Rel != null)
 			{

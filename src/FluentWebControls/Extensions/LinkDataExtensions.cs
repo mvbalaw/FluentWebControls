@@ -84,9 +84,9 @@ namespace FluentWebControls.Extensions
 			return linkData;
 		}
 
-		public static LinkData WithHref(this LinkData linkData, string href)
+		public static LinkData WithUrl(this LinkData linkData, string url)
 		{
-			linkData.Href = href;
+			linkData.Url = url;
 			return linkData;
 		}
 

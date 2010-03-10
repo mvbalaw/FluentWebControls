@@ -7,10 +7,16 @@ namespace FluentWebControls.Extensions
 			table.AddColumn(dataColumn);
 			return table;
 		}
-		
+
 		public static TableData<T> WithColumn<T>(this TableData<T> table, CommandColumn<T> commandColumn)
 		{
 			table.AddColumn(commandColumn);
+			return table;
+		}
+
+		public static TableData<T> WithId<T>(this TableData<T> table, string id)
+		{
+			table.Id = id;
 			return table;
 		}
 	}

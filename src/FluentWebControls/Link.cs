@@ -19,10 +19,10 @@ namespace FluentWebControls
 		{
 			var pathUtility = Configuration.PathUtility;
 			string virtualDirectory = String.Format("{0}{1}/{2}", controllerName, controllerExtension, actionName);
-			string href = pathUtility != null ? pathUtility.GetUrl(virtualDirectory) : virtualDirectory;
+			string url = pathUtility != null ? pathUtility.GetUrl(virtualDirectory) : virtualDirectory;
 			return new LinkData
 				{
-					Href = href
+					Url = url
 				};
 		}
 
