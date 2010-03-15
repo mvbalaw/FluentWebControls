@@ -70,6 +70,7 @@
     <Compile Include="IHtmlColumn.cs" />
     <Compile Include="Interfaces\PagedList.cs" />
     <Compile Include="Mapping\ChoiceListUIMap.cs" />
+    <Compile Include="Mapping\IFreeTextUIMap.cs" />
     <Compile Include="Mapping\UIMap.cs" />
     <Compile Include="Mapping\FreeTextUIMap.cs" />
     <Compile Include="Mapping\IChoiceListUIMap.cs" />
