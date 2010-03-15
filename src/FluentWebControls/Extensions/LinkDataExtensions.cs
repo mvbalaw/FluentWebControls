@@ -84,12 +84,6 @@ namespace FluentWebControls.Extensions
 			return linkData;
 		}
 
-		public static LinkData WithUrl(this LinkData linkData, string url)
-		{
-			linkData.Url = url;
-			return linkData;
-		}
-
 		public static LinkData WithLinkText(this LinkData linkData, string linkText)
 		{
 			linkData.LinkText = linkText;
@@ -105,6 +99,12 @@ namespace FluentWebControls.Extensions
 		public static LinkData WithRel(this LinkData linkData, string rel)
 		{
 			linkData.Rel = rel;
+			return linkData;
+		}
+
+		public static LinkData WithUrl(this LinkData linkData, string url)
+		{
+			linkData.Url = url;
 			return linkData;
 		}
 

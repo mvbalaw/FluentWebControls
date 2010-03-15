@@ -4,7 +4,7 @@ using FluentWebControls.Extensions;
 
 namespace FluentWebControls
 {
-	public interface IHiddenData
+	public interface IHiddenData : IWebControl
 	{
 		string IdWithPrefix { get; }
 		string Value { get; }

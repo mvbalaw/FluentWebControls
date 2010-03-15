@@ -91,7 +91,7 @@ namespace FluentWebControls
 				               column.Align,
 				               column.IsDefaultSortColumn,
 				               column.IsClientSideSortable,
-							   column.Sorter,
+				               column.Sorter,
 				               actionName,
 				               _items.Select(getItemValue).ToList())
 				);
@@ -126,7 +126,7 @@ namespace FluentWebControls
 			foreach (var column in GridColumns)
 			{
 				sb.AppendFormat("<th{0}{1}", AlignAttribute.Center, ClientSideSortingEnabled && !column.IsClientSideSortable ? " class=\"{sorter: false}\"" : "");
-				var columnSorter = !column.Sorter.IsNullOrEmpty(true) ? " class=\"{sorter: '" + column.Sorter + "'}\"" : "";
+				string columnSorter = !column.Sorter.IsNullOrEmpty(true) ? " class=\"{sorter: '" + column.Sorter + "'}\"" : "";
 				sb.AppendFormat("{0}>", columnSorter);
 				switch (column.Type)
 				{
@@ -136,7 +136,7 @@ namespace FluentWebControls
 						          	.WithLinkText(column.ColumnHeader)
 						          	.WithData(() => PagedListParameters.SortDirection, GetNextSortDirection(column.FieldName, column.IsDefaultSortColumn))
 						          	.WithData(() => PagedListParameters.SortField, column.FieldName)
-									.WithData(_filters.Select(f => new KeyValuePair<string, string>(((IWebControl)f).Id, ((IDropDownListData)f).SelectedValue)))
+						          	.WithData(_filters.Select(f => new KeyValuePair<string, string>(((IWebControl)f).Id, ((IDropDownListData)f).SelectedValue)))
 						          	.Id("th" + columnNumber)
 							);
 						break;

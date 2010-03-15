@@ -9,7 +9,7 @@ using MvbaCore;
 
 namespace FluentWebControls
 {
-	public interface IDropDownListData
+	public interface IDropDownListData : IWebControl
 	{
 		string CssClass { get; }
 		KeyValuePair<string, string>? Default { get; }

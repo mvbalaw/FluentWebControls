@@ -51,14 +51,14 @@ namespace FluentWebControls
 			return ComboSelect.For(itemSource, getListItemDisplayText, getListItemValue, forId);
 		}
 
-		public static DataColumn<T> DataColumnFor<T>(Func<T, string> getItemText)
-		{
-			return DataColumn.For(getItemText);
-		}
-
 		public static CommandColumn<T> CommandColumnFor<T>(Func<T, string> getHref)
 		{
 			return CommandColumn.For(getHref);
+		}
+
+		public static DataColumn<T> DataColumnFor<T>(Func<T, string> getItemText)
+		{
+			return DataColumn.For(getItemText);
 		}
 
 		public static DropDownListData DropDownListFor<TListItemType, TContainerType, TPropertyType>(IEnumerable<TListItemType> listItemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)

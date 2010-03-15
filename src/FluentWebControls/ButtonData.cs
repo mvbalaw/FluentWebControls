@@ -90,7 +90,7 @@ namespace FluentWebControls
 			if (_type.Type.Equals("submit", StringComparison.OrdinalIgnoreCase))
 			{
 				string actionName = ActionName ?? _type.Name;
-				var virtualDirectory = String.Format("/{0}{1}/{2}", ControllerName, ControllerExtension ?? "", actionName);
+				string virtualDirectory = String.Format("/{0}{1}/{2}", ControllerName, ControllerExtension ?? "", actionName);
 				string url = _pathUtility == null ? virtualDirectory : _pathUtility.GetUrl(virtualDirectory);
 				sb.Append((String.IsNullOrEmpty(QueryParameter) ? url : String.Format("{0}?{1}", url, QueryParameter)).CreateQuotedAttribute("action"));
 
@@ -104,7 +104,7 @@ namespace FluentWebControls
 			}
 			else if (_type.Type.Equals("button", StringComparison.OrdinalIgnoreCase))
 			{
-				var virtualDirectory = String.Format("/{0}{1}/{2}{3}", ControllerName, ControllerExtension ?? "", ActionName, BuildUrlParameters());
+				string virtualDirectory = String.Format("/{0}{1}/{2}{3}", ControllerName, ControllerExtension ?? "", ActionName, BuildUrlParameters());
 				string url = _pathUtility == null ? virtualDirectory : _pathUtility.GetUrl(virtualDirectory);
 
 				if (String.IsNullOrEmpty(OnClickMethod) && _type == ButtonType.Link)

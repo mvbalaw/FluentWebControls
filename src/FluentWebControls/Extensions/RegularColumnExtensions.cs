@@ -2,6 +2,12 @@ namespace FluentWebControls.Extensions
 {
 	public static class RegularColumnExtensions
 	{
+		public static RegularColumn<T> AddSorterType<T>(this RegularColumn<T> regularColumn, string sorterType)
+		{
+			regularColumn.Sorter = sorterType;
+			return regularColumn;
+		}
+
 		public static RegularColumn<T> AlignCenter<T>(this RegularColumn<T> regularColumn)
 		{
 			regularColumn.Align = AlignAttribute.Center;
@@ -23,12 +29,6 @@ namespace FluentWebControls.Extensions
 		public static RegularColumn<T> NotClientSideSortable<T>(this RegularColumn<T> regularColumn)
 		{
 			regularColumn.IsClientSideSortable = false;
-			return regularColumn;
-		}
-		
-		public static RegularColumn<T> AddSorterType<T>(this RegularColumn<T> regularColumn, string sorterType)
-		{
-			regularColumn.Sorter = sorterType;
 			return regularColumn;
 		}
 	}

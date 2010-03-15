@@ -54,15 +54,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BooleanControl.cs" />
+    <Compile Include="ChoiceControl.cs" />
     <Compile Include="CommandColumn.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="DataColumn.cs" />
+    <Compile Include="Extensions\BooleanControlExtensions.cs" />
+    <Compile Include="Extensions\ChoiceControlExtensions.cs" />
     <Compile Include="Extensions\CommandColumnExtensions.cs" />
     <Compile Include="Extensions\DataColumnExtensions.cs" />
+    <Compile Include="Extensions\FreeTextControlExtensions.cs" />
     <Compile Include="Extensions\KeyValuePairExtensions.cs" />
     <Compile Include="Extensions\TableDataExtensions.cs" />
+    <Compile Include="FreeTextControl.cs" />
     <Compile Include="IHtmlColumn.cs" />
     <Compile Include="Interfaces\PagedList.cs" />
+    <Compile Include="Mapping\ChoiceListUIMap.cs" />
+    <Compile Include="Mapping\UIMap.cs" />
+    <Compile Include="Mapping\FreeTextUIMap.cs" />
+    <Compile Include="Mapping\IChoiceListUIMap.cs" />
+    <Compile Include="Mapping\ListUIMap.cs" />
+    <Compile Include="Mapping\UIColumn.cs" />
     <Compile Include="PagedGridData.cs" />
     <Compile Include="ScrollableGridData.cs" />
     <Compile Include="IControllerAwareWebControl.cs" />

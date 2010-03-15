@@ -16,9 +16,9 @@ namespace FluentWebControls
 	{
 		AlignAttribute Align { get; }
 		string CssClass { get; }
-		string HeaderText { get; }
 		AlignAttribute HeaderAlign { get; }
 		string HeaderCssClass { get; }
+		string HeaderText { get; }
 	}
 
 	public class DataColumn<T> : IDataColumn, IHtmlColumn<T>
@@ -34,9 +34,9 @@ namespace FluentWebControls
 
 		internal AlignAttribute Align { private get; set; }
 		internal string CssClass { private get; set; }
-		internal string HeaderText { private get; set; }
 		internal AlignAttribute HeaderAlign { private get; set; }
 		internal string HeaderCssClass { private get; set; }
+		internal string HeaderText { private get; set; }
 
 		AlignAttribute IDataColumn.Align
 		{
@@ -58,6 +58,7 @@ namespace FluentWebControls
 		{
 			get { return HeaderCssClass; }
 		}
+
 		public void Render(T item, HtmlTextWriter writer)
 		{
 			var cell = new TableCell
