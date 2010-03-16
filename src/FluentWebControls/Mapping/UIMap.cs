@@ -84,6 +84,13 @@ namespace FluentWebControls.Mapping
 			return listUIMap;
 		}
 
+		protected void ConfigureMap<TOutput, TItemType>(Expression<Func<TModel, object>> forId, Func<TDomain, TItemType> getItem, Func<TItemType, TOutput> createMap)
+		{
+			string propertyName = Reflection.GetPropertyName(forId);
+			var uiMap = createMap(getItem(Item));
+			_mappings.Add(propertyName, uiMap);
+		}
+
 		public DropDownListData DropDownListFor(Expression<Func<TModel, object>> source)
 		{
 			var uiMap = TryGetRequestedMap(source);
@@ -107,7 +114,7 @@ namespace FluentWebControls.Mapping
 				.AsHidden();
 		}
 
-		public TOutput ListMapFor<TOutput>(Expression<Func<TModel, object>> source) where TOutput : class
+		public TOutput MapFor<TOutput>(Expression<Func<TModel, object>> source) where TOutput : class
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var listUIMap = uiMap.TryCastTo<TOutput>();

@@ -9,8 +9,11 @@ namespace FluentWebControls.Mapping
 		private readonly Func<TItemType, string> _getItemText;
 		private readonly Func<TItemType, string> _getItemValue;
 		private readonly List<string> _selectedValues = new List<string>();
+		private Func<IEnumerable<TItemType>> _getListItems;
+		private IEnumerable<KeyValuePair<string, string>> _listItems;
 
-		public ChoiceListUIMap(string id, TItemType selectedItem, Func<TItemType, string> getItemText,
+		public ChoiceListUIMap(string id, TItemType selectedItem,
+		                       Func<TItemType, string> getItemText,
 		                       Func<TItemType, string> getItemValue)
 		{
 			_getItemText = getItemText;
@@ -21,15 +24,25 @@ namespace FluentWebControls.Mapping
 
 		public string Id { get; private set; }
 		public string IdPrefix { get; set; }
-		public IEnumerable<KeyValuePair<string, string>> ListItems { get; private set; }
+		public IEnumerable<KeyValuePair<string, string>> ListItems
+		{
+			get
+			{
+				if (_listItems == null)
+				{
+					_listItems = _getListItems().Select(x => new KeyValuePair<string, string>(_getItemText(x), _getItemValue(x)));
+				}
+				return _listItems;
+			}
+		}
 		public string SelectedValue
 		{
 			get { return _selectedValues.FirstOrDefault(); }
 		}
 
-		public ChoiceListUIMap<TDomain, TModel, TItemType> WithItems(IEnumerable<TItemType> listItems)
+		public ChoiceListUIMap<TDomain, TModel, TItemType> WithItems(Func<IEnumerable<TItemType>> getListItems)
 		{
-			ListItems = listItems.Select(x => new KeyValuePair<string, string>(_getItemText(x), _getItemValue(x)));
+			_getListItems = getListItems;
 			return this;
 		}
 	}
