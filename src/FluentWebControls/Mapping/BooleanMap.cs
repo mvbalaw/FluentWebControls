@@ -9,7 +9,6 @@ namespace FluentWebControls.Mapping
 		}
 
 		public string Id { get; set;}
-		public string IdPrefix { get; set;}
 		public bool IsChecked { get; set;}
 	}
 }

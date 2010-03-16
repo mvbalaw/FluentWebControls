@@ -16,7 +16,6 @@ namespace FluentWebControls.Mapping
 
 		public string Id { get; private set; }
 
-		public string IdPrefix { get; set; }
 		public string Value
 		{
 			get { return _getValue(_item); }

@@ -23,7 +23,6 @@ namespace FluentWebControls.Mapping
 		}
 
 		public string Id { get; private set; }
-		public string IdPrefix { get; set; }
 		public IEnumerable<KeyValuePair<string, string>> ListItems
 		{
 			get

@@ -9,9 +9,10 @@ using MvbaCore.Extensions;
 
 namespace FluentWebControls.Mapping
 {
-	public class UIMap<TDomain, TModel>
+	public class UIMap<TDomain, TModel> : IUIMap
 	{
 		private readonly Dictionary<string, object> _mappings = new Dictionary<string, object>();
+		private string _idPrefix;
 
 		protected UIMap(TDomain item)
 		{
@@ -26,7 +27,7 @@ namespace FluentWebControls.Mapping
 			var booleanMap = uiMap.TryCastTo<BooleanMap>();
 			return new BooleanControl()
 				.WithId(booleanMap.Id)
-				.WithIdPrefix(booleanMap.IdPrefix)
+				.WithIdPrefix(_idPrefix)
 				.SetCheckedTo(booleanMap.IsChecked)
 				.AsCheckBox();
 		}
@@ -37,7 +38,7 @@ namespace FluentWebControls.Mapping
 			var listUiMap = uiMap.TryCastTo<IChoiceListUIMap>();
 			return new ChoiceControl()
 				.WithId(listUiMap.Id)
-				.WithIdPrefix(listUiMap.IdPrefix)
+				.WithIdPrefix(_idPrefix)
 				.WithSelectedValue(listUiMap.SelectedValue)
 				.WithListItems(listUiMap.ListItems)
 				.AsComboSelect();
@@ -97,7 +98,7 @@ namespace FluentWebControls.Mapping
 			var listUiMap = uiMap.TryCastTo<IChoiceListUIMap>();
 			return new ChoiceControl()
 				.WithId(listUiMap.Id)
-				.WithIdPrefix(listUiMap.IdPrefix)
+				.WithIdPrefix(_idPrefix)
 				.WithSelectedValue(listUiMap.SelectedValue)
 				.WithListItems(listUiMap.ListItems)
 				.AsDropDownList();
@@ -109,12 +110,31 @@ namespace FluentWebControls.Mapping
 			var freeTextUiMap = uiMap.TryCastTo<FreeTextUIMap<TDomain>>();
 			return new FreeTextControl()
 				.WithId(freeTextUiMap.Id)
-				.WithIdPrefix(freeTextUiMap.IdPrefix)
+				.WithIdPrefix(_idPrefix)
 				.WithValue(freeTextUiMap.Value)
 				.AsHidden();
 		}
 
-		public TOutput MapFor<TOutput>(Expression<Func<TModel, object>> source) where TOutput : class
+		public void WithIdPrefix(string prefix)
+		{
+			if (_idPrefix.IsNullOrEmpty())
+			{
+				_idPrefix = prefix;
+				return;
+			}
+			_idPrefix = String.Format("{0}.{1}", _idPrefix, prefix);
+		}
+
+		public TOutput MapFor<TOutput>(Expression<Func<TModel, object>> source) where TOutput : class, IUIMap
+		{
+			var uiMap = TryGetRequestedMap(source);
+			var listUIMap = uiMap.TryCastTo<TOutput>();
+			listUIMap.WithIdPrefix(_idPrefix);
+			listUIMap.WithIdPrefix(Reflection.GetPropertyName(source));
+			return listUIMap;
+		}
+
+		public TOutput ListMapFor<TOutput>(Expression<Func<TModel, object>> source) where TOutput : class, IListUIMap
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var listUIMap = uiMap.TryCastTo<TOutput>();
@@ -127,7 +147,7 @@ namespace FluentWebControls.Mapping
 			var freeTextUiMap = uiMap.TryCastTo<FreeTextUIMap<TDomain>>();
 			return new FreeTextControl()
 				.WithId(freeTextUiMap.Id)
-				.WithIdPrefix(freeTextUiMap.IdPrefix)
+				.WithIdPrefix(_idPrefix)
 				.WithValue(freeTextUiMap.Value)
 				.AsTextArea();
 		}
@@ -138,7 +158,7 @@ namespace FluentWebControls.Mapping
 			var freeTextUiMap = uiMap.TryCastTo<FreeTextUIMap<TDomain>>();
 			return new FreeTextControl()
 				.WithId(freeTextUiMap.Id)
-				.WithIdPrefix(freeTextUiMap.IdPrefix)
+				.WithIdPrefix(_idPrefix)
 				.WithValue(freeTextUiMap.Value)
 				.AsTextBox();
 		}
@@ -153,5 +173,10 @@ namespace FluentWebControls.Mapping
 			}
 			return uiMap;
 		}
+	}
+
+	public interface IUIMap
+	{
+		void WithIdPrefix(string prefix);
 	}
 }
