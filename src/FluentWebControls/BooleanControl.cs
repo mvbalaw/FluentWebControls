@@ -26,6 +26,12 @@ namespace FluentWebControls
 			get { return Value; }
 		}
 
+		public BooleanControl SetCheckedTo(bool value)
+		{
+			Checked = value;
+			return this;
+		}
+
 		public override string ToString()
 		{
 			throw new NotImplementedException("You must choose the form of the output control with .As[something]()");

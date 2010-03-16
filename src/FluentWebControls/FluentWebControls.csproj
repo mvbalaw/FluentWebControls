@@ -69,6 +69,7 @@
     <Compile Include="FreeTextControl.cs" />
     <Compile Include="IHtmlColumn.cs" />
     <Compile Include="Interfaces\PagedList.cs" />
+    <Compile Include="Mapping\BooleanMap.cs" />
     <Compile Include="Mapping\ChoiceListUIMap.cs" />
     <Compile Include="Mapping\IFreeTextUIMap.cs" />
     <Compile Include="Mapping\UIMap.cs" />

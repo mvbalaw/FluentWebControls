@@ -23,8 +23,11 @@ namespace FluentWebControls.Mapping
 		public CheckBoxData CheckBoxFor(Expression<Func<TModel, object>> source)
 		{
 			var uiMap = TryGetRequestedMap(source);
-			var booleanControl = uiMap.TryCastTo<BooleanControl>();
-			return booleanControl
+			var booleanMap = uiMap.TryCastTo<BooleanMap>();
+			return new BooleanControl()
+				.WithId(booleanMap.Id)
+				.WithIdPrefix(booleanMap.IdPrefix)
+				.SetCheckedTo(booleanMap.IsChecked)
 				.AsCheckBox();
 		}
 
@@ -38,6 +41,14 @@ namespace FluentWebControls.Mapping
 				.WithSelectedValue(listUiMap.SelectedValue)
 				.WithListItems(listUiMap.ListItems)
 				.AsComboSelect();
+		}
+
+		protected BooleanMap ConfigureBoolean(Expression<Func<TModel, object>> forId, Func<TDomain, bool> getItemValue)
+		{
+			string propertyName = Reflection.GetPropertyName(forId);
+			var booleanControl = new BooleanMap(propertyName, getItemValue(Item));
+			_mappings.Add(propertyName, booleanControl);
+			return booleanControl;
 		}
 
 		protected ChoiceListUIMap<TDomain, TModel, TItemType> ConfigureChoiceList<TItemType>(
