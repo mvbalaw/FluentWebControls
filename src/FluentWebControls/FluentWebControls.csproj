@@ -54,27 +54,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BooleanControl.cs" />
-    <Compile Include="ChoiceControl.cs" />
     <Compile Include="CommandColumn.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="DataColumn.cs" />
-    <Compile Include="Extensions\BooleanControlExtensions.cs" />
-    <Compile Include="Extensions\ChoiceControlExtensions.cs" />
+    <Compile Include="Extensions\IBooleanMapExtensions.cs" />
+    <Compile Include="Extensions\IChoiceListMapExtensions.cs" />
     <Compile Include="Extensions\CommandColumnExtensions.cs" />
     <Compile Include="Extensions\DataColumnExtensions.cs" />
-    <Compile Include="Extensions\FreeTextControlExtensions.cs" />
+    <Compile Include="Extensions\IFreeTextMapExtensions.cs" />
     <Compile Include="Extensions\KeyValuePairExtensions.cs" />
     <Compile Include="Extensions\TableDataExtensions.cs" />
-    <Compile Include="FreeTextControl.cs" />
     <Compile Include="IHtmlColumn.cs" />
     <Compile Include="Interfaces\PagedList.cs" />
     <Compile Include="Mapping\BooleanMap.cs" />
-    <Compile Include="Mapping\ChoiceListUIMap.cs" />
-    <Compile Include="Mapping\IFreeTextUIMap.cs" />
+    <Compile Include="Mapping\ChoiceListMap.cs" />
+    <Compile Include="Mapping\IBooleanMap.cs" />
+    <Compile Include="Mapping\IFreeTextMap.cs" />
+    <Compile Include="Mapping\IListUIMap.cs" />
+    <Compile Include="Mapping\IUIMap.cs" />
     <Compile Include="Mapping\UIMap.cs" />
-    <Compile Include="Mapping\FreeTextUIMap.cs" />
-    <Compile Include="Mapping\IChoiceListUIMap.cs" />
+    <Compile Include="Mapping\FreeTextMap.cs" />
+    <Compile Include="Mapping\IChoiceListMap.cs" />
     <Compile Include="Mapping\ListUIMap.cs" />
     <Compile Include="Mapping\UIColumn.cs" />
     <Compile Include="PagedGridData.cs" />

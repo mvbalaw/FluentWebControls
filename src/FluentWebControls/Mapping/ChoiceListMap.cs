@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FluentWebControls.Mapping
 {
-	public class ChoiceListUIMap<TDomain, TModel, TItemType> : IChoiceListUIMap
+	public class ChoiceListMap<TDomain, TModel, TItemType> : IChoiceListMap, IFreeTextMap
 	{
 		private readonly Func<TItemType, string> _getItemText;
 		private readonly Func<TItemType, string> _getItemValue;
@@ -12,7 +12,7 @@ namespace FluentWebControls.Mapping
 		private Func<IEnumerable<TItemType>> _getListItems;
 		private IEnumerable<KeyValuePair<string, string>> _listItems;
 
-		public ChoiceListUIMap(string id, TItemType selectedItem,
+		public ChoiceListMap(string id, TItemType selectedItem,
 		                       Func<TItemType, string> getItemText,
 		                       Func<TItemType, string> getItemValue)
 		{
@@ -38,8 +38,12 @@ namespace FluentWebControls.Mapping
 		{
 			get { return _selectedValues.FirstOrDefault(); }
 		}
+		string IFreeTextMap.Value
+		{
+			get { return SelectedValue; }
+		}
 
-		public ChoiceListUIMap<TDomain, TModel, TItemType> WithItems(Func<IEnumerable<TItemType>> getListItems)
+		public ChoiceListMap<TDomain, TModel, TItemType> WithItems(Func<IEnumerable<TItemType>> getListItems)
 		{
 			_getListItems = getListItems;
 			return this;

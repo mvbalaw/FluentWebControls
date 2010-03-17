@@ -7,10 +7,6 @@ using MvbaCore.Extensions;
 
 namespace FluentWebControls.Mapping
 {
-	public interface  IListUIMap
-	{
-	}
-
 	public class ListUIMap<TDomain, TModel> : IListUIMap
 	{
 		private readonly Dictionary<string, object> _columns = new Dictionary<string, object>();

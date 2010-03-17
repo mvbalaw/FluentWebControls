@@ -2,12 +2,12 @@ using System;
 
 namespace FluentWebControls.Mapping
 {
-	public class FreeTextUIMap<TDomain> : IFreeTextUIMap
+	public class FreeTextMap<TDomain> : IFreeTextMap
 	{
 		private readonly Func<TDomain, string> _getValue;
 		private readonly TDomain _item;
 
-		public FreeTextUIMap(TDomain item, string id, Func<TDomain, string> getValue)
+		public FreeTextMap(TDomain item, string id, Func<TDomain, string> getValue)
 		{
 			Id = id;
 			_item = item;

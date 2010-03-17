@@ -21,27 +21,28 @@ namespace FluentWebControls.Mapping
 
 		public TDomain Item { get; private set; }
 
+		public void WithIdPrefix(string prefix)
+		{
+			if (_idPrefix.IsNullOrEmpty())
+			{
+				_idPrefix = prefix;
+				return;
+			}
+			_idPrefix = String.Format("{0}.{1}", _idPrefix, prefix);
+		}
+
 		public CheckBoxData CheckBoxFor(Expression<Func<TModel, object>> source)
 		{
 			var uiMap = TryGetRequestedMap(source);
-			var booleanMap = uiMap.TryCastTo<BooleanMap>();
-			return new BooleanControl()
-				.WithId(booleanMap.Id)
-				.WithIdPrefix(_idPrefix)
-				.SetCheckedTo(booleanMap.IsChecked)
-				.AsCheckBox();
+			var booleanMap = uiMap.TryCastTo<IBooleanMap>();
+			return booleanMap.AsCheckBox().WithIdPrefix(_idPrefix);
 		}
 
 		public ComboSelectData ComboSelectFor(Expression<Func<TModel, object>> source)
 		{
 			var uiMap = TryGetRequestedMap(source);
-			var listUiMap = uiMap.TryCastTo<IChoiceListUIMap>();
-			return new ChoiceControl()
-				.WithId(listUiMap.Id)
-				.WithIdPrefix(_idPrefix)
-				.WithSelectedValue(listUiMap.SelectedValue)
-				.WithListItems(listUiMap.ListItems)
-				.AsComboSelect();
+			var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
+			return listUiMap.AsComboSelect().WithIdPrefix(_idPrefix);
 		}
 
 		protected BooleanMap ConfigureBoolean(Expression<Func<TModel, object>> forId, Func<TDomain, bool> getItemValue)
@@ -52,24 +53,24 @@ namespace FluentWebControls.Mapping
 			return booleanControl;
 		}
 
-		protected ChoiceListUIMap<TDomain, TModel, TItemType> ConfigureChoiceList<TItemType>(
+		protected ChoiceListMap<TDomain, TModel, TItemType> ConfigureChoiceList<TItemType>(
 			Expression<Func<TModel, object>> forId,
 			Func<TDomain, TItemType> getSelectedItem,
 			Func<TItemType, string> getItemText,
 			Func<TItemType, string> getItemValue)
 		{
 			string propertyName = Reflection.GetPropertyName(forId);
-			var listUiMap = new ChoiceListUIMap<TDomain, TModel, TItemType>(propertyName, getSelectedItem(Item), getItemText, getItemValue);
+			var listUiMap = new ChoiceListMap<TDomain, TModel, TItemType>(propertyName, getSelectedItem(Item), getItemText, getItemValue);
 			_mappings.Add(propertyName, listUiMap);
 			return listUiMap;
 		}
 
-		protected FreeTextUIMap<TDomain> ConfigureFreeText(Expression<Func<TModel, object>> forId, Func<TDomain, string> getValue)
+		protected FreeTextMap<TDomain> ConfigureFreeText(Expression<Func<TModel, object>> forId, Func<TDomain, string> getValue)
 		{
 			string propertyName = Reflection.GetPropertyName(forId);
-			var freeTextUiMap = new FreeTextUIMap<TDomain>(Item,
-			                                               propertyName,
-			                                               getValue);
+			var freeTextUiMap = new FreeTextMap<TDomain>(Item,
+			                                             propertyName,
+			                                             getValue);
 			_mappings.Add(propertyName, freeTextUiMap);
 			return freeTextUiMap;
 		}
@@ -94,35 +95,23 @@ namespace FluentWebControls.Mapping
 
 		public DropDownListData DropDownListFor(Expression<Func<TModel, object>> source)
 		{
-			var uiMap = TryGetRequestedMap(source);
-			var listUiMap = uiMap.TryCastTo<IChoiceListUIMap>();
-			return new ChoiceControl()
-				.WithId(listUiMap.Id)
-				.WithIdPrefix(_idPrefix)
-				.WithSelectedValue(listUiMap.SelectedValue)
-				.WithListItems(listUiMap.ListItems)
-				.AsDropDownList();
+	var uiMap = TryGetRequestedMap(source);
+	var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
+	return listUiMap.AsDropDownList().WithIdPrefix(_idPrefix);
 		}
 
 		public HiddenData HiddenFor(Expression<Func<TModel, object>> source)
 		{
-			var uiMap = TryGetRequestedMap(source);
-			var freeTextUiMap = uiMap.TryCastTo<FreeTextUIMap<TDomain>>();
-			return new FreeTextControl()
-				.WithId(freeTextUiMap.Id)
-				.WithIdPrefix(_idPrefix)
-				.WithValue(freeTextUiMap.Value)
-				.AsHidden();
+	var uiMap = TryGetRequestedMap(source);
+	var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
+	return freeTextUiMap.AsHidden().WithIdPrefix(_idPrefix);
 		}
 
-		public void WithIdPrefix(string prefix)
+		public TOutput ListMapFor<TOutput>(Expression<Func<TModel, object>> source) where TOutput : class, IListUIMap
 		{
-			if (_idPrefix.IsNullOrEmpty())
-			{
-				_idPrefix = prefix;
-				return;
-			}
-			_idPrefix = String.Format("{0}.{1}", _idPrefix, prefix);
+			var uiMap = TryGetRequestedMap(source);
+			var listUIMap = uiMap.TryCastTo<TOutput>();
+			return listUIMap;
 		}
 
 		public TOutput MapFor<TOutput>(Expression<Func<TModel, object>> source) where TOutput : class, IUIMap
@@ -134,33 +123,18 @@ namespace FluentWebControls.Mapping
 			return listUIMap;
 		}
 
-		public TOutput ListMapFor<TOutput>(Expression<Func<TModel, object>> source) where TOutput : class, IListUIMap
-		{
-			var uiMap = TryGetRequestedMap(source);
-			var listUIMap = uiMap.TryCastTo<TOutput>();
-			return listUIMap;
-		}
-
 		public TextAreaData TextAreaFor(Expression<Func<TModel, object>> source)
 		{
 			var uiMap = TryGetRequestedMap(source);
-			var freeTextUiMap = uiMap.TryCastTo<FreeTextUIMap<TDomain>>();
-			return new FreeTextControl()
-				.WithId(freeTextUiMap.Id)
-				.WithIdPrefix(_idPrefix)
-				.WithValue(freeTextUiMap.Value)
-				.AsTextArea();
+			var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
+			return freeTextUiMap.AsTextArea().WithIdPrefix(_idPrefix);
 		}
 
 		public TextBoxData TextBoxFor(Expression<Func<TModel, object>> source)
 		{
-			var uiMap = TryGetRequestedMap(source);
-			var freeTextUiMap = uiMap.TryCastTo<FreeTextUIMap<TDomain>>();
-			return new FreeTextControl()
-				.WithId(freeTextUiMap.Id)
-				.WithIdPrefix(_idPrefix)
-				.WithValue(freeTextUiMap.Value)
-				.AsTextBox();
+	var uiMap = TryGetRequestedMap(source);
+	var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
+	return freeTextUiMap.AsTextBox().WithIdPrefix(_idPrefix);
 		}
 
 		private object TryGetRequestedMap(Expression<Func<TModel, object>> source)
@@ -173,10 +147,5 @@ namespace FluentWebControls.Mapping
 			}
 			return uiMap;
 		}
-	}
-
-	public interface IUIMap
-	{
-		void WithIdPrefix(string prefix);
 	}
 }

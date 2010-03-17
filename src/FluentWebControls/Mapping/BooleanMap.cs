@@ -1,6 +1,6 @@
 namespace FluentWebControls.Mapping
 {
-	public class BooleanMap
+	public class BooleanMap : IBooleanMap, IFreeTextMap
 	{
 		public BooleanMap(string id, bool value)
 		{
@@ -8,7 +8,11 @@ namespace FluentWebControls.Mapping
 			IsChecked = value;
 		}
 
-		public string Id { get; set;}
-		public bool IsChecked { get; set;}
+		public string Id { get; set; }
+		public bool IsChecked { get; set; }
+		string IFreeTextMap.Value
+		{
+			get { return IsChecked.ToString(); }
+		}
 	}
 }

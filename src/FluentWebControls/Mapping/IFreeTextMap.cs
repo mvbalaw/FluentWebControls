@@ -1,6 +1,6 @@
 namespace FluentWebControls.Mapping
 {
-	public interface IFreeTextUIMap
+	public interface IFreeTextMap
 	{
 		string Id { get; }
 		string Value { get; }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace FluentWebControls.Mapping
 {
-	public interface IChoiceListUIMap
+	public interface IChoiceListMap
 	{
 		string Id { get; }
 		IEnumerable<KeyValuePair<string, string>> ListItems { get; }
