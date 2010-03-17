@@ -6,6 +6,7 @@ namespace FluentWebControls.Mapping
 	{
 		private readonly Func<TDomain, string> _getValue;
 		private readonly TDomain _item;
+		private string _value;
 
 		public FreeTextMap(TDomain item, string id, Func<TDomain, string> getValue)
 		{
@@ -18,7 +19,14 @@ namespace FluentWebControls.Mapping
 
 		public string Value
 		{
-			get { return _getValue(_item); }
+			get
+			{
+				if (_value == null)
+				{
+					_value = _getValue(_item);
+				}
+				return _value;
+			}
 		}
 	}
 }

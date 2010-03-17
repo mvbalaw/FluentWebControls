@@ -53,42 +53,6 @@ namespace FluentWebControls.Tests
 		}
 
 		[TestFixture]
-		public class When_asked_to_make_the_DropDownList_readonly
-		{
-			private string _id;
-			private IEnumerable<KeyValuePair<string, string>> _items;
-			private IPropertyMetaData _propertyMetaData;
-			private string _htmlText;
-
-			[SetUp]
-			public void BeforeEachTest()
-			{
-				string value = "value";
-
-				_id = Reflection.GetPropertyName(() => value).ToCamelCase();
-				_propertyMetaData = PropertyMetaDataMocker.CreateStub(_id, false, null, null, null, null, typeof(string));
-
-				_htmlText = "<select name='value_readonly' id='value_readonly' class='ddlDetail' disabled='disabled'><option value='Value1' selected='selected'>Name1</option></select><input type='hidden' id='value' name='value' value='Value1'/>";
-				_items = new List<KeyValuePair<string, string>>
-					{
-						new KeyValuePair<string, string>("Name1", "Value1"),
-					};
-			}
-
-			[Test]
-			public void Should_add_hidden_control_with_the_selected_value()
-			{
-				var dropDownListData = new DropDownListData(_items)
-					.AsReadOnly()
-					.WithId(_id);
-
-				string result = dropDownListData.ToString();
-				result.ShouldBeEqualTo(_htmlText);
-			}
-		}
-
-
-		[TestFixture]
 		public class When_asked_to_create_a_DropDownList_for_a_property_with_Default_value
 		{
 			private DropDownListData _dropDownListData;
@@ -160,6 +124,41 @@ namespace FluentWebControls.Tests
 
 				_dropDownListData.SubmitOnChange();
 				_dropDownListData.ToString().ShouldBeEqualTo(_htmlText);
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_make_the_DropDownList_readonly
+		{
+			private string _htmlText;
+			private string _id;
+			private IEnumerable<KeyValuePair<string, string>> _items;
+			private IPropertyMetaData _propertyMetaData;
+
+			[SetUp]
+			public void BeforeEachTest()
+			{
+				string value = "value";
+
+				_id = Reflection.GetPropertyName(() => value).ToCamelCase();
+				_propertyMetaData = PropertyMetaDataMocker.CreateStub(_id, false, null, null, null, null, typeof(string));
+
+				_htmlText = "<select name='value_readonly' id='value_readonly' class='ddlDetail' disabled='disabled'><option value='Value1' selected='selected'>Name1</option></select><input type='hidden' id='value' name='value' value='Value1'/>";
+				_items = new List<KeyValuePair<string, string>>
+					{
+						new KeyValuePair<string, string>("Name1", "Value1"),
+					};
+			}
+
+			[Test]
+			public void Should_add_hidden_control_with_the_selected_value()
+			{
+				var dropDownListData = new DropDownListData(_items)
+					.AsReadOnly()
+					.WithId(_id);
+
+				string result = dropDownListData.ToString();
+				result.ShouldBeEqualTo(_htmlText);
 			}
 		}
 	}

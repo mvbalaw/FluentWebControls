@@ -1,19 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 using MvbaCore;
-using MvbaCore.Extensions;
 
 namespace FluentWebControls.Mapping
 {
 	public class ListUIMap<TDomain, TModel> : IListUIMap
 	{
-		private readonly Dictionary<string, object> _columns = new Dictionary<string, object>();
+		private readonly Dictionary<string, UIColumn<TDomain>> _columns;
 
 		public ListUIMap(IEnumerable<TDomain> items)
 		{
 			ListItems = items;
+			_columns = Reflection
+				.GetMatchingProperties(typeof(TDomain), typeof(TModel))
+				.ToDictionary(x => x.Name, x => GetMap(x));
 		}
 
 		public string IdPrefix { get; set; }
@@ -33,7 +36,7 @@ namespace FluentWebControls.Mapping
 		{
 			string id = Reflection.GetPropertyName(forId);
 			var column = new UIColumn<TDomain>(getText);
-			_columns.Add(id, column);
+			_columns[id] = column;
 			return this;
 		}
 
@@ -44,10 +47,19 @@ namespace FluentWebControls.Mapping
 			return Fluent.DataColumnFor(column.TextMethod);
 		}
 
+		private static UIColumn<TDomain> GetMap(PropertyMappingInfo propertyMappingInfo)
+		{
+			return new UIColumn<TDomain>(y =>
+			                             	{
+			                             		var source = propertyMappingInfo.GetValueFromSource(y);
+			                             		return source == null ? "" : source.ToString();
+			                             	});
+		}
+
 		private object TryGetRequestedMap(Expression<Func<TDomain, object>> source)
 		{
 			string key = Reflection.GetPropertyName(source);
-			object uiMap;
+			UIColumn<TDomain> uiMap;
 			if (!_columns.TryGetValue(key, out uiMap))
 			{
 				throw new ArgumentException("No mapping defined for '" + key + "'");

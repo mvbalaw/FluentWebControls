@@ -1,22 +1,26 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 using FluentWebControls.Extensions;
 
 using MvbaCore;
-using MvbaCore.Extensions;
 
 namespace FluentWebControls.Mapping
 {
 	public class UIMap<TDomain, TModel> : IUIMap
+		where TDomain : class, new()
 	{
-		private readonly Dictionary<string, object> _mappings = new Dictionary<string, object>();
+		private readonly Dictionary<string, object> _mappings;
 		private string _idPrefix;
 
 		protected UIMap(TDomain item)
 		{
-			Item = item;
+			Item = item.ToNonNull();
+			_mappings = Reflection
+				.GetMatchingProperties(typeof(TDomain), typeof(TModel))
+				.ToDictionary(x => x.Name, x => GetMap(x));
 		}
 
 		public TDomain Item { get; private set; }
@@ -49,7 +53,7 @@ namespace FluentWebControls.Mapping
 		{
 			string propertyName = Reflection.GetPropertyName(forId);
 			var booleanControl = new BooleanMap(propertyName, getItemValue(Item));
-			_mappings.Add(propertyName, booleanControl);
+			_mappings[propertyName] = booleanControl;
 			return booleanControl;
 		}
 
@@ -61,7 +65,7 @@ namespace FluentWebControls.Mapping
 		{
 			string propertyName = Reflection.GetPropertyName(forId);
 			var listUiMap = new ChoiceListMap<TDomain, TModel, TItemType>(propertyName, getSelectedItem(Item), getItemText, getItemValue);
-			_mappings.Add(propertyName, listUiMap);
+			_mappings[propertyName] = listUiMap;
 			return listUiMap;
 		}
 
@@ -71,7 +75,7 @@ namespace FluentWebControls.Mapping
 			var freeTextUiMap = new FreeTextMap<TDomain>(Item,
 			                                             propertyName,
 			                                             getValue);
-			_mappings.Add(propertyName, freeTextUiMap);
+			_mappings[propertyName] = freeTextUiMap;
 			return freeTextUiMap;
 		}
 
@@ -82,7 +86,7 @@ namespace FluentWebControls.Mapping
 		{
 			string propertyName = Reflection.GetPropertyName(forIdPrefix);
 			var listUIMap = createMapper(Item, getSourceItems(Item));
-			_mappings.Add(propertyName, listUIMap);
+			_mappings[propertyName] = listUIMap;
 			return listUIMap;
 		}
 
@@ -90,21 +94,38 @@ namespace FluentWebControls.Mapping
 		{
 			string propertyName = Reflection.GetPropertyName(forId);
 			var uiMap = createMap(getItem(Item));
-			_mappings.Add(propertyName, uiMap);
+			_mappings[propertyName] = uiMap;
 		}
 
 		public DropDownListData DropDownListFor(Expression<Func<TModel, object>> source)
 		{
-	var uiMap = TryGetRequestedMap(source);
-	var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
-	return listUiMap.AsDropDownList().WithIdPrefix(_idPrefix);
+			var uiMap = TryGetRequestedMap(source);
+			var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
+			return listUiMap.AsDropDownList().WithIdPrefix(_idPrefix);
+		}
+
+		private object GetMap(PropertyMappingInfo propertyMappingInfo)
+		{
+			var info = propertyMappingInfo;
+			if (typeof(bool).IsAssignableFrom(propertyMappingInfo.SourcePropertyType))
+			{
+				return new BooleanMap(propertyMappingInfo.Name, (bool)info.GetValueFromSource(Item));
+			}
+
+			return new FreeTextMap<TDomain>(Item,
+			                                propertyMappingInfo.Name,
+			                                x =>
+			                                	{
+			                                		var source = info.GetValueFromSource(x);
+			                                		return source == null ? (string)null : source.ToString();
+			                                	});
 		}
 
 		public HiddenData HiddenFor(Expression<Func<TModel, object>> source)
 		{
-	var uiMap = TryGetRequestedMap(source);
-	var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
-	return freeTextUiMap.AsHidden().WithIdPrefix(_idPrefix);
+			var uiMap = TryGetRequestedMap(source);
+			var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
+			return freeTextUiMap.AsHidden().WithIdPrefix(_idPrefix);
 		}
 
 		public TOutput ListMapFor<TOutput>(Expression<Func<TModel, object>> source) where TOutput : class, IListUIMap
@@ -132,9 +153,9 @@ namespace FluentWebControls.Mapping
 
 		public TextBoxData TextBoxFor(Expression<Func<TModel, object>> source)
 		{
-	var uiMap = TryGetRequestedMap(source);
-	var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
-	return freeTextUiMap.AsTextBox().WithIdPrefix(_idPrefix);
+			var uiMap = TryGetRequestedMap(source);
+			var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
+			return freeTextUiMap.AsTextBox().WithIdPrefix(_idPrefix);
 		}
 
 		private object TryGetRequestedMap(Expression<Func<TModel, object>> source)
