@@ -2,6 +2,7 @@ using System;
 
 using FluentAssert;
 
+using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 
 using NUnit.Framework;
@@ -106,6 +107,17 @@ namespace FluentWebControls.Tests
 				const string name = "Name";
 				var linkData = Link.To((TestController controller) => controller.Action(id, name));
 				string expected = String.Format("<a href='{0}'></a>", _pathUtility.GetUrl("Test/Action/4/Name"));
+				linkData.ToString().ShouldBeEqualTo(expected);
+			}
+
+			[Test]
+			public void Should_use_the_controller_extension_if_given()
+			{
+				const int id = 4;
+				const string name = "Name";
+				var linkData = Link.To((TestController controller) => controller.Action(id, name))
+					.WithControllerExtension(".mvc");
+				string expected = String.Format("<a href='{0}'></a>", _pathUtility.GetUrl("Test.mvc/Action/4/Name"));
 				linkData.ToString().ShouldBeEqualTo(expected);
 			}
 

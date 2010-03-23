@@ -20,6 +20,12 @@ namespace FluentWebControls.Extensions
 			return linkData;
 		}
 
+		public static LinkData WithControllerExtension(this LinkData linkData, string controllerExtension)
+		{
+			linkData.ControllerExtension = controllerExtension;
+			return linkData;
+		}
+
 		public static LinkData WithCssClass(this LinkData linkData, string cssClass)
 		{
 			linkData.CssClass = cssClass;

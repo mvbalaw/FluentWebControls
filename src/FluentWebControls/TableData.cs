@@ -14,7 +14,16 @@ namespace FluentWebControls
 		public TableData(IEnumerable<T> items)
 		{
 			_items = items;
+			Style = new Dictionary<string,string>();
 		}
+
+		public Unit BorderWidth { get; set; }
+
+		public int CellSpacing { get; set; }
+		public string CssClass { get; set; }
+		internal string Id { get; set; }
+		public GridLines GridLines { get; set; }
+		public Dictionary<string, string> Style { get; set; }
 
 		public void AddColumn(DataColumn<T> dataColumn)
 		{
@@ -26,8 +35,6 @@ namespace FluentWebControls
 			_columns.Add(commandColumn);
 		}
 
-		internal string Id { get;  set; }
-
 		public override string ToString()
 		{
 			var stream = new MemoryStream();
@@ -37,8 +44,20 @@ namespace FluentWebControls
 				{
 					var table = new System.Web.UI.WebControls.Table
 						{
-							ID = Id
+							ID = Id,
+							BorderWidth = BorderWidth,
+							CellSpacing = CellSpacing,
+							GridLines = GridLines,
 						};
+					if (CssClass != null)
+					{
+						table.CssClass = CssClass;
+					}
+					foreach (var kvp in Style)
+					{
+						table.Style.Add(kvp.Key, kvp.Value);
+					}
+
 					table.RenderBeginTag(writer);
 					{
 						var tableHeader = new TableHeaderRow();

@@ -25,6 +25,7 @@ namespace FluentWebControls
 	{
 		private readonly Dictionary<string, string> _queryStringData = new Dictionary<string, string>();
 		private readonly List<string> _urlParameters = new List<string>();
+		private string _url;
 
 		internal string ControllerExtension { private get; set; }
 
@@ -35,7 +36,27 @@ namespace FluentWebControls
 		internal string LinkText { private get; set; }
 		internal string MouseOverText { private get; set; }
 		internal string Rel { private get; set; }
-		internal string Url { private get; set; }
+		internal string Url
+		{
+			private get
+			{
+				if (ControllerExtension == null || _url.IsNullOrEmpty())
+				{
+					return _url;
+				}
+				var parts = _url.Split('/');
+				if (parts.Length == 1)
+				{
+					parts[0] += ControllerExtension;
+				}
+				else
+				{
+					parts[parts.Length - 1 - 1] += ControllerExtension;
+				}
+				return parts.Join("/");
+			}
+			set { _url = value; }
+		}
 		string ILinkData.ControllerExtension
 		{
 			get { return ControllerExtension; }
