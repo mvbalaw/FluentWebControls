@@ -14,13 +14,15 @@ namespace FluentWebControls.Extensions
 		public static TextAreaData AsTextArea(this IFreeTextMap input)
 		{
 			return new TextAreaData(input.Value)
-				.WithId(input.Id);
+				.WithId(input.Id)
+				.WithValidationFrom(input.Validation);
 		}
 
 		public static TextBoxData AsTextBox(this IFreeTextMap input)
 		{
 			return new TextBoxData(input.Value)
-				.WithId(input.Id);
+				.WithId(input.Id)
+				.WithValidationFrom(input.Validation);
 		}
 	}
 }

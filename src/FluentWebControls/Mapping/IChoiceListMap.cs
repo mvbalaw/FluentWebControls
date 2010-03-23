@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+using FluentWebControls.Interfaces;
+
 namespace FluentWebControls.Mapping
 {
 	public interface IChoiceListMap
@@ -7,5 +9,6 @@ namespace FluentWebControls.Mapping
 		string Id { get; }
 		IEnumerable<KeyValuePair<string, string>> ListItems { get; }
 		string SelectedValue { get; }
+		IPropertyMetaData Validation { get; }
 	}
 }

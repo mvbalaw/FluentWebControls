@@ -1,5 +1,7 @@
 using System;
 
+using FluentWebControls.Interfaces;
+
 namespace FluentWebControls.Mapping
 {
 	public class FreeTextMap<TDomain> : IFreeTextMap
@@ -16,6 +18,7 @@ namespace FluentWebControls.Mapping
 		}
 
 		public string Id { get; private set; }
+		public IPropertyMetaData Validation { get; set; }
 
 		public string Value
 		{

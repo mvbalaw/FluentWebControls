@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using FluentWebControls.Interfaces;
+
 namespace FluentWebControls.Mapping
 {
 	public class ChoiceListMap<TDomain, TModel, TItemType> : IChoiceListMap, IFreeTextMap
@@ -13,8 +15,8 @@ namespace FluentWebControls.Mapping
 		private IEnumerable<KeyValuePair<string, string>> _listItems;
 
 		public ChoiceListMap(string id, TItemType selectedItem,
-		                       Func<TItemType, string> getItemText,
-		                       Func<TItemType, string> getItemValue)
+		                     Func<TItemType, string> getItemText,
+		                     Func<TItemType, string> getItemValue)
 		{
 			_getItemText = getItemText;
 			_getItemValue = getItemValue;
@@ -38,6 +40,7 @@ namespace FluentWebControls.Mapping
 		{
 			get { return _selectedValues.FirstOrDefault(); }
 		}
+		public IPropertyMetaData Validation { get; set; }
 		string IFreeTextMap.Value
 		{
 			get { return SelectedValue; }

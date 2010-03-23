@@ -59,22 +59,25 @@ namespace FluentWebControls.Mapping
 
 		protected ChoiceListMap<TDomain, TModel, TItemType> ConfigureChoiceList<TItemType>(
 			Expression<Func<TModel, object>> forId,
-			Func<TDomain, TItemType> getSelectedItem,
+			Expression<Func<TDomain, TItemType>> getSelectedItem,
 			Func<TItemType, string> getItemText,
 			Func<TItemType, string> getItemValue)
 		{
 			string propertyName = Reflection.GetPropertyName(forId);
-			var listUiMap = new ChoiceListMap<TDomain, TModel, TItemType>(propertyName, getSelectedItem(Item), getItemText, getItemValue);
+			var listUiMap = new ChoiceListMap<TDomain, TModel, TItemType>(propertyName, getSelectedItem.Compile()(Item), getItemText, getItemValue);
+			TryAddValidation(getSelectedItem, listUiMap);
 			_mappings[propertyName] = listUiMap;
 			return listUiMap;
 		}
 
-		protected FreeTextMap<TDomain> ConfigureFreeText(Expression<Func<TModel, object>> forId, Func<TDomain, string> getValue)
+		protected FreeTextMap<TDomain> ConfigureFreeText(Expression<Func<TModel, object>> forId, Expression<Func<TDomain, string>> getValue)
 		{
 			string propertyName = Reflection.GetPropertyName(forId);
+			var getValueFunction = getValue.Compile();
 			var freeTextUiMap = new FreeTextMap<TDomain>(Item,
 			                                             propertyName,
-			                                             getValue);
+			                                             getValueFunction);
+			TryAddValidation(getValue, freeTextUiMap);
 			_mappings[propertyName] = freeTextUiMap;
 			return freeTextUiMap;
 		}
@@ -109,16 +112,19 @@ namespace FluentWebControls.Mapping
 			var info = propertyMappingInfo;
 			if (typeof(bool).IsAssignableFrom(propertyMappingInfo.SourcePropertyType))
 			{
-				return new BooleanMap(propertyMappingInfo.Name, (bool)info.GetValueFromSource(Item));
+				var booleanMap = new BooleanMap(propertyMappingInfo.Name, (bool)info.GetValueFromSource(Item));
+				return booleanMap;
 			}
 
-			return new FreeTextMap<TDomain>(Item,
-			                                propertyMappingInfo.Name,
-			                                x =>
-			                                	{
-			                                		var source = info.GetValueFromSource(x);
-			                                		return source == null ? (string)null : source.ToString();
-			                                	});
+			var freeTextMap = new FreeTextMap<TDomain>(Item,
+			                                           propertyMappingInfo.Name,
+			                                           x =>
+			                                           	{
+			                                           		var source = info.GetValueFromSource(x);
+			                                           		return source == null ? (string)null : source.ToString();
+			                                           	});
+			TryAddValidation(propertyMappingInfo.Name, freeTextMap);
+			return freeTextMap;
 		}
 
 		public HiddenData HiddenFor(Expression<Func<TModel, object>> source)
@@ -148,7 +154,8 @@ namespace FluentWebControls.Mapping
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
-			return freeTextUiMap.AsTextArea().WithIdPrefix(_idPrefix);
+			return freeTextUiMap.AsTextArea()
+				.WithIdPrefix(_idPrefix);
 		}
 
 		public TextBoxData TextBoxFor(Expression<Func<TModel, object>> source)
@@ -156,6 +163,34 @@ namespace FluentWebControls.Mapping
 			var uiMap = TryGetRequestedMap(source);
 			var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
 			return freeTextUiMap.AsTextBox().WithIdPrefix(_idPrefix);
+		}
+
+		private static void TryAddValidation<TItemType>(Expression<Func<TDomain, TItemType>> getValue, IFreeTextMap map)
+		{
+			if (Configuration.ValidationMetaDataFactory != null)
+			{
+				try
+				{
+					map.Validation = Configuration.ValidationMetaDataFactory.GetFor(getValue);
+				}
+				catch
+				{
+				}
+			}
+		}
+
+		private static void TryAddValidation(string propertyName, IFreeTextMap map)
+		{
+			if (Configuration.ValidationMetaDataFactory != null)
+			{
+				try
+				{
+					map.Validation = Configuration.ValidationMetaDataFactory.GetFor<TDomain>(propertyName);
+				}
+				catch
+				{
+				}
+			}
 		}
 
 		private object TryGetRequestedMap(Expression<Func<TModel, object>> source)

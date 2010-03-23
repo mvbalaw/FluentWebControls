@@ -1,3 +1,5 @@
+using FluentWebControls.Interfaces;
+
 namespace FluentWebControls.Mapping
 {
 	public class BooleanMap : IBooleanMap, IFreeTextMap
@@ -14,5 +16,6 @@ namespace FluentWebControls.Mapping
 		{
 			get { return IsChecked.ToString(); }
 		}
+		public IPropertyMetaData Validation { get; set; }
 	}
 }

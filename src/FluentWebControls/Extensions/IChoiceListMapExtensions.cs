@@ -7,7 +7,8 @@ namespace FluentWebControls.Extensions
 		public static ComboSelectData AsComboSelect(this IChoiceListMap input)
 		{
 			var comboSelect = new ComboSelectData(input.ListItems)
-				.WithId(input.Id);
+				.WithId(input.Id)
+				.WithValidationFrom(input.Validation);
 			comboSelect.SelectedValues.Add(input.SelectedValue);
 			return comboSelect;
 		}
@@ -16,7 +17,8 @@ namespace FluentWebControls.Extensions
 		{
 			return new DropDownListData(input.ListItems)
 				.WithSelectedValue(input.SelectedValue)
-				.WithId(input.Id);
+				.WithId(input.Id)
+				.WithValidationFrom(input.Validation);
 		}
 	}
 }
