@@ -15,7 +15,7 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_checkbox_that_is_checked
 		{
-			private const string HtmlText = "<input type='checkbox' id='value' name='value' checked='checked'/>";
+			private const string HtmlText = "<input type='checkbox' id='value' name='value' checked='checked' value='true'/>";
 
 			[Test]
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
@@ -31,7 +31,7 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_checkbox_that_is_not_checked
 		{
-			private const string HtmlText = "<input type='checkbox' id='value' name='value'/>";
+			private const string HtmlText = "<input type='checkbox' id='value' name='value' value='true'/>";
 
 			[Test]
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
@@ -47,7 +47,7 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_checkbox_with_label_in_the_left
 		{
-			private const string HtmlText = "<label for='value' style='float:left;text-align:right'>Label</label><input type='checkbox' id='value' name='value'/>";
+			private const string HtmlText = "<label for='value' style='float:left;text-align:right'>Label</label><input type='checkbox' id='value' name='value' value='true'/>";
 
 			[Test]
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
@@ -74,7 +74,7 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_checkbox_with_label_in_the_right
 		{
-			private const string HtmlText = "<label style='float:left;text-align:right'>&nbsp;</label><input type='checkbox' id='value' name='value'/><label for='value'>Label</label>";
+			private const string HtmlText = "<label style='float:left;text-align:right'>&nbsp;</label><input type='checkbox' id='value' name='value' value='true'/><label for='value'>Label</label>";
 
 			[Test]
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()

@@ -14,14 +14,14 @@ namespace FluentWebControls.Tests.Extensions
 	{
 		public abstract class CheckBoxDataExtensionsTestBase
 		{
-			protected CheckBoxData _checkBoxData;
-			protected bool _isChecked;
+			protected CheckBoxData CheckBoxData;
+			protected bool IsChecked;
 
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				_isChecked = true;
-				_checkBoxData = new CheckBoxData(true);
+				IsChecked = true;
+				CheckBoxData = new CheckBoxData(true);
 			}
 		}
 
@@ -31,10 +31,10 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CheckBoxData_With_Id_initialized()
 			{
-				var checkBoxData = _checkBoxData.WithId("_isChecked");
-				Assert.AreSame(_checkBoxData, checkBoxData);
-				string propertyName = Reflection.GetPropertyName(() => _isChecked);
-				TestWebControlsUtility.HtmlParser(_checkBoxData.ToString())["id"].ShouldBeEqualTo(propertyName.ToCamelCase());
+				var checkBoxData = CheckBoxData.WithId("isChecked");
+				Assert.AreSame(CheckBoxData, checkBoxData);
+				string propertyName = Reflection.GetPropertyName(() => IsChecked).ToCamelCase();
+				TestWebControlsUtility.HtmlParser(CheckBoxData.ToString())["id"].ShouldBeEqualTo(propertyName.ToCamelCase());
 				checkBoxData.ToString().Contains(propertyName).ShouldBeTrue();
 			}
 		}
@@ -45,10 +45,10 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_CheckBoxData_With_IsChecked_initialized()
 			{
-				var checkBoxData = _checkBoxData.IsChecked(_isChecked);
-				Assert.AreSame(_checkBoxData, checkBoxData);
+				var checkBoxData = CheckBoxData.IsChecked(IsChecked);
+				Assert.AreSame(CheckBoxData, checkBoxData);
 				const string checkedAttribute = "checked";
-				TestWebControlsUtility.HtmlParser(_checkBoxData.ToString())[checkedAttribute].ShouldBeEqualTo("checked");
+				TestWebControlsUtility.HtmlParser(CheckBoxData.ToString())[checkedAttribute].ShouldBeEqualTo("checked");
 				checkBoxData.ToString().Contains(checkedAttribute).ShouldBeTrue();
 			}
 		}
@@ -65,8 +65,8 @@ namespace FluentWebControls.Tests.Extensions
 						Text = "&nbsp;"
 					};
 
-				var checkBoxData = _checkBoxData.WithLabel(label);
-				Assert.AreSame(_checkBoxData, checkBoxData);
+				var checkBoxData = CheckBoxData.WithLabel(label);
+				Assert.AreSame(CheckBoxData, checkBoxData);
 				checkBoxData.ToString().Contains(label.ToString()).ShouldBeTrue();
 				checkBoxData.ToString().Contains(blankLabel.ToString()).ShouldBeTrue();
 			}
@@ -84,10 +84,52 @@ namespace FluentWebControls.Tests.Extensions
 						Text = "&nbsp;"
 					};
 
-				var checkBoxData = _checkBoxData.WithLabelAlignedLeft(label);
-				Assert.AreSame(_checkBoxData, checkBoxData);
+				var checkBoxData = CheckBoxData.WithLabelAlignedLeft(label);
+				Assert.AreSame(CheckBoxData, checkBoxData);
 				checkBoxData.ToString().Contains(label.ToString()).ShouldBeTrue();
 				checkBoxData.ToString().Contains(blankLabel.ToString()).ShouldBeFalse();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_assign_value : CheckBoxDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_CheckBoxData_With_Value_initialized()
+			{
+				Test.Given(CheckBoxData)
+					.When(value_set_to_false)
+					.Should(put_the_value_in_the_generated_html)
+					.Verify();
+			}
+
+			[Test]
+			public void Should_return_a_CheckBoxData_With_Value_initialized_to_true_by_default()
+			{
+				Test.Given(CheckBoxData)
+					.When(value_not_set)
+					.Should(set_the_value_to_true_in_the_generated_html)
+					.Verify();
+			}
+
+			private void put_the_value_in_the_generated_html(CheckBoxData checkBoxData)
+			{
+				TestWebControlsUtility.HtmlParser(CheckBoxData.ToString())["value"].ShouldBeEqualTo("false");
+			}
+
+			private void set_the_value_to_true_in_the_generated_html(CheckBoxData obj)
+			{
+				TestWebControlsUtility.HtmlParser(CheckBoxData.ToString())["value"].ShouldBeEqualTo("true");
+			}
+
+			private void value_not_set(CheckBoxData checkBoxData)
+			{
+				checkBoxData.WithValue(null);
+			}
+
+			private void value_set_to_false(CheckBoxData checkBoxData)
+			{
+				checkBoxData.WithValue("false");
 			}
 		}
 	}

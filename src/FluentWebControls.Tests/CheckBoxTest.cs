@@ -18,7 +18,7 @@ namespace FluentWebControls.Tests
 						Value = value
 					};
 				var checkBoxData = CheckBox.For(foo, x => x.Value);
-				checkBoxData.ToString().ShouldBeEqualTo("<input type='checkbox' id='value' name='value' checked='checked'/>");
+				checkBoxData.ToString().ShouldBeEqualTo("<input type='checkbox' id='value' name='value' checked='checked' value='true'/>");
 			}
 
 			public class Foo
