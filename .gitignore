@@ -3,6 +3,9 @@ build/
 [Bb]in/
 [Oo]bj/
 *.suo
+dist/
 *.sln.cache
 _ReSharper.*/
 *.user
+TestResult.xml
+CommonAssemblyInfo.cs
