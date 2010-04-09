@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 using FluentAssert;
 
@@ -40,7 +40,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string cssClass = "cssClass";
 				var listData = _dropDownListData.CssClass(cssClass);
 				Assert.AreSame(_dropDownListData, listData);
-				TestWebControlsUtility.HtmlParser(listData.ToString())["class"].ShouldBeEqualTo(cssClass);
+				listData.ToString().ParseHtmlTag()["class"].ShouldBeEqualTo(cssClass);
 				_dropDownListData.ToString().Contains(cssClass).ShouldBeTrue();
 			}
 		}
@@ -130,7 +130,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var listData = _dropDownListData.SubmitOnChange();
 				Assert.AreSame(_dropDownListData, listData);
-				TestWebControlsUtility.HtmlParser(listData.ToString())["onchange"].Contains("this.form.submit();").ShouldBeTrue();
+				listData.ToString().ParseHtmlTag()["onchange"].Contains("this.form.submit();").ShouldBeTrue();
 			}
 		}
 
@@ -147,7 +147,7 @@ namespace FluentWebControls.Tests.Extensions
 // ReSharper restore ConvertToConstant
 				var listData = _dropDownListData.SubmitOnChange(() => pageNumber, 4);
 				Assert.AreSame(_dropDownListData, listData);
-				TestWebControlsUtility.HtmlParser(listData.ToString())["onchange"].Contains("setFormFieldAndSubmit(\"pageNumber\",\"4\", this)").ShouldBeTrue();
+				listData.ToString().ParseHtmlTag()["onchange"].Contains("setFormFieldAndSubmit(\"pageNumber\",\"4\", this)").ShouldBeTrue();
 			}
 		}
 

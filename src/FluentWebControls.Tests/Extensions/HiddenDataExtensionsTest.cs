@@ -1,4 +1,4 @@
-﻿using FluentAssert;
+using FluentAssert;
 
 using FluentWebControls.Extensions;
 
@@ -28,7 +28,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string text = "Text";
 				var hiddenData = _hiddenData.WithValue(text);
 				Assert.AreSame(_hiddenData, hiddenData);
-				TestWebControlsUtility.HtmlParser(_hiddenData.ToString())["value"].ShouldBeEqualTo(text);
+				_hiddenData.ToString().ParseHtmlTag()["value"].ShouldBeEqualTo(text);
 				hiddenData.ToString().Contains(text).ShouldBeTrue();
 			}
 		}

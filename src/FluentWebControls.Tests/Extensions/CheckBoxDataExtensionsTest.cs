@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using FluentAssert;
 
@@ -34,7 +34,7 @@ namespace FluentWebControls.Tests.Extensions
 				var checkBoxData = CheckBoxData.WithId("isChecked");
 				Assert.AreSame(CheckBoxData, checkBoxData);
 				string propertyName = Reflection.GetPropertyName(() => IsChecked).ToCamelCase();
-				TestWebControlsUtility.HtmlParser(CheckBoxData.ToString())["id"].ShouldBeEqualTo(propertyName.ToCamelCase());
+				CheckBoxData.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(propertyName.ToCamelCase());
 				checkBoxData.ToString().Contains(propertyName).ShouldBeTrue();
 			}
 		}
@@ -48,7 +48,7 @@ namespace FluentWebControls.Tests.Extensions
 				var checkBoxData = CheckBoxData.IsChecked(IsChecked);
 				Assert.AreSame(CheckBoxData, checkBoxData);
 				const string checkedAttribute = "checked";
-				TestWebControlsUtility.HtmlParser(CheckBoxData.ToString())[checkedAttribute].ShouldBeEqualTo("checked");
+				CheckBoxData.ToString().ParseHtmlTag()[checkedAttribute].ShouldBeEqualTo("checked");
 				checkBoxData.ToString().Contains(checkedAttribute).ShouldBeTrue();
 			}
 		}
@@ -114,12 +114,12 @@ namespace FluentWebControls.Tests.Extensions
 
 			private void put_the_value_in_the_generated_html(CheckBoxData checkBoxData)
 			{
-				TestWebControlsUtility.HtmlParser(CheckBoxData.ToString())["value"].ShouldBeEqualTo("false");
+				CheckBoxData.ToString().ParseHtmlTag()["value"].ShouldBeEqualTo("false");
 			}
 
 			private void set_the_value_to_true_in_the_generated_html(CheckBoxData obj)
 			{
-				TestWebControlsUtility.HtmlParser(CheckBoxData.ToString())["value"].ShouldBeEqualTo("true");
+				CheckBoxData.ToString().ParseHtmlTag()["value"].ShouldBeEqualTo("true");
 			}
 
 			private void value_not_set(CheckBoxData checkBoxData)

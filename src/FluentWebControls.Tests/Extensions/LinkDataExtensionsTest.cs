@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using FluentAssert;
 
@@ -32,7 +32,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string href = "LinkPage";
 				var link = _linkData.WithUrl(href);
 				Assert.AreSame(_linkData, link);
-				TestWebControlsUtility.HtmlParser(link.ToString())["href"].ShouldBeEqualTo(href);
+				link.ToString().ParseHtmlTag()["href"].ShouldBeEqualTo(href);
 				_linkData.ToString().Contains(href).ShouldBeTrue();
 			}
 		}
@@ -119,7 +119,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string rel = "external";
 				var link = _linkData.WithRel(rel);
 				Assert.AreSame(_linkData, link);
-				TestWebControlsUtility.HtmlParser(link.ToString())["rel"].ShouldBeEqualTo(rel);
+				link.ToString().ParseHtmlTag()["rel"].ShouldBeEqualTo(rel);
 				_linkData.ToString().Contains(rel).ShouldBeTrue();
 			}
 		}
@@ -133,7 +133,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string cssClass = "Link";
 				var link = _linkData.WithCssClass(cssClass);
 				Assert.AreSame(_linkData, link);
-				TestWebControlsUtility.HtmlParser(link.ToString())["class"].ShouldBeEqualTo(cssClass);
+				link.ToString().ParseHtmlTag()["class"].ShouldBeEqualTo(cssClass);
 				_linkData.ToString().Contains(cssClass).ShouldBeTrue();
 			}
 		}
@@ -147,7 +147,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string text = "Text";
 				var link = _linkData.WithMouseOverText(text);
 				Assert.AreSame(_linkData, link);
-				TestWebControlsUtility.HtmlParser(link.ToString())["title"].ShouldBeEqualTo(text);
+				link.ToString().ParseHtmlTag()["title"].ShouldBeEqualTo(text);
 				_linkData.ToString().Contains(text).ShouldBeTrue();
 			}
 		}

@@ -1,4 +1,4 @@
-﻿using FluentAssert;
+using FluentAssert;
 
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
@@ -41,8 +41,8 @@ namespace FluentWebControls.Tests.Extensions
 				const string value = "Foo.doc";
 				var button = _buttonData.WithQueryParameter(fileName, value);
 				Assert.AreSame(_buttonData, button);
-				string dictionary = TestWebControlsUtility.HtmlParser(_buttonData.ToString())["action"];
-				dictionary.Contains(fileName).ShouldBeTrue();
+				string action = _buttonData.ToString().ParseHtmlTag()["action"];
+				action.Contains(fileName).ShouldBeTrue();
 			}
 		}
 
@@ -56,7 +56,7 @@ namespace FluentWebControls.Tests.Extensions
 				_pathUtility.Expect(x => x.GetUrl(null)).IgnoreArguments().Return(action);
 				var button = _buttonData.WithAction(action);
 				Assert.AreSame(_buttonData, button);
-				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["action"].Contains(action).ShouldBeTrue(_buttonData.ToString());
+				_buttonData.ToString().ParseHtmlTag()["action"].Contains(action).ShouldBeTrue(_buttonData.ToString());
 			}
 		}
 
@@ -69,7 +69,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string message = "Test";
 				var button = _buttonData.Confirm(message);
 				Assert.AreSame(_buttonData, button);
-				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["onClick"].Contains(message).ShouldBeTrue();
+				_buttonData.ToString().ParseHtmlTag()["onClick"].Contains(message).ShouldBeTrue();
 			}
 		}
 
@@ -82,7 +82,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string id = "Id";
 				var button = _buttonData.WithId(id);
 				Assert.AreSame(_buttonData, button);
-				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["id"].ShouldBeEqualTo(id);
+				_buttonData.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(id);
 			}
 
 			[Test]
@@ -90,7 +90,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var button = _buttonData;
 				Assert.AreSame(_buttonData, button);
-				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["id"].ShouldBeEqualTo("btn" + _buttonData.Text);
+				_buttonData.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo("btn" + _buttonData.Text);
 				button.ToString().Contains("btn" + _buttonData.Text).ShouldBeTrue();
 			}
 		}
@@ -104,7 +104,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string text = "text";
 				var button = _buttonData.WithText(text);
 				Assert.AreSame(_buttonData, button);
-				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["value"].ShouldBeEqualTo(text);
+				_buttonData.ToString().ParseHtmlTag()["value"].ShouldBeEqualTo(text);
 				button.ToString().Contains(text).ShouldBeTrue();
 			}
 		}
@@ -136,7 +136,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string onClickFunction = "validate()";
 				var button = _buttonData.WithOnClick(onClickFunction);
 				Assert.AreSame(_buttonData, button);
-				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["onClick"].Contains(onClickFunction).ShouldBeTrue();
+				_buttonData.ToString().ParseHtmlTag()["onClick"].Contains(onClickFunction).ShouldBeTrue();
 			}
 		}
 
@@ -149,7 +149,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string width = "400px";
 				var button = _buttonData.Width(width);
 				Assert.AreSame(_buttonData, button);
-				TestWebControlsUtility.HtmlParser(_buttonData.ToString())["style"].Contains(width).ShouldBeTrue();
+				_buttonData.ToString().ParseHtmlTag()["style"].Contains(width).ShouldBeTrue();
 			}
 		}
 	}

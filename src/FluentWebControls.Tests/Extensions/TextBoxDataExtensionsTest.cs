@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using FluentAssert;
 
@@ -48,7 +48,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var tBox = _textBoxData.WithId(() => _item.ItemName);
 				Assert.AreSame(_textBoxData, tBox);
-				TestWebControlsUtility.HtmlParser(tBox.ToString())["id"].ShouldBeEqualTo(_item.ItemName.ToCamelCase());
+				tBox.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(_item.ItemName.ToCamelCase());
 				tBox.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();
 			}
 		}
@@ -62,7 +62,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string expectedId = "Bar";
 				var tBox = _textBoxData.WithId(expectedId);
 				Assert.AreSame(_textBoxData, tBox);
-				TestWebControlsUtility.HtmlParser(tBox.ToString())["id"].ShouldBeEqualTo(expectedId.ToCamelCase());
+				tBox.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(expectedId.ToCamelCase());
 				tBox.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();
 			}
 		}
@@ -109,7 +109,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				var tBox = _textBoxData.MaxValue(maxValue);
 				Assert.AreSame(_textBoxData, tBox);
-				TestWebControlsUtility.HtmlParser(tBox.ToString())[ValidatableWebControlBase.JQueryFieldValidationType.MaxValue.Text].ShouldBeEqualTo(_propertyMetaData.MaxValue.ToString());
+				tBox.ToString().ParseHtmlTag()[ValidatableWebControlBase.JQueryFieldValidationType.MaxValue.Text].ShouldBeEqualTo(_propertyMetaData.MaxValue.ToString());
 				tBox.ToString().Contains(maxValue.ToString()).ShouldBeTrue();
 			}
 		}
@@ -124,7 +124,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				var tBox = _textBoxData.MinValue(minValue);
 				Assert.AreSame(_textBoxData, tBox);
-				TestWebControlsUtility.HtmlParser(tBox.ToString())[ValidatableWebControlBase.JQueryFieldValidationType.MinValue.Text].ShouldBeEqualTo(minValue.ToString());
+				tBox.ToString().ParseHtmlTag()[ValidatableWebControlBase.JQueryFieldValidationType.MinValue.Text].ShouldBeEqualTo(minValue.ToString());
 				tBox.ToString().Contains(minValue.ToString()).ShouldBeTrue();
 			}
 		}

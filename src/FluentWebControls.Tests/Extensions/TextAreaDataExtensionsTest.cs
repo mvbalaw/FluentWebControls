@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using FluentAssert;
 
@@ -36,7 +36,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				var tArea = _textAreaData.Cols(cols);
 				Assert.AreSame(_textAreaData, tArea);
-				TestWebControlsUtility.HtmlParser(tArea.ToString())["cols"].ShouldBeEqualTo(cols.ToString());
+				tArea.ToString().ParseHtmlTag()["cols"].ShouldBeEqualTo(cols.ToString());
 				tArea.ToString().Contains(cols.ToString()).ShouldBeTrue();
 			}
 		}
@@ -63,7 +63,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var tArea = _textAreaData.WithId(() => _item.ItemName);
 				Assert.AreSame(_textAreaData, tArea);
-				TestWebControlsUtility.HtmlParser(tArea.ToString())["id"].ShouldBeEqualTo(_item.ItemName.ToCamelCase());
+				tArea.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(_item.ItemName.ToCamelCase());
 				tArea.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();
 			}
 		}
@@ -92,7 +92,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				var tArea = _textAreaData.Rows(rows);
 				Assert.AreSame(_textAreaData, tArea);
-				TestWebControlsUtility.HtmlParser(tArea.ToString())["rows"].ShouldBeEqualTo(rows.ToString());
+				tArea.ToString().ParseHtmlTag()["rows"].ShouldBeEqualTo(rows.ToString());
 				tArea.ToString().Contains(rows.ToString()).ShouldBeTrue();
 			}
 		}

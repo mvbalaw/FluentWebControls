@@ -52,7 +52,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string cssClass = "cssClass";
 				var listData = _comboSelectData.CssClass(cssClass);
 				Assert.AreSame(_comboSelectData, listData);
-				TestWebControlsUtility.HtmlParser(listData.ToString())["class"].ShouldBeEqualTo(cssClass);
+				listData.ToString().ParseHtmlTag()["class"].ShouldBeEqualTo(cssClass);
 				_comboSelectData.ToString().Contains(cssClass).ShouldBeTrue();
 			}
 		}

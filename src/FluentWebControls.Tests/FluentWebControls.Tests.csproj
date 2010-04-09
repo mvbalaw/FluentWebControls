@@ -118,7 +118,7 @@
     <Compile Include="SortableColumnTest.cs" />
     <Compile Include="SortableGridColumnTest.cs" />
     <Compile Include="TestData.cs" />
-    <Compile Include="TestWebControlsUtility.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="TextAreaDataTest.cs" />
     <Compile Include="TextAreaTest.cs" />
     <Compile Include="TextBoxDataTest.cs" />

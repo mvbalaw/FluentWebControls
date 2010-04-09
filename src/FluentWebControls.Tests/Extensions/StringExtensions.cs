@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Xml;
 
-namespace FluentWebControls.Tests
+namespace FluentWebControls.Tests.Extensions
 {
-	internal static class TestWebControlsUtility
+	internal static class StringExtensions
 	{
-		public static Dictionary<string, string> HtmlParser(string htmlTag)
+		public static Dictionary<string, string> ParseHtmlTag(this string htmlTag)
 		{
 			var xmlDocument = new XmlDocument();
 			xmlDocument.LoadXml(htmlTag);
