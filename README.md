@@ -1,7 +1,5 @@
 This is a fluent interface for emitting web controls in c#.
 
-This project is part of [MVBA Law Commons][mvbalawcommons].
-
 ## Sample Usages
 
 ### TextBox
@@ -51,6 +49,12 @@ This project is part of [MVBA Law Commons][mvbalawcommons].
 ## Input Builders
 [See how][inputbuilders] we use these controls with our input builders
 
+## License		
+
+[MIT License][mitlicense]
+
+This project is part of [MVBA Law Commons][mvbalawcommons].
 
 [mvbalawcommons]: http://code.google.com/p/mvbalaw-commons/
+[mitlicense]: http://www.opensource.org/licenses/mit-license.php
 [inputbuilders]: http://shashankshetty.wordpress.com/2010/03/05/separation-of-concerns-in-input-builders/
