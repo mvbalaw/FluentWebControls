@@ -6,9 +6,9 @@ namespace FluentWebControls
 {
 	public class CommandColumn
 	{
-		public static CommandColumn<T> For<T>(Func<T, string> getHref)
+		public static CommandColumn<T> For<T>(Func<T, string, Control> getControl)
 		{
-			return new CommandColumn<T>(getHref);
+			return new CommandColumn<T>(getControl);
 		}
 	}
 
@@ -22,11 +22,11 @@ namespace FluentWebControls
 
 	public class CommandColumn<T> : ICommandColumn, IHtmlColumn<T>
 	{
-		private readonly Func<T, string> _getHref;
+		private readonly Func<T, string, Control> _getControl;
 
-		public CommandColumn(Func<T, string> getHref)
+		public CommandColumn(Func<T, string, Control> getControl)
 		{
-			_getHref = getHref;
+			_getControl = getControl;
 			Align = AlignAttribute.Center;
 		}
 
@@ -51,17 +51,13 @@ namespace FluentWebControls
 
 		public void Render(T item, HtmlTextWriter writer)
 		{
-			var link = new HyperLink
-				{
-					NavigateUrl = _getHref(item),
-					Text = Text
-				};
+			var control = _getControl(item,Text);
 			var cell = new TableCell
 				{
 					HorizontalAlign = Align.ToHorizontalAlign(),
 					CssClass = CssClass
 				};
-			cell.Controls.Add(link);
+			cell.Controls.Add(control);
 			cell.RenderControl(writer);
 		}
 

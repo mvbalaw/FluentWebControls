@@ -27,12 +27,18 @@ namespace FluentWebControls.Mapping
 			return Fluent.TableFor(ListItems);
 		}
 
-		public CommandColumn<TDomain> CommandColumnFor(Func<TDomain, string> getControllerActionHrefForSpecificItem)
+		public CommandColumn<TDomain> CheckBoxCommandColumnFor<TValueHolder>(Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
 		{
-			return Fluent.CommandColumnFor(getControllerActionHrefForSpecificItem);
+			return Fluent.CheckBoxCommandColumnFor<TModel, TDomain, TValueHolder>(forCheckBoxId, getCheckBoxValue);
 		}
 
-		protected ListUIMap<TDomain, TModel> ConfigureColumn(Expression<Func<TDomain, object>> forId, Func<TDomain, string> getText)
+		[Obsolete("Use LinkCommandColumnFor")]
+		public CommandColumn<TDomain> CommandColumnFor(Func<TDomain, string> getControllerActionHrefForSpecificItem)
+		{
+			return LinkCommandColumnFor(getControllerActionHrefForSpecificItem);
+		}
+
+		protected ListUIMap<TDomain, TModel> ConfigureColumn(Expression<Func<TModel, object>> forId, Func<TDomain, string> getText)
 		{
 			string id = Reflection.GetPropertyName(forId);
 			var column = new UIColumn<TDomain>(getText);
@@ -40,7 +46,7 @@ namespace FluentWebControls.Mapping
 			return this;
 		}
 
-		public DataColumn<TDomain> DataColumnFor(Expression<Func<TDomain, object>> forPropertyName)
+		public DataColumn<TDomain> DataColumnFor(Expression<Func<TModel, object>> forPropertyName)
 		{
 			var uiMap = TryGetRequestedMap(forPropertyName);
 			var column = uiMap.TryCastTo<UIColumn<TDomain>>();
@@ -56,7 +62,12 @@ namespace FluentWebControls.Mapping
 			                             	});
 		}
 
-		private object TryGetRequestedMap(Expression<Func<TDomain, object>> source)
+		public CommandColumn<TDomain> LinkCommandColumnFor(Func<TDomain, string> getControllerActionHrefForSpecificItem)
+		{
+			return Fluent.LinkCommandColumnFor(getControllerActionHrefForSpecificItem);
+		}
+
+		private object TryGetRequestedMap(Expression<Func<TModel, object>> source)
 		{
 			string key = Reflection.GetPropertyName(source);
 			UIColumn<TDomain> uiMap;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Web.UI.WebControls;
 
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
@@ -24,6 +25,20 @@ namespace FluentWebControls
 		public static ButtonData ButtonFor(IButtonType buttonType, string controllerName, string actionName)
 		{
 			return Button.For(buttonType, controllerName).WithAction(actionName);
+		}
+
+		public static CommandColumn<TDomain> CheckBoxCommandColumnFor<TModel, TDomain, TValueHolder>(Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
+		{
+			string checkBoxId = Reflection.GetCamelCasePropertyName(forCheckBoxId);
+			return CommandColumn.For((TDomain item, string text) =>
+			                         	{
+			                         		var checkBox = new System.Web.UI.WebControls.CheckBox
+			                         			{
+			                         				ID = checkBoxId
+			                         			};
+			                         		checkBox.InputAttributes["Value"] = getCheckBoxValue(item);
+			                         		return checkBox;
+			                         	});
 		}
 
 		public static CheckBoxData CheckBoxFor<T>(T source, bool @checked, Expression<Func<T, object>> forId)
@@ -51,9 +66,10 @@ namespace FluentWebControls
 			return ComboSelect.For(itemSource, getListItemDisplayText, getListItemValue, forId);
 		}
 
+		[Obsolete("Use LinkCommandColumnFor")]
 		public static CommandColumn<T> CommandColumnFor<T>(Func<T, string> getHref)
 		{
-			return CommandColumn.For(getHref);
+			return LinkCommandColumnFor(getHref);
 		}
 
 		public static DataColumn<T> DataColumnFor<T>(Func<T, string> getItemText)
@@ -109,6 +125,15 @@ namespace FluentWebControls
 		public static LabelData LabelForIt()
 		{
 			return Label.ForIt();
+		}
+
+		public static CommandColumn<T> LinkCommandColumnFor<T>(Func<T, string> getHref)
+		{
+			return CommandColumn.For((T item, string text) => new HyperLink
+				{
+					NavigateUrl = getHref(item),
+					Text = text
+				});
 		}
 
 		public static LinkData LinkTo()
