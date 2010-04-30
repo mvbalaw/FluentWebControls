@@ -18,7 +18,7 @@ namespace FluentWebControls.Extensions
 
 		public static TableData<T> WithClass<T>(this TableData<T> table, string @class)
 		{
-			table.CssClass = @class;
+			table.AddCssClass(@class);
 			return table;
 		}
 

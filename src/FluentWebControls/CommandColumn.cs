@@ -17,6 +17,7 @@ namespace FluentWebControls
 		AlignAttribute Align { get; }
 		//string Href { get; }
 		string CssClass { get; }
+		string HeaderCssClass { get; }
 		string Text { get; }
 	}
 
@@ -32,8 +33,14 @@ namespace FluentWebControls
 
 		internal AlignAttribute Align { private get; set; }
 		internal string CssClass { private get; set; }
-
+		internal string HeaderCssClass { private get; set; }
 		internal string Text { private get; set; }
+
+		string ICommandColumn.HeaderCssClass
+		{
+			get { return HeaderCssClass; }
+		}
+
 		string ICommandColumn.Text
 		{
 			get { return Text; }
@@ -51,7 +58,7 @@ namespace FluentWebControls
 
 		public void Render(T item, HtmlTextWriter writer)
 		{
-			var control = _getControl(item,Text);
+			var control = _getControl(item, Text);
 			var cell = new TableCell
 				{
 					HorizontalAlign = Align.ToHorizontalAlign(),
@@ -65,7 +72,8 @@ namespace FluentWebControls
 		{
 			var cell = new TableHeaderCell
 				{
-					Text = "&nbsp;"
+					Text = "&nbsp;",
+					CssClass = HeaderCssClass
 				};
 			cell.RenderControl(writer);
 		}

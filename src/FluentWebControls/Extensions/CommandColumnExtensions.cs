@@ -20,6 +20,12 @@ namespace FluentWebControls.Extensions
 			return commandColumn;
 		}
 
+		public static CommandColumn<T> WithHeaderCssClass<T>(this CommandColumn<T> commandColumn, string cssClass)
+		{
+			commandColumn.HeaderCssClass = cssClass;
+			return commandColumn;
+		}
+
 		public static CommandColumn<T> WithText<T>(this CommandColumn<T> commandColumn, string text)
 		{
 			commandColumn.Text = text;

@@ -88,7 +88,7 @@
     <Compile Include="Extensions\ButtonDataExtensionsTest.cs" />
     <Compile Include="Extensions\CheckBoxDataExtensionsTest.cs" />
     <Compile Include="Extensions\ComboSelectDataExtensionsTest.cs" />
-    <Compile Include="Extensions\CommandColumnExtensionsTest.cs" />
+    <Compile Include="Extensions\GridCommandColumnExtensionsTest.cs" />
     <Compile Include="Extensions\DropDownListDataExtensionsTest.cs" />
     <Compile Include="Extensions\GridDataExtensionsTest.cs" />
     <Compile Include="Extensions\HiddenDataExtensionsTest.cs" />

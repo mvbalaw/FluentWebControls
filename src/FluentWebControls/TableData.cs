@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -15,12 +16,13 @@ namespace FluentWebControls
 		{
 			_items = items;
 			Style = new Dictionary<string,string>();
+			CssClass = new List<string>();
 		}
 
 		public Unit BorderWidth { get; set; }
 
 		public int CellSpacing { get; set; }
-		public string CssClass { get; set; }
+		public List<string> CssClass { get; set; }
 		internal string Id { get; set; }
 		public GridLines GridLines { get; set; }
 		public Dictionary<string, string> Style { get; set; }
@@ -34,6 +36,11 @@ namespace FluentWebControls
 		{
 			_columns.Add(commandColumn);
 		}
+		
+		public void AddCssClass(string cssClass)
+		{
+			CssClass.Add(cssClass);
+		}
 
 		public override string ToString()
 		{
@@ -43,16 +50,17 @@ namespace FluentWebControls
 				using (var writer = new HtmlTextWriter(streamWriter))
 				{
 					var table = new System.Web.UI.WebControls.Table
-						{
-							ID = Id,
-							BorderWidth = BorderWidth,
-							CellSpacing = CellSpacing,
-							GridLines = GridLines,
-						};
-					if (CssClass != null)
-					{
-						table.CssClass = CssClass;
-					}
+					            	{
+					            		ID = Id,
+					            		BorderWidth = BorderWidth,
+					            		CellSpacing = CellSpacing,
+					            		GridLines = GridLines,
+					            		CssClass = "",
+					            	};
+
+					CssClass.ForEach(x => table.CssClass = String.Format("{0} {1}", table.CssClass, x));
+					table.CssClass.Trim(new[] {' '});
+					
 					foreach (var kvp in Style)
 					{
 						table.Style.Add(kvp.Key, kvp.Value);
