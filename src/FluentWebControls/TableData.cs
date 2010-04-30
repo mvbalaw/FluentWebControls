@@ -60,6 +60,7 @@ namespace FluentWebControls
 
 					table.RenderBeginTag(writer);
 					{
+						writer.Write("<thead>");
 						var tableHeader = new TableHeaderRow();
 						{
 							tableHeader.RenderBeginTag(writer);
@@ -69,7 +70,9 @@ namespace FluentWebControls
 							}
 						}
 						tableHeader.RenderEndTag(writer);
+						writer.Write("</thead>");
 
+						writer.Write("<tbody>");
 						foreach (var item in _items)
 						{
 							var tableRow = new TableRow();
@@ -82,6 +85,7 @@ namespace FluentWebControls
 							}
 							tableRow.RenderEndTag(writer);
 						}
+						writer.Write("</tbody>");
 					}
 					table.RenderEndTag(writer);
 				}
