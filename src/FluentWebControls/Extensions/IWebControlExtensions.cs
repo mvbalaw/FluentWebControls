@@ -9,7 +9,7 @@ namespace FluentWebControls.Extensions
 	{
 		public static T WithId<T>(this T webControl, string id) where T : IWebControl
 		{
-			webControl.Id = id.ToCamelCase();
+			webControl.Id = id;
 			return webControl;
 		}
 

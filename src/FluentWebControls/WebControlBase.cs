@@ -8,12 +8,17 @@ namespace FluentWebControls
 		{
 			get
 			{
-				string id = ((IWebControl)this).IdPrefix ?? "";
+				string prefix = ((IWebControl)this).IdPrefix ?? "";
 				if (!String.IsNullOrEmpty(((IWebControl)this).IdPrefix))
 				{
-					id += ".";
+					prefix += ".";
 				}
-				id += ((IWebControl)this).Id;
+				var id = ((IWebControl)this).Id;
+				if (prefix.IsNullOrEmpty())
+				{
+					id = id.ToCamelCase();
+				}
+				id = prefix + id;
 				return id;
 			}
 		}
