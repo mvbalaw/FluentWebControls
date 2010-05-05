@@ -129,11 +129,17 @@ namespace FluentWebControls
 
 		public static CommandColumn<T> LinkCommandColumnFor<T>(Func<T, string> getHref)
 		{
-			return CommandColumn.For((T item, string text) => new HyperLink
-				{
-					NavigateUrl = getHref(item),
-					Text = text
-				});
+			return CommandColumn.For((T item, string text) =>
+			                         	{
+			                         		var navigateUrl = getHref(item);
+			                         		var linkId = navigateUrl.Replace('/', '_').TrimStart(new[]{'_'});
+			                         		return new HyperLink
+			                                                  		{
+			                                                  			NavigateUrl = navigateUrl,
+			                                                  			Text = text,
+																		ID = linkId
+			                                                  		};
+			                         	});
 		}
 
 		public static LinkData LinkTo()
