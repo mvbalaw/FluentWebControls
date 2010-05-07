@@ -72,6 +72,7 @@
     <Compile Include="Mapping\IFreeTextMap.cs" />
     <Compile Include="Mapping\IListUIMap.cs" />
     <Compile Include="Mapping\IUIMap.cs" />
+    <Compile Include="Mapping\ListUIMapWithItem.cs" />
     <Compile Include="Mapping\UIMap.cs" />
     <Compile Include="Mapping\FreeTextMap.cs" />
     <Compile Include="Mapping\IChoiceListMap.cs" />
