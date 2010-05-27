@@ -77,6 +77,11 @@ namespace FluentWebControls
 			return DataColumn.For(getItemText);
 		}
 
+		public static TextBoxColumn<T> TextBoxColumnFor<T>(Func<T, string> getItemText, Func<T, string> getItemId, string textBoxId)
+		{
+			return TextBoxColumn.For(getItemText, getItemId, textBoxId);
+		}
+
 		public static DropDownListData DropDownListFor<TListItemType, TContainerType, TPropertyType>(IEnumerable<TListItemType> listItemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
 		{
 			return DropDownList.For(listItemSource, getListItemDisplayText, getListItemValue, forId);
@@ -131,14 +136,14 @@ namespace FluentWebControls
 		{
 			return CommandColumn.For((T item, string text) =>
 			                         	{
-			                         		var navigateUrl = getHref(item);
-			                         		var linkId = navigateUrl.Replace('/', '_').TrimStart(new[]{'_'});
+			                         		string navigateUrl = getHref(item);
+			                         		string linkId = navigateUrl.Replace('/', '_').TrimStart(new[] { '_' });
 			                         		return new HyperLink
-			                                                  		{
-			                                                  			NavigateUrl = navigateUrl,
-			                                                  			Text = text,
-																		ID = linkId
-			                                                  		};
+			                         			{
+			                         				NavigateUrl = navigateUrl,
+			                         				Text = text,
+			                         				ID = linkId
+			                         			};
 			                         	});
 		}
 

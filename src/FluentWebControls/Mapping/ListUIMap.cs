@@ -53,6 +53,17 @@ namespace FluentWebControls.Mapping
 			return Fluent.DataColumnFor(column.TextMethod);
 		}
 
+		public TextBoxColumn<TDomain> TextBoxColumnFor(Expression<Func<TModel, object>> forPropertyName, Expression<Func<TModel, object>> forId)
+		{
+			var uiMap = TryGetRequestedMap(forPropertyName);
+			var columnForPropertyName = uiMap.TryCastTo<UIColumn<TDomain>>();
+
+			uiMap = TryGetRequestedMap(forId);
+			var columnForId = uiMap.TryCastTo<UIColumn<TDomain>>();
+
+			return Fluent.TextBoxColumnFor(columnForPropertyName.TextMethod, columnForId.TextMethod, Reflection.GetPropertyName(forPropertyName));
+		}
+
 		private static UIColumn<TDomain> GetMap(PropertyMappingInfo propertyMappingInfo)
 		{
 			return new UIColumn<TDomain>(y =>

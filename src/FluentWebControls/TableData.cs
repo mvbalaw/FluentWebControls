@@ -36,6 +36,11 @@ namespace FluentWebControls
 		{
 			_columns.Add(commandColumn);
 		}
+
+		public void AddColumn(TextBoxColumn<T> textBoxColumn)
+		{
+			_columns.Add(textBoxColumn);
+		}
 		
 		public void AddCssClass(string cssClass)
 		{

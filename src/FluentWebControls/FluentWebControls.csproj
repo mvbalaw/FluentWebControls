@@ -64,6 +64,7 @@
     <Compile Include="Extensions\IFreeTextMapExtensions.cs" />
     <Compile Include="Extensions\KeyValuePairExtensions.cs" />
     <Compile Include="Extensions\TableDataExtensions.cs" />
+    <Compile Include="Extensions\TextBoxColumnExtensions.cs" />
     <Compile Include="IHtmlColumn.cs" />
     <Compile Include="Interfaces\PagedList.cs" />
     <Compile Include="Mapping\BooleanMap.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="TextArea.cs" />
     <Compile Include="TextAreaData.cs" />
     <Compile Include="TextBox.cs" />
+    <Compile Include="TextBoxColumn.cs" />
     <Compile Include="TextBoxData.cs" />
     <Compile Include="ValidatableWebControlBase.cs" />
     <Compile Include="Validation\FieldValidationType.cs" />
