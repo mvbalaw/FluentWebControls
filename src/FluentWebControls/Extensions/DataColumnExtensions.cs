@@ -2,21 +2,9 @@ namespace FluentWebControls.Extensions
 {
 	public static class DataColumnExtensions
 	{
-		public static DataColumn<T> WithHeader<T>(this DataColumn<T> dataColumn, string header)
+		public static DataColumn<T> AlignCenter<T>(this DataColumn<T> dataColumn)
 		{
-			dataColumn.HeaderText = header;
-			return dataColumn;
-		}
-
-		public static DataColumn<T> WithCssClass<T>(this DataColumn<T> dataColumn, string cssClass)
-		{
-			dataColumn.CssClass = cssClass;
-			return dataColumn;
-		}
-
-		public static DataColumn<T> WithHeaderCssClass<T>(this DataColumn<T> dataColumn, string cssClass)
-		{
-			dataColumn.HeaderCssClass = cssClass;
+			dataColumn.Align = AlignAttribute.Center;
 			return dataColumn;
 		}
 
@@ -38,9 +26,21 @@ namespace FluentWebControls.Extensions
 			return dataColumn;
 		}
 
-		public static DataColumn<T> AlignCenter<T>(this DataColumn<T> dataColumn)
+		public static DataColumn<T> WithHeader<T>(this DataColumn<T> dataColumn, string header)
 		{
-			dataColumn.Align = AlignAttribute.Center;
+			dataColumn.HeaderText = header;
+			return dataColumn;
+		}
+
+		public static DataColumn<T> WithHeaderCssClass<T>(this DataColumn<T> dataColumn, string cssClass)
+		{
+			dataColumn.HeaderCssClass = cssClass;
+			return dataColumn;
+		}
+
+		public static DataColumn<T> WithCssClass<T>(this DataColumn<T> dataColumn, string cssClass)
+		{
+			dataColumn.CssClass = cssClass;
 			return dataColumn;
 		}
 	}

@@ -23,11 +23,11 @@ namespace FluentWebControls
 
 	public class DataColumn<T> : IDataColumn, IHtmlColumn<T>
 	{
-		private readonly Func<T, string> _getColumnText;
+		protected readonly Func<T, string> GetColumnText;
 
 		public DataColumn(Func<T, string> getColumnText)
 		{
-			_getColumnText = getColumnText;
+			GetColumnText = getColumnText;
 			Align = AlignAttribute.Left;
 			HeaderAlign = AlignAttribute.Center;
 		}
@@ -59,15 +59,11 @@ namespace FluentWebControls
 			get { return HeaderCssClass; }
 		}
 
-		public void Render(T item, HtmlTextWriter writer)
+		public virtual void Render(T item, HtmlTextWriter writer)
 		{
-			var cell = new TableCell
-				{
-					HorizontalAlign = Align.ToHorizontalAlign(),
-					Text = _getColumnText(item),
-					CssClass = CssClass
-				};
-			cell.RenderControl(writer);
+			var tableCell = GetDefaultTableCell();
+			tableCell.Text = GetColumnText(item);
+			tableCell.RenderControl(writer);
 		}
 
 		public void RenderHeader(HtmlTextWriter writer)
@@ -79,6 +75,15 @@ namespace FluentWebControls
 					CssClass = HeaderCssClass
 				};
 			cell.RenderControl(writer);
+		}
+
+		protected TableCell GetDefaultTableCell()
+		{
+			return new TableCell
+				{
+					HorizontalAlign = Align.ToHorizontalAlign(),
+					CssClass = CssClass
+				};
 		}
 	}
 }

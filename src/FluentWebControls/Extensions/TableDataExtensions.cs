@@ -28,12 +28,6 @@ namespace FluentWebControls.Extensions
 			return table;
 		}
 
-		public static TableData<T> WithColumn<T>(this TableData<T> table, TextBoxColumn<T> textBoxColumn)
-		{
-			table.AddColumn(textBoxColumn);
-			return table;
-		}
-
 		public static TableData<T> WithColumn<T>(this TableData<T> table, CommandColumn<T> commandColumn)
 		{
 			table.AddColumn(commandColumn);

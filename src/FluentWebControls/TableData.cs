@@ -15,7 +15,7 @@ namespace FluentWebControls
 		public TableData(IEnumerable<T> items)
 		{
 			_items = items;
-			Style = new Dictionary<string,string>();
+			Style = new Dictionary<string, string>();
 			CssClass = new List<string>();
 		}
 
@@ -23,8 +23,8 @@ namespace FluentWebControls
 
 		public int CellSpacing { get; set; }
 		public List<string> CssClass { get; set; }
-		internal string Id { get; set; }
 		public GridLines GridLines { get; set; }
+		internal string Id { get; set; }
 		public Dictionary<string, string> Style { get; set; }
 
 		public void AddColumn(DataColumn<T> dataColumn)
@@ -37,11 +37,6 @@ namespace FluentWebControls
 			_columns.Add(commandColumn);
 		}
 
-		public void AddColumn(TextBoxColumn<T> textBoxColumn)
-		{
-			_columns.Add(textBoxColumn);
-		}
-		
 		public void AddCssClass(string cssClass)
 		{
 			CssClass.Add(cssClass);
@@ -55,17 +50,17 @@ namespace FluentWebControls
 				using (var writer = new HtmlTextWriter(streamWriter))
 				{
 					var table = new System.Web.UI.WebControls.Table
-					            	{
-					            		ID = Id,
-					            		BorderWidth = BorderWidth,
-					            		CellSpacing = CellSpacing,
-					            		GridLines = GridLines,
-					            		CssClass = "",
-					            	};
+						{
+							ID = Id,
+							BorderWidth = BorderWidth,
+							CellSpacing = CellSpacing,
+							GridLines = GridLines,
+							CssClass = "",
+						};
 
 					CssClass.ForEach(x => table.CssClass = String.Format("{0} {1}", table.CssClass, x));
-					table.CssClass.Trim(new[] {' '});
-					
+					table.CssClass.Trim(new[] { ' ' });
+
 					foreach (var kvp in Style)
 					{
 						table.Style.Add(kvp.Key, kvp.Value);

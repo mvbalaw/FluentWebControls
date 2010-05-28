@@ -77,9 +77,9 @@ namespace FluentWebControls
 			return DataColumn.For(getItemText);
 		}
 
-		public static TextBoxColumn<T> TextBoxColumnFor<T>(Func<T, string> getItemText, Func<T, string> getItemId, string textBoxId)
+		public static DataColumnWithId<T> DataColumnFor<T>(Func<T, string> getItemText, Func<T, string> getItemId, string columnPrefix)
 		{
-			return TextBoxColumn.For(getItemText, getItemId, textBoxId);
+			return DataColumnWithId.For(getItemText, getItemId, columnPrefix);
 		}
 
 		public static DropDownListData DropDownListFor<TListItemType, TContainerType, TPropertyType>(IEnumerable<TListItemType> listItemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
