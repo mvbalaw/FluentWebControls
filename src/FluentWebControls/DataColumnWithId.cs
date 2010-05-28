@@ -45,7 +45,7 @@ namespace FluentWebControls
 		{
 			var tableCell = GetDefaultTableCell();
 			
-			string tableCellId = GetId(item);
+			string tableCellId = GetId(item).ToCamelCase();
 			tableCell.ID = tableCellId;
 			tableCell.Text = GetColumnWithInput(GetColumnText(item), tableCellId);
 			tableCell.RenderControl(writer);
