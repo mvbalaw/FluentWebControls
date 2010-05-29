@@ -1,3 +1,5 @@
+using System;
+
 namespace FluentWebControls.Extensions
 {
 	public static class DataColumnExtensions
@@ -26,6 +28,26 @@ namespace FluentWebControls.Extensions
 			return dataColumn;
 		}
 
+		public static DataColumn<T> AsSpan<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
+		{
+			dataColumn.ColumnTextType = ColumnTextType.Span;
+			dataColumn.GetItemId = forId;
+			return dataColumn;
+		}
+
+		public static DataColumn<T> AsTextBox<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
+		{
+			dataColumn.ColumnTextType = ColumnTextType.TextBox;
+			dataColumn.GetItemId = forId;
+			return dataColumn;
+		}
+
+		public static DataColumn<T> WithCssClass<T>(this DataColumn<T> dataColumn, string cssClass)
+		{
+			dataColumn.CssClass = cssClass;
+			return dataColumn;
+		}
+
 		public static DataColumn<T> WithHeader<T>(this DataColumn<T> dataColumn, string header)
 		{
 			dataColumn.HeaderText = header;
@@ -38,9 +60,9 @@ namespace FluentWebControls.Extensions
 			return dataColumn;
 		}
 
-		public static DataColumn<T> WithCssClass<T>(this DataColumn<T> dataColumn, string cssClass)
+		public static DataColumn<T> WithInputCssClass<T>(this DataColumn<T> dataColumn, string inputCssClass)
 		{
-			dataColumn.CssClass = cssClass;
+			dataColumn.InputCssClass = inputCssClass;
 			return dataColumn;
 		}
 	}

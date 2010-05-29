@@ -99,6 +99,7 @@
     <Compile Include="Extensions\PropertyMetaData.cs" />
     <Compile Include="Extensions\RegularColumnExtensionsTest.cs" />
     <Compile Include="Extensions\SortableColumnExtensionsTest.cs" />
+    <Compile Include="Extensions\SpanDataExtensionsTest.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="Extensions\TextAreaDataExtensionsTest.cs" />
     <Compile Include="Extensions\TextBoxDataExtensionsTest.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="ScrollableGridTest.cs" />
     <Compile Include="SortableColumnTest.cs" />
     <Compile Include="SortableGridColumnTest.cs" />
+    <Compile Include="SpanDataTest.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="TextAreaDataTest.cs" />

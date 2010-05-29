@@ -2,13 +2,17 @@ using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using FluentWebControls.Extensions;
+
+using MvbaCore;
+
 namespace FluentWebControls
 {
 	public class DataColumn
 	{
-		public static DataColumn<T> For<T>(Func<T, string> getColumnText)
+		public static DataColumn<T> For<T>(Func<T, string> getColumnText, string columnName)
 		{
-			return new DataColumn<T>(getColumnText);
+			return new DataColumn<T>(getColumnText, columnName);
 		}
 	}
 
@@ -19,24 +23,30 @@ namespace FluentWebControls
 		AlignAttribute HeaderAlign { get; }
 		string HeaderCssClass { get; }
 		string HeaderText { get; }
+		string InputCssClass { get; }
 	}
 
 	public class DataColumn<T> : IDataColumn, IHtmlColumn<T>
 	{
+		protected readonly string ColumnName;
 		protected readonly Func<T, string> GetColumnText;
 
-		public DataColumn(Func<T, string> getColumnText)
+		public DataColumn(Func<T, string> getColumnText, string columnName)
 		{
 			GetColumnText = getColumnText;
+			ColumnName = columnName;
 			Align = AlignAttribute.Left;
 			HeaderAlign = AlignAttribute.Center;
 		}
 
 		internal AlignAttribute Align { private get; set; }
-		internal string CssClass { private get; set; }
+		internal ColumnTextType ColumnTextType { get; set; }
+		internal string CssClass { get; set; }
+		internal Func<T, string> GetItemId { get; set; }
 		internal AlignAttribute HeaderAlign { private get; set; }
 		internal string HeaderCssClass { private get; set; }
 		internal string HeaderText { private get; set; }
+		internal string InputCssClass { get; set; }
 
 		AlignAttribute IDataColumn.Align
 		{
@@ -45,6 +55,10 @@ namespace FluentWebControls
 		string IDataColumn.CssClass
 		{
 			get { return CssClass; }
+		}
+		string IDataColumn.InputCssClass
+		{
+			get { return InputCssClass; }
 		}
 		string IDataColumn.HeaderText
 		{
@@ -61,9 +75,13 @@ namespace FluentWebControls
 
 		public virtual void Render(T item, HtmlTextWriter writer)
 		{
-			var tableCell = GetDefaultTableCell();
-			tableCell.Text = GetColumnText(item);
-			tableCell.RenderControl(writer);
+			var cell = new TableCell
+				{
+					HorizontalAlign = Align.ToHorizontalAlign(),
+					Text = GetColumnWithInput(item),
+					CssClass = CssClass
+				};
+			cell.RenderControl(writer);
 		}
 
 		public void RenderHeader(HtmlTextWriter writer)
@@ -77,13 +95,39 @@ namespace FluentWebControls
 			cell.RenderControl(writer);
 		}
 
-		protected TableCell GetDefaultTableCell()
+		private string GetColumnWithInput(T item)
 		{
-			return new TableCell
-				{
-					HorizontalAlign = Align.ToHorizontalAlign(),
-					CssClass = CssClass
-				};
+			if (ColumnTextType == ColumnTextType.TextBox)
+			{
+				return new TextBoxData(GetColumnText(item)).WithId(GetId(item)).CssClass(InputCssClass).ToString();
+			}
+			if (ColumnTextType == ColumnTextType.Span)
+			{
+				return new SpanData(GetColumnText(item)).WithId(GetId(item)).WithCssClass(InputCssClass).ToString();
+			}
+			return GetColumnText(item);
+		}
+
+		private string GetId(T item)
+		{
+			if (GetItemId == null)
+			{
+				return ColumnName;
+			}
+			return String.Format("{0}_{1}_{2}", Reflection.GetClassName<T>(), ColumnName, GetItemId(item));
+		}
+	}
+
+	public class ColumnTextType : NamedConstant<ColumnTextType>
+	{
+		[DefaultKey]
+		public static ColumnTextType ColumnText = new ColumnTextType("column");
+		public static ColumnTextType Span = new ColumnTextType("span");
+		public static ColumnTextType TextBox = new ColumnTextType("textbox");
+
+		private ColumnTextType(string key)
+		{
+			Key = key;
 		}
 	}
 }

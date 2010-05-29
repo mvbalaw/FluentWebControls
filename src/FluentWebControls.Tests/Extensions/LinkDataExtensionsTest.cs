@@ -14,12 +14,12 @@ namespace FluentWebControls.Tests.Extensions
 	{
 		public abstract class LinkDataExtensionsTestBase
 		{
-			protected LinkData _linkData;
+			protected LinkData LinkData;
 
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				_linkData = new LinkData();
+				LinkData = new LinkData();
 			}
 		}
 
@@ -30,10 +30,10 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_LinkData_with_href()
 			{
 				const string href = "LinkPage";
-				var link = _linkData.WithUrl(href);
-				Assert.AreSame(_linkData, link);
+				var link = LinkData.WithUrl(href);
+				Assert.AreSame(LinkData, link);
 				link.ToString().ParseHtmlTag()["href"].ShouldBeEqualTo(href);
-				_linkData.ToString().Contains(href).ShouldBeTrue();
+				LinkData.ToString().Contains(href).ShouldBeTrue();
 			}
 		}
 
@@ -45,34 +45,34 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_a_name_value_input_of_type_string()
 			{
-				var link = _linkData.WithData("Name", "Value");
-				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains("Name=Value").ShouldBeTrue();
+				var link = LinkData.WithData("Name", "Value");
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains("Name=Value").ShouldBeTrue();
 			}
 
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_expression_that_returns_int()
 			{
-				var link = _linkData.WithData(() => _item.ItemId);
-				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemId), _item.ItemId)).ShouldBeTrue();
+				var link = LinkData.WithData(() => _item.ItemId);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemId), _item.ItemId)).ShouldBeTrue();
 			}
 
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_expression_that_returns_int_and_separate_value_provided()
 			{
-				var link = _linkData.WithData(() => _item.ItemId, 10);
-				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}=10", Reflection.GetPropertyName(() => _item.ItemId))).ShouldBeTrue();
+				var link = LinkData.WithData(() => _item.ItemId, 10);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(String.Format("{0}=10", Reflection.GetPropertyName(() => _item.ItemId))).ShouldBeTrue();
 			}
 
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_expression_that_returns_nullable_int()
 			{
 				int? itemId = 5;
-				var link = _linkData.WithData(() => itemId);
-				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => itemId), itemId)).ShouldBeTrue();
+				var link = LinkData.WithData(() => itemId);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => itemId), itemId)).ShouldBeTrue();
 			}
 
 			[Test]
@@ -80,33 +80,33 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				int? itemId = 5;
 				int? newValue = 10;
-				var link = _linkData.WithData(() => itemId, newValue);
-				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}=10", Reflection.GetPropertyName(() => itemId))).ShouldBeTrue();
+				var link = LinkData.WithData(() => itemId, newValue);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(String.Format("{0}=10", Reflection.GetPropertyName(() => itemId))).ShouldBeTrue();
 			}
 
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_expression_that_returns_string()
 			{
-				var link = _linkData.WithData(() => _item.ItemName);
-				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemName), _item.ItemName)).ShouldBeTrue();
+				var link = LinkData.WithData(() => _item.ItemName);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemName), _item.ItemName)).ShouldBeTrue();
 			}
 
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_expression_that_returns_string_and_separate_value_provided()
 			{
-				var link = _linkData.WithData(() => _item.ItemName, "Value");
-				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}=Value", Reflection.GetPropertyName(() => _item.ItemName))).ShouldBeTrue();
+				var link = LinkData.WithData(() => _item.ItemName, "Value");
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(String.Format("{0}=Value", Reflection.GetPropertyName(() => _item.ItemName))).ShouldBeTrue();
 			}
 
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_object_that_contains_the_specified_property()
 			{
-				var link = _linkData.WithData(_item, item => item.ItemId, item => item.ItemId.ToString());
-				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemId), _item.ItemId)).ShouldBeTrue();
+				var link = LinkData.WithData(_item, item => item.ItemId, item => item.ItemId.ToString());
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemId), _item.ItemId)).ShouldBeTrue();
 			}
 		}
 
@@ -117,10 +117,10 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_LinkData_with_rel()
 			{
 				const string rel = "external";
-				var link = _linkData.WithRel(rel);
-				Assert.AreSame(_linkData, link);
+				var link = LinkData.WithRel(rel);
+				Assert.AreSame(LinkData, link);
 				link.ToString().ParseHtmlTag()["rel"].ShouldBeEqualTo(rel);
-				_linkData.ToString().Contains(rel).ShouldBeTrue();
+				LinkData.ToString().Contains(rel).ShouldBeTrue();
 			}
 		}
 
@@ -131,10 +131,10 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_LinkData_With_CssClass_initialized()
 			{
 				const string cssClass = "Link";
-				var link = _linkData.WithCssClass(cssClass);
-				Assert.AreSame(_linkData, link);
+				var link = LinkData.WithCssClass(cssClass);
+				Assert.AreSame(LinkData, link);
 				link.ToString().ParseHtmlTag()["class"].ShouldBeEqualTo(cssClass);
-				_linkData.ToString().Contains(cssClass).ShouldBeTrue();
+				LinkData.ToString().Contains(cssClass).ShouldBeTrue();
 			}
 		}
 
@@ -145,10 +145,10 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_LinkData_With_MouseOverText_initialized()
 			{
 				const string text = "Text";
-				var link = _linkData.WithMouseOverText(text);
-				Assert.AreSame(_linkData, link);
+				var link = LinkData.WithMouseOverText(text);
+				Assert.AreSame(LinkData, link);
 				link.ToString().ParseHtmlTag()["title"].ShouldBeEqualTo(text);
-				_linkData.ToString().Contains(text).ShouldBeTrue();
+				LinkData.ToString().Contains(text).ShouldBeTrue();
 			}
 		}
 
@@ -159,9 +159,9 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_LinkData_With_Text_initialized()
 			{
 				const string text = "Text";
-				var link = _linkData.WithLinkText(text);
-				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains(text).ShouldBeTrue();
+				var link = LinkData.WithLinkText(text);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(text).ShouldBeTrue();
 			}
 		}
 
@@ -171,9 +171,9 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_LinkData_that_is_disabled()
 			{
-				var link = _linkData.DisabledIf(true);
-				Assert.AreSame(_linkData, link);
-				_linkData.ToString().Contains("disabled").ShouldBeTrue();
+				var link = LinkData.DisabledIf(true);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains("disabled").ShouldBeTrue();
 			}
 		}
 	}

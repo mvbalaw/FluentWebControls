@@ -50,18 +50,14 @@ namespace FluentWebControls.Mapping
 		{
 			var uiMap = TryGetRequestedMap(forPropertyName);
 			var column = uiMap.TryCastTo<UIColumn<TDomain>>();
-			return Fluent.DataColumnFor(column.TextMethod);
+			return Fluent.DataColumnFor(column.TextMethod, Reflection.GetPropertyName(forPropertyName));
 		}
 
-		public DataColumnWithId<TDomain> DataColumnFor(Expression<Func<TModel, object>> forPropertyName, Expression<Func<TModel, object>> forId)
+		public Func<TDomain, string> ForId(Expression<Func<TModel, object>> forId)
 		{
-			var uiMap = TryGetRequestedMap(forPropertyName);
-			var columnForPropertyName = uiMap.TryCastTo<UIColumn<TDomain>>();
-
-			uiMap = TryGetRequestedMap(forId);
-			var columnForId = uiMap.TryCastTo<UIColumn<TDomain>>();
-
-			return Fluent.DataColumnFor(columnForPropertyName.TextMethod, columnForId.TextMethod, Reflection.GetPropertyName(forPropertyName));
+			var uiMap = TryGetRequestedMap(forId);
+			var column = uiMap.TryCastTo<UIColumn<TDomain>>();
+			return column.TextMethod;
 		}
 
 		private static UIColumn<TDomain> GetMap(PropertyMappingInfo propertyMappingInfo)
