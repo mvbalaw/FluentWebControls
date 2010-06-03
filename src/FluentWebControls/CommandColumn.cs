@@ -20,6 +20,7 @@ namespace FluentWebControls
 		string HeaderCssClass { get; }
 		string Text { get; }
 		string ImageUrl { get; }
+		string Alt { get; }
 	}
 
 	public class CommandColumn<T> : ICommandColumn, IHtmlColumn<T>
@@ -37,6 +38,7 @@ namespace FluentWebControls
 		internal string HeaderCssClass { private get; set; }
 		internal string Text { private get; set; }
 		internal string ImageUrl { private get; set; }
+		internal string Alt { private get; set; }
 
 		string ICommandColumn.HeaderCssClass
 		{
@@ -52,6 +54,11 @@ namespace FluentWebControls
 		{
 			get { return ImageUrl; }
 		}
+		
+		string ICommandColumn.Alt
+		{
+			get { return Alt; }
+		}
 
 		AlignAttribute ICommandColumn.Align
 		{
@@ -65,7 +72,7 @@ namespace FluentWebControls
 
 		public void Render(T item, HtmlTextWriter writer)
 		{
-			var control = _getControl(item, Text ?? String.Format("<img src='{0}'/>", ImageUrl));
+			var control = _getControl(item, Text ?? String.Format("<img src='{0}' alt='{1}'/>", ImageUrl, Alt));
 			var cell = new TableCell
 				{
 					HorizontalAlign = Align.ToHorizontalAlign(),

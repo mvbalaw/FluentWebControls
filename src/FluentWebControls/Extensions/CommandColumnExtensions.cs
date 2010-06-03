@@ -34,7 +34,13 @@ namespace FluentWebControls.Extensions
 
 		public static CommandColumn<T> WithImage<T>(this CommandColumn<T> commandColumn, string imageUrl)
 		{
+			return commandColumn.WithImage(imageUrl, "");
+		}
+		
+		public static CommandColumn<T> WithImage<T>(this CommandColumn<T> commandColumn, string imageUrl, string alt)
+		{
 			commandColumn.ImageUrl = imageUrl;
+			commandColumn.Alt = alt;
 			return commandColumn;
 		}
 	}
