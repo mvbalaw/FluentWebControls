@@ -14,7 +14,7 @@ namespace FluentWebControls.Extensions
 			return linkData;
 		}
 
-		public static LinkData Id(this LinkData linkData, string id)
+		public static LinkData WithId(this LinkData linkData, string id)
 		{
 			linkData.Id = id;
 			return linkData;

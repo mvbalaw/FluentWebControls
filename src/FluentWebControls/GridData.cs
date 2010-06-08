@@ -137,7 +137,7 @@ namespace FluentWebControls
 						          	.WithData(() => PagedListParameters.SortDirection, GetNextSortDirection(column.FieldName, column.IsDefaultSortColumn))
 						          	.WithData(() => PagedListParameters.SortField, column.FieldName)
 						          	.WithData(_filters.Select(f => new KeyValuePair<string, string>(((IWebControl)f).Id, ((IDropDownListData)f).SelectedValue)))
-						          	.Id("th" + columnNumber)
+						          	.WithId("th" + columnNumber)
 							);
 						break;
 					case GridColumnType.Command:
