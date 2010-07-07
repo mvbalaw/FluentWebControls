@@ -13,16 +13,31 @@ namespace FluentWebControls.Tests.Extensions
 	{
 		public abstract class TextBoxDataExtensionsTestBase
 		{
-			protected TestData.Item _item;
-			protected IPropertyMetaData _propertyMetaData;
-			protected TextBoxData _textBoxData;
+			protected TestData.Item Item;
+			protected IPropertyMetaData PropertyMetaData;
+			protected TextBoxData TextBoxData;
 
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				_item = new TestData.Item(1, "ItemName");
-				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Name", false, null, 100, null, 100, _item.ItemId.GetType());
-				_textBoxData = new TextBoxData("value").WithValidationFrom(_propertyMetaData);
+				Item = new TestData.Item(1, "ItemName");
+				PropertyMetaData = PropertyMetaDataMocker.CreateStub("Name", false, null, 100, null, 100, Item.ItemId.GetType());
+				TextBoxData = new TextBoxData("value").WithValidationFrom(PropertyMetaData);
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_add_TabIndex : TextBoxDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_TextBoxData_With_TabIndex_initialized()
+			{
+				const string tabIndex = "1";
+
+				var tBox = TextBoxData.WithTabIndex(tabIndex);
+				Assert.AreSame(TextBoxData, tBox);
+				tBox.ToString().ParseHtmlTag()["tabindex"].ShouldBeEqualTo(tabIndex);
+				tBox.ToString().Contains(tabIndex).ShouldBeTrue();
 			}
 		}
 
@@ -34,8 +49,8 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string cssClass = "textBox";
 
-				var tBox = _textBoxData.CssClass(cssClass);
-				Assert.AreSame(_textBoxData, tBox);
+				var tBox = TextBoxData.CssClass(cssClass);
+				Assert.AreSame(TextBoxData, tBox);
 				tBox.ToString().Contains(cssClass).ShouldBeTrue();
 			}
 		}
@@ -46,10 +61,10 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_TextBoxData_With_Id_initialized()
 			{
-				var tBox = _textBoxData.WithId(() => _item.ItemName);
-				Assert.AreSame(_textBoxData, tBox);
-				tBox.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(_item.ItemName.ToCamelCase());
-				tBox.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();
+				var tBox = TextBoxData.WithId(() => Item.ItemName);
+				Assert.AreSame(TextBoxData, tBox);
+				tBox.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(Item.ItemName.ToCamelCase());
+				tBox.ToString().Contains(Item.ItemId.ToString()).ShouldBeTrue();
 			}
 		}
 
@@ -60,10 +75,10 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_TextBoxData_With_Id_initialized()
 			{
 				const string expectedId = "Bar";
-				var tBox = _textBoxData.WithId(expectedId);
-				Assert.AreSame(_textBoxData, tBox);
+				var tBox = TextBoxData.WithId(expectedId);
+				Assert.AreSame(TextBoxData, tBox);
 				tBox.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(expectedId.ToCamelCase());
-				tBox.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();
+				tBox.ToString().Contains(Item.ItemId.ToString()).ShouldBeTrue();
 			}
 		}
 
@@ -78,8 +93,8 @@ namespace FluentWebControls.Tests.Extensions
 						Text = "Id"
 					};
 
-				var tBox = _textBoxData.WithLabel(label);
-				Assert.AreSame(_textBoxData, tBox);
+				var tBox = TextBoxData.WithLabel(label);
+				Assert.AreSame(TextBoxData, tBox);
 				string textBox = tBox.ToString();
 				textBox.Contains(label.ToString()).ShouldBeTrue();
 			}
@@ -89,8 +104,8 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string labeltext = "Id";
 
-				var tBox = _textBoxData.WithLabel(labeltext);
-				Assert.AreSame(_textBoxData, tBox);
+				var tBox = TextBoxData.WithLabel(labeltext);
+				Assert.AreSame(TextBoxData, tBox);
 				var label = new LabelData
 					{
 						Text = labeltext
@@ -107,9 +122,9 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const int maxValue = 10;
 
-				var tBox = _textBoxData.MaxValue(maxValue);
-				Assert.AreSame(_textBoxData, tBox);
-				tBox.ToString().ParseHtmlTag()[ValidatableWebControlBase.JQueryFieldValidationType.MaxValue.Text].ShouldBeEqualTo(_propertyMetaData.MaxValue.ToString());
+				var tBox = TextBoxData.MaxValue(maxValue);
+				Assert.AreSame(TextBoxData, tBox);
+				tBox.ToString().ParseHtmlTag()[ValidatableWebControlBase.JQueryFieldValidationType.MaxValue.Text].ShouldBeEqualTo(PropertyMetaData.MaxValue.ToString());
 				tBox.ToString().Contains(maxValue.ToString()).ShouldBeTrue();
 			}
 		}
@@ -122,8 +137,8 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const int minValue = 1;
 
-				var tBox = _textBoxData.MinValue(minValue);
-				Assert.AreSame(_textBoxData, tBox);
+				var tBox = TextBoxData.MinValue(minValue);
+				Assert.AreSame(TextBoxData, tBox);
 				tBox.ToString().ParseHtmlTag()[ValidatableWebControlBase.JQueryFieldValidationType.MinValue.Text].ShouldBeEqualTo(minValue.ToString());
 				tBox.ToString().Contains(minValue.ToString()).ShouldBeTrue();
 			}
@@ -137,8 +152,8 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string width = "32px";
 
-				var tBox = _textBoxData.Width(width);
-				Assert.AreSame(_textBoxData, tBox);
+				var tBox = TextBoxData.Width(width);
+				Assert.AreSame(TextBoxData, tBox);
 				tBox.ToString().Contains(width).ShouldBeTrue();
 			}
 		}

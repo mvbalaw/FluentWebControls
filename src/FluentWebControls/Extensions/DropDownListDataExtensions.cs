@@ -102,6 +102,12 @@ namespace FluentWebControls.Extensions
 			return dropDownListData;
 		}
 
+		public static DropDownListData WithTabIndex(this DropDownListData dropDownListData, string tabIndex)
+		{
+			dropDownListData.TabIndex = tabIndex;
+			return dropDownListData;
+		}
+
 		public static DropDownListData WithSelectedValue(this DropDownListData dropDownListData, int? value)
 		{
 			dropDownListData.SelectedValue = value == null ? "" : value.ToString();

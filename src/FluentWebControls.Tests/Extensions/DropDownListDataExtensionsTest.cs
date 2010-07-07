@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using FluentAssert;
@@ -20,14 +21,66 @@ namespace FluentWebControls.Tests.Extensions
 					new KeyValuePair<string, string>("Name3", "3")
 				};
 
-			protected DropDownListData _dropDownListData;
-			protected IPropertyMetaData _propertyMetaData;
+			protected DropDownListData DropDownListData;
+			protected IPropertyMetaData PropertyMetaData;
 
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Name", false, null, null, null, null, typeof(string));
-				_dropDownListData = new DropDownListData(_items).WithValidationFrom(_propertyMetaData);
+				PropertyMetaData = PropertyMetaDataMocker.CreateStub("Name", false, null, null, null, null, typeof(string));
+				DropDownListData = new DropDownListData(_items).WithValidationFrom(PropertyMetaData);
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_Exclude_a_Value : DropDownListDataExtensionsTestBase
+		{
+// ReSharper disable InconsistentNaming
+			public string Value = "Value2";
+// ReSharper restore InconsistentNaming
+
+			[Test]
+			public void Should_return_a_DropDownListData_with_passed_value_excluded()
+			{
+				var listData = DropDownListData.Exclude(() => Value);
+				Assert.AreSame(DropDownListData, listData);
+				DropDownListData.ToString().Contains("<option value='Value2'>Name2</option>").ShouldBeFalse();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_Exclude_a_Value_of_a_nullable_parent : DropDownListDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_DropDownListData_with_passed_value_excluded()
+			{
+				var test = new Test();
+				var listData = DropDownListData.Exclude(() => test, t => t.Value);
+				Assert.AreSame(DropDownListData, listData);
+				DropDownListData.ToString().Contains("<option value='Value2'>Name2</option>").ShouldBeFalse();
+			}
+
+			public class Test
+			{
+// ReSharper disable InconsistentNaming
+				public string Value = "Value2";
+// ReSharper restore InconsistentNaming
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_add_TabIndex : DropDownListDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_DropDownListData_With_TabIndex_initialized()
+			{
+				const string tabIndex = "1";
+
+				var listData = DropDownListData.WithTabIndex(tabIndex);
+				Assert.AreSame(DropDownListData, listData);
+				Console.WriteLine(listData.ToString());
+				listData.ToString().ParseHtmlTag()["tabindex"].ShouldBeEqualTo(tabIndex);
+				listData.ToString().Contains(tabIndex).ShouldBeTrue();
 			}
 		}
 
@@ -38,10 +91,10 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_DropDownListData_With_CssClass_initialized()
 			{
 				const string cssClass = "cssClass";
-				var listData = _dropDownListData.CssClass(cssClass);
-				Assert.AreSame(_dropDownListData, listData);
+				var listData = DropDownListData.CssClass(cssClass);
+				Assert.AreSame(DropDownListData, listData);
 				listData.ToString().ParseHtmlTag()["class"].ShouldBeEqualTo(cssClass);
-				_dropDownListData.ToString().Contains(cssClass).ShouldBeTrue();
+				DropDownListData.ToString().Contains(cssClass).ShouldBeTrue();
 			}
 		}
 
@@ -53,8 +106,8 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var label = new LabelData("Id");
 
-				var listData = _dropDownListData.WithLabel(label);
-				Assert.AreSame(_dropDownListData, listData);
+				var listData = DropDownListData.WithLabel(label);
+				Assert.AreSame(DropDownListData, listData);
 				listData.ToString().Contains(label.ToString()).ShouldBeTrue();
 			}
 		}
@@ -67,9 +120,9 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string defaultText = "All";
 				const string defaultValue = "";
-				var listData = _dropDownListData.WithDefault(defaultText, defaultValue);
-				Assert.AreSame(_dropDownListData, listData);
-				_dropDownListData.ToString().Contains("<option value='' selected='selected'>All</option>").ShouldBeTrue();
+				var listData = DropDownListData.WithDefault(defaultText, defaultValue);
+				Assert.AreSame(DropDownListData, listData);
+				DropDownListData.ToString().Contains("<option value='' selected='selected'>All</option>").ShouldBeTrue();
 			}
 		}
 
@@ -81,9 +134,9 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string defaultText = "";
 				const string defaultValue = "Value2";
-				var listData = _dropDownListData.WithDefault(defaultText, defaultValue);
-				Assert.AreSame(_dropDownListData, listData);
-				string html = _dropDownListData.ToString();
+				var listData = DropDownListData.WithDefault(defaultText, defaultValue);
+				Assert.AreSame(DropDownListData, listData);
+				string html = DropDownListData.ToString();
 				html.Contains("<option value='Value2' selected='selected'></option>").ShouldBeTrue(html);
 				html.Contains("<option value='Value2'>Name2</option>").ShouldBeFalse(html);
 			}
@@ -95,17 +148,17 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_DropDownListData_with_selected_int_assigned_to_option_that_was_selected()
 			{
-				var listData = _dropDownListData.WithSelectedValue(3);
-				Assert.AreSame(_dropDownListData, listData);
-				_dropDownListData.ToString().Contains("<option value='3' selected='selected'>Name3</option>").ShouldBeTrue();
+				var listData = DropDownListData.WithSelectedValue(3);
+				Assert.AreSame(DropDownListData, listData);
+				DropDownListData.ToString().Contains("<option value='3' selected='selected'>Name3</option>").ShouldBeTrue();
 			}
 
 			[Test]
 			public void Should_return_a_DropDownListData_with_selected_string_assigned_to_option_that_was_selected()
 			{
-				var listData = _dropDownListData.WithSelectedValue("Value2");
-				Assert.AreSame(_dropDownListData, listData);
-				_dropDownListData.ToString().Contains("<option value='Value2' selected='selected'>Name2</option>").ShouldBeTrue();
+				var listData = DropDownListData.WithSelectedValue("Value2");
+				Assert.AreSame(DropDownListData, listData);
+				DropDownListData.ToString().Contains("<option value='Value2' selected='selected'>Name2</option>").ShouldBeTrue();
 			}
 
 			[Test]
@@ -116,9 +169,9 @@ namespace FluentWebControls.Tests.Extensions
 				string value = "Value2";
 // ReSharper restore ConvertToConstant.Local
 // ReSharper restore ConvertToConstant
-				var listData = _dropDownListData.WithSelectedValue(() => value);
-				Assert.AreSame(_dropDownListData, listData);
-				_dropDownListData.ToString().Contains("<option value='Value2' selected='selected'>Name2</option>").ShouldBeTrue();
+				var listData = DropDownListData.WithSelectedValue(() => value);
+				Assert.AreSame(DropDownListData, listData);
+				DropDownListData.ToString().Contains("<option value='Value2' selected='selected'>Name2</option>").ShouldBeTrue();
 			}
 		}
 
@@ -128,8 +181,8 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_DropDownListData_with_onchange_script_embedded_in_the_HTMLTag()
 			{
-				var listData = _dropDownListData.SubmitOnChange();
-				Assert.AreSame(_dropDownListData, listData);
+				var listData = DropDownListData.SubmitOnChange();
+				Assert.AreSame(DropDownListData, listData);
 				listData.ToString().ParseHtmlTag()["onchange"].Contains("this.form.submit();").ShouldBeTrue();
 			}
 		}
@@ -145,45 +198,9 @@ namespace FluentWebControls.Tests.Extensions
 				int pageNumber = 4;
 // ReSharper restore ConvertToConstant.Local
 // ReSharper restore ConvertToConstant
-				var listData = _dropDownListData.SubmitOnChange(() => pageNumber, 4);
-				Assert.AreSame(_dropDownListData, listData);
+				var listData = DropDownListData.SubmitOnChange(() => pageNumber, 4);
+				Assert.AreSame(DropDownListData, listData);
 				listData.ToString().ParseHtmlTag()["onchange"].Contains("setFormFieldAndSubmit(\"pageNumber\",\"4\", this)").ShouldBeTrue();
-			}
-		}
-
-		[TestFixture]
-		public class When_asked_to_Exclude_a_Value : DropDownListDataExtensionsTestBase
-		{
-// ReSharper disable InconsistentNaming
-			public string Value = "Value2";
-// ReSharper restore InconsistentNaming
-
-			[Test]
-			public void Should_return_a_DropDownListData_with_passed_value_excluded()
-			{
-				var listData = _dropDownListData.Exclude(() => Value);
-				Assert.AreSame(_dropDownListData, listData);
-				_dropDownListData.ToString().Contains("<option value='Value2'>Name2</option>").ShouldBeFalse();
-			}
-		}
-
-		[TestFixture]
-		public class When_asked_to_Exclude_a_Value_of_a_nullable_parent : DropDownListDataExtensionsTestBase
-		{
-			[Test]
-			public void Should_return_a_DropDownListData_with_passed_value_excluded()
-			{
-				var test = new Test();
-				var listData = _dropDownListData.Exclude(() => test, t => t.Value);
-				Assert.AreSame(_dropDownListData, listData);
-				_dropDownListData.ToString().Contains("<option value='Value2'>Name2</option>").ShouldBeFalse();
-			}
-
-			public class Test
-			{
-// ReSharper disable InconsistentNaming
-				public string Value = "Value2";
-// ReSharper restore InconsistentNaming
 			}
 		}
 	}

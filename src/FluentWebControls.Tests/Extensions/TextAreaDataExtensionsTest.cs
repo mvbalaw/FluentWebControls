@@ -13,16 +13,31 @@ namespace FluentWebControls.Tests.Extensions
 	{
 		public abstract class TextAreaDataExtensionsTestBase
 		{
-			protected TestData.Item _item;
-			protected IPropertyMetaData _propertyMetaData;
-			protected TextAreaData _textAreaData;
+			protected TestData.Item Item;
+			protected IPropertyMetaData PropertyMetaData;
+			protected TextAreaData TextAreaData;
 
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				_item = new TestData.Item(1, "ItemName");
-				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Name", false, null, 100, null, 100, _item.ItemId.GetType());
-				_textAreaData = new TextAreaData("value").WithValidationFrom(_propertyMetaData);
+				Item = new TestData.Item(1, "ItemName");
+				PropertyMetaData = PropertyMetaDataMocker.CreateStub("Name", false, null, 100, null, 100, Item.ItemId.GetType());
+				TextAreaData = new TextAreaData("value").WithValidationFrom(PropertyMetaData);
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_add_TabIndex : TextAreaDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_TextAreaData_With_TabIndex_initialized()
+			{
+				const string tabIndex = "1";
+
+				var tArea = TextAreaData.WithTabIndex(tabIndex);
+				Assert.AreSame(TextAreaData, tArea);
+				tArea.ToString().ParseHtmlTag()["tabindex"].ShouldBeEqualTo(tabIndex);
+				tArea.ToString().Contains(tabIndex).ShouldBeTrue();
 			}
 		}
 
@@ -34,8 +49,8 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const int cols = 10;
 
-				var tArea = _textAreaData.Cols(cols);
-				Assert.AreSame(_textAreaData, tArea);
+				var tArea = TextAreaData.Cols(cols);
+				Assert.AreSame(TextAreaData, tArea);
 				tArea.ToString().ParseHtmlTag()["cols"].ShouldBeEqualTo(cols.ToString());
 				tArea.ToString().Contains(cols.ToString()).ShouldBeTrue();
 			}
@@ -49,8 +64,8 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string cssClass = "textBox";
 
-				var tArea = _textAreaData.CssClass(cssClass);
-				Assert.AreSame(_textAreaData, tArea);
+				var tArea = TextAreaData.CssClass(cssClass);
+				Assert.AreSame(TextAreaData, tArea);
 				tArea.ToString().Contains(cssClass).ShouldBeTrue();
 			}
 		}
@@ -61,10 +76,10 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_TextAreaData_With_Id_initialized()
 			{
-				var tArea = _textAreaData.WithId(() => _item.ItemName);
-				Assert.AreSame(_textAreaData, tArea);
-				tArea.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(_item.ItemName.ToCamelCase());
-				tArea.ToString().Contains(_item.ItemId.ToString()).ShouldBeTrue();
+				var tArea = TextAreaData.WithId(() => Item.ItemName);
+				Assert.AreSame(TextAreaData, tArea);
+				tArea.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(Item.ItemName.ToCamelCase());
+				tArea.ToString().Contains(Item.ItemId.ToString()).ShouldBeTrue();
 			}
 		}
 
@@ -76,8 +91,8 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var label = new LabelData("Id");
 
-				var tArea = _textAreaData.WithLabel(label);
-				Assert.AreSame(_textAreaData, tArea);
+				var tArea = TextAreaData.WithLabel(label);
+				Assert.AreSame(TextAreaData, tArea);
 				tArea.ToString().Contains(label.ToString()).ShouldBeTrue();
 			}
 		}
@@ -90,8 +105,8 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const int rows = 10;
 
-				var tArea = _textAreaData.Rows(rows);
-				Assert.AreSame(_textAreaData, tArea);
+				var tArea = TextAreaData.Rows(rows);
+				Assert.AreSame(TextAreaData, tArea);
 				tArea.ToString().ParseHtmlTag()["rows"].ShouldBeEqualTo(rows.ToString());
 				tArea.ToString().Contains(rows.ToString()).ShouldBeTrue();
 			}
@@ -105,8 +120,8 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string width = "32px";
 
-				var tArea = _textAreaData.Width(width);
-				Assert.AreSame(_textAreaData, tArea);
+				var tArea = TextAreaData.Width(width);
+				Assert.AreSame(TextAreaData, tArea);
 				tArea.ToString().Contains(width).ShouldBeTrue();
 			}
 		}

@@ -17,6 +17,7 @@ namespace FluentWebControls
 		ValidatableWebControlBase.JQueryFieldValidationType ValidationType { get; }
 		string Value { get; }
 		string Width { get; }
+		string TabIndex { get; }
 	}
 
 	public class TextBoxData : ValidatableWebControlBase, ITextBoxData
@@ -45,10 +46,15 @@ namespace FluentWebControls
 		internal bool ReadOnly { private get; set; }
 		internal JQueryFieldValidationType ValidationType { private get; set; }
 		internal string Width { private get; set; }
+		internal string TabIndex { private get; set; }
 
 		string ITextBoxData.IdWithPrefix
 		{
 			get { return IdWithPrefix; }
+		}
+		string ITextBoxData.TabIndex
+		{
+			get { return TabIndex; }
 		}
 		string ITextBoxData.CssClass
 		{
@@ -158,6 +164,12 @@ namespace FluentWebControls
 			{
 				sb.Append(" READONLY");
 			}
+			
+			if (!TabIndex.IsNullOrEmpty())
+			{
+				sb.Append(TabIndex.CreateQuotedAttribute("tabindex"));	
+			}
+
 			sb.Append("/>");
 			if (PropertyMetaData != null)
 			{

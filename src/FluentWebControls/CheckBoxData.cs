@@ -11,6 +11,7 @@ namespace FluentWebControls
 		LabelData Label { get; }
 		AlignAttribute LabelAlignAttribute { get; }
 		string Value { get; }
+		string TabIndex { get; }
 	}
 
 	public class CheckBoxData : WebControlBase, ICheckBoxData
@@ -25,6 +26,7 @@ namespace FluentWebControls
 		internal LabelData Label { private get; set; }
 		internal AlignAttribute LabelAlignAttribute { private get; set; }
 		internal string Value { private get; set; }
+		internal string TabIndex { private get; set; }
 
 		LabelData ICheckBoxData.Label
 		{
@@ -42,6 +44,10 @@ namespace FluentWebControls
 		string ICheckBoxData.Value
 		{
 			get { return Value; }
+		}
+		string ICheckBoxData.TabIndex
+		{
+			get { return TabIndex; }
 		}
 
 		private void AppendLabel(StringBuilder stringBuilder)
@@ -92,6 +98,10 @@ namespace FluentWebControls
 			else
 			{
 				sb.Append(Value.CreateQuotedAttribute("value"));
+			}
+			if (!TabIndex.IsNullOrEmpty())
+			{
+				sb.Append(TabIndex.CreateQuotedAttribute("tabindex"));
 			}
 			sb.Append("/>");
 			AppendLabel(sb);

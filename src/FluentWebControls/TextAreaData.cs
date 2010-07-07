@@ -15,6 +15,7 @@ namespace FluentWebControls
 		ValidatableWebControlBase.JQueryFieldValidationType ValidationType { get; }
 		string Value { get; }
 		string Width { get; }
+		string TabIndex { get; }
 	}
 
 	public class TextAreaData : ValidatableWebControlBase, ITextAreaData
@@ -33,6 +34,7 @@ namespace FluentWebControls
 		internal int Rows { private get; set; }
 		internal JQueryFieldValidationType ValidationType { private get; set; }
 		internal string Width { private get; set; }
+		internal string TabIndex { private get; set; }
 
 		int ITextAreaData.Cols
 		{
@@ -66,7 +68,10 @@ namespace FluentWebControls
 		{
 			get { return IdWithPrefix; }
 		}
-
+		string ITextAreaData.TabIndex
+		{
+			get { return TabIndex; }
+		}
 		public override string ToString()
 		{
 			var sb = new StringBuilder();
@@ -108,6 +113,11 @@ namespace FluentWebControls
 			if (Cols > 0)
 			{
 				sb.Append(Cols.CreateQuotedAttribute("Cols"));
+			}
+
+			if (!TabIndex.IsNullOrEmpty())
+			{
+				sb.Append(TabIndex.CreateQuotedAttribute("tabindex"));
 			}
 
 			sb.Append(String.Format(">{0}</textarea>", _value.EscapeForHtml()));

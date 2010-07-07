@@ -43,5 +43,11 @@ namespace FluentWebControls.Extensions
 			textBoxData.Label = label;
 			return textBoxData;
 		}
+		
+		public static TextBoxData WithTabIndex(this TextBoxData textBoxData, string tabIndex)
+		{
+			textBoxData.TabIndex = tabIndex;
+			return textBoxData;
+		}
 	}
 }

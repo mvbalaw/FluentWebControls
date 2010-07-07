@@ -19,6 +19,7 @@ namespace FluentWebControls
 		}
 
 		public string CssClass { get; set; }
+		public string TabIndex { get; set; }
 		public LabelData Label { get; set; }
 		public List<string> SelectedValues { get; private set; }
 		public int Size { get; set; }
@@ -36,6 +37,10 @@ namespace FluentWebControls
 			sb.AppendFormat(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
 			sb.Append("multiple".CreateQuotedAttribute("multiple"));
 			sb.Append(Size.CreateQuotedAttribute("size"));
+			if (!TabIndex.IsNullOrEmpty())
+			{
+				sb.Append(TabIndex.CreateQuotedAttribute("tabindex"));
+			}
 			sb.Append('>');
 			foreach (var item in _items)
 			{

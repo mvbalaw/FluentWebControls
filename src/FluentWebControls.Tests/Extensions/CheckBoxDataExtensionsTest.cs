@@ -40,6 +40,21 @@ namespace FluentWebControls.Tests.Extensions
 		}
 
 		[TestFixture]
+		public class When_asked_to_add_TabIndex : CheckBoxDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_CheckBoxData_With_TabIndex_initialized()
+			{
+				const string tabIndex = "1";
+
+				var checkBoxData = CheckBoxData.WithTabIndex(tabIndex);
+				Assert.AreSame(CheckBoxData, checkBoxData);
+				checkBoxData.ToString().ParseHtmlTag()["tabindex"].ShouldBeEqualTo(tabIndex);
+				checkBoxData.ToString().Contains(tabIndex).ShouldBeTrue();
+			}
+		}
+
+		[TestFixture]
 		public class When_asked_to_assign_IsChecked : CheckBoxDataExtensionsTestBase
 		{
 			[Test]

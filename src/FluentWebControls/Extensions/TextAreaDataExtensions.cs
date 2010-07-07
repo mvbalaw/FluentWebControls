@@ -36,5 +36,11 @@
 			textAreaData.Label = label;
 			return textAreaData;
 		}
+
+		public static TextAreaData WithTabIndex(this TextAreaData textAreaData, string tabIndex)
+		{
+			textAreaData.TabIndex = tabIndex;
+			return textAreaData;
+		}
 	}
 }

@@ -19,6 +19,7 @@ namespace FluentWebControls
 		IEnumerable<KeyValuePair<string, string>> ListItems { get; }
 		bool ReadOnly { get; }
 		string SelectedValue { get; }
+		string TabIndex { get; }
 		bool SubmitOnChange { get; }
 	}
 
@@ -44,6 +45,7 @@ namespace FluentWebControls
 		}
 		internal LabelData Label { private get; set; }
 		internal bool ReadOnly { private get; set; }
+		internal string TabIndex { private get; set; }
 		private string _selectedValue;
 		internal string SelectedValue
 		{
@@ -79,6 +81,10 @@ namespace FluentWebControls
 		string IDropDownListData.IdWithPrefix
 		{
 			get { return IdWithPrefix; }
+		}
+		string IDropDownListData.TabIndex
+		{
+			get { return TabIndex; }
 		}
 		IEnumerable<KeyValuePair<string, string>> IDropDownListData.ListItems
 		{
@@ -145,6 +151,10 @@ namespace FluentWebControls
 			if (ReadOnly)
 			{
 				sb.Append("disabled".CreateQuotedAttribute("disabled"));
+			}
+			if (!TabIndex.IsNullOrEmpty())
+			{
+				sb.Append(TabIndex.CreateQuotedAttribute("tabindex"));
 			}
 			sb.Append('>');
 			if (Default != null)

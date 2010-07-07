@@ -65,5 +65,11 @@ namespace FluentWebControls.Extensions
 			comboSelectData.Size = size;
 			return comboSelectData;
 		}
+
+		public static ComboSelectData WithTabIndex(this ComboSelectData comboSelectData, string tabIndex)
+		{
+			comboSelectData.TabIndex = tabIndex;
+			return comboSelectData;
+		}
 	}
 }
