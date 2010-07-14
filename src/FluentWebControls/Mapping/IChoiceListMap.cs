@@ -10,5 +10,6 @@ namespace FluentWebControls.Mapping
 		IEnumerable<KeyValuePair<string, string>> ListItems { get; }
 		string SelectedValue { get; }
 		IPropertyMetaData Validation { get; }
+		IEnumerable<string> SelectedValues { get; }
 	}
 }

@@ -9,7 +9,7 @@ namespace FluentWebControls.Extensions
 			var comboSelect = new ComboSelectData(input.ListItems)
 				.WithId(input.Id)
 				.WithValidationFrom(input.Validation);
-			comboSelect.SelectedValues.Add(input.SelectedValue);
+			comboSelect.SelectedValues.AddRange(input.SelectedValues);
 			return comboSelect;
 		}
 
