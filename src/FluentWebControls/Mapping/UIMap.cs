@@ -51,6 +51,13 @@ namespace FluentWebControls.Mapping
 			return listUiMap.AsComboSelect().WithIdPrefix(_idPrefix);
 		}
 
+		public CheckBoxListData CheckBoxListFor(Expression<Func<TModel, object>> source)
+		{
+			var uiMap = TryGetRequestedMap(source);
+			var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
+			return listUiMap.AsCheckBoxList().WithIdPrefix(_idPrefix);
+		}
+
 		protected BooleanMap ConfigureBoolean(Expression<Func<TModel, object>> forId, Func<TDomain, bool> getItemValue)
 		{
 			string propertyName = Reflection.GetPropertyName(forId);

@@ -45,7 +45,9 @@ namespace FluentWebControls.Tests
 			{
 				var linkData = Link.To("AdminTest", ".mvc", "");
 				string expected = _pathUtility.GetUrl("AdminTest.mvc/");
-				linkData.ToString().ParseHtmlTag()["href"].ShouldBeEqualTo(expected);
+				var s = linkData.ToString();
+				Console.WriteLine(s);
+				s.ParseHtmlTag()["href"].ShouldBeEqualTo(expected);
 			}
 
 			[Test]

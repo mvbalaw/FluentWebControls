@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\FluentAssert\FluentAssert.dll</HintPath>
     </Reference>
+    <Reference Include="LinqToHtml, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\LinqToHtml\LinqToHtml.dll</HintPath>
+    </Reference>
     <Reference Include="MvbaCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\MvbaCore\MvbaCore.dll</HintPath>

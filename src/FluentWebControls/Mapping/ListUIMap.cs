@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-
 using MvbaCore;
 
 namespace FluentWebControls.Mapping
@@ -15,7 +14,7 @@ namespace FluentWebControls.Mapping
 		{
 			ListItems = items;
 			_columns = Reflection
-				.GetMatchingProperties(typeof(TDomain), typeof(TModel))
+				.GetMatchingProperties(typeof (TDomain), typeof (TModel))
 				.ToDictionary(x => x.Name, x => GetMap(x));
 		}
 
@@ -27,7 +26,8 @@ namespace FluentWebControls.Mapping
 			return Fluent.TableFor(ListItems);
 		}
 
-		public CommandColumn<TDomain> CheckBoxCommandColumnFor<TValueHolder>(Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
+		public CommandColumn<TDomain> CheckBoxCommandColumnFor<TValueHolder>(
+			Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
 		{
 			return Fluent.CheckBoxCommandColumnFor<TModel, TDomain, TValueHolder>(forCheckBoxId, getCheckBoxValue);
 		}
@@ -38,7 +38,8 @@ namespace FluentWebControls.Mapping
 			return LinkCommandColumnFor(getControllerActionHrefForSpecificItem);
 		}
 
-		protected ListUIMap<TDomain, TModel> ConfigureColumn(Expression<Func<TModel, object>> forId, Func<TDomain, string> getText)
+		protected ListUIMap<TDomain, TModel> ConfigureColumn(Expression<Func<TModel, object>> forId,
+		                                                     Func<TDomain, string> getText)
 		{
 			string id = Reflection.GetPropertyName(forId);
 			var column = new UIColumn<TDomain>(getText);

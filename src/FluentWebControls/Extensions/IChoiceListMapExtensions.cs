@@ -13,6 +13,15 @@ namespace FluentWebControls.Extensions
 			return comboSelect;
 		}
 
+		public static CheckBoxListData AsCheckBoxList(this IChoiceListMap input)
+		{
+			var checkBoxList = new CheckBoxListData(input.ListItems)
+				.WithId(input.Id)
+				.WithValidationFrom(input.Validation);
+			checkBoxList.SelectedValues.AddRange(input.SelectedValues);
+			return checkBoxList;
+		}
+
 		public static DropDownListData AsDropDownList(this IChoiceListMap input)
 		{
 			return new DropDownListData(input.ListItems)
