@@ -95,6 +95,18 @@ namespace FluentWebControls.Extensions
 			linkData.LinkText = linkText;
 			return linkData;
 		}
+		
+		public static LinkData WithLinkImageUrl(this LinkData linkData, string imageUrl)
+		{
+			return linkData.WithLinkImageUrl(imageUrl, "");
+		}
+
+		public static LinkData WithLinkImageUrl(this LinkData linkData, string imageUrl, string alt)
+		{
+			linkData.ImageUrl = imageUrl;
+			linkData.Alt = alt;
+			return linkData;
+		}
 
 		public static LinkData WithMouseOverText(this LinkData linkData, string mouseOverText)
 		{

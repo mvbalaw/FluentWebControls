@@ -26,6 +26,11 @@ namespace FluentWebControls.Mapping
 			return Fluent.TableFor(ListItems);
 		}
 
+		public ListData<TDomain> AsList()
+		{
+			return Fluent.ListFor(ListItems);
+		}
+
 		public CommandColumn<TDomain> CheckBoxCommandColumnFor<TValueHolder>(
 			Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
 		{
@@ -53,6 +58,13 @@ namespace FluentWebControls.Mapping
 			var column = uiMap.TryCastTo<UIColumn<TDomain>>();
 			return Fluent.DataColumnFor(column.TextMethod, Reflection.GetPropertyName(forPropertyName));
 		}
+		
+		public DataItem<TDomain> DataItemFor(Expression<Func<TModel, object>> forPropertyName)
+		{
+			var uiMap = TryGetRequestedMap(forPropertyName);
+			var column = uiMap.TryCastTo<UIColumn<TDomain>>();
+			return Fluent.DataItemFor(column.TextMethod, Reflection.GetPropertyName(forPropertyName));
+		}
 
 		public Func<TDomain, string> ForId(Expression<Func<TModel, object>> forId)
 		{
@@ -73,6 +85,11 @@ namespace FluentWebControls.Mapping
 		public CommandColumn<TDomain> LinkCommandColumnFor(Func<TDomain, string> getControllerActionHrefForSpecificItem)
 		{
 			return Fluent.LinkCommandColumnFor(getControllerActionHrefForSpecificItem);
+		}
+		
+		public CommandItem<TDomain> LinkCommandItemFor(Func<TDomain, string> getControllerActionHrefForSpecificItem)
+		{
+			return Fluent.LinkCommandItemFor(getControllerActionHrefForSpecificItem);
 		}
 
 		private object TryGetRequestedMap(Expression<Func<TModel, object>> source)

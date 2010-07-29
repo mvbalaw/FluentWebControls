@@ -164,6 +164,33 @@ namespace FluentWebControls.Tests.Extensions
 				LinkData.ToString().Contains(text).ShouldBeTrue();
 			}
 		}
+		
+		[TestFixture]
+		public class When_asked_to_assign_Image_Url : LinkDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_LinkData_With_Image_Url_initialized()
+			{
+				const string imageUrl = "ImageUrl";
+				const string alt = "alt";
+				const string text = "Text";
+				var link = LinkData.WithLinkText(text).WithLinkImageUrl(imageUrl, alt);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(imageUrl).ShouldBeTrue();
+				LinkData.ToString().Contains("<img src='" + imageUrl + "' alt='" + alt + "'/>").ShouldBeTrue();
+			}
+			
+			[Test]
+			public void Should_return_a_LinkData_Without_Text_initialized()
+			{
+				const string imageUrl = "ImageUrl";
+				const string alt = "alt";
+				const string text = "Text";
+				var link = LinkData.WithLinkImageUrl(imageUrl, alt);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(text).ShouldBeFalse();
+			}
+		}
 
 		[TestFixture]
 		public class When_asked_to_Disable : LinkDataExtensionsTestBase

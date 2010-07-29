@@ -16,6 +16,8 @@ namespace FluentWebControls
 		string Id { get; }
 		string IdWithPrefix { get; }
 		string LinkText { get; }
+		string ImageUrl { get; }
+		string Alt { get; }
 		string MouseOverText { get; }
 		string Rel { get; }
 		string Url { get; }
@@ -34,6 +36,8 @@ namespace FluentWebControls
 		internal bool Disabled { private get; set; }
 		internal string Id { private get; set; }
 		internal string LinkText { private get; set; }
+		internal string ImageUrl { private get; set; }
+		internal string Alt { private get; set; }
 		internal string MouseOverText { private get; set; }
 		internal string Rel { private get; set; }
 		internal string Url
@@ -77,6 +81,10 @@ namespace FluentWebControls
 		{
 			get { return Url; }
 		}
+		string ILinkData.Alt
+		{
+			get { return Alt; }
+		}
 
 		public string Href
 		{
@@ -91,6 +99,11 @@ namespace FluentWebControls
 		string ILinkData.LinkText
 		{
 			get { return LinkText; }
+		}
+
+		string ILinkData.ImageUrl
+		{
+			get { return ImageUrl; }
 		}
 
 		string ILinkData.MouseOverText
@@ -185,9 +198,15 @@ namespace FluentWebControls
 			}
 
 			sb.Append('>');
-			sb.Append(LinkText.EscapeForHtml());
+			if (ImageUrl != null)
+			{
+				sb.Append("<img src='" + ImageUrl + "' alt='" + Alt + "'/>");
+			}
+			else
+			{
+				sb.Append(LinkText.EscapeForHtml());
+			}
 			sb.Append("</a>");
-
 			return sb.ToString();
 		}
 	}

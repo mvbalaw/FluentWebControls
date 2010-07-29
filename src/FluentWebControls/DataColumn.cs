@@ -8,7 +8,7 @@ using MvbaCore;
 
 namespace FluentWebControls
 {
-	public class DataColumn
+	public class	DataColumn
 	{
 		public static DataColumn<T> For<T>(Func<T, string> getColumnText, string columnName)
 		{
@@ -47,6 +47,7 @@ namespace FluentWebControls
 		internal string HeaderCssClass { private get; set; }
 		internal string HeaderText { private get; set; }
 		internal string InputCssClass { get; set; }
+		internal string InputTextId { get; set; }
 
 		AlignAttribute IDataColumn.Align
 		{
@@ -110,9 +111,14 @@ namespace FluentWebControls
 
 		private string GetId(T item)
 		{
+			if (InputTextId != null)
+			{
+				return InputTextId;
+			}
+
 			if (GetItemId == null)
 			{
-				return ColumnName;
+				return InputTextId ?? ColumnName;
 			}
 			return String.Format("{0}_{1}_{2}", Reflection.GetClassName<T>(), ColumnName, GetItemId(item));
 		}
@@ -124,6 +130,7 @@ namespace FluentWebControls
 		public static ColumnTextType ColumnText = new ColumnTextType("column");
 		public static ColumnTextType Span = new ColumnTextType("span");
 		public static ColumnTextType TextBox = new ColumnTextType("textbox");
+		public static ColumnTextType Hidden = new ColumnTextType("hidden");
 
 		private ColumnTextType(string key)
 		{

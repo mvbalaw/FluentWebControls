@@ -56,18 +56,26 @@
   <ItemGroup>
     <Compile Include="CheckBoxListData.cs" />
     <Compile Include="CommandColumn.cs" />
+    <Compile Include="CommandItem.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="DataColumn.cs" />
+    <Compile Include="DataItem.cs" />
+    <Compile Include="Extensions\CommandItemExtensions.cs" />
+    <Compile Include="Extensions\DataItemExtensions.cs" />
     <Compile Include="Extensions\IBooleanMapExtensions.cs" />
     <Compile Include="Extensions\IChoiceListMapExtensions.cs" />
     <Compile Include="Extensions\CommandColumnExtensions.cs" />
     <Compile Include="Extensions\DataColumnExtensions.cs" />
     <Compile Include="Extensions\IFreeTextMapExtensions.cs" />
     <Compile Include="Extensions\KeyValuePairExtensions.cs" />
+    <Compile Include="Extensions\ListDataExtensions.cs" />
     <Compile Include="Extensions\SpanDataExtensions.cs" />
     <Compile Include="Extensions\TableDataExtensions.cs" />
+    <Compile Include="HtmlList.cs" />
     <Compile Include="IHtmlColumn.cs" />
+    <Compile Include="IListItem.cs" />
     <Compile Include="Interfaces\PagedList.cs" />
+    <Compile Include="ListData.cs" />
     <Compile Include="Mapping\BooleanMap.cs" />
     <Compile Include="Mapping\ChoiceListMap.cs" />
     <Compile Include="Mapping\IBooleanMap.cs" />

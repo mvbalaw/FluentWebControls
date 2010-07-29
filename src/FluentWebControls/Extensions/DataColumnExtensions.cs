@@ -34,6 +34,20 @@ namespace FluentWebControls.Extensions
 			dataColumn.GetItemId = forId;
 			return dataColumn;
 		}
+		
+		public static DataColumn<T> AsHidden<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
+		{
+			dataColumn.ColumnTextType = ColumnTextType.Hidden;
+			dataColumn.GetItemId = forId;
+			return dataColumn;
+		}
+
+		public static DataColumn<T> AsHidden<T>(this DataColumn<T> dataColumn, string forId)
+		{
+			dataColumn.ColumnTextType = ColumnTextType.Hidden;
+			dataColumn.InputTextId = forId;
+			return dataColumn;
+		}
 
 		public static DataColumn<T> AsTextBox<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
 		{

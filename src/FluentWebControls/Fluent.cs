@@ -77,6 +77,11 @@ namespace FluentWebControls
 			return DataColumn.For(getItemText, columnName);
 		}
 
+		public static DataItem<T> DataItemFor<T>(Func<T, string> getItemText, string columnName)
+		{
+			return DataItem.For(getItemText, columnName);
+		}
+
 		public static DropDownListData DropDownListFor<TListItemType, TContainerType, TPropertyType>(IEnumerable<TListItemType> listItemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
 		{
 			return DropDownList.For(listItemSource, getListItemDisplayText, getListItemValue, forId);
@@ -140,6 +145,11 @@ namespace FluentWebControls
 			                         				ID = linkId
 			                         			};
 			                         	});
+		}
+		
+		public static CommandItem<T> LinkCommandItemFor<T>(Func<T, string> getHref)
+		{
+			return CommandItem.For(getHref);
 		}
 
 		public static LinkData LinkTo()
@@ -237,6 +247,11 @@ namespace FluentWebControls
 		public static TableData<TItemType> TableFor<TItemType>(IEnumerable<TItemType> list)
 		{
 			return Table.For(list);
+		}
+
+		public static ListData<TItemType> ListFor<TItemType>(IEnumerable<TItemType> list)
+		{
+			return HtmlList.For(list);
 		}
 
 		public static TextAreaData TextAreaFor<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId)
