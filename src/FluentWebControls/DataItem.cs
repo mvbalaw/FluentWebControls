@@ -19,6 +19,7 @@ namespace FluentWebControls
 	{
 		AlignAttribute Align { get; }
 		string InputCssClass { get; }
+		string LabelText { get; }
 	}
 
 	public class DataItem<T> : IDataItem, IListItem<T>
@@ -37,6 +38,7 @@ namespace FluentWebControls
 		internal ColumnTextType ColumnTextType { get; set; }
 		internal Func<T, string> GetItemId { get; set; }
 		internal string InputCssClass { get; set; }
+		internal string LabelText { get; set; }
 		internal string InputTextId { get; set; }
 
 		AlignAttribute IDataItem.Align
@@ -49,6 +51,11 @@ namespace FluentWebControls
 			get { return InputCssClass; }
 		}
 
+		string IDataItem.LabelText
+		{
+			get { return LabelText; }
+		}
+
 		public StringBuilder Render(T item)
 		{
 			var listItem = new StringBuilder();
@@ -56,6 +63,10 @@ namespace FluentWebControls
 			listItem.Append("div");
 			listItem.Append(Align.Text.CreateQuotedAttribute("align"));
 			listItem.Append(">");
+			if (!LabelText.IsNullOrEmpty())
+			{
+				listItem.AppendFormat("{0}: ", LabelText);
+			}
 			listItem.Append(GetColumnWithInput(item));
 			listItem.Append("</div>");
 			return listItem;

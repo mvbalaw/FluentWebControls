@@ -23,6 +23,12 @@ namespace FluentWebControls.Extensions
 			return dataItem;
 		}
 
+		public static DataItem<T> WithLabel<T>(this DataItem<T> dataItem, string label)
+		{
+			dataItem.LabelText = label;
+			return dataItem;
+		}
+
 		public static DataItem<T> AsHidden<T>(this DataItem<T> dataItem, string forId)
 		{
 			dataItem.ColumnTextType = ColumnTextType.Hidden;
