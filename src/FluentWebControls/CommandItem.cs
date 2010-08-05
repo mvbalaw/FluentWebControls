@@ -30,7 +30,7 @@ namespace FluentWebControls
 		public CommandItem(Func<T, string> getLink)
 		{
 			_getLink = getLink;
-			Align = AlignAttribute.Center;
+			Align = AlignAttribute.Left;
 		}
 
 		internal AlignAttribute Align { private get; set; }
@@ -67,7 +67,10 @@ namespace FluentWebControls
 		public StringBuilder Render(T item)
 		{
 			var listItem = new StringBuilder();
-			listItem.Append("<div>");
+			listItem.Append("<");
+			listItem.Append("div");
+			listItem.Append(Align.Text.CreateQuotedAttribute("align"));
+			listItem.Append(">");
 			string link = getLink(item).ToString();
 			listItem.Append(link);
 			listItem.Append("</div>");
