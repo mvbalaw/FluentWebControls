@@ -28,13 +28,6 @@ namespace FluentWebControls.Extensions
 			return dataColumn;
 		}
 
-		public static DataColumn<T> AsSpan<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
-		{
-			dataColumn.ColumnTextType = ColumnTextType.Span;
-			dataColumn.GetItemId = forId;
-			return dataColumn;
-		}
-		
 		public static DataColumn<T> AsHidden<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
 		{
 			dataColumn.ColumnTextType = ColumnTextType.Hidden;
@@ -49,10 +42,24 @@ namespace FluentWebControls.Extensions
 			return dataColumn;
 		}
 
+		public static DataColumn<T> AsSpan<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
+		{
+			dataColumn.ColumnTextType = ColumnTextType.Span;
+			dataColumn.GetItemId = forId;
+			return dataColumn;
+		}
+
 		public static DataColumn<T> AsTextBox<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
 		{
 			dataColumn.ColumnTextType = ColumnTextType.TextBox;
 			dataColumn.GetItemId = forId;
+			return dataColumn;
+		}
+
+		public static DataColumn<T> AsTextBox<T>(this DataColumn<T> dataColumn, string forId)
+		{
+			dataColumn.ColumnTextType = ColumnTextType.TextBox;
+			dataColumn.InputTextId = forId;
 			return dataColumn;
 		}
 
