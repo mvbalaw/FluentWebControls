@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+
 using FluentWebControls.Extensions;
+
 using MvbaCore;
 
 namespace FluentWebControls.Mapping
@@ -17,7 +19,7 @@ namespace FluentWebControls.Mapping
 		{
 			Item = item.ToNonNull();
 			_mappings = Reflection
-				.GetMatchingProperties(typeof (TDomain), typeof (TModel))
+				.GetMatchingProperties(typeof(TDomain), typeof(TModel))
 				.ToDictionary(x => x.Name, x => GetMap(x));
 		}
 
@@ -44,18 +46,18 @@ namespace FluentWebControls.Mapping
 			return booleanMap.AsCheckBox().WithIdPrefix(_idPrefix);
 		}
 
-		public ComboSelectData ComboSelectFor(Expression<Func<TModel, object>> source)
-		{
-			var uiMap = TryGetRequestedMap(source);
-			var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
-			return listUiMap.AsComboSelect().WithIdPrefix(_idPrefix);
-		}
-
 		public CheckBoxListData CheckBoxListFor(Expression<Func<TModel, object>> source)
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
 			return listUiMap.AsCheckBoxList().WithIdPrefix(_idPrefix);
+		}
+
+		public ComboSelectData ComboSelectFor(Expression<Func<TModel, object>> source)
+		{
+			var uiMap = TryGetRequestedMap(source);
+			var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
+			return listUiMap.AsComboSelect().WithIdPrefix(_idPrefix);
 		}
 
 		protected BooleanMap ConfigureBoolean(Expression<Func<TModel, object>> forId, Func<TDomain, bool> getItemValue)
@@ -136,9 +138,9 @@ namespace FluentWebControls.Mapping
 		private object GetMap(PropertyMappingInfo propertyMappingInfo)
 		{
 			var info = propertyMappingInfo;
-			if (typeof (bool).IsAssignableFrom(propertyMappingInfo.SourcePropertyType))
+			if (typeof(bool).IsAssignableFrom(propertyMappingInfo.SourcePropertyType))
 			{
-				var booleanMap = new BooleanMap(propertyMappingInfo.Name, (bool) info.GetValueFromSource(Item));
+				var booleanMap = new BooleanMap(propertyMappingInfo.Name, (bool)info.GetValueFromSource(Item));
 				return booleanMap;
 			}
 
@@ -147,7 +149,7 @@ namespace FluentWebControls.Mapping
 			                                           x =>
 			                                           	{
 			                                           		var source = info.GetValueFromSource(x);
-			                                           		return source == null ? (string) null : source.ToString();
+			                                           		return source == null ? (string)null : source.ToString();
 			                                           	});
 			TryAddValidation(propertyMappingInfo.Name, freeTextMap);
 			return freeTextMap;
@@ -174,6 +176,13 @@ namespace FluentWebControls.Mapping
 			listUiMap.WithIdPrefix(_idPrefix);
 			listUiMap.WithIdPrefix(Reflection.GetPropertyName(source));
 			return listUiMap;
+		}
+
+		public RadioButtonListData RadioButtonListFor(Expression<Func<TModel, object>> source)
+		{
+			var uiMap = TryGetRequestedMap(source);
+			var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
+			return listUiMap.AsRadioButtons().WithIdPrefix(_idPrefix);
 		}
 
 		public TextAreaData TextAreaFor(Expression<Func<TModel, object>> source)
