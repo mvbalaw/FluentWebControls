@@ -101,6 +101,7 @@
     <Compile Include="Extensions\LinkDataExtensionsTest.cs" />
     <Compile Include="Extensions\PagedListExtensionsTest.cs" />
     <Compile Include="Extensions\PropertyMetaData.cs" />
+    <Compile Include="Extensions\RadioButtonDataExtensionsTest.cs" />
     <Compile Include="Extensions\RegularColumnExtensionsTest.cs" />
     <Compile Include="Extensions\SortableColumnExtensionsTest.cs" />
     <Compile Include="Extensions\SpanDataExtensionsTest.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Mapping\ListUIMapWithItemTests.cs" />
     <Compile Include="PagedGridTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RadioButtonDataTest.cs" />
     <Compile Include="RegularColumnTest.cs" />
     <Compile Include="ScrollableGridTest.cs" />
     <Compile Include="SortableColumnTest.cs" />

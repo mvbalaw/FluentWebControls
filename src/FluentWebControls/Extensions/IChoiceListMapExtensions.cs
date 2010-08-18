@@ -21,6 +21,15 @@ namespace FluentWebControls.Extensions
 			checkBoxList.SelectedValues.AddRange(input.SelectedValues);
 			return checkBoxList;
 		}
+		
+		public static RadioButtonListData AsRadioButtons(this IChoiceListMap input)
+		{
+			var radioButtons = new RadioButtonListData(input.ListItems)
+				.WithId(input.Id)
+				.WithValidationFrom(input.Validation);
+			radioButtons.SelectedValue = input.SelectedValue;
+			return radioButtons;
+		}
 
 		public static DropDownListData AsDropDownList(this IChoiceListMap input)
 		{

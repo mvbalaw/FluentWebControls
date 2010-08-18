@@ -69,6 +69,7 @@
     <Compile Include="Extensions\IFreeTextMapExtensions.cs" />
     <Compile Include="Extensions\KeyValuePairExtensions.cs" />
     <Compile Include="Extensions\ListDataExtensions.cs" />
+    <Compile Include="Extensions\RadioButtonDataExtensions.cs" />
     <Compile Include="Extensions\SpanDataExtensions.cs" />
     <Compile Include="Extensions\TableDataExtensions.cs" />
     <Compile Include="HtmlList.cs" />
@@ -89,6 +90,8 @@
     <Compile Include="Mapping\ListUIMap.cs" />
     <Compile Include="Mapping\UIColumn.cs" />
     <Compile Include="PagedGridData.cs" />
+    <Compile Include="RadioButtonData.cs" />
+    <Compile Include="RadioButtonListData.cs" />
     <Compile Include="ScrollableGridData.cs" />
     <Compile Include="IControllerAwareWebControl.cs" />
     <Compile Include="ControllerInfo.cs" />
