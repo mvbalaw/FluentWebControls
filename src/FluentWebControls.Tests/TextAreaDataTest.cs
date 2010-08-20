@@ -73,7 +73,7 @@ namespace FluentWebControls.Tests
 			}
 
 			[Test]
-			public void Given_a_value_containing_values_that_need_to_be_escaped()
+			public void Given_a_value_containing_characters_that_need_to_be_escaped()
 			{
 				Test.Verify(
 					with_a_value_containing_characters_that_need_to_be_escaped,
