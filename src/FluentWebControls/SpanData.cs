@@ -20,6 +20,7 @@ namespace FluentWebControls
 
 		internal string CssClass { private get; set; }
 		internal string Value { private get; set; }
+		internal LabelData Label { private get; set; }
 
 		string ISpanData.IdWithPrefix
 		{
@@ -37,6 +38,11 @@ namespace FluentWebControls
 		public override string ToString()
 		{
 			var sb = new StringBuilder();
+			if (Label != null)
+			{
+				Label.ForId = IdWithPrefix;
+				sb.Append(Label);
+			}
 			sb.Append("<span");
 			if (IdWithPrefix != null)
 			{
@@ -47,7 +53,7 @@ namespace FluentWebControls
 				sb.Append(CssClass.CreateQuotedAttribute("class"));
 			}
 			sb.Append(">");
-			sb.Append(Value);
+			sb.Append(Value.EscapeForHtml());
 			sb.Append("</span>");
 			return sb.ToString();
 		}

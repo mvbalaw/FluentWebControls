@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq.Expressions;
+﻿using System.Linq;
 
 using FluentAssert;
 
 using FluentWebControls.Extensions;
 
-using MvbaCore;
+using LinqToHtml;
 
 using NUnit.Framework;
 
@@ -13,44 +12,137 @@ namespace FluentWebControls.Tests
 {
 	public class SpanDataTest
 	{
-		public abstract class SpanDataTestBase
+		[TestFixture]
+		public class When_asked_to_create_a_span_field
 		{
-			protected abstract string ForId { get; }
-			protected abstract string HtmlText { get; }
-			protected abstract string Text { get; }
+			private string _id;
+			private string _label;
+			private HTMLTag _result;
+			private string _value;
 
-			private SpanData GetSpanData()
+			[SetUp]
+			public void BeforeEachTest()
 			{
-				return new SpanData(Text).WithId(ForId);
+				_id = "theId";
+				_label = null;
+				_result = null;
+				_value = null;
 			}
 
 			[Test]
-			public void Should_return_HTML_code_representing_a_span_with_its_value_embedded_in_it()
+			public void Given_a_label()
 			{
-				GetSpanData().ToString().ShouldBeEqualTo(HtmlText);
+				Test.Verify(
+					with_a_label,
+					when_asked_to_create_a_span,
+					should_include_a_label_with_the_label_text,
+					should_set_the_label_for_attribute_to_the_id_of_the_textarea
+					);
 			}
-		}
 
-		[TestFixture]
-		public class When_asked_to_create_a_span_field : SpanDataTestBase
-		{
-			private readonly int _value = 10;
+			[Test]
+			public void Given_a_non_empty_value_without_characters_that_need_to_be_escaped()
+			{
+				Test.Verify(
+					with_a_non_empty_value_without_characters_that_need_to_be_escaped,
+					when_asked_to_create_a_span,
+					should_set_the_content_to_the_value
+					);
+			}
 
-			protected override string ForId
+			[Test]
+			public void Given_a_null_value()
 			{
-				get
-				{
-					Expression<Func<int>> expr = () => _value;
-					return Reflection.GetPropertyName(expr).ToCamelCase();
-				}
+				Test.Verify(
+					with_a_null_value,
+					when_asked_to_create_a_span,
+					should_set_the_content_to_empty_string
+					);
 			}
-			protected override string HtmlText
+
+			[Test]
+			public void Given_a_value_containing_characters_that_need_to_be_escaped()
 			{
-				get { return "<span id='_value'>10</span>"; }
+				Test.Verify(
+					with_a_value_containing_characters_that_need_to_be_escaped,
+					when_asked_to_create_a_span,
+					should_set_the_content_to_the_escaped_value
+					);
 			}
-			protected override string Text
+
+			private HTMLTag Label
 			{
-				get { return _value.ToString(); }
+				get { return _result.ChildTags.FirstOrDefault(x => x.Type == "label"); }
+			}
+
+			private HTMLTag Tag
+			{
+				get { return _result.ChildTags.Where(x => x.Type == "span").First(); }
+			}
+
+			private void should_include_a_label_with_the_label_text()
+			{
+				var label = Label;
+				label.ShouldNotBeNull();
+				label.Content.ShouldNotBeNull();
+				label.Content.ShouldBeEqualTo(_label);
+			}
+
+			private void should_set_the_content_to_empty_string()
+			{
+				string content = Tag.Content;
+				content.ShouldBeEqualTo("");
+			}
+
+			private void should_set_the_content_to_the_escaped_value()
+			{
+				string content = Tag.RawContent;
+				content.ShouldBeEqualTo(_value.EscapeForHtml());
+			}
+
+			private void should_set_the_content_to_the_value()
+			{
+				string content = Tag.Content;
+				content.ShouldBeEqualTo(_value);
+			}
+
+			private void should_set_the_label_for_attribute_to_the_id_of_the_textarea()
+			{
+				var label = Label;
+				var @for = label.Attributes.FirstOrDefault(x => x.Name == "for");
+				@for.ShouldNotBeNull();
+				var tag = Tag;
+				var id = tag.Attributes.FirstOrDefault(x => x.Name == "id");
+				@for.Value.ShouldBeEqualTo(id.Value);
+			}
+
+			private void when_asked_to_create_a_span()
+			{
+				var span = new SpanData(_value)
+					.WithLabel(_label)
+					.WithId(_id);
+				string resultHtml = span.ToString();
+				_result = HTMLParser.Parse("<all>" + resultHtml + "</all>");
+			}
+
+			private void with_a_label()
+			{
+				_label = "Name:";
+			}
+
+			private void with_a_non_empty_value_without_characters_that_need_to_be_escaped()
+			{
+				_value = "The quick brown fox";
+			}
+
+			private void with_a_null_value()
+			{
+				_value = null;
+			}
+
+			private void with_a_value_containing_characters_that_need_to_be_escaped()
+			{
+				_value = "<&>";
 			}
 		}
 	}

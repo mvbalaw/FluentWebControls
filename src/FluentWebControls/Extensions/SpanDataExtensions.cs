@@ -7,5 +7,16 @@
 			spanData.CssClass = cssClass;
 			return spanData;
 		}
+
+		public static SpanData WithLabel(this SpanData spanData, string labelText)
+		{
+			return spanData.WithLabel(Label.ForIt().WithText(labelText));
+		}
+
+		public static SpanData WithLabel(this SpanData spanData, LabelData label)
+		{
+			spanData.Label = label;
+			return spanData;
+		}
 	}
 }
