@@ -1,3 +1,5 @@
+using System;
+
 using FluentAssert;
 
 using FluentWebControls.Extensions;
@@ -106,6 +108,19 @@ namespace FluentWebControls.Tests.Extensions
 				Assert.AreSame(_buttonData, button);
 				_buttonData.ToString().ParseHtmlTag()["value"].ShouldBeEqualTo(text);
 				button.ToString().Contains(text).ShouldBeTrue();
+			}
+		}
+		
+		[TestFixture]
+		public class When_asked_to_assign_CssClass : ButtonDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_ButtonData_with_CssClass_initialized()
+			{
+				const string cssClass = "TestClass";
+				var button = _buttonData.WithCssClass(cssClass);
+				Assert.AreSame(_buttonData, button);
+				button.ToString().Contains(cssClass).ShouldBeTrue();
 			}
 		}
 

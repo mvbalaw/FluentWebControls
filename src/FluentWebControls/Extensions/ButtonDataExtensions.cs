@@ -46,6 +46,12 @@ namespace FluentWebControls.Extensions
 			buttonData.Id = id;
 			return buttonData;
 		}
+		
+		public static ButtonData WithCssClass(this ButtonData buttonData, string cssClass)
+		{
+			buttonData.CssClass = cssClass;
+			return buttonData;
+		}
 
 		public static ButtonData WithOnClick(this ButtonData buttonData, string onClickMethod)
 		{

@@ -14,6 +14,11 @@ namespace FluentWebControls
 		{
 			return new ButtonData(buttonType, Configuration.PathUtility, controllerName);
 		}
+		
+		public static ButtonData For(IButtonType buttonType)
+		{
+			return new ButtonData(buttonType);
+		}
 
 		public static ButtonData For<TController>(IButtonType buttonType, Expression<Func<TController, object>> controllerAndActionName) where TController : class
 		{

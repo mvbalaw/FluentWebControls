@@ -22,6 +22,11 @@ namespace FluentWebControls
 			return Button.For(buttonType, forControllerAndActionName);
 		}
 
+		public static ButtonData ButtonFor(IButtonType buttonType)
+		{
+			return Button.For(buttonType);
+		}
+		
 		public static ButtonData ButtonFor(IButtonType buttonType, string controllerName, string actionName)
 		{
 			return Button.For(buttonType, controllerName).WithAction(actionName);

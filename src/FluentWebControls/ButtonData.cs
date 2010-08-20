@@ -14,6 +14,11 @@ namespace FluentWebControls
 		private readonly List<string> _urlParameters = new List<string>();
 		private string _text;
 
+		public ButtonData(IButtonType type)
+			: this(type, null,  null)
+		{
+		}
+		
 		public ButtonData(IButtonType type, IPathUtility pathUtility)
 			: this(type, pathUtility, null)
 		{
@@ -79,7 +84,7 @@ namespace FluentWebControls
 			sb.Append(id.CreateQuotedAttribute("Id"));
 			sb.Append(id.CreateQuotedAttribute("name"));
 			sb.Append(Text.CreateQuotedAttribute("value"));
-			sb.Append((_type.CssClass + (Default ? " default" : "")).CreateQuotedAttribute("class"));
+			sb.Append((_type.CssClass + (Default ? " default" : "") + (CssClass != null ? " "+CssClass : "")).CreateQuotedAttribute("class"));
 			if (!String.IsNullOrEmpty(Width))
 			{
 				string value = "width:" + Width;
