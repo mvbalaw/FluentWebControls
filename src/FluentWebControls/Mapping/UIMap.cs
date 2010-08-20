@@ -185,6 +185,13 @@ namespace FluentWebControls.Mapping
 			return listUiMap.AsRadioButtons().WithIdPrefix(_idPrefix);
 		}
 
+		public SpanData SpanFor(Expression<Func<TModel, object>> source)
+		{
+			var uiMap = TryGetRequestedMap(source);
+			var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
+			return freeTextUiMap.AsSpan().WithIdPrefix(_idPrefix);
+		}
+
 		public TextAreaData TextAreaFor(Expression<Func<TModel, object>> source)
 		{
 			var uiMap = TryGetRequestedMap(source);

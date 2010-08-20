@@ -11,6 +11,12 @@ namespace FluentWebControls.Extensions
 				.WithId(input.Id);
 		}
 
+		public static SpanData AsSpan(this IFreeTextMap input)
+		{
+			return new SpanData(input.Value)
+				.WithId(input.Id);
+		}
+
 		public static TextAreaData AsTextArea(this IFreeTextMap input)
 		{
 			return new TextAreaData(input.Value)
