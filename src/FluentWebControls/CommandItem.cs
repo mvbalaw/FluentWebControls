@@ -80,7 +80,7 @@ namespace FluentWebControls
 		private LinkData getLink(T item)
 		{
 			string navigateUrl = _getLink(item);
-			string linkId = navigateUrl.Replace('/', '_').TrimStart(new[] { '_' });
+			string linkId = String.Format("lnk{0}", navigateUrl.Replace('/', '_').TrimStart(new[] { '_' }));
 			return new LinkData().WithId(linkId).WithUrl(navigateUrl).WithLinkText(Text).WithLinkImageUrl(ImageUrl, Alt);
 		}
 	}
