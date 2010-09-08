@@ -87,6 +87,7 @@ namespace FluentWebControls
 			var cell = new TableHeaderCell
 				{
 					Text = "&nbsp;",
+					HorizontalAlign = Align.ToHorizontalAlign(),
 					CssClass = HeaderCssClass
 				};
 			cell.RenderControl(writer);
