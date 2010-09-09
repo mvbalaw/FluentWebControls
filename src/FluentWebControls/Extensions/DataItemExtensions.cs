@@ -55,5 +55,11 @@ namespace FluentWebControls.Extensions
 			dataItem.InputCssClass = inputCssClass;
 			return dataItem;
 		}
+
+		public static DataItem<T> WithContainerCssClass<T>(this DataItem<T> dataItem, string cssClass)
+		{
+			dataItem.ContainerCssClass = cssClass;
+			return dataItem;
+		}
 	}
 }

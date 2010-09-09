@@ -19,6 +19,7 @@ namespace FluentWebControls
 	{
 		AlignAttribute Align { get; }
 		string InputCssClass { get; }
+		string ContainerCssClass { get; }
 		string LabelText { get; }
 	}
 
@@ -38,6 +39,7 @@ namespace FluentWebControls
 		internal ColumnTextType ColumnTextType { get; set; }
 		internal Func<T, string> GetItemId { get; set; }
 		internal string InputCssClass { get; set; }
+		internal string ContainerCssClass { get; set; }
 		internal string LabelText { get; set; }
 		internal string InputTextId { get; set; }
 
@@ -51,6 +53,11 @@ namespace FluentWebControls
 			get { return InputCssClass; }
 		}
 
+		string IDataItem.ContainerCssClass
+		{
+			get { return ContainerCssClass; }
+		}
+
 		string IDataItem.LabelText
 		{
 			get { return LabelText; }
@@ -62,6 +69,10 @@ namespace FluentWebControls
 			listItem.Append("<");
 			listItem.Append("div");
 			listItem.Append(Align.Text.CreateQuotedAttribute("align"));
+			if (!ContainerCssClass.IsNullOrEmpty())
+			{
+				listItem.Append(ContainerCssClass.CreateQuotedAttribute("class"));
+			}
 			listItem.Append(">");
 			if (!LabelText.IsNullOrEmpty())
 			{
