@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+
 using FluentWebControls.Interfaces;
 
 namespace FluentWebControls.Mapping
 {
 	public class ChoiceListMap<TDomain, TModel, TItemType> : IChoiceListMap, IFreeTextMap
+		where TDomain : class, new()
 	{
 		private readonly Func<TItemType, string> _getItemText;
 		private readonly Func<TItemType, string> _getItemValue;
@@ -36,20 +39,11 @@ namespace FluentWebControls.Mapping
 			get { return _selectedValues; }
 		}
 
-		#region IChoiceListMap Members
-
 		public string Id { get; private set; }
 
 		public IEnumerable<KeyValuePair<string, string>> ListItems
 		{
-			get
-			{
-				if (_listItems == null)
-				{
-					_listItems = _getListItems().Select(x => new KeyValuePair<string, string>(_getItemText(x), _getItemValue(x)));
-				}
-				return _listItems;
-			}
+			get { return _listItems ?? (_listItems = _getListItems().Select(x => new KeyValuePair<string, string>(_getItemText(x), _getItemValue(x)))); }
 		}
 
 		public string SelectedValue
@@ -59,16 +53,10 @@ namespace FluentWebControls.Mapping
 
 		public IPropertyMetaData Validation { get; set; }
 
-		#endregion
-
-		#region IFreeTextMap Members
-
 		string IFreeTextMap.Value
 		{
 			get { return SelectedValue; }
 		}
-
-		#endregion
 
 		public ChoiceListMap<TDomain, TModel, TItemType> WithItems(Func<IEnumerable<TItemType>> getListItems)
 		{
@@ -79,6 +67,12 @@ namespace FluentWebControls.Mapping
 		public ChoiceListMap<TDomain, TModel, TItemType> WithSelectedItems(IEnumerable<TItemType> selectedItems)
 		{
 			_selectedValues.AddRange(selectedItems.Select(x => _getItemValue(x)));
+			return this;
+		}
+
+		public ChoiceListMap<TDomain, TModel, TItemType> WithValidation(Expression<Func<TDomain, TItemType>> getProperty)
+		{
+			 Validation = Configuration.ValidationMetaDataFactory.GetFor(getProperty);
 			return this;
 		}
 	}

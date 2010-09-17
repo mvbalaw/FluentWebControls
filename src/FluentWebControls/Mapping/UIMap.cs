@@ -78,6 +78,10 @@ namespace FluentWebControls.Mapping
 			var listUiMap = new ChoiceListMap<TDomain, TModel, TItemType>(propertyName, getSelectedItem.Compile()(Item),
 			                                                              getItemText, getItemValue);
 			TryAddValidation(getSelectedItem, listUiMap);
+			if (_mappings.ContainsKey(propertyName) && listUiMap.Validation == null)
+			{
+				listUiMap.Validation = ((FreeTextMap<TDomain>)_mappings[propertyName]).Validation;
+			}
 			_mappings[propertyName] = listUiMap;
 			return listUiMap;
 		}
@@ -92,6 +96,10 @@ namespace FluentWebControls.Mapping
 			var listUiMap = new ChoiceListMap<TDomain, TModel, TItemType>(propertyName, getItemText, getItemValue);
 			listUiMap.WithSelectedItems(getSelectedItems.Compile()(Item));
 			TryAddValidation(getSelectedItems, listUiMap);
+			if (listUiMap.Validation == null)
+			{
+				listUiMap.Validation = ((FreeTextMap<TDomain>)_mappings[propertyName]).Validation;
+			}
 			_mappings[propertyName] = listUiMap;
 			return listUiMap;
 		}
@@ -105,6 +113,10 @@ namespace FluentWebControls.Mapping
 			                                             propertyName,
 			                                             getValueFunction);
 			TryAddValidation(getValue, freeTextUiMap);
+			if (_mappings.ContainsKey(propertyName) && freeTextUiMap.Validation == null)
+			{
+				freeTextUiMap.Validation = ((FreeTextMap<TDomain>)_mappings[propertyName]).Validation;
+			}
 			_mappings[propertyName] = freeTextUiMap;
 			return freeTextUiMap;
 		}

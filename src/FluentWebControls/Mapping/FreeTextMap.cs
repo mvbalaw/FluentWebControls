@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 
 using FluentWebControls.Interfaces;
 
@@ -30,6 +31,12 @@ namespace FluentWebControls.Mapping
 				}
 				return _value;
 			}
+		}
+
+		public FreeTextMap<TDomain> WithValidation(Expression<Func<TDomain, object>> getProperty)
+		{
+			Validation = Configuration.ValidationMetaDataFactory.GetFor(getProperty);
+			return this;
 		}
 	}
 }
