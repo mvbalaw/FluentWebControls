@@ -80,7 +80,12 @@ namespace FluentWebControls.Mapping
 			TryAddValidation(getSelectedItem, listUiMap);
 			if (_mappings.ContainsKey(propertyName) && listUiMap.Validation == null)
 			{
-				listUiMap.Validation = ((FreeTextMap<TDomain>)_mappings[propertyName]).Validation;
+				object value;
+				var exists = _mappings.TryGetValue(propertyName, out value);
+				if (exists)
+				{
+					listUiMap.Validation = ((FreeTextMap<TDomain>)value).Validation;
+				}
 			}
 			_mappings[propertyName] = listUiMap;
 			return listUiMap;
@@ -98,7 +103,12 @@ namespace FluentWebControls.Mapping
 			TryAddValidation(getSelectedItems, listUiMap);
 			if (listUiMap.Validation == null)
 			{
-				listUiMap.Validation = ((FreeTextMap<TDomain>)_mappings[propertyName]).Validation;
+				object value;
+				var exists = _mappings.TryGetValue(propertyName, out value);
+				if (exists)
+				{
+					listUiMap.Validation = ((FreeTextMap<TDomain>)value).Validation;
+				}
 			}
 			_mappings[propertyName] = listUiMap;
 			return listUiMap;
@@ -115,7 +125,12 @@ namespace FluentWebControls.Mapping
 			TryAddValidation(getValue, freeTextUiMap);
 			if (_mappings.ContainsKey(propertyName) && freeTextUiMap.Validation == null)
 			{
-				freeTextUiMap.Validation = ((FreeTextMap<TDomain>)_mappings[propertyName]).Validation;
+				object value;
+				var exists = _mappings.TryGetValue(propertyName, out value);
+				if (exists)
+				{
+					freeTextUiMap.Validation = ((FreeTextMap<TDomain>)value).Validation;
+				}
 			}
 			_mappings[propertyName] = freeTextUiMap;
 			return freeTextUiMap;
