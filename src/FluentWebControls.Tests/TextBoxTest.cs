@@ -25,6 +25,16 @@ namespace FluentWebControls.Tests
 			public int Value { get; set; }
 		}
 
+		internal class TestString
+		{
+            public TestString(string value)
+			{
+				Value = value;
+			}
+
+			public string Value { get; set; }
+		}
+
 		[TestFixture]
 		public class When_asked_to_create_a_TextBox_for_a_property_of_type_int
 		{
@@ -46,6 +56,29 @@ namespace FluentWebControls.Tests
 
 				var textBoxData = TextBox.For(test, x => x.Value.ToString(), x => x.Value).WithValidationFrom((Test x) => x.Value);
 				textBoxData.ToString().ShouldBeEqualTo("<input type='text' id='value' name='value' class='textbox digits' value='10'/>");
+			}
+		}
+		[TestFixture]
+		public class When_asked_to_create_a_TextBox_for_a_property_of_type_string
+		{
+			private IBusinessObjectPropertyMetaDataFactory _businessObjectPropertyMetaDataFactory;
+
+			[SetUp]
+			public void BeforeEachTest()
+			{
+				_businessObjectPropertyMetaDataFactory = MockRepository.GenerateStub<IBusinessObjectPropertyMetaDataFactory>();
+				Configuration.ValidationMetaDataFactory = _businessObjectPropertyMetaDataFactory;
+			}
+
+			[Test]
+			public void Should_return_HTML_code_representing_a_TextBox_with_its_value_embedded_in_it()
+			{
+				var test = new TestString("Ginger's House");
+                Expression<Func<TestString, string>> metadataFunc = x => x.Value;
+				_businessObjectPropertyMetaDataFactory.Expect(x => x.GetFor(metadataFunc)).IgnoreArguments().Return(PropertyMetaDataMocker.CreateStub("Value", false, null, null, null, null, typeof(string)));
+
+				var textBoxData = TextBox.For(test, x => x.Value.ToString(), x => x.Value).WithValidationFrom((Test x) => x.Value);
+                textBoxData.ToString().ShouldBeEqualTo("<input type='text' id='value' name='value' class='textbox' value='Ginger&apos;s House'/>");
 			}
 		}
 	}
