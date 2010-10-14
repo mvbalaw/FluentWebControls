@@ -42,9 +42,7 @@ namespace FluentWebControls.Extensions
 
 		public static string EscapeForTagAttribute(this string value)
 		{
-            var replacementString = value == null ? "" : value.Replace("&", "&amp;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace("\'", "&apos;");
-		    return replacementString;
-            //			return value == null ? "" : value.Replace("&", "&amp;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace("\'", "&apos;");
+            return value == null ? "" : value.Replace("&", "&amp;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace("\'", "&apos;");
 		}
 
 		public static string EscapeForUrl(this string value)
