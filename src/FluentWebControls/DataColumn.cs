@@ -124,7 +124,7 @@ namespace FluentWebControls
 			{
 				return InputTextId ?? ColumnName;
 			}
-			return String.Format("{0}_{1}_{2}", Reflection.GetClassName<T>(), ColumnName, GetItemId(item));
+			return String.Format("{0}_{1}", ColumnName, GetItemId(item));
 		}
 	}
 
