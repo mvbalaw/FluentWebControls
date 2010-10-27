@@ -86,5 +86,11 @@ namespace FluentWebControls.Extensions
 			dataColumn.InputCssClass = inputCssClass;
 			return dataColumn;
 		}
+
+		public static DataColumn<T> WithPrefix<T>(this DataColumn<T> dataColumn, string prefix)
+		{
+			dataColumn.Prefix = prefix;
+			return dataColumn;
+		}
 	}
 }

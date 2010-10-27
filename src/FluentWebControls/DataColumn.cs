@@ -24,6 +24,7 @@ namespace FluentWebControls
 		string HeaderCssClass { get; }
 		string HeaderText { get; }
 		string InputCssClass { get; }
+		string Prefix { get; }
 	}
 
 	public class DataColumn<T> : IDataColumn, IHtmlColumn<T>
@@ -48,6 +49,7 @@ namespace FluentWebControls
 		internal string HeaderText { private get; set; }
 		internal string InputCssClass { get; set; }
 		internal string InputTextId { get; set; }
+		internal string Prefix { get; set; }
 
 		AlignAttribute IDataColumn.Align
 		{
@@ -72,6 +74,10 @@ namespace FluentWebControls
 		string IDataColumn.HeaderCssClass
 		{
 			get { return HeaderCssClass; }
+		}
+		string IDataColumn.Prefix
+		{
+			get { return Prefix; }
 		}
 
 		public virtual void Render(T item, HtmlTextWriter writer)
@@ -124,7 +130,7 @@ namespace FluentWebControls
 			{
 				return InputTextId ?? ColumnName;
 			}
-			return String.Format("{0}_{1}", ColumnName, GetItemId(item));
+			return Prefix.IsNullOrEmpty() ? String.Format("{0}_{1}", ColumnName, GetItemId(item)) : String.Format("{0}_{1}_{2}", Prefix, ColumnName, GetItemId(item));
 		}
 	}
 
