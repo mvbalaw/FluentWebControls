@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentWebControls", "FluentWebControls\FluentWebControls.csproj", "{2D4D3CE3-9CE6-4CFF-8CC5-57ABE00986BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentWebControls.Tests", "FluentWebControls.Tests\FluentWebControls.Tests.csproj", "{99BF4D3C-90B8-4AC5-B706-3576C3AC46B3}"
