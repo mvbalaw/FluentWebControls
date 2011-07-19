@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Dynamic;
 using System.Linq.Expressions;
 using MvbaCore;
 
@@ -8,14 +8,18 @@ namespace FluentWebControls.Mapping
 {
 	public class ListUIMap<TDomain, TModel> : IListUIMap
 	{
-		private readonly Dictionary<string, UIColumn<TDomain>> _columns;
+		private readonly IDictionary<string, object> _columns;
+		private readonly dynamic _container = new ExpandoObject();
 
 		public ListUIMap(IEnumerable<TDomain> items)
 		{
 			ListItems = items;
-			_columns = Reflection
-				.GetMatchingProperties(typeof (TDomain), typeof (TModel))
-				.ToDictionary(x => x.Name, x => GetMap(x));
+			_columns = (IDictionary<string, object>)_container;
+			foreach (var matchingProperty in Reflection
+				.GetMatchingProperties(typeof (TDomain), typeof (TModel)))
+			{
+				_columns.Add(matchingProperty.Name, GetMap(matchingProperty));
+			}
 		}
 
 		public string IdPrefix { get; set; }
@@ -58,7 +62,7 @@ namespace FluentWebControls.Mapping
 			var column = uiMap.TryCastTo<UIColumn<TDomain>>();
 			return Fluent.DataColumnFor(column.TextMethod, Reflection.GetPropertyName(forPropertyName));
 		}
-		
+
 		public DataItem<TDomain> DataItemFor(Expression<Func<TModel, object>> forPropertyName)
 		{
 			var uiMap = TryGetRequestedMap(forPropertyName);
@@ -86,7 +90,7 @@ namespace FluentWebControls.Mapping
 		{
 			return Fluent.LinkCommandColumnFor(getControllerActionHrefForSpecificItem);
 		}
-		
+
 		public CommandItem<TDomain> LinkCommandItemFor(Func<TDomain, string> getControllerActionHrefForSpecificItem)
 		{
 			return Fluent.LinkCommandItemFor(getControllerActionHrefForSpecificItem);
@@ -95,7 +99,7 @@ namespace FluentWebControls.Mapping
 		private object TryGetRequestedMap(Expression<Func<TModel, object>> source)
 		{
 			string key = Reflection.GetPropertyName(source);
-			UIColumn<TDomain> uiMap;
+			object uiMap;
 			if (!_columns.TryGetValue(key, out uiMap))
 			{
 				throw new ArgumentException("No mapping defined for '" + key + "'");

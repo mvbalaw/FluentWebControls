@@ -55,6 +55,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\JetBrains.Annotations\JetBrains.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="MvbaCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\MvbaCore\MvbaCore.dll</HintPath>
@@ -93,6 +94,7 @@
     <Compile Include="Extensions\SpanDataExtensions.cs" />
     <Compile Include="Extensions\TableDataExtensions.cs" />
     <Compile Include="HtmlList.cs" />
+    <Compile Include="IConvertibleExtensions.cs" />
     <Compile Include="IHtmlColumn.cs" />
     <Compile Include="IListItem.cs" />
     <Compile Include="Interfaces\PagedList.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Mapping\IBooleanMap.cs" />
     <Compile Include="Mapping\IFreeTextMap.cs" />
     <Compile Include="Mapping\IListUIMap.cs" />
+    <Compile Include="Mapping\IModelMap.cs" />
     <Compile Include="Mapping\IUIMap.cs" />
     <Compile Include="Mapping\ListUIMapWithItem.cs" />
     <Compile Include="Mapping\UIMap.cs" />

@@ -75,5 +75,10 @@ namespace FluentWebControls.Mapping
 			 Validation = Configuration.ValidationMetaDataFactory.GetFor(getProperty);
 			return this;
 		}
+
+		object IModelMap.GetValueForModel()
+		{
+			return SelectedValue;
+		}
 	}
 }

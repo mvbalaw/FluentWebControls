@@ -23,20 +23,18 @@ namespace FluentWebControls.Mapping
 
 		public string Value
 		{
-			get
-			{
-				if (_value == null)
-				{
-					_value = _getValue(_item);
-				}
-				return _value;
-			}
+			get { return _value ?? (_value = _getValue(_item)); }
 		}
 
 		public FreeTextMap<TDomain> WithValidation(Expression<Func<TDomain, object>> getProperty)
 		{
 			Validation = Configuration.ValidationMetaDataFactory.GetFor(getProperty);
 			return this;
+		}
+
+		object IModelMap.GetValueForModel()
+		{
+			return Value;
 		}
 	}
 }

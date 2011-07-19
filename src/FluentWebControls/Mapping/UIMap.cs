@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
-
 using FluentWebControls.Extensions;
-
 using MvbaCore;
 
 namespace FluentWebControls.Mapping
@@ -12,15 +11,62 @@ namespace FluentWebControls.Mapping
 	public class UIMap<TDomain, TModel> : IUIMap
 		where TDomain : class, new()
 	{
-		private readonly Dictionary<string, object> _mappings;
+		private readonly dynamic _container = new ExpandoObject();
+		private readonly IDictionary<string, object> _mappings;
 		private string _idPrefix;
 
 		protected UIMap(TDomain item)
 		{
 			Item = item.ToNonNull();
-			_mappings = Reflection
-				.GetMatchingProperties(typeof(TDomain), typeof(TModel))
-				.ToDictionary(x => x.Name, x => GetMap(x));
+			_mappings = (IDictionary<string, object>) _container;
+			foreach (var matchingProperty in Reflection
+				.GetMatchingProperties(typeof (TDomain), typeof (TModel)))
+			{
+				_mappings.Add(matchingProperty.Name, GetMap(matchingProperty));
+			}
+		}
+
+		public void Populate(TModel model)
+		{
+			var properties = typeof (TModel).GetProperties()
+				.ToDictionary(x=>x.Name, x=>x);
+			foreach(var mapping in _mappings)
+			{
+				if (!properties.ContainsKey(mapping.Key)) continue;
+				var property = properties[mapping.Key];
+				var source = mapping.Value as IModelMap;
+				if (source == null) continue;
+				object valueForModel = source.GetValueForModel();
+				if (valueForModel == null)
+				{
+					continue;
+				}
+				var stringValue = valueForModel.ToString();
+				if (stringValue.Length == 0)
+				{
+					continue;
+				}
+
+				if (source is IChoiceListMap && 
+				    property.PropertyType.IsGenericType &&
+				    property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
+				{
+					var itemType = property.PropertyType.GetGenericArguments()[0];
+					var choiceList = source as IChoiceListMap;
+					var items = choiceList.ListItems.Select(x => x.Value.To(itemType)).ToList();
+					var targetList = property.GetValue(model, null);
+					var addMethod = targetList.GetType().GetMethod("Add");
+					foreach(var item in items)
+					{
+						addMethod.Invoke(targetList, new[] {item});
+					}
+				}
+				else
+				{
+					var convertedValue = stringValue.To(property.PropertyType);
+					property.SetValue(model, convertedValue, null);
+				}
+			}
 		}
 
 		public TDomain Item { get; private set; }
@@ -81,10 +127,10 @@ namespace FluentWebControls.Mapping
 			if (_mappings.ContainsKey(propertyName) && listUiMap.Validation == null)
 			{
 				object value;
-				var exists = _mappings.TryGetValue(propertyName, out value);
+				bool exists = _mappings.TryGetValue(propertyName, out value);
 				if (exists)
 				{
-					listUiMap.Validation = ((FreeTextMap<TDomain>)value).Validation;
+					listUiMap.Validation = ((FreeTextMap<TDomain>) value).Validation;
 				}
 			}
 			_mappings[propertyName] = listUiMap;
@@ -104,10 +150,10 @@ namespace FluentWebControls.Mapping
 			if (listUiMap.Validation == null)
 			{
 				object value;
-				var exists = _mappings.TryGetValue(propertyName, out value);
+				bool exists = _mappings.TryGetValue(propertyName, out value);
 				if (exists)
 				{
-					listUiMap.Validation = ((FreeTextMap<TDomain>)value).Validation;
+					listUiMap.Validation = ((FreeTextMap<TDomain>) value).Validation;
 				}
 			}
 			_mappings[propertyName] = listUiMap;
@@ -126,10 +172,10 @@ namespace FluentWebControls.Mapping
 			if (_mappings.ContainsKey(propertyName) && freeTextUiMap.Validation == null)
 			{
 				object value;
-				var exists = _mappings.TryGetValue(propertyName, out value);
+				bool exists = _mappings.TryGetValue(propertyName, out value);
 				if (exists)
 				{
-					freeTextUiMap.Validation = ((FreeTextMap<TDomain>)value).Validation;
+					freeTextUiMap.Validation = ((FreeTextMap<TDomain>) value).Validation;
 				}
 			}
 			_mappings[propertyName] = freeTextUiMap;
@@ -165,9 +211,9 @@ namespace FluentWebControls.Mapping
 		private object GetMap(PropertyMappingInfo propertyMappingInfo)
 		{
 			var info = propertyMappingInfo;
-			if (typeof(bool).IsAssignableFrom(propertyMappingInfo.SourcePropertyType))
+			if (typeof (bool).IsAssignableFrom(propertyMappingInfo.SourcePropertyType))
 			{
-				var booleanMap = new BooleanMap(propertyMappingInfo.Name, (bool)info.GetValueFromSource(Item));
+				var booleanMap = new BooleanMap(propertyMappingInfo.Name, (bool) info.GetValueFromSource(Item));
 				return booleanMap;
 			}
 
@@ -176,7 +222,7 @@ namespace FluentWebControls.Mapping
 			                                           x =>
 			                                           	{
 			                                           		var source = info.GetValueFromSource(x);
-			                                           		return source == null ? (string)null : source.ToString();
+			                                           		return source == null ? (string) null : source.ToString();
 			                                           	});
 			TryAddValidation(propertyMappingInfo.Name, freeTextMap);
 			return freeTextMap;

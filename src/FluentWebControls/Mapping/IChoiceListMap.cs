@@ -4,7 +4,7 @@ using FluentWebControls.Interfaces;
 
 namespace FluentWebControls.Mapping
 {
-	public interface IChoiceListMap
+	public interface IChoiceListMap : IModelMap
 	{
 		string Id { get; }
 		IEnumerable<KeyValuePair<string, string>> ListItems { get; }

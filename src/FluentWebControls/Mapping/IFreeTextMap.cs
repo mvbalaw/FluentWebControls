@@ -2,7 +2,7 @@ using FluentWebControls.Interfaces;
 
 namespace FluentWebControls.Mapping
 {
-	public interface IFreeTextMap
+	public interface IFreeTextMap : IModelMap
 	{
 		string Id { get; }
 		IPropertyMetaData Validation { get; set; }

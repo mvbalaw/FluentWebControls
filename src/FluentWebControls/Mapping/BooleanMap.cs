@@ -17,5 +17,10 @@ namespace FluentWebControls.Mapping
 			get { return IsChecked.ToString(); }
 		}
 		public IPropertyMetaData Validation { get; set; }
+
+		object IModelMap.GetValueForModel()
+		{
+			return IsChecked;
+		}
 	}
 }
