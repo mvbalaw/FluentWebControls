@@ -144,7 +144,7 @@ namespace FluentWebControls
 
 		private ColumnTextType(string key)
 		{
-			Key = key;
+			Add(key, this);
 		}
 	}
 }
