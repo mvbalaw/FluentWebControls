@@ -13,12 +13,15 @@ namespace FluentWebControls
 		public ComboSelectData(IEnumerable<KeyValuePair<string, string>> items)
 		{
 			_items = items;
-			CssClass = "comboselect";
+			CssClass = new List<string>
+			           	{
+			           		"comboselect"
+			           	};
 			SelectedValues = new List<string>();
 			Size = 6;
 		}
 
-		public string CssClass { get; set; }
+		public List<string> CssClass { get; set; }
 		public string TabIndex { get; set; }
 		public LabelData Label { get; set; }
 		public List<string> SelectedValues { get; private set; }
@@ -34,7 +37,7 @@ namespace FluentWebControls
 			sb.Append("<select");
 			sb.Append(IdWithPrefix.CreateQuotedAttribute("name"));
 			sb.Append(IdWithPrefix.CreateQuotedAttribute("id"));
-			sb.AppendFormat(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
+			sb.AppendFormat(BuildJqueryValidation(CssClass.Join(" ")).CreateQuotedAttribute("class"));
 			sb.Append("multiple".CreateQuotedAttribute("multiple"));
 			sb.Append(Size.CreateQuotedAttribute("size"));
 			if (!TabIndex.IsNullOrEmpty())

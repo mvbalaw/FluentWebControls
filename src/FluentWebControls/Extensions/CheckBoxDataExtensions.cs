@@ -43,5 +43,11 @@ namespace FluentWebControls.Extensions
 			checkBoxData.TabIndex = tabIndex;
 			return checkBoxData;
 		}
+
+		public static CheckBoxData WithClass(this CheckBoxData checkBoxData, string cssClass)
+		{
+			checkBoxData.CssClass = cssClass;
+			return checkBoxData;
+		}
 	}
 }

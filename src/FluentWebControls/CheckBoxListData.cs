@@ -13,10 +13,11 @@ namespace FluentWebControls
 		{
 			_items = items;
 			SelectedValues = new List<string>();
+			CssClass = new List<string>();
 		}
 
 		public List<string> SelectedValues { get; private set; }
-		public string CssClass { get; set; }
+		public List<string> CssClass { get; set; }
 		public LabelData Label { get; set; }
 		public string TabIndex { get; set; }
 
@@ -39,7 +40,8 @@ namespace FluentWebControls
 				var checkbox = new CheckBoxData(isChecked)
 					.WithValue(item.Value)
 					.WithId(id)
-					.WithIdPrefix(idPrefix);
+					.WithIdPrefix(idPrefix)
+					.WithClass(CssClass.Join(" "));
 
 				sb.Append("<div>");
 				sb.Append(checkbox.ToString());

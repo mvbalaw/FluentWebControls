@@ -81,6 +81,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="DataColumn.cs" />
     <Compile Include="DataItem.cs" />
+    <Compile Include="Extensions\CheckBoxListDataExtensions.cs" />
     <Compile Include="Extensions\CommandItemExtensions.cs" />
     <Compile Include="Extensions\DataItemExtensions.cs" />
     <Compile Include="Extensions\IBooleanMapExtensions.cs" />

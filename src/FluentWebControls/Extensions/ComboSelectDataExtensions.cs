@@ -8,7 +8,7 @@ namespace FluentWebControls.Extensions
 	{
 		public static ComboSelectData CssClass(this ComboSelectData comboSelectData, string cssClass)
 		{
-			comboSelectData.CssClass = cssClass;
+			comboSelectData.CssClass.Add(cssClass);
 			return comboSelectData;
 		}
 
