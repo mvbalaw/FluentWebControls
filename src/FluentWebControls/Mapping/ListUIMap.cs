@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Linq.Expressions;
 using MvbaCore;
 
@@ -14,13 +15,47 @@ namespace FluentWebControls.Mapping
 		public ListUIMap(IEnumerable<TDomain> items)
 		{
 			ListItems = items;
-			_columns = (IDictionary<string, object>)_container;
+			_columns = (IDictionary<string, object>) _container;
 			foreach (var matchingProperty in Reflection
 				.GetMatchingProperties(typeof (TDomain), typeof (TModel)))
 			{
 				_columns.Add(matchingProperty.Name, GetMap(matchingProperty));
 			}
 		}
+
+		public void Populate<TMapModel>(TMapModel model)
+		{
+			var properties = typeof(TMapModel).GetProperties()
+				.ToDictionary(x => x.Name, x => x);
+			foreach (var mapping in _columns)
+			{
+				if (!properties.ContainsKey(mapping.Key)) continue;
+				var property = properties[mapping.Key];
+				var source = mapping.Value as UIColumn<TDomain>;
+				if (source == null) continue;
+
+				var itemValues = ListItems.Select(source.TextMethod).ToList();
+
+				if (!itemValues.Any())
+				{
+					continue;
+				}
+
+				if (property.PropertyType.IsGenericType &&
+					property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
+				{
+					var targetList = property.GetValue(model, null);
+					var addMethod = targetList.GetType().GetMethod("Add");
+					var targetType = property.PropertyType.GetGenericArguments().Single();
+					foreach (var item in itemValues)
+					{
+						var convertedValue = item.To(targetType);
+						addMethod.Invoke(targetList, new[] { convertedValue });
+					}
+				}
+			}
+		}
+
 
 		public string IdPrefix { get; set; }
 		public IEnumerable<TDomain> ListItems { get; private set; }
@@ -39,6 +74,35 @@ namespace FluentWebControls.Mapping
 			Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
 		{
 			return Fluent.CheckBoxCommandColumnFor<TModel, TDomain, TValueHolder>(forCheckBoxId, getCheckBoxValue);
+		}
+
+		public CommandColumn<TDomain> CheckBoxCommandColumnFor<TValueHolder>(
+			Expression<Func<TValueHolder, object>> forCheckBoxId)
+		{
+			var column = (UIColumn<TDomain>)_columns[Reflection.GetPropertyName(forCheckBoxId)];
+			return Fluent.CheckBoxCommandColumnFor<TModel, TDomain, TValueHolder>(forCheckBoxId, column.TextMethod);
+		}
+
+		public ListUIMap<TDomain, TModel> WithCommandColumnFor<TValueHolder>(
+			Expression<Func<TValueHolder, object>> forId, Func<TDomain, string> getText)
+		{
+			string id = Reflection.GetPropertyName(forId);
+			var column = new UIColumn<TDomain>(getText);
+			_columns[id] = column;
+			return this;
+		}
+
+		public CommandItem<TDomain> CheckBoxCommandItemFor<TValueHolder>(
+			Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
+		{
+			return Fluent.CheckBoxCommandItemFor<TModel, TDomain, TValueHolder>(forCheckBoxId, getCheckBoxValue);
+		}
+
+		public CommandItem<TDomain> CheckBoxCommandItemFor<TValueHolder>(
+			Expression<Func<TValueHolder, object>> forCheckBoxId)
+		{
+			var column = (UIColumn<TDomain>) _columns[Reflection.GetPropertyName(forCheckBoxId)];
+			return Fluent.CheckBoxCommandItemFor<TModel, TDomain, TValueHolder>(forCheckBoxId, column.TextMethod);
 		}
 
 		[Obsolete("Use LinkCommandColumnFor")]

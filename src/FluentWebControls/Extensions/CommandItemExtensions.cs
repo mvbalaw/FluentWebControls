@@ -37,5 +37,11 @@
 			commandItem.Alt = alt;
 			return commandItem;
 		}
+
+		public static CommandItem<T> WrapWithSpan<T>(this CommandItem<T> commandItem)
+		{
+			commandItem.WrapWithSpan = true;
+			return commandItem;
+		}
 	}
 }

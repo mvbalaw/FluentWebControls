@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Text;
-
 using FluentWebControls.Extensions;
-
 using MvbaCore;
 
 namespace FluentWebControls
@@ -21,6 +19,7 @@ namespace FluentWebControls
 		string InputCssClass { get; }
 		string ContainerCssClass { get; }
 		string LabelText { get; }
+		bool WrapWithSpan { get; }
 	}
 
 	public class DataItem<T> : IDataItem, IListItem<T>
@@ -42,6 +41,9 @@ namespace FluentWebControls
 		internal string ContainerCssClass { get; set; }
 		internal string LabelText { get; set; }
 		internal string InputTextId { get; set; }
+		internal bool WrapWithSpan { private get; set; }
+
+		#region IDataItem Members
 
 		AlignAttribute IDataItem.Align
 		{
@@ -63,11 +65,21 @@ namespace FluentWebControls
 			get { return LabelText; }
 		}
 
+		bool IDataItem.WrapWithSpan
+		{
+			get { return WrapWithSpan; }
+		}
+
+		#endregion
+
+		#region IListItem<T> Members
+
 		public StringBuilder Render(T item)
 		{
 			var listItem = new StringBuilder();
+			string tag = WrapWithSpan ? "span" : "div";
 			listItem.Append("<");
-			listItem.Append("div");
+			listItem.Append(tag);
 			listItem.Append(Align.Text.CreateQuotedAttribute("align"));
 			if (!ContainerCssClass.IsNullOrEmpty())
 			{
@@ -79,9 +91,13 @@ namespace FluentWebControls
 				listItem.AppendFormat("{0}: ", LabelText);
 			}
 			listItem.Append(GetColumnWithInput(item));
-			listItem.Append("</div>");
+			listItem.Append("</");
+			listItem.Append(tag);
+			listItem.Append(">");
 			return listItem;
 		}
+
+		#endregion
 
 		private string GetColumnWithInput(T item)
 		{

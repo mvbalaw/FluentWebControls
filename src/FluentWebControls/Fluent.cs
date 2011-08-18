@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.UI.WebControls;
-
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
-
 using MvbaCore;
 
 namespace FluentWebControls
@@ -17,7 +15,9 @@ namespace FluentWebControls
 			return Button.For(buttonType, new ControllerInfo(aspxPage).Name);
 		}
 
-		public static ButtonData ButtonFor<TController>(IButtonType buttonType, Expression<Func<TController, object>> forControllerAndActionName) where TController : class
+		public static ButtonData ButtonFor<TController>(IButtonType buttonType,
+		                                                Expression<Func<TController, object>> forControllerAndActionName)
+			where TController : class
 		{
 			return Button.For(buttonType, forControllerAndActionName);
 		}
@@ -26,24 +26,31 @@ namespace FluentWebControls
 		{
 			return Button.For(buttonType);
 		}
-		
+
 		public static ButtonData ButtonFor(IButtonType buttonType, string controllerName, string actionName)
 		{
 			return Button.For(buttonType, controllerName).WithAction(actionName);
 		}
 
-		public static CommandColumn<TDomain> CheckBoxCommandColumnFor<TModel, TDomain, TValueHolder>(Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
+		public static CommandColumn<TDomain> CheckBoxCommandColumnFor<TModel, TDomain, TValueHolder>(
+			Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
 		{
 			string checkBoxId = Reflection.GetCamelCasePropertyName(forCheckBoxId);
 			return CommandColumn.For((TDomain item, string text) =>
 			                         	{
 			                         		var checkBox = new System.Web.UI.WebControls.CheckBox
-			                         			{
-			                         				ID = checkBoxId
-			                         			};
+			                         		               	{
+			                         		               		ID = checkBoxId
+			                         		               	};
 			                         		checkBox.InputAttributes["Value"] = getCheckBoxValue(item);
 			                         		return checkBox;
 			                         	});
+		}
+
+		public static CommandItem<TDomain> CheckBoxCommandItemFor<TModel, TDomain, TValueHolder>(
+			Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
+		{
+			return CommandItem.For((TDomain item, string text) => new CheckBoxData(false).WithId(forCheckBoxId).WithValue(getCheckBoxValue(item)).ToString());
 		}
 
 		public static CheckBoxData CheckBoxFor<T>(T source, bool @checked, Expression<Func<T, object>> forId)
@@ -56,17 +63,25 @@ namespace FluentWebControls
 			return CheckBox.For(source, forIdAndChecked);
 		}
 
-		public static CheckBoxData CheckBoxFor<TSource, TModel>(TSource source, bool @checked, Func<TSource, string> forValue, Expression<Func<TModel, object>> forId)
+		public static CheckBoxData CheckBoxFor<TSource, TModel>(TSource source, bool @checked, Func<TSource, string> forValue,
+		                                                        Expression<Func<TModel, object>> forId)
 		{
 			return CheckBox.For(source, @checked, forValue, forId);
 		}
 
-		public static ComboSelectData ComboSelectFor<TListItemType, TContainerType, TPropertyType>(IEnumerable<TListItemType> itemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
+		public static ComboSelectData ComboSelectFor<TListItemType, TContainerType, TPropertyType>(
+			IEnumerable<TListItemType> itemSource, Func<TListItemType, string> getListItemDisplayText,
+			Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
 		{
 			return ComboSelect.For(itemSource, getListItemDisplayText, getListItemValue, forId);
 		}
 
-		public static ComboSelectData ComboSelectFor<TListItemType, TPropertyType>(IEnumerable<TListItemType> itemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TPropertyType>> forId)
+		public static ComboSelectData ComboSelectFor<TListItemType, TPropertyType>(IEnumerable<TListItemType> itemSource,
+		                                                                           Func<TListItemType, string>
+		                                                                           	getListItemDisplayText,
+		                                                                           Func<TListItemType, string>
+		                                                                           	getListItemValue,
+		                                                                           Expression<Func<TPropertyType>> forId)
 		{
 			return ComboSelect.For(itemSource, getListItemDisplayText, getListItemValue, forId);
 		}
@@ -87,12 +102,16 @@ namespace FluentWebControls
 			return DataItem.For(getItemText, columnName);
 		}
 
-		public static DropDownListData DropDownListFor<TListItemType, TContainerType, TPropertyType>(IEnumerable<TListItemType> listItemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
+		public static DropDownListData DropDownListFor<TListItemType, TContainerType, TPropertyType>(
+			IEnumerable<TListItemType> listItemSource, Func<TListItemType, string> getListItemDisplayText,
+			Func<TListItemType, string> getListItemValue, Expression<Func<TContainerType, TPropertyType>> forId)
 		{
 			return DropDownList.For(listItemSource, getListItemDisplayText, getListItemValue, forId);
 		}
 
-		public static DropDownListData DropDownListFor<TListItemType, TPropertyType>(IEnumerable<TListItemType> listItemSource, Func<TListItemType, string> getListItemDisplayText, Func<TListItemType, string> getListItemValue, Expression<Func<TPropertyType>> forId)
+		public static DropDownListData DropDownListFor<TListItemType, TPropertyType>(
+			IEnumerable<TListItemType> listItemSource, Func<TListItemType, string> getListItemDisplayText,
+			Func<TListItemType, string> getListItemValue, Expression<Func<TPropertyType>> forId)
 		{
 			return DropDownList.For(listItemSource, getListItemDisplayText, getListItemValue, forId);
 		}
@@ -142,16 +161,17 @@ namespace FluentWebControls
 			return CommandColumn.For((T item, string text) =>
 			                         	{
 			                         		string navigateUrl = getHref(item);
-			                         		string linkId = String.Format("lnk{0}", navigateUrl.Replace('/', '_').TrimStart(new[] { '_' }));
+			                         		string linkId = String.Format("lnk{0}",
+			                         		                              navigateUrl.Replace('/', '_').TrimStart(new[] {'_'}));
 			                         		return new HyperLink
-			                         			{
-			                         				NavigateUrl = navigateUrl,
-			                         				Text = text,
-			                         				ID = linkId
-			                         			};
+			                         		       	{
+			                         		       		NavigateUrl = navigateUrl,
+			                         		       		Text = text,
+			                         		       		ID = linkId
+			                         		       	};
 			                         	});
 		}
-		
+
 		public static CommandItem<T> LinkCommandItemFor<T>(Func<T, string> getHref)
 		{
 			return CommandItem.For(getHref);
@@ -172,81 +192,114 @@ namespace FluentWebControls
 			return LinkTo(controllerName, "", actionName);
 		}
 
-		public static LinkData LinkTo<TControllerType>(Expression<Func<TControllerType, object>> targetControllerAction) where TControllerType : class
+		public static LinkData LinkTo<TControllerType>(Expression<Func<TControllerType, object>> targetControllerAction)
+			where TControllerType : class
 		{
 			return Link.To(targetControllerAction);
 		}
 
-		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage)
+		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<TReturn> pagedList,
+		                                                           IPagedListParameters pagedListParameters, object aspxPage)
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
 			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action);
 		}
 
-		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<string, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, string filter)
+		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<string, TReturn> pagedList,
+		                                                           IPagedListParameters pagedListParameters, object aspxPage,
+		                                                           string filter)
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
-			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter.EmptyToNull(false));
+			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action,
+			                     filter.EmptyToNull(false));
 		}
 
-		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter)
+		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<int?, TReturn> pagedList,
+		                                                           IPagedListParameters pagedListParameters, object aspxPage,
+		                                                           int? filter)
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
 			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter);
 		}
 
-		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<int?, int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter1, int? filter2)
+		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<int?, int?, TReturn> pagedList,
+		                                                           IPagedListParameters pagedListParameters, object aspxPage,
+		                                                           int? filter1, int? filter2)
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
 			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2);
 		}
 
-		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<int?, int?, int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter1, int? filter2, int? filter3)
+		public static PagedGridData<TReturn> PagedGridFor<TReturn>(IPagedList<int?, int?, int?, TReturn> pagedList,
+		                                                           IPagedListParameters pagedListParameters, object aspxPage,
+		                                                           int? filter1, int? filter2, int? filter3)
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
-			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2, filter3);
+			return PagedGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2,
+			                     filter3);
 		}
 
-		public static ScrollableGridData<TItemType> ScrollableGridFor<TItemType, TControllerType>(IEnumerable<TItemType> list, Expression<Func<TControllerType, object>> listAction)
+		public static ScrollableGridData<TItemType> ScrollableGridFor<TItemType, TControllerType>(IEnumerable<TItemType> list,
+		                                                                                          Expression
+		                                                                                          	<
+		                                                                                          	Func
+		                                                                                          	<TControllerType, object>>
+		                                                                                          	listAction)
 		{
 			string name = Reflection.GetControllerName<TControllerType>();
 			return ScrollableGrid.For(list, new PagedListParameters(), name, Reflection.GetMethodName(listAction));
 		}
 
-		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IEnumerable<TReturn> list, IPagedListParameters pagedListParameters, object aspxPage)
+		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IEnumerable<TReturn> list,
+		                                                                     IPagedListParameters pagedListParameters,
+		                                                                     object aspxPage)
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(list, pagedListParameters, controllerInfo.Name, controllerInfo.Action);
 		}
 
-		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage)
+		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<TReturn> pagedList,
+		                                                                     IPagedListParameters pagedListParameters,
+		                                                                     object aspxPage)
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action);
 		}
 
-		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<string, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, string filter)
+		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<string, TReturn> pagedList,
+		                                                                     IPagedListParameters pagedListParameters,
+		                                                                     object aspxPage, string filter)
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
-			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter.EmptyToNull(false));
+			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action,
+			                          filter.EmptyToNull(false));
 		}
 
-		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter)
+		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<int?, TReturn> pagedList,
+		                                                                     IPagedListParameters pagedListParameters,
+		                                                                     object aspxPage, int? filter)
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
 			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter);
 		}
 
-		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<int?, int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter1, int? filter2)
+		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<int?, int?, TReturn> pagedList,
+		                                                                     IPagedListParameters pagedListParameters,
+		                                                                     object aspxPage, int? filter1, int? filter2)
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
-			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2);
+			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1,
+			                          filter2);
 		}
 
-		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<int?, int?, int?, TReturn> pagedList, IPagedListParameters pagedListParameters, object aspxPage, int? filter1, int? filter2, int? filter3)
+		public static ScrollableGridData<TReturn> ScrollableGridFor<TReturn>(IPagedList<int?, int?, int?, TReturn> pagedList,
+		                                                                     IPagedListParameters pagedListParameters,
+		                                                                     object aspxPage, int? filter1, int? filter2,
+		                                                                     int? filter3)
 		{
 			var controllerInfo = new ControllerInfo(aspxPage);
-			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1, filter2, filter3);
+			return ScrollableGrid.For(pagedList, pagedListParameters, controllerInfo.Name, controllerInfo.Action, filter1,
+			                          filter2, filter3);
 		}
 
 		public static TableData<TItemType> TableFor<TItemType>(IEnumerable<TItemType> list)
@@ -264,7 +317,8 @@ namespace FluentWebControls
 			return TextArea.For(source, getValue, forId);
 		}
 
-		public static TextBoxData TextBoxFor<T>(Expression<Func<T>> nullableObject, Expression<Func<T, string>> getValue) where T : class
+		public static TextBoxData TextBoxFor<T>(Expression<Func<T>> nullableObject, Expression<Func<T, string>> getValue)
+			where T : class
 		{
 			var nullable = nullableObject.Compile();
 			var parent = nullable();
@@ -272,7 +326,8 @@ namespace FluentWebControls
 			return TextBox.For(parent, getValue);
 		}
 
-		public static TextBoxData TextBoxFor<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId) where T : class
+		public static TextBoxData TextBoxFor<T, K>(T source, Func<T, string> getValue, Expression<Func<T, K>> forId)
+			where T : class
 		{
 			return TextBox.For(source, getValue, forId);
 		}

@@ -61,5 +61,11 @@ namespace FluentWebControls.Extensions
 			dataItem.ContainerCssClass = cssClass;
 			return dataItem;
 		}
+
+		public static DataItem<T> WrapWithSpan<T>(this DataItem<T> dataItem)
+		{
+			dataItem.WrapWithSpan = true;
+			return dataItem;
+		}
 	}
 }

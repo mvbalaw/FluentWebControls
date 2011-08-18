@@ -8,9 +8,15 @@
 			return list;
 		}
 
-		public static ListData<T> WithSpan<T>(this ListData<T> list, string value, string @class)
+		public static ListData<T> WithSpan<T>(this ListData<T> list, string content, string @class)
 		{
-			list.SpanValue = "";
+			return list.WithSpan("", content, @class);
+		}
+
+		public static ListData<T> WithSpan<T>(this ListData<T> list, string id, string content, string @class)
+		{
+			list.SpanId = id;
+			list.SpanContent = content;
 			list.SpanCssClass = @class;
 			return list;
 		}

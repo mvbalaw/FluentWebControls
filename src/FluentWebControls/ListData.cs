@@ -19,7 +19,8 @@ namespace FluentWebControls
 		internal string Id { get; set; }
 		public string ItemCssClass { get; set; }
 		public string SpanCssClass { get; set; }
-		public string SpanValue { get; set; }
+		public string SpanContent { get; set; }
+		public string SpanId { get; set; }
 
 		public void AddListItem(DataItem<T> dataItem)
 		{
@@ -61,7 +62,7 @@ namespace FluentWebControls
 			list.Append(">");
 			if (SpanCssClass != null)
 			{
-				list.Append(new SpanData(SpanValue).WithCssClass(SpanCssClass).ToString());
+				list.Append(new SpanData(SpanContent).WithId(SpanId).WithCssClass(SpanCssClass).ToString());
 			}
 			return list;
 		}

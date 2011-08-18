@@ -35,7 +35,17 @@ namespace FluentWebControls.Mapping
 				if (!properties.ContainsKey(mapping.Key)) continue;
 				var property = properties[mapping.Key];
 				var source = mapping.Value as IModelMap;
-				if (source == null) continue;
+				if (source == null)
+				{
+					var listSource = mapping.Value as IListUIMap;
+					if (listSource == null)
+					{
+						continue;
+					}
+
+					listSource.Populate(model);
+					continue;
+				}
 				object valueForModel = source.GetValueForModel();
 				if (valueForModel == null)
 				{
