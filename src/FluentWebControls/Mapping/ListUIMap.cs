@@ -49,6 +49,12 @@ namespace FluentWebControls.Mapping
 					var targetType = property.PropertyType.GetGenericArguments().Single();
 					foreach (var item in itemValues)
 					{
+						// handle Guids
+						int value;
+						if (targetType == typeof(Int32) && !Int32.TryParse(item, out value))
+						{
+							continue;
+						}
 						var convertedValue = item.To(targetType);
 						addMethod.Invoke(targetList, new[] { convertedValue });
 					}
