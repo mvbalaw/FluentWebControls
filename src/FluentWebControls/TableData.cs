@@ -98,7 +98,7 @@ namespace FluentWebControls
 					table.RenderEndTag(writer);
 				}
 			}
-			return Encoding.ASCII.GetString(stream.ToArray());
+			return Encoding.UTF8.GetString(stream.ToArray());
 		}
 	}
 }
