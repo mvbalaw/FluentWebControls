@@ -62,6 +62,13 @@ namespace FluentWebControls.Extensions
 			return dataItem;
 		}
 
+		public static DataItem<T> WithDivId<T>(this DataItem<T> dataItem, string divId)
+		{
+			dataItem.HasDivId = true;
+			dataItem.DivId = divId;
+			return dataItem;
+		}
+
 		public static DataItem<T> WrapWithSpan<T>(this DataItem<T> dataItem)
 		{
 			dataItem.WrapWithSpan = true;

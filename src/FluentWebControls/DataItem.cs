@@ -41,6 +41,8 @@ namespace FluentWebControls
 		internal string ContainerCssClass { get; set; }
 		internal string LabelText { get; set; }
 		internal string InputTextId { get; set; }
+		internal bool HasDivId { get; set; }
+		internal string DivId { get; set; }
 		internal bool WrapWithSpan { private get; set; }
 
 		#region IDataItem Members
@@ -80,6 +82,11 @@ namespace FluentWebControls
 			string tag = WrapWithSpan ? "span" : "div";
 			listItem.Append("<");
 			listItem.Append(tag);
+			if (HasDivId)
+			{
+				listItem.Append(" id=");
+				listItem.Append(DivId);
+			}
 			listItem.Append(Align.Text.CreateQuotedAttribute("align"));
 			if (!ContainerCssClass.IsNullOrEmpty())
 			{
