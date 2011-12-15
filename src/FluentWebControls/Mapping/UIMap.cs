@@ -58,17 +58,19 @@ namespace FluentWebControls.Mapping
 				}
 
 				if (source is IChoiceListMap && 
-				    property.PropertyType.IsGenericType &&
-				    property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
+				    property.PropertyType.IsGenericType)
 				{
-					var itemType = property.PropertyType.GetGenericArguments()[0];
-					var choiceList = source as IChoiceListMap;
-					var items = choiceList.ListItems.Select(x => x.Value.To(itemType)).ToList();
-					var targetList = property.GetValue(model, null);
-					var addMethod = targetList.GetType().GetMethod("Add");
-					foreach(var item in items)
+					if (property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
 					{
-						addMethod.Invoke(targetList, new[] {item});
+						var itemType = property.PropertyType.GetGenericArguments()[0];
+						var choiceList = source as IChoiceListMap;
+						var items = choiceList.ListItems.Select(x => x.Value.To(itemType)).ToList();
+						var targetList = property.GetValue(model, null);
+						var addMethod = targetList.GetType().GetMethod("Add");
+						foreach (var item in items)
+						{
+							addMethod.Invoke(targetList, new[] { item });
+						}
 					}
 				}
 				else
