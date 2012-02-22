@@ -22,15 +22,46 @@ namespace FluentWebControls.Mapping
 			foreach (var matchingProperty in Reflection
 				.GetMatchingProperties(typeof (TDomain), typeof (TModel)))
 			{
+				var source = matchingProperty.SourcePropertyType;
+				if (source.IsGenericType &&
+				    (source.GetGenericTypeDefinition() == typeof (List<>) ||
+				     source.GetGenericTypeDefinition() == typeof (IList<>)))
+				{
+					continue;
+				}
+				var property = matchingProperty.DestinationPropertyType;
+				if (property.IsGenericType &&
+				    (property.GetGenericTypeDefinition() == typeof (List<>) ||
+				     property.GetGenericTypeDefinition() == typeof (IList<>)))
+				{
+					continue;
+				}
+
 				_mappings.Add(matchingProperty.Name, GetMap(matchingProperty));
 			}
 		}
 
+		public TDomain Item { get; private set; }
+
+		#region IUIMap Members
+
+		public void WithIdPrefix(string prefix)
+		{
+			if (_idPrefix.IsNullOrEmpty())
+			{
+				_idPrefix = prefix;
+				return;
+			}
+			_idPrefix = String.Format("{0}.{1}", _idPrefix, prefix);
+		}
+
+		#endregion
+
 		public void Populate(TModel model)
 		{
 			var properties = typeof (TModel).GetProperties()
-				.ToDictionary(x=>x.Name, x=>x);
-			foreach(var mapping in _mappings)
+				.ToDictionary(x => x.Name, x => x);
+			foreach (var mapping in _mappings)
 			{
 				if (!properties.ContainsKey(mapping.Key)) continue;
 				var property = properties[mapping.Key];
@@ -57,10 +88,10 @@ namespace FluentWebControls.Mapping
 					continue;
 				}
 
-				if (source is IChoiceListMap && 
+				if (source is IChoiceListMap &&
 				    property.PropertyType.IsGenericType)
 				{
-					if (property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
+					if (property.PropertyType.GetGenericTypeDefinition() == typeof (List<>))
 					{
 						var itemType = property.PropertyType.GetGenericArguments()[0];
 						var choiceList = source as IChoiceListMap;
@@ -69,7 +100,7 @@ namespace FluentWebControls.Mapping
 						var addMethod = targetList.GetType().GetMethod("Add");
 						foreach (var item in items)
 						{
-							addMethod.Invoke(targetList, new[] { item });
+							addMethod.Invoke(targetList, new[] {item});
 						}
 					}
 				}
@@ -80,22 +111,6 @@ namespace FluentWebControls.Mapping
 				}
 			}
 		}
-
-		public TDomain Item { get; private set; }
-
-		#region IUIMap Members
-
-		public void WithIdPrefix(string prefix)
-		{
-			if (_idPrefix.IsNullOrEmpty())
-			{
-				_idPrefix = prefix;
-				return;
-			}
-			_idPrefix = String.Format("{0}.{1}", _idPrefix, prefix);
-		}
-
-		#endregion
 
 		public CheckBoxData CheckBoxFor(Expression<Func<TModel, object>> source)
 		{
