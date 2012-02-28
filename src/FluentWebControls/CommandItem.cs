@@ -95,6 +95,10 @@ namespace FluentWebControls
 			listItem.Append("<");
 			listItem.Append(tag);
 			listItem.Append(Align.Text.CreateQuotedAttribute("align"));
+			if (CssClass != null)
+			{
+				listItem.Append(CssClass.CreateQuotedAttribute("class"));
+			}
 			listItem.Append(">");
 			string control = _getControl == null ? GetLink(item).ToString() : _getControl(item, Text);
 			listItem.Append(control);
