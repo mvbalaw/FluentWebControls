@@ -32,6 +32,14 @@ namespace FluentWebControls.Mapping
 			return this;
 		}
 
+		public FreeTextMap<TDomain> WithValidation(Action<IFieldValidationBuilder> updateValidation)
+		{
+			var propertyMetaDataWrapper = new PropertyMetaDataWrapper(Validation);
+			updateValidation(propertyMetaDataWrapper);
+			Validation = propertyMetaDataWrapper;
+			return this;
+		}
+
 		object IModelMap.GetValueForModel()
 		{
 			return Value;

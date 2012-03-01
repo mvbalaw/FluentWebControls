@@ -18,4 +18,165 @@ namespace FluentWebControls.Interfaces
 		string ValidationType { get; }
 		void Combine(IPropertyMetaData parentMetaData);
 	}
+
+	public interface IFieldValidationBuilder
+	{
+		IFieldValidationBuilder MaxLength(int? value);
+		IFieldValidationBuilder MaxValue(int? value);
+		IFieldValidationBuilder MinLength(int? value);
+		IFieldValidationBuilder MinValue(int? value);
+		IFieldValidationBuilder Optional();
+		IFieldValidationBuilder Required();
+	}
+
+	public class PropertyMetaDataWrapper : IPropertyMetaData, IFieldValidationBuilder
+	{
+		private readonly IList<string> _dependsOnProperty;
+		private readonly IPropertyMetaData _propertyMetaData;
+		private bool _isRequired;
+		private int? _maxLength;
+		private int? _maxValue;
+		private int? _minLength;
+		private int? _minValue;
+		private string _name;
+		private PropertyInfo _propertyInfo;
+		private Type _returnType;
+		private string _validationType;
+
+		public PropertyMetaDataWrapper(IPropertyMetaData propertyMetaData)
+		{
+			_propertyMetaData = propertyMetaData;
+			if (propertyMetaData != null)
+			{
+				_isRequired = propertyMetaData.IsRequired;
+				_maxLength = propertyMetaData.MaxLength;
+				_maxValue = propertyMetaData.MaxValue;
+				_minLength = propertyMetaData.MinLength;
+				_maxValue = propertyMetaData.MaxValue;
+				_dependsOnProperty = _propertyMetaData.DependsOnProperty;
+				_name = _propertyMetaData.Name;
+				_propertyInfo = _propertyMetaData.PropertyInfo;
+				_returnType = propertyMetaData.ReturnType;
+				_validationType = propertyMetaData.ValidationType;
+			}
+			else
+			{
+				_dependsOnProperty = new List<string>();
+			}
+		}
+
+		public IFieldValidationBuilder MaxLength(int? value)
+		{
+			_maxLength = value;
+			return this;
+		}
+
+		public IFieldValidationBuilder MinLength(int? value)
+		{
+			_minLength = value;
+			return this;
+		}
+
+		public IFieldValidationBuilder MaxValue(int? value)
+		{
+			_maxValue = value;
+			return this;
+		}
+
+		public IFieldValidationBuilder MinValue(int? value)
+		{
+			_minValue = value;
+			return this;
+		}
+
+		public IFieldValidationBuilder Required()
+		{
+			_isRequired = true;
+			return this;
+		}
+
+		public IFieldValidationBuilder Optional()
+		{
+			_isRequired = false;
+			return this;
+		}
+
+		IList<string> IPropertyMetaData.DependsOnProperty
+		{
+			get { return _dependsOnProperty; }
+		}
+		bool IPropertyMetaData.IsRequired
+		{
+			get { return _isRequired; }
+		}
+		int? IPropertyMetaData.MaxLength
+		{
+			get { return _maxLength; }
+		}
+		int? IPropertyMetaData.MaxValue
+		{
+			get { return _maxValue; }
+		}
+		int? IPropertyMetaData.MinLength
+		{
+			get { return _minLength; }
+		}
+		int? IPropertyMetaData.MinValue
+		{
+			get { return _minValue; }
+		}
+		string IPropertyMetaData.Name
+		{
+			get { return _name; }
+		}
+		PropertyInfo IPropertyMetaData.PropertyInfo
+		{
+			get { return _propertyInfo; }
+		}
+		Type IPropertyMetaData.ReturnType
+		{
+			get { return _returnType; }
+		}
+		string IPropertyMetaData.ValidationType
+		{
+			get { return _validationType; }
+		}
+
+		void IPropertyMetaData.Combine(IPropertyMetaData parentMetaData)
+		{
+			if (_propertyMetaData != null)
+			{
+				_propertyMetaData.Combine(parentMetaData);
+				_isRequired |= _propertyMetaData.IsRequired;
+			}
+			else
+			{
+				_isRequired |= parentMetaData.IsRequired;
+			}
+		}
+
+		public IFieldValidationBuilder Name(string name)
+		{
+			_name = name;
+			return this;
+		}
+
+		public IFieldValidationBuilder ReturnType(Type returnType)
+		{
+			_returnType = returnType;
+			return this;
+		}
+
+		public IFieldValidationBuilder ReturnType(PropertyInfo propertyInfo)
+		{
+			_propertyInfo = propertyInfo;
+			return this;
+		}
+
+		public IFieldValidationBuilder ValidationType(string validationType)
+		{
+			_validationType = validationType;
+			return this;
+		}
+	}
 }

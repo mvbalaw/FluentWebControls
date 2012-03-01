@@ -53,6 +53,11 @@ namespace FluentWebControls.Mapping
 
 		public IPropertyMetaData Validation { get; set; }
 
+		object IModelMap.GetValueForModel()
+		{
+			return SelectedValue;
+		}
+
 		string IFreeTextMap.Value
 		{
 			get { return SelectedValue; }
@@ -72,13 +77,16 @@ namespace FluentWebControls.Mapping
 
 		public ChoiceListMap<TDomain, TModel, TItemType> WithValidation(Expression<Func<TDomain, TItemType>> getProperty)
 		{
-			 Validation = Configuration.ValidationMetaDataFactory.GetFor(getProperty);
+			Validation = Configuration.ValidationMetaDataFactory.GetFor(getProperty);
 			return this;
 		}
 
-		object IModelMap.GetValueForModel()
+		public ChoiceListMap<TDomain, TModel, TItemType> WithValidation(Action<IFieldValidationBuilder> updateValidation)
 		{
-			return SelectedValue;
+			var propertyMetaDataWrapper = new PropertyMetaDataWrapper(Validation);
+			updateValidation(propertyMetaDataWrapper);
+			Validation = propertyMetaDataWrapper;
+			return this;
 		}
 	}
 }
