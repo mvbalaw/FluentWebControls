@@ -67,6 +67,11 @@ namespace FluentWebControls.Extensions
 			dropDownListData.Label = label;
 			return dropDownListData;
 		}
+		public static DropDownListData WithAttribute(this DropDownListData dropDownListData, string attributeName, string attributeValue)
+		{
+			dropDownListData.Attributes.Add(new KeyValuePair<string, string>(attributeName, attributeValue));
+			return dropDownListData;
+		}
 
 		public static DropDownListData WithSelectedValue<T>(this DropDownListData dropDownListData, Func<T> nullableParent, Func<T, string> getValue) where T : class
 		{

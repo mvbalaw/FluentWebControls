@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using FluentWebControls.Extensions;
-
 using MvbaCore;
 
 namespace FluentWebControls
@@ -17,6 +15,7 @@ namespace FluentWebControls
 		string IdWithPrefix { get; }
 		LabelData Label { get; }
 		IEnumerable<KeyValuePair<string, string>> ListItems { get; }
+		List<KeyValuePair<string, string>> Attributes { get; }
 		bool ReadOnly { get; }
 		string SelectedValue { get; }
 		string TabIndex { get; }
@@ -27,14 +26,17 @@ namespace FluentWebControls
 	{
 		private KeyValuePair<string, string>? _formFieldToSetBeforeSubmitting;
 		private IEnumerable<KeyValuePair<string, string>> _items;
+		private string _selectedValue;
 
 		public DropDownListData(IEnumerable<KeyValuePair<string, string>> items)
 		{
 			_items = items;
+			Attributes = new List<KeyValuePair<string, string>>();
 			CssClass = "ddlDetail";
 		}
 
 		internal KeyValuePair<string, string>? Default { private get; set; }
+
 		internal KeyValuePair<string, string> FormFieldToSetBeforeSubmitOnChange
 		{
 			set
@@ -43,10 +45,14 @@ namespace FluentWebControls
 				_formFieldToSetBeforeSubmitting = value;
 			}
 		}
+
 		internal LabelData Label { private get; set; }
+
+		internal List<KeyValuePair<string, string>> Attributes { get; private set; }
+
 		internal bool ReadOnly { private get; set; }
 		internal string TabIndex { private get; set; }
-		private string _selectedValue;
+
 		internal string SelectedValue
 		{
 			private get
@@ -74,21 +80,31 @@ namespace FluentWebControls
 		public string SlaveId { get; set; }
 		internal bool SubmitOnChange { private get; set; }
 
+		#region IDropDownListData Members
+
 		bool IDropDownListData.SubmitOnChange
 		{
 			get { return SubmitOnChange; }
 		}
+
 		string IDropDownListData.IdWithPrefix
 		{
 			get { return IdWithPrefix; }
 		}
+
 		string IDropDownListData.TabIndex
 		{
 			get { return TabIndex; }
 		}
+
 		IEnumerable<KeyValuePair<string, string>> IDropDownListData.ListItems
 		{
 			get { return _items; }
+		}
+
+		List<KeyValuePair<string, string>> IDropDownListData.Attributes
+		{
+			get { return Attributes; }
 		}
 
 		public string CssClass { get; set; }
@@ -97,6 +113,7 @@ namespace FluentWebControls
 		{
 			get { return Default; }
 		}
+
 		KeyValuePair<string, string>? IDropDownListData.FormFieldToSetBeforeSubmitOnChange
 		{
 			get { return _formFieldToSetBeforeSubmitting; }
@@ -111,10 +128,13 @@ namespace FluentWebControls
 		{
 			get { return SelectedValue; }
 		}
+
 		bool IDropDownListData.ReadOnly
 		{
 			get { return ReadOnly; }
 		}
+
+		#endregion
 
 		public void Remove(string value)
 		{
@@ -140,12 +160,18 @@ namespace FluentWebControls
 			sb.AppendFormat(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
 			if (SubmitOnChange)
 			{
-				string v = _formFieldToSetBeforeSubmitting != null ? "setFormFieldAndSubmit(\"" + _formFieldToSetBeforeSubmitting.Value.Key + "\",\"" + _formFieldToSetBeforeSubmitting.Value.Value + "\", this);" : "this.form.submit();";
+				string v = _formFieldToSetBeforeSubmitting != null
+				           	? "setFormFieldAndSubmit(\"" + _formFieldToSetBeforeSubmitting.Value.Key + "\",\"" +
+				           	  _formFieldToSetBeforeSubmitting.Value.Value + "\", this);"
+				           	: "this.form.submit();";
 				sb.Append(v.CreateQuotedAttribute("onchange"));
 			}
 			else if (SlaveId != null)
 			{
-				string secondaryDdlScript = String.Format("UpdateSecondDropDown(\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\");", IdWithPrefix, SlaveId.ToCamelCase(), Reflection.GetControllerName(SlaveDataSource.ClassName), SlaveDataSource.MethodName, SlaveDataSource.ParameterValues.First().Key);
+				string secondaryDdlScript = String.Format("UpdateSecondDropDown(\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\");",
+				                                          IdWithPrefix, SlaveId.ToCamelCase(),
+				                                          Reflection.GetControllerName(SlaveDataSource.ClassName),
+				                                          SlaveDataSource.MethodName, SlaveDataSource.ParameterValues.First().Key);
 				sb.Append(secondaryDdlScript.CreateQuotedAttribute("onchange"));
 			}
 			if (ReadOnly)
@@ -155,6 +181,13 @@ namespace FluentWebControls
 			if (!TabIndex.IsNullOrEmpty())
 			{
 				sb.Append(TabIndex.CreateQuotedAttribute("tabindex"));
+			}
+			if (Attributes.Any())
+			{
+				foreach (var keyValuePair in Attributes)
+				{
+					sb.Append(keyValuePair.Key.CreateQuotedAttribute(keyValuePair.Value));
+				}
 			}
 			sb.Append('>');
 			if (Default != null)
@@ -175,15 +208,16 @@ namespace FluentWebControls
 			{
 				var hidden = new HiddenData()
 					.WithValue(SelectedValue)
-					.WithId(((IWebControl)this).Id)
-					.WithIdPrefix(((IWebControl)this).IdPrefix);
+					.WithId(((IWebControl) this).Id)
+					.WithIdPrefix(((IWebControl) this).IdPrefix);
 
 				sb.Append(hidden.ToString());
 			}
 			if (SlaveId != null)
 			{
 				var script = new StringBuilder();
-				script.Append(@"
+				script.Append(
+					@"
 <script language=""JavaScript"">
 	function UpdateSecondDropDown(parentId, childId, controller, action, variable)
 	{
