@@ -1,9 +1,7 @@
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 using FluentWebControls.Extensions;
-
 using MvbaCore;
 
 namespace FluentWebControls
@@ -55,26 +53,32 @@ namespace FluentWebControls
 		{
 			get { return Align; }
 		}
+
 		string IDataColumn.CssClass
 		{
 			get { return CssClass; }
 		}
+
 		string IDataColumn.InputCssClass
 		{
 			get { return InputCssClass; }
 		}
+
 		string IDataColumn.HeaderText
 		{
 			get { return HeaderText; }
 		}
+
 		AlignAttribute IDataColumn.HeaderAlign
 		{
 			get { return HeaderAlign; }
 		}
+
 		string IDataColumn.HeaderCssClass
 		{
 			get { return HeaderCssClass; }
 		}
+
 		string IDataColumn.Prefix
 		{
 			get { return Prefix; }
@@ -83,22 +87,22 @@ namespace FluentWebControls
 		public virtual void Render(T item, HtmlTextWriter writer)
 		{
 			var cell = new TableCell
-				{
-					HorizontalAlign = Align.ToHorizontalAlign(),
-					Text = GetColumnWithInput(item),
-					CssClass = CssClass
-				};
+			           	{
+			           		HorizontalAlign = Align.ToHorizontalAlign(),
+			           		Text = GetColumnWithInput(item),
+			           		CssClass = CssClass
+			           	};
 			cell.RenderControl(writer);
 		}
 
 		public void RenderHeader(HtmlTextWriter writer)
 		{
 			var cell = new TableHeaderCell
-				{
-					HorizontalAlign = HeaderAlign.ToHorizontalAlign(),
-					Text = HeaderText,
-					CssClass = HeaderCssClass
-				};
+			           	{
+			           		HorizontalAlign = HeaderAlign.ToHorizontalAlign(),
+			           		Text = HeaderText,
+			           		CssClass = HeaderCssClass
+			           	};
 			cell.RenderControl(writer);
 		}
 
@@ -107,6 +111,10 @@ namespace FluentWebControls
 			if (ColumnTextType == ColumnTextType.TextBox)
 			{
 				return new TextBoxData(GetColumnText(item)).WithId(GetId(item)).CssClass(InputCssClass).ToString();
+			}
+			if (ColumnTextType == ColumnTextType.CheckBox)
+			{
+				return new CheckBoxData(bool.Parse(GetColumnText(item))).WithId(GetId(item)).ToString();
 			}
 			if (ColumnTextType == ColumnTextType.Hidden)
 			{
@@ -130,17 +138,19 @@ namespace FluentWebControls
 			{
 				return InputTextId ?? ColumnName;
 			}
-			return Prefix.IsNullOrEmpty() ? String.Format("{0}_{1}", ColumnName, GetItemId(item)) : String.Format("{0}_{1}_{2}", Prefix, ColumnName, GetItemId(item));
+			return Prefix.IsNullOrEmpty()
+			       	? String.Format("{0}_{1}", ColumnName, GetItemId(item))
+			       	: String.Format("{0}_{1}_{2}", Prefix, ColumnName, GetItemId(item));
 		}
 	}
 
 	public class ColumnTextType : NamedConstant<ColumnTextType>
 	{
-		[DefaultKey]
-		public static ColumnTextType ColumnText = new ColumnTextType("column");
+		[DefaultKey] public static ColumnTextType ColumnText = new ColumnTextType("column");
 		public static ColumnTextType Hidden = new ColumnTextType("hidden");
 		public static ColumnTextType Span = new ColumnTextType("span");
 		public static ColumnTextType TextBox = new ColumnTextType("textbox");
+		public static ColumnTextType CheckBox = new ColumnTextType("checkbox");
 
 		private ColumnTextType(string key)
 		{

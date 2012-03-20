@@ -56,6 +56,13 @@ namespace FluentWebControls.Extensions
 			return dataColumn;
 		}
 
+		public static DataColumn<T> AsCheckBox<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
+		{
+			dataColumn.ColumnTextType = ColumnTextType.CheckBox;
+			dataColumn.GetItemId = forId;
+			return dataColumn;
+		}
+
 		public static DataColumn<T> AsTextBox<T>(this DataColumn<T> dataColumn, string forId)
 		{
 			dataColumn.ColumnTextType = ColumnTextType.TextBox;
