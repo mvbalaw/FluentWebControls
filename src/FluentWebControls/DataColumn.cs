@@ -114,7 +114,7 @@ namespace FluentWebControls
 			}
 			if (ColumnTextType == ColumnTextType.CheckBox)
 			{
-				return new CheckBoxData(bool.Parse(GetColumnText(item))).WithId(GetId(item)).ToString();
+				return new CheckBoxData(bool.Parse(GetColumnText(item))).WithId(GetId(item)).WithCssClass(InputCssClass).ToString();
 			}
 			if (ColumnTextType == ColumnTextType.Hidden)
 			{
