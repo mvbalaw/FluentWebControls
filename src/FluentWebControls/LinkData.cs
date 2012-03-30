@@ -9,15 +9,15 @@ namespace FluentWebControls
 {
 	public interface ILinkData
 	{
+		string Alt { get; }
 		string ControllerExtension { get; }
 		string CssClass { get; }
 		bool Disabled { get; }
 		string Href { get; }
 		string Id { get; }
 		string IdWithPrefix { get; }
-		string LinkText { get; }
 		string ImageUrl { get; }
-		string Alt { get; }
+		string LinkText { get; }
 		string MouseOverText { get; }
 		string Rel { get; }
 		string Url { get; }
@@ -29,15 +29,18 @@ namespace FluentWebControls
 		private readonly List<string> _urlParameters = new List<string>();
 		private string _url;
 
+		public LinkData()
+		{
+			Visible = true;
+		}
+
+		internal string Alt { private get; set; }
 		internal string ControllerExtension { private get; set; }
-
 		internal string CssClass { private get; set; }
-
 		internal bool Disabled { private get; set; }
 		internal string Id { private get; set; }
-		internal string LinkText { private get; set; }
 		internal string ImageUrl { private get; set; }
-		internal string Alt { private get; set; }
+		internal string LinkText { private get; set; }
 		internal string MouseOverText { private get; set; }
 		internal string Rel { private get; set; }
 		internal string Url
@@ -61,6 +64,7 @@ namespace FluentWebControls
 			}
 			set { _url = value; }
 		}
+		public bool Visible { private get; set; }
 		string ILinkData.ControllerExtension
 		{
 			get { return ControllerExtension; }
@@ -168,6 +172,11 @@ namespace FluentWebControls
 
 		public override string ToString()
 		{
+			if (!Visible)
+			{
+				return "";
+			}
+
 			var sb = new StringBuilder();
 			sb.AppendFormat("<a");
 			if (Id != null)

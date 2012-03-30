@@ -32,6 +32,13 @@ namespace FluentWebControls.Extensions
 			return linkData;
 		}
 
+		public static LinkData VisibleIf(this LinkData buttonData, bool visible)
+		{
+			buttonData.Visible = visible;
+			return buttonData;
+		}
+
+
 		public static LinkData WithData(this LinkData linkData, Expression<Func<string>> fieldNameAndValue)
 		{
 			linkData.AddQueryStringData(Reflection.GetPropertyName(fieldNameAndValue), fieldNameAndValue.Compile()());
