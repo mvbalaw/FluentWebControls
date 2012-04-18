@@ -2,40 +2,40 @@
 {
 	public static class RadioButtonDataExtensions
 	{
-		public static RadioButtonData IsChecked(this RadioButtonData checkBoxData, bool @checked)
+		public static RadioButtonData IsChecked(this RadioButtonData radioButtonData, bool @checked)
 		{
-			checkBoxData.Checked = @checked;
-			return checkBoxData;
+			radioButtonData.Checked = @checked;
+			return radioButtonData;
 		}
 
-		public static RadioButtonData WithLabel(this RadioButtonData checkBoxData, string labelText)
+		public static RadioButtonData WithLabel(this RadioButtonData radioButtonData, string labelText)
 		{
 			var label = Label.ForIt().WithText(labelText);
-			return checkBoxData.WithLabel(label);
+			return radioButtonData.WithLabel(label);
 		}
 
-		public static RadioButtonData WithLabel(this RadioButtonData checkBoxData, LabelData label)
+		public static RadioButtonData WithLabel(this RadioButtonData radioButtonData, LabelData label)
 		{
-			checkBoxData.Label = label;
-			return checkBoxData;
+			radioButtonData.Label = label;
+			return radioButtonData;
 		}
 
-		public static RadioButtonData WithLabelAlignedLeft(this RadioButtonData checkBoxData, LabelData label)
+		public static RadioButtonData WithLabelAlignedLeft(this RadioButtonData radioButtonData, LabelData label)
 		{
-			checkBoxData.LabelAlignAttribute = AlignAttribute.Left;
-			return checkBoxData.WithLabel(label);
+			radioButtonData.LabelAlignAttribute = AlignAttribute.Left;
+			return radioButtonData.WithLabel(label);
 		}
 
-		public static RadioButtonData WithLabelAlignedLeft(this RadioButtonData checkBoxData, string labelText)
+		public static RadioButtonData WithLabelAlignedLeft(this RadioButtonData radioButtonData, string labelText)
 		{
-			checkBoxData.LabelAlignAttribute = AlignAttribute.Left;
-			return checkBoxData.WithLabel(labelText);
+			radioButtonData.LabelAlignAttribute = AlignAttribute.Left;
+			return radioButtonData.WithLabel(labelText);
 		}
 
-		public static RadioButtonData WithValue(this RadioButtonData checkBoxData, string value)
+		public static RadioButtonData WithValue(this RadioButtonData radioButtonData, string value)
 		{
-			checkBoxData.Value = value;
-			return checkBoxData;
+			radioButtonData.Value = value;
+			return radioButtonData;
 		}
 
 		public static RadioButtonData WithTabIndex(this RadioButtonData checkBoxData, string tabIndex)

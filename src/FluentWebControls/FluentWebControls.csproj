@@ -92,6 +92,7 @@
     <Compile Include="Extensions\KeyValuePairExtensions.cs" />
     <Compile Include="Extensions\ListDataExtensions.cs" />
     <Compile Include="Extensions\RadioButtonDataExtensions.cs" />
+    <Compile Include="Extensions\RadioButtonListDataExtensions.cs" />
     <Compile Include="Extensions\SpanDataExtensions.cs" />
     <Compile Include="Extensions\TableDataExtensions.cs" />
     <Compile Include="HtmlList.cs" />
