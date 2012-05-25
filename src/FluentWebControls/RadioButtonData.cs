@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-
 using FluentWebControls.Extensions;
 
 namespace FluentWebControls
@@ -12,6 +11,7 @@ namespace FluentWebControls
 		AlignAttribute LabelAlignAttribute { get; }
 		string Value { get; }
 		string TabIndex { get; }
+		string CssClass { get; }
 	}
 
 	public class RadioButtonData : WebControlBase, IRadioButtonData
@@ -27,15 +27,18 @@ namespace FluentWebControls
 		internal AlignAttribute LabelAlignAttribute { private get; set; }
 		internal string Value { private get; set; }
 		internal string TabIndex { private get; set; }
+		internal string CssClass { private get; set; }
 
 		LabelData IRadioButtonData.Label
 		{
 			get { return Label; }
 		}
+
 		AlignAttribute IRadioButtonData.LabelAlignAttribute
 		{
 			get { return LabelAlignAttribute; }
 		}
+
 		bool IRadioButtonData.Checked
 		{
 			get { return Checked; }
@@ -45,9 +48,15 @@ namespace FluentWebControls
 		{
 			get { return Value; }
 		}
+
 		string IRadioButtonData.TabIndex
 		{
 			get { return TabIndex; }
+		}
+
+		string IRadioButtonData.CssClass
+		{
+			get { return CssClass; }
 		}
 
 		private void AppendLabel(StringBuilder stringBuilder)
@@ -64,9 +73,9 @@ namespace FluentWebControls
 			else
 			{
 				var blankLabel = new LabelData
-					{
-						Text = "&nbsp;"
-					};
+				                 	{
+				                 		Text = "&nbsp;"
+				                 	};
 				stringBuilder.Insert(0, blankLabel);
 				Label.Style = "";
 				if (!String.IsNullOrEmpty(Label.Text) && Label.Text.EndsWith(":"))
@@ -102,6 +111,10 @@ namespace FluentWebControls
 			if (!TabIndex.IsNullOrEmpty())
 			{
 				sb.Append(TabIndex.CreateQuotedAttribute("tabindex"));
+			}
+			if (!CssClass.IsNullOrEmpty())
+			{
+				sb.Append(CssClass.CreateQuotedAttribute("class"));
 			}
 			sb.Append("/>");
 			AppendLabel(sb);

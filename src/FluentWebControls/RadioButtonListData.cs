@@ -39,7 +39,10 @@ namespace FluentWebControls
 					.WithValue(item.Value)
 					.WithId(id)
 					.WithIdPrefix(idPrefix);
-
+				if (!CssClass.IsNullOrEmpty())
+				{
+					checkbox.WithCssClass(CssClass);
+				}
 				sb.Append("<div>");
 				sb.Append(checkbox.ToString());
 				sb.Append(item.Key);

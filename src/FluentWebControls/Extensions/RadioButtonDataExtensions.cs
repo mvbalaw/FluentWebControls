@@ -13,6 +13,12 @@
 			var label = Label.ForIt().WithText(labelText);
 			return radioButtonData.WithLabel(label);
 		}
+		
+		public static RadioButtonData WithCssClass(this RadioButtonData radioButtonData, string cssClass)
+		{
+			radioButtonData.CssClass = cssClass;
+			return radioButtonData;
+		}
 
 		public static RadioButtonData WithLabel(this RadioButtonData radioButtonData, LabelData label)
 		{

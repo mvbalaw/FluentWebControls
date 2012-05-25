@@ -8,11 +8,16 @@ namespace FluentWebControls.Extensions
 			return radioButtonListData.WithLabel(label);
 		}
 
-		public static RadioButtonListData WithLabel(this RadioButtonListData radioButtonData, LabelData label)
+		public static RadioButtonListData WithLabel(this RadioButtonListData radioButtonListData, LabelData label)
 		{
-			radioButtonData.Label = label;
-			return radioButtonData;
+			radioButtonListData.Label = label;
+			return radioButtonListData;
 		}
 
+		public static RadioButtonListData WithCssClass(this RadioButtonListData radioButtonListData, string cssClass)
+		{
+			radioButtonListData.CssClass = cssClass;
+			return radioButtonListData;
+		}
 	}
 }
