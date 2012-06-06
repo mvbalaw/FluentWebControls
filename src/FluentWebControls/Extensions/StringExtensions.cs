@@ -22,7 +22,7 @@ namespace FluentWebControls.Extensions
 			{
 				return str;
 			}
-			string value = str;
+			var value = str;
 			if (trimFirst)
 			{
 				value = str.Trim();
@@ -42,7 +42,7 @@ namespace FluentWebControls.Extensions
 
 		public static string EscapeForTagAttribute(this string value)
 		{
-            return value == null ? "" : value.Replace("&", "&amp;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace("\'", "&apos;");
+			return value == null ? "" : value.Replace("&", "&amp;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace("\'", "&apos;");
 		}
 
 		public static string EscapeForUrl(this string value)
@@ -53,7 +53,7 @@ namespace FluentWebControls.Extensions
 			}
 
 			var parts = value.Split(' ');
-			string result = parts.Select(x => HttpUtility.UrlEncode(x)).Join("%20");
+			var result = parts.Select(x => HttpUtility.UrlEncode(x)).Join("%20");
 			return result;
 		}
 
@@ -72,6 +72,11 @@ namespace FluentWebControls.Extensions
 				default:
 					return ListSortDirection.Ascending;
 			}
+		}
+
+		public static string CombineWithWebCompatibleSeparator(this string prefix, string suffix)
+		{
+			return prefix + Constants.WebCompatibleSeparator + suffix;
 		}
 	}
 }

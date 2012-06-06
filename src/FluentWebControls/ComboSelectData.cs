@@ -35,7 +35,7 @@ namespace FluentWebControls
 				sb.Append(Label);
 			}
 			sb.Append("<select");
-			sb.Append(IdWithPrefix.CreateQuotedAttribute("name"));
+			sb.Append(NameWithPrefix.CreateQuotedAttribute("name"));
 			sb.Append(IdWithPrefix.CreateQuotedAttribute("id"));
 			sb.AppendFormat(BuildJqueryValidation(CssClass.Join(" ")).CreateQuotedAttribute("class"));
 			sb.Append("multiple".CreateQuotedAttribute("multiple"));

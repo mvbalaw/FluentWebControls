@@ -155,7 +155,7 @@ namespace FluentWebControls
 			{
 				idWithPrefix += "_readonly";
 			}
-			sb.Append(idWithPrefix.CreateQuotedAttribute("name"));
+			sb.Append(NameWithPrefix.CreateQuotedAttribute("name"));
 			sb.Append(idWithPrefix.CreateQuotedAttribute("id"));
 			sb.AppendFormat(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
 			if (SubmitOnChange)

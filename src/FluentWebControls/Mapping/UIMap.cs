@@ -52,7 +52,7 @@ namespace FluentWebControls.Mapping
 				_idPrefix = prefix;
 				return;
 			}
-			_idPrefix = String.Format("{0}.{1}", _idPrefix, prefix);
+			_idPrefix = _idPrefix.CombineWithWebCompatibleSeparator(prefix);
 		}
 
 		#endregion

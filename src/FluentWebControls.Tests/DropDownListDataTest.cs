@@ -7,12 +7,15 @@ using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 using FluentWebControls.Tests.Extensions;
 
+using JetBrains.Annotations;
+
 using MvbaCore;
 
 using NUnit.Framework;
 
 namespace FluentWebControls.Tests
 {
+	[UsedImplicitly]
 	public class DropDownListDataTest
 	{
 		[TestFixture]
@@ -27,7 +30,9 @@ namespace FluentWebControls.Tests
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				string value = "value";
+// ReSharper disable ConvertToConstant.Local
+				var value = "value";
+// ReSharper restore ConvertToConstant.Local
 
 				_id = Reflection.GetPropertyName(() => value).ToCamelCase();
 				_propertyMetaData = PropertyMetaDataMocker.CreateStub(_id, true, null, null, null, null, typeof(string));
@@ -64,7 +69,9 @@ namespace FluentWebControls.Tests
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				string value = "value";
+// ReSharper disable ConvertToConstant.Local
+				var value = "value";
+// ReSharper restore ConvertToConstant.Local
 
 				_id = Reflection.GetPropertyName(() => value).ToCamelCase();
 				_propertyMetaData = PropertyMetaDataMocker.CreateStub(_id, false, null, null, null, null, typeof(string));
@@ -102,7 +109,9 @@ namespace FluentWebControls.Tests
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				string value = "value";
+// ReSharper disable ConvertToConstant.Local
+				var value = "value";
+// ReSharper restore ConvertToConstant.Local
 
 				_id = Reflection.GetPropertyName(() => value).ToCamelCase();
 				_propertyMetaData = PropertyMetaDataMocker.CreateStub(_id, false, null, null, null, null, typeof(string));
@@ -133,17 +142,17 @@ namespace FluentWebControls.Tests
 			private string _htmlText;
 			private string _id;
 			private IEnumerable<KeyValuePair<string, string>> _items;
-			private IPropertyMetaData _propertyMetaData;
 
 			[SetUp]
 			public void BeforeEachTest()
 			{
-				string value = "value";
+// ReSharper disable ConvertToConstant.Local
+				var value = "value";
+// ReSharper restore ConvertToConstant.Local
 
 				_id = Reflection.GetPropertyName(() => value).ToCamelCase();
-				_propertyMetaData = PropertyMetaDataMocker.CreateStub(_id, false, null, null, null, null, typeof(string));
 
-				_htmlText = "<select name='value_readonly' id='value_readonly' class='ddlDetail' disabled='disabled'><option value='Value1' selected='selected'>Name1</option></select><input type='hidden' id='value' name='value' value='Value1'/>";
+				_htmlText = "<select name='value' id='value_readonly' class='ddlDetail' disabled='disabled'><option value='Value1' selected='selected'>Name1</option></select><input type='hidden' id='value' name='value' value='Value1'/>";
 				_items = new List<KeyValuePair<string, string>>
 					{
 						new KeyValuePair<string, string>("Name1", "Value1"),
@@ -157,7 +166,7 @@ namespace FluentWebControls.Tests
 					.AsReadOnly()
 					.WithId(_id);
 
-				string result = dropDownListData.ToString();
+				var result = dropDownListData.ToString();
 				result.ShouldBeEqualTo(_htmlText);
 			}
 		}

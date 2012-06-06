@@ -28,7 +28,7 @@ namespace FluentWebControls
 			sb.Append("<input");
 			sb.Append("hidden".CreateQuotedAttribute("type"));
 			sb.Append(IdWithPrefix.CreateQuotedAttribute("id"));
-			sb.Append(IdWithPrefix.CreateQuotedAttribute("name"));
+			sb.Append(NameWithPrefix.CreateQuotedAttribute("name"));
 			sb.Append(Value.CreateQuotedAttribute("value"));
 			sb.Append("/>");
 			return sb.ToString();
