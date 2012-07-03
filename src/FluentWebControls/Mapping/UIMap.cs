@@ -14,6 +14,7 @@ namespace FluentWebControls.Mapping
 		private readonly dynamic _container = new ExpandoObject();
 		private readonly IDictionary<string, object> _mappings;
 		private string _idPrefix;
+		private string _namePrefix;
 
 		protected UIMap(TDomain item)
 		{
@@ -43,8 +44,6 @@ namespace FluentWebControls.Mapping
 
 		public TDomain Item { get; private set; }
 
-		#region IUIMap Members
-
 		public void WithIdPrefix(string prefix)
 		{
 			if (_idPrefix.IsNullOrEmpty())
@@ -55,7 +54,15 @@ namespace FluentWebControls.Mapping
 			_idPrefix = _idPrefix.CombineWithWebCompatibleSeparator(prefix);
 		}
 
-		#endregion
+		public void WithNamePrefix(string prefix)
+		{
+			if (_namePrefix.IsNullOrEmpty())
+			{
+				_namePrefix = prefix;
+				return;
+			}
+			_namePrefix = String.Format("{0}.{1}", _namePrefix, prefix);
+		}
 
 		public void Populate(TModel model)
 		{
@@ -77,12 +84,12 @@ namespace FluentWebControls.Mapping
 					listSource.Populate(model);
 					continue;
 				}
-				object valueForModel = source.GetValueForModel();
+				var valueForModel = source.GetValueForModel();
 				if (valueForModel == null)
 				{
 					continue;
 				}
-				var stringValue = valueForModel.ToString();
+				string stringValue = valueForModel.ToString();
 				if (stringValue.Length == 0)
 				{
 					continue;
@@ -116,21 +123,21 @@ namespace FluentWebControls.Mapping
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var booleanMap = uiMap.TryCastTo<IBooleanMap>();
-			return booleanMap.AsCheckBox().WithIdPrefix(_idPrefix);
+			return booleanMap.AsCheckBox().WithIdPrefix(_idPrefix).WithNamePrefix(_namePrefix);
 		}
 
 		public CheckBoxListData CheckBoxListFor(Expression<Func<TModel, object>> source)
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
-			return listUiMap.AsCheckBoxList().WithIdPrefix(_idPrefix);
+			return listUiMap.AsCheckBoxList().WithIdPrefix(_idPrefix).WithNamePrefix(_namePrefix);
 		}
 
 		public ComboSelectData ComboSelectFor(Expression<Func<TModel, object>> source)
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
-			return listUiMap.AsComboSelect().WithIdPrefix(_idPrefix);
+			return listUiMap.AsComboSelect().WithIdPrefix(_idPrefix).WithNamePrefix(_namePrefix);
 		}
 
 		protected BooleanMap ConfigureBoolean(Expression<Func<TModel, object>> forId, Func<TDomain, bool> getItemValue)
@@ -232,7 +239,7 @@ namespace FluentWebControls.Mapping
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
-			return listUiMap.AsDropDownList().WithIdPrefix(_idPrefix);
+			return listUiMap.AsDropDownList().WithIdPrefix(_idPrefix).WithNamePrefix(_namePrefix);
 		}
 
 		private object GetMap(PropertyMappingInfo propertyMappingInfo)
@@ -259,7 +266,7 @@ namespace FluentWebControls.Mapping
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
-			return freeTextUiMap.AsHidden().WithIdPrefix(_idPrefix);
+			return freeTextUiMap.AsHidden().WithIdPrefix(_idPrefix).WithNamePrefix(_namePrefix);
 		}
 
 		public TOutput ListMapFor<TOutput>(Expression<Func<TModel, object>> source) where TOutput : class, IListUIMap
@@ -274,7 +281,9 @@ namespace FluentWebControls.Mapping
 			var uiMap = TryGetRequestedMap(source);
 			var listUiMap = uiMap.TryCastTo<TOutput>();
 			listUiMap.WithIdPrefix(_idPrefix);
+			listUiMap.WithNamePrefix(_namePrefix);
 			listUiMap.WithIdPrefix(Reflection.GetPropertyName(source));
+			listUiMap.WithNamePrefix(Reflection.GetPropertyName(source));
 			return listUiMap;
 		}
 
@@ -282,14 +291,14 @@ namespace FluentWebControls.Mapping
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var listUiMap = uiMap.TryCastTo<IChoiceListMap>();
-			return listUiMap.AsRadioButtons().WithIdPrefix(_idPrefix);
+			return listUiMap.AsRadioButtons().WithIdPrefix(_idPrefix).WithNamePrefix(_namePrefix);
 		}
 
 		public SpanData SpanFor(Expression<Func<TModel, object>> source)
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
-			return freeTextUiMap.AsSpan().WithIdPrefix(_idPrefix);
+			return freeTextUiMap.AsSpan().WithIdPrefix(_idPrefix).WithNamePrefix(_namePrefix);
 		}
 
 		public TextAreaData TextAreaFor(Expression<Func<TModel, object>> source)
@@ -297,14 +306,15 @@ namespace FluentWebControls.Mapping
 			var uiMap = TryGetRequestedMap(source);
 			var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
 			return freeTextUiMap.AsTextArea()
-				.WithIdPrefix(_idPrefix);
+				.WithIdPrefix(_idPrefix)
+				.WithNamePrefix(_namePrefix);
 		}
 
 		public TextBoxData TextBoxFor(Expression<Func<TModel, object>> source)
 		{
 			var uiMap = TryGetRequestedMap(source);
 			var freeTextUiMap = uiMap.TryCastTo<IFreeTextMap>();
-			return freeTextUiMap.AsTextBox().WithIdPrefix(_idPrefix);
+			return freeTextUiMap.AsTextBox().WithIdPrefix(_idPrefix).WithNamePrefix(_namePrefix);
 		}
 
 		private static void TryAddValidation<TItemType>(Expression<Func<TDomain, TItemType>> getValue, IFreeTextMap map)

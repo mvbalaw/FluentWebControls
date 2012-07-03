@@ -209,7 +209,8 @@ namespace FluentWebControls
 				var hidden = new HiddenData()
 					.WithValue(SelectedValue)
 					.WithId(((IWebControl) this).Id)
-					.WithIdPrefix(((IWebControl) this).IdPrefix);
+					.WithIdPrefix(((IWebControl) this).IdPrefix)
+					.WithNamePrefix(((IWebControl) this).NamePrefix);
 
 				sb.Append(hidden.ToString());
 			}

@@ -26,8 +26,8 @@ namespace FluentWebControls
 		{
 			get
 			{
-				string prefix = ((IWebControl)this).IdPrefix ?? "";
-				if (!String.IsNullOrEmpty(((IWebControl)this).IdPrefix))
+				string prefix = ((IWebControl)this).NamePrefix ?? "";
+				if (!String.IsNullOrEmpty(((IWebControl)this).NamePrefix))
 				{
 					prefix += ".";
 				}
@@ -42,5 +42,6 @@ namespace FluentWebControls
 		}
 		string IWebControl.Id { get; set; }
 		string IWebControl.IdPrefix { get; set; }
+		string IWebControl.NamePrefix { get; set; }
 	}
 }

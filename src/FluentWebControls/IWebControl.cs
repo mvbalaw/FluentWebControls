@@ -4,5 +4,6 @@ namespace FluentWebControls
 	{
 		string Id { get; set; }
 		string IdPrefix { get; set; }
+		string NamePrefix { get; set; }
 	}
 }

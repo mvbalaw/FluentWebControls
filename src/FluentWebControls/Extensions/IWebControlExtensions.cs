@@ -28,5 +28,11 @@ namespace FluentWebControls.Extensions
 			webControl.IdPrefix = idPrefix.ToCamelCase();
 			return webControl;
 		}
+
+		public static T WithNamePrefix<T>(this T webControl, string namePrefix) where T : IWebControl
+		{
+			webControl.NamePrefix = namePrefix.ToCamelCase();
+			return webControl;
+		}
 	}
 }

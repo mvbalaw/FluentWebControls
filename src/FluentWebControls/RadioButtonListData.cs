@@ -32,13 +32,15 @@ namespace FluentWebControls
 			}
 			string id = ((IWebControl)this).Id;
 			string idPrefix = ((IWebControl)this).IdPrefix;
+			string namePrefix = ((IWebControl)this).NamePrefix;
 			foreach (var item in _items)
 			{
 				bool isChecked = SelectedValue == item.Value;
 				var checkbox = new RadioButtonData(isChecked)
 					.WithValue(item.Value)
 					.WithId(id)
-					.WithIdPrefix(idPrefix);
+					.WithIdPrefix(idPrefix)
+					.WithNamePrefix(namePrefix);
 				if (!CssClass.IsNullOrEmpty())
 				{
 					checkbox.WithCssClass(CssClass);

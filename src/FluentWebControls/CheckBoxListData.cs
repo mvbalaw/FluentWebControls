@@ -34,12 +34,14 @@ namespace FluentWebControls
 			}
 			var id = ((IWebControl)this).Id;
 			var idPrefix = ((IWebControl)this).IdPrefix;
+			var namePrefix = ((IWebControl)this).NamePrefix;
 			foreach (var item in _items)
 			{
 				var isChecked = SelectedValues.Any(value => item.Value.Equals(value));
 				var checkbox = new CheckBoxData(isChecked)
 					.WithValue(item.Value)
 					.WithId(id)
+					.WithNamePrefix(namePrefix)
 					.WithIdPrefix(idPrefix)
 					.WithClass(CssClass.Join(" "));
 
