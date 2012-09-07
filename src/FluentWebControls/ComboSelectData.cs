@@ -40,6 +40,7 @@ namespace FluentWebControls
 			sb.AppendFormat(BuildJqueryValidation(CssClass.Join(" ")).CreateQuotedAttribute("class"));
 			sb.Append("multiple".CreateQuotedAttribute("multiple"));
 			sb.Append(Size.CreateQuotedAttribute("size"));
+			sb.Append(Data);
 			if (!TabIndex.IsNullOrEmpty())
 			{
 				sb.Append(TabIndex.CreateQuotedAttribute("tabindex"));

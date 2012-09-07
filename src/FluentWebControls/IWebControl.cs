@@ -1,3 +1,5 @@
+using Microsoft.Build.Framework.XamlTypes;
+
 namespace FluentWebControls
 {
 	public interface IWebControl
@@ -5,5 +7,6 @@ namespace FluentWebControls
 		string Id { get; set; }
 		string IdPrefix { get; set; }
 		string NamePrefix { get; set; }
+		NameValuePair Data { get; set; }
 	}
 }

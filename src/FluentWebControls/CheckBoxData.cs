@@ -120,6 +120,7 @@ namespace FluentWebControls
 			{
 				sb.Append(CssClass.CreateQuotedAttribute("class"));
 			}
+			sb.Append(Data);
 			sb.Append("/>");
 			AppendLabel(sb);
 			return sb.ToString();

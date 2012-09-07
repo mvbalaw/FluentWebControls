@@ -96,6 +96,7 @@ namespace FluentWebControls
 				sb.Append(IdWithPrefix.CreateQuotedAttribute("id"));
 				sb.Append(NameWithPrefix.CreateQuotedAttribute("name"));
 			}
+			sb.Append(Data);
 			if (Checked)
 			{
 				sb.Append("checked".CreateQuotedAttribute("checked"));

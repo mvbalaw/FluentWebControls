@@ -1,6 +1,6 @@
 using System;
 using System.Linq.Expressions;
-
+using Microsoft.Build.Framework.XamlTypes;
 using MvbaCore;
 
 namespace FluentWebControls.Extensions
@@ -13,12 +13,23 @@ namespace FluentWebControls.Extensions
 			return webControl;
 		}
 
+		public static T WithData<T>(this T webControl, string name, string value) where T : IWebControl
+		{
+			webControl.Data = new NameValuePair
+			                  	{
+			                  		Name = name,
+			                  		Value = value
+			                  	};
+			return webControl;
+		}
+
 		public static T WithId<T, TFuncResult>(this T webControl, Expression<Func<TFuncResult>> id) where T : IWebControl
 		{
 			return webControl.WithId(Reflection.GetPropertyName(id));
 		}
 
-		public static T WithId<T, TFuncInput, TFuncResult>(this T webControl, Expression<Func<TFuncInput, TFuncResult>> id) where T : IWebControl
+		public static T WithId<T, TFuncInput, TFuncResult>(this T webControl, Expression<Func<TFuncInput, TFuncResult>> id)
+			where T : IWebControl
 		{
 			return webControl.WithId(Reflection.GetPropertyName(id));
 		}

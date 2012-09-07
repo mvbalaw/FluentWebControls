@@ -133,7 +133,7 @@ namespace FluentWebControls
 				sb.Append(value.CreateQuotedAttribute("style"));
 			}
 			sb.Append(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
-
+			sb.Append(Data);
 			if (PropertyMetaData != null)
 			{
 				if (PropertyMetaData.MinLength > 0)

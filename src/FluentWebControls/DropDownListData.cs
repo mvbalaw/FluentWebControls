@@ -158,6 +158,7 @@ namespace FluentWebControls
 			sb.Append(NameWithPrefix.CreateQuotedAttribute("name"));
 			sb.Append(idWithPrefix.CreateQuotedAttribute("id"));
 			sb.AppendFormat(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
+			sb.Append(Data);
 			if (SubmitOnChange)
 			{
 				string v = _formFieldToSetBeforeSubmitting != null

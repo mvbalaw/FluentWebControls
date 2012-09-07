@@ -1,4 +1,6 @@
 using System;
+using FluentWebControls.Extensions;
+using Microsoft.Build.Framework.XamlTypes;
 
 namespace FluentWebControls
 {
@@ -8,12 +10,12 @@ namespace FluentWebControls
 		{
 			get
 			{
-				string prefix = ((IWebControl)this).IdPrefix ?? "";
-				if (!String.IsNullOrEmpty(((IWebControl)this).IdPrefix))
+				string prefix = ((IWebControl) this).IdPrefix ?? "";
+				if (!String.IsNullOrEmpty(((IWebControl) this).IdPrefix))
 				{
 					prefix += Constants.WebCompatibleSeparator;
 				}
-				var id = ((IWebControl)this).Id;
+				string id = ((IWebControl) this).Id;
 				if (prefix.IsNullOrEmpty())
 				{
 					id = id.ToCamelCase();
@@ -22,16 +24,17 @@ namespace FluentWebControls
 				return id;
 			}
 		}
+
 		protected string NameWithPrefix
 		{
 			get
 			{
-				string prefix = ((IWebControl)this).NamePrefix ?? "";
-				if (!String.IsNullOrEmpty(((IWebControl)this).NamePrefix))
+				string prefix = ((IWebControl) this).NamePrefix ?? "";
+				if (!String.IsNullOrEmpty(((IWebControl) this).NamePrefix))
 				{
 					prefix += ".";
 				}
-				var id = ((IWebControl)this).Id;
+				string id = ((IWebControl) this).Id;
 				if (prefix.IsNullOrEmpty())
 				{
 					id = id.ToCamelCase();
@@ -40,8 +43,19 @@ namespace FluentWebControls
 				return id;
 			}
 		}
+
+		protected string Data
+		{
+			get
+			{
+				var data = ((IWebControl) this).Data;
+				return data != null  && !data.Name.IsNullOrEmpty() ? data.Value.CreateQuotedAttribute(String.Format("data-{0}", data.Name)) : "";
+			}
+		}
+
 		string IWebControl.Id { get; set; }
 		string IWebControl.IdPrefix { get; set; }
 		string IWebControl.NamePrefix { get; set; }
+		NameValuePair IWebControl.Data { get; set; }
 	}
 }
