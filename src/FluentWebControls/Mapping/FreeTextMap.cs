@@ -9,6 +9,7 @@ namespace FluentWebControls.Mapping
 	{
 		private readonly Func<TDomain, string> _getValue;
 		private readonly TDomain _item;
+		private bool _haveValue;
 		private string _value;
 
 		public FreeTextMap(TDomain item, string id, Func<TDomain, string> getValue)
@@ -18,12 +19,27 @@ namespace FluentWebControls.Mapping
 			_getValue = getValue;
 		}
 
+		public FreeTextMap(string id, string value)
+		{
+			Id = id;
+			_haveValue = true;
+			_value = value;
+		}
+
 		public string Id { get; private set; }
 		public IPropertyMetaData Validation { get; set; }
 
 		public string Value
 		{
-			get { return _value ?? (_value = _getValue(_item)); }
+			get
+			{
+				if (_haveValue)
+				{
+					return _value;
+				}
+				_haveValue = true;
+				return _value = _getValue(_item);
+			}
 		}
 
 		public FreeTextMap<TDomain> WithValidation(Expression<Func<TDomain, object>> getProperty)
