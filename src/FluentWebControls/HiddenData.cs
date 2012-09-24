@@ -30,6 +30,7 @@ namespace FluentWebControls
 			sb.Append(IdWithPrefix.CreateQuotedAttribute("id"));
 			sb.Append(NameWithPrefix.CreateQuotedAttribute("name"));
 			sb.Append(Value.CreateQuotedAttribute("value"));
+			sb.Append(Data);
 			sb.Append("/>");
 			return sb.ToString();
 		}
