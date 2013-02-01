@@ -52,7 +52,7 @@ namespace FluentWebControls
 			{
 				sb.Append(CssClass.CreateQuotedAttribute("class"));
 			}
-			sb.Append(">");
+			sb.Append('>');
 			sb.Append(Value.EscapeForHtml());
 			sb.Append("</span>");
 			return sb.ToString();

@@ -35,7 +35,7 @@ namespace FluentWebControls
 		private StringBuilder BeginList()
 		{
 			var list = new StringBuilder();
-			list.Append("<");
+			list.Append('<');
 			list.Append("ul");
 			if (Id != null)
 			{
@@ -46,20 +46,20 @@ namespace FluentWebControls
 			{
 				list.Append(CssClass.Trim().CreateQuotedAttribute("class"));
 			}
-			list.Append(">");
+			list.Append('>');
 			return list;
 		}
 
 		private StringBuilder BeginListItem()
 		{
 			var list = new StringBuilder();
-			list.Append("<");
+			list.Append('<');
 			list.Append("li");
 			if (ItemCssClass != null)
 			{
 				list.Append(ItemCssClass.Trim().CreateQuotedAttribute("class"));
 			}
-			list.Append(">");
+			list.Append('>');
 			if (SpanCssClass != null)
 			{
 				list.Append(new SpanData(SpanContent).WithId(SpanId).WithCssClass(SpanCssClass).ToString());

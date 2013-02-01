@@ -80,7 +80,7 @@ namespace FluentWebControls
 		{
 			var listItem = new StringBuilder();
 			string tag = WrapWithSpan ? "span" : "div";
-			listItem.Append("<");
+			listItem.Append('<');
 			listItem.Append(tag);
 			if (HasDivId)
 			{
@@ -92,7 +92,7 @@ namespace FluentWebControls
 			{
 				listItem.Append(ContainerCssClass.CreateQuotedAttribute("class"));
 			}
-			listItem.Append(">");
+			listItem.Append('>');
 			if (!LabelText.IsNullOrEmpty())
 			{
 				listItem.AppendFormat("{0}: ", LabelText);
@@ -100,7 +100,7 @@ namespace FluentWebControls
 			listItem.Append(GetColumnWithInput(item));
 			listItem.Append("</");
 			listItem.Append(tag);
-			listItem.Append(">");
+			listItem.Append('>');
 			return listItem;
 		}
 
