@@ -12,12 +12,14 @@ namespace FluentWebControls
 		public RadioButtonListData(IEnumerable<KeyValuePair<string, string>> items)
 		{
 			_items = items;
+			UseItemSeparator = true;
 		}
 
 		public string CssClass { get; set; }
 		public LabelData Label { get; set; }
 		public string SelectedValue { get; set; }
 		public string TabIndex { get; set; }
+		public bool UseItemSeparator { get; set; }
 
 		public override string ToString()
 		{
@@ -45,10 +47,16 @@ namespace FluentWebControls
 				{
 					checkbox.WithCssClass(CssClass);
 				}
-				sb.Append("<div>");
-				sb.Append(checkbox.ToString());
+				if (UseItemSeparator)
+				{
+					sb.Append("<div>");
+				}
+				sb.Append(checkbox);
 				sb.Append(item.Key);
-				sb.Append("</div>");
+				if (UseItemSeparator)
+				{
+					sb.Append("</div>");
+				}
 			}
 			return sb.ToString();
 		}
