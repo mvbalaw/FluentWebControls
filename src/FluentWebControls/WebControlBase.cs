@@ -11,7 +11,7 @@ namespace FluentWebControls
 			get
 			{
 				string prefix = ((IWebControl) this).IdPrefix ?? "";
-				if (!String.IsNullOrEmpty(((IWebControl) this).IdPrefix))
+				if (!String.IsNullOrEmpty(prefix))
 				{
 					prefix += Constants.WebCompatibleSeparator;
 				}
@@ -29,8 +29,8 @@ namespace FluentWebControls
 		{
 			get
 			{
-				string prefix = ((IWebControl) this).NamePrefix ?? "";
-				if (!String.IsNullOrEmpty(((IWebControl) this).NamePrefix))
+				string prefix = ((IWebControl) this).NamePrefix ?? ((IWebControl) this).IdPrefix ?? "";
+				if (!String.IsNullOrEmpty(prefix))
 				{
 					prefix += ".";
 				}
