@@ -134,9 +134,9 @@ namespace FluentWebControls
 						sb.Append(Link
 						          	.To(ControllerName, ControllerExtension, ActionName)
 						          	.WithLinkText(column.ColumnHeader)
-						          	.WithData(() => PagedListParameters.SortDirection, GetNextSortDirection(column.FieldName, column.IsDefaultSortColumn))
-						          	.WithData(() => PagedListParameters.SortField, column.FieldName)
-						          	.WithData(_filters.Select(f => new KeyValuePair<string, string>(((IWebControl)f).Id, ((IDropDownListData)f).SelectedValue)))
+						          	.WithQueryStringData(() => PagedListParameters.SortDirection, GetNextSortDirection(column.FieldName, column.IsDefaultSortColumn))
+						          	.WithQueryStringData(() => PagedListParameters.SortField, column.FieldName)
+						          	.WithQueryStringData(_filters.Select(f => new KeyValuePair<string, string>(((IWebControl)f).Id, ((IDropDownListData)f).SelectedValue)))
 						          	.WithId("th" + columnNumber)
 							);
 						break;
@@ -171,7 +171,7 @@ namespace FluentWebControls
 						sb.Append(Link
 						          	.To(ControllerName, ControllerExtension, column.ActionName)
 						          	.WithLinkText(column.ActionName)
-						          	.WithData(column.FieldName, column[rowId]));
+						          	.WithQueryStringData(column.FieldName, column[rowId]));
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();

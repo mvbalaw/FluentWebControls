@@ -39,25 +39,25 @@ namespace FluentWebControls.Extensions
 		}
 
 
-		public static LinkData WithData(this LinkData linkData, Expression<Func<string>> fieldNameAndValue)
+		public static LinkData WithQueryStringData(this LinkData linkData, Expression<Func<string>> fieldNameAndValue)
 		{
 			linkData.AddQueryStringData(Reflection.GetPropertyName(fieldNameAndValue), fieldNameAndValue.Compile()());
 			return linkData;
 		}
 
-		public static LinkData WithData(this LinkData linkData, Expression<Func<string>> fieldName, string value)
+		public static LinkData WithQueryStringData(this LinkData linkData, Expression<Func<string>> fieldName, string value)
 		{
 			linkData.AddQueryStringData(Reflection.GetPropertyName(fieldName), value);
 			return linkData;
 		}
 
-		public static LinkData WithData(this LinkData linkData, string fieldName, string value)
+		public static LinkData WithQueryStringData(this LinkData linkData, string fieldName, string value)
 		{
 			linkData.AddQueryStringData(fieldName, value);
 			return linkData;
 		}
 
-		public static LinkData WithData(this LinkData linkData, IEnumerable<KeyValuePair<string, string>> items)
+		public static LinkData WithQueryStringData(this LinkData linkData, IEnumerable<KeyValuePair<string, string>> items)
 		{
 			foreach (var item in items)
 			{
@@ -66,32 +66,32 @@ namespace FluentWebControls.Extensions
 			return linkData;
 		}
 
-		public static LinkData WithData<T>(this LinkData linkData, Expression<Func<T>> fieldNameAndValue) where T : struct
+		public static LinkData WithQueryStringData<T>(this LinkData linkData, Expression<Func<T>> fieldNameAndValue) where T : struct
 		{
 			linkData.AddQueryStringData(Reflection.GetPropertyName(fieldNameAndValue), fieldNameAndValue.Compile()().ToString());
 			return linkData;
 		}
 
-		public static LinkData WithData<T>(this LinkData linkData, Expression<Func<T>> fieldName, T value) where T : struct
+		public static LinkData WithQueryStringData<T>(this LinkData linkData, Expression<Func<T>> fieldName, T value) where T : struct
 		{
 			linkData.AddQueryStringData(Reflection.GetPropertyName(fieldName), value.ToString());
 			return linkData;
 		}
 
-		public static LinkData WithData<T>(this LinkData linkData, Expression<Func<T?>> fieldNameAndValue) where T : struct
+		public static LinkData WithQueryStringData<T>(this LinkData linkData, Expression<Func<T?>> fieldNameAndValue) where T : struct
 		{
 			var value = fieldNameAndValue.Compile()();
 			linkData.AddQueryStringData(Reflection.GetPropertyName(fieldNameAndValue), value == null ? "" : value.ToString());
 			return linkData;
 		}
 
-		public static LinkData WithData<T>(this LinkData linkData, Expression<Func<T?>> fieldName, T? value) where T : struct
+		public static LinkData WithQueryStringData<T>(this LinkData linkData, Expression<Func<T?>> fieldName, T? value) where T : struct
 		{
 			linkData.AddQueryStringData(Reflection.GetPropertyName(fieldName), value == null ? "" : value.ToString());
 			return linkData;
 		}
 
-		public static LinkData WithData<T, K>(this LinkData linkData, T source, Expression<Func<T, K>> fieldName, Func<T, string> fieldValue)
+		public static LinkData WithQueryStringData<T, K>(this LinkData linkData, T source, Expression<Func<T, K>> fieldName, Func<T, string> fieldValue)
 		{
 			linkData.AddQueryStringData(Reflection.GetPropertyName(fieldName), fieldValue(source));
 			return linkData;

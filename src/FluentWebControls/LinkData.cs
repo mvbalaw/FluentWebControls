@@ -201,6 +201,7 @@ namespace FluentWebControls
 			{
 				sb.Append(CssClass.CreateQuotedAttribute("class"));
 			}
+			sb.Append(Data);
 			if (MouseOverText != null)
 			{
 				sb.Append(MouseOverText.CreateQuotedAttribute("title"));

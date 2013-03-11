@@ -45,7 +45,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_a_name_value_input_of_type_string()
 			{
-				var link = LinkData.WithData("Name", "Value");
+				var link = LinkData.WithQueryStringData("Name", "Value");
 				Assert.AreSame(LinkData, link);
 				LinkData.ToString().Contains("Name=Value").ShouldBeTrue();
 			}
@@ -53,7 +53,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_expression_that_returns_int()
 			{
-				var link = LinkData.WithData(() => _item.ItemId);
+				var link = LinkData.WithQueryStringData(() => _item.ItemId);
 				Assert.AreSame(LinkData, link);
 				LinkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemId), _item.ItemId)).ShouldBeTrue();
 			}
@@ -61,7 +61,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_expression_that_returns_int_and_separate_value_provided()
 			{
-				var link = LinkData.WithData(() => _item.ItemId, 10);
+				var link = LinkData.WithQueryStringData(() => _item.ItemId, 10);
 				Assert.AreSame(LinkData, link);
 				LinkData.ToString().Contains(String.Format("{0}=10", Reflection.GetPropertyName(() => _item.ItemId))).ShouldBeTrue();
 			}
@@ -70,7 +70,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_expression_that_returns_nullable_int()
 			{
 				int? itemId = 5;
-				var link = LinkData.WithData(() => itemId);
+				var link = LinkData.WithQueryStringData(() => itemId);
 				Assert.AreSame(LinkData, link);
 				LinkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => itemId), itemId)).ShouldBeTrue();
 			}
@@ -80,7 +80,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				int? itemId = 5;
 				int? newValue = 10;
-				var link = LinkData.WithData(() => itemId, newValue);
+				var link = LinkData.WithQueryStringData(() => itemId, newValue);
 				Assert.AreSame(LinkData, link);
 				LinkData.ToString().Contains(String.Format("{0}=10", Reflection.GetPropertyName(() => itemId))).ShouldBeTrue();
 			}
@@ -88,7 +88,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_expression_that_returns_string()
 			{
-				var link = LinkData.WithData(() => _item.ItemName);
+				var link = LinkData.WithQueryStringData(() => _item.ItemName);
 				Assert.AreSame(LinkData, link);
 				LinkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemName), _item.ItemName)).ShouldBeTrue();
 			}
@@ -96,7 +96,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_expression_that_returns_string_and_separate_value_provided()
 			{
-				var link = LinkData.WithData(() => _item.ItemName, "Value");
+				var link = LinkData.WithQueryStringData(() => _item.ItemName, "Value");
 				Assert.AreSame(LinkData, link);
 				LinkData.ToString().Contains(String.Format("{0}=Value", Reflection.GetPropertyName(() => _item.ItemName))).ShouldBeTrue();
 			}
@@ -104,7 +104,7 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_LinkData_With_query_parameter_added_to_the_link_for_an_object_that_contains_the_specified_property()
 			{
-				var link = LinkData.WithData(_item, item => item.ItemId, item => item.ItemId.ToString());
+				var link = LinkData.WithQueryStringData(_item, item => item.ItemId, item => item.ItemId.ToString());
 				Assert.AreSame(LinkData, link);
 				LinkData.ToString().Contains(String.Format("{0}={1}", Reflection.GetPropertyName(() => _item.ItemId), _item.ItemId)).ShouldBeTrue();
 			}
