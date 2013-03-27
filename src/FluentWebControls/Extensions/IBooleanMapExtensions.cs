@@ -7,7 +7,8 @@ namespace FluentWebControls.Extensions
 		public static CheckBoxData AsCheckBox(this IBooleanMap input)
 		{
 			return new CheckBoxData(input.IsChecked)
-				.WithId(input.Id);
+				.WithId(input.Id)
+				.WithName(input.Id);
 		}
 	}
 }

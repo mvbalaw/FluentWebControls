@@ -8,19 +8,22 @@ namespace FluentWebControls.Extensions
 		{
 			return new HiddenData()
 				.WithValue(input.Value)
-				.WithId(input.Id);
+				.WithId(input.Id)
+				.WithName(input.Id);
 		}
 
 		public static SpanData AsSpan(this IFreeTextMap input)
 		{
 			return new SpanData(input.Value)
-				.WithId(input.Id);
+				.WithId(input.Id)
+				.WithName(input.Id);
 		}
 
 		public static TextAreaData AsTextArea(this IFreeTextMap input)
 		{
 			return new TextAreaData(input.Value)
 				.WithId(input.Id)
+				.WithName(input.Id)
 				.WithValidationFrom(input.Validation);
 		}
 
@@ -28,6 +31,7 @@ namespace FluentWebControls.Extensions
 		{
 			return new TextBoxData(input.Value)
 				.WithId(input.Id)
+				.WithName(input.Id)
 				.WithValidationFrom(input.Validation);
 		}
 	}

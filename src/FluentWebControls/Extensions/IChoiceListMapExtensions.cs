@@ -8,6 +8,7 @@ namespace FluentWebControls.Extensions
 		{
 			var comboSelect = new ComboSelectData(input.ListItems)
 				.WithId(input.Id)
+				.WithName(input.Id)
 				.WithValidationFrom(input.Validation);
 			comboSelect.SelectedValues.AddRange(input.SelectedValues);
 			return comboSelect;
@@ -17,6 +18,7 @@ namespace FluentWebControls.Extensions
 		{
 			var checkBoxList = new CheckBoxListData(input.ListItems)
 				.WithId(input.Id)
+				.WithName(input.Id)
 				.WithValidationFrom(input.Validation);
 			checkBoxList.SelectedValues.AddRange(input.SelectedValues);
 			return checkBoxList;
@@ -26,6 +28,7 @@ namespace FluentWebControls.Extensions
 		{
 			var radioButtons = new RadioButtonListData(input.ListItems)
 				.WithId(input.Id)
+				.WithName(input.Id)
 				.WithValidationFrom(input.Validation);
 			radioButtons.SelectedValue = input.SelectedValue;
 			return radioButtons;
@@ -36,6 +39,7 @@ namespace FluentWebControls.Extensions
 			return new DropDownListData(input.ListItems)
 				.WithSelectedValue(input.SelectedValue)
 				.WithId(input.Id)
+				.WithName(input.Id)
 				.WithValidationFrom(input.Validation);
 		}
 	}

@@ -13,6 +13,12 @@ namespace FluentWebControls.Extensions
 			return webControl;
 		}
 
+		public static T WithName<T>(this T webControl, string name) where T : IWebControl
+		{
+			webControl.Name = name;
+			return webControl;
+		}
+
 		public static T WithData<T>(this T webControl, string name, string value) where T : IWebControl
 		{
 			webControl.Data = new NameValuePair
@@ -32,6 +38,12 @@ namespace FluentWebControls.Extensions
 			where T : IWebControl
 		{
 			return webControl.WithId(Reflection.GetPropertyName(id));
+		}
+
+		public static T WithName<T, TFuncInput, TFuncResult>(this T webControl, Expression<Func<TFuncInput, TFuncResult>> name)
+			where T : IWebControl
+		{
+			return webControl.WithName(Reflection.GetPropertyName(name));
 		}
 
 		public static T WithIdPrefix<T>(this T webControl, string idPrefix) where T : IWebControl
