@@ -47,6 +47,7 @@ namespace FluentWebControls
 		internal string HeaderText { private get; set; }
 		internal string InputCssClass { get; set; }
 		internal string InputTextId { get; set; }
+		internal string InputTextName { get; set; }
 		internal string Prefix { get; set; }
 
 		AlignAttribute IDataColumn.Align
@@ -110,21 +111,26 @@ namespace FluentWebControls
 		{
 			if (ColumnTextType == ColumnTextType.TextBox)
 			{
-				return new TextBoxData(GetColumnText(item)).WithId(GetId(item)).CssClass(InputCssClass).ToString();
+				return new TextBoxData(GetColumnText(item)).WithId(GetId(item)).WithName(GetName(item)).CssClass(InputCssClass).ToString();
 			}
 			if (ColumnTextType == ColumnTextType.CheckBox)
 			{
-				return new CheckBoxData(bool.Parse(GetColumnText(item))).WithId(GetId(item)).WithCssClass(InputCssClass).ToString();
+				return new CheckBoxData(bool.Parse(GetColumnText(item))).WithId(GetId(item)).WithName(GetName(item)).WithCssClass(InputCssClass).ToString();
 			}
 			if (ColumnTextType == ColumnTextType.Hidden)
 			{
-				return new HiddenData().WithId(GetId(item)).WithValue(GetColumnText(item)).ToString();
+				return new HiddenData().WithId(GetId(item)).WithName(GetName(item)).WithValue(GetColumnText(item)).ToString();
 			}
 			if (ColumnTextType == ColumnTextType.Span)
 			{
-				return new SpanData(GetColumnText(item)).WithId(GetId(item)).WithCssClass(InputCssClass).ToString();
+				return new SpanData(GetColumnText(item)).WithId(GetId(item)).WithName(GetName(item)).WithCssClass(InputCssClass).ToString();
 			}
 			return GetColumnText(item);
+		}
+
+		private string GetName(T item)
+		{
+			return InputTextName ?? GetId(item);
 		}
 
 		private string GetId(T item)

@@ -42,6 +42,12 @@ namespace FluentWebControls.Extensions
 			return dataColumn;
 		}
 
+		public static DataColumn<T> WithName<T>(this DataColumn<T> dataColumn, string name)
+		{
+			dataColumn.InputTextName = name;
+			return dataColumn;
+		}
+
 		public static DataColumn<T> AsSpan<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
 		{
 			dataColumn.ColumnTextType = ColumnTextType.Span;

@@ -50,6 +50,12 @@ namespace FluentWebControls.Extensions
 			return dataItem;
 		}
 
+		public static DataItem<T> WithName<T>(this DataItem<T> dataColumn, string name)
+		{
+			dataColumn.InputTextName = name;
+			return dataColumn;
+		}
+
 		public static DataItem<T> WithInputCssClass<T>(this DataItem<T> dataItem, string inputCssClass)
 		{
 			dataItem.InputCssClass = inputCssClass;

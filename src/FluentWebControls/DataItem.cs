@@ -41,6 +41,7 @@ namespace FluentWebControls
 		internal string ContainerCssClass { get; set; }
 		internal string LabelText { get; set; }
 		internal string InputTextId { get; set; }
+		internal string InputTextName { get; set; }
 		internal bool HasDivId { get; set; }
 		internal string DivId { get; set; }
 		internal bool WrapWithSpan { private get; set; }
@@ -110,19 +111,24 @@ namespace FluentWebControls
 		{
 			if (ColumnTextType == ColumnTextType.TextBox)
 			{
-				return new TextBoxData(GetColumnText(item)).WithId(GetId(item)).CssClass(InputCssClass).ToString();
+				return new TextBoxData(GetColumnText(item)).WithId(GetId(item)).WithName(GetName(item)).CssClass(InputCssClass).ToString();
 			}
 			if (ColumnTextType == ColumnTextType.Span)
 			{
-				return new SpanData(GetColumnText(item)).WithId(GetId(item)).WithCssClass(InputCssClass).ToString();
+				return new SpanData(GetColumnText(item)).WithId(GetId(item)).WithName(GetName(item)).WithCssClass(InputCssClass).ToString();
 			}
 			if (ColumnTextType == ColumnTextType.Hidden)
 			{
-				return new HiddenData().WithId(GetId(item)).WithValue(GetColumnText(item)).ToString();
+				return new HiddenData().WithId(GetId(item)).WithName(GetName(item)).WithValue(GetColumnText(item)).ToString();
 			}
 			return GetColumnText(item);
 		}
 
+		private string GetName(T item)
+		{
+			return InputTextName ?? GetId(item);
+		}
+		
 		private string GetId(T item)
 		{
 			if (InputTextId != null)
