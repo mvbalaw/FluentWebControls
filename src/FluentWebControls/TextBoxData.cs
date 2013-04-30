@@ -145,19 +145,19 @@ namespace FluentWebControls
 				{
 					sb.Append(PropertyMetaData.MaxLength.CreateQuotedAttribute(JQueryFieldValidationType.MaxLength.Text));
 				}
-
-				if (PropertyMetaData.MinValue > 0 || _minValue > 0)
-				{
-					var v = PropertyMetaData.MinValue ?? _minValue;
-					sb.Append(v.CreateQuotedAttribute(JQueryFieldValidationType.MinValue.Text));
-				}
-
-				if (PropertyMetaData.MaxValue > 0 || _maxValue > 0)
-				{
-					var v = PropertyMetaData.MaxValue ?? _maxValue;
-					sb.Append(v.CreateQuotedAttribute(JQueryFieldValidationType.MaxValue.Text));
-				}
 			}
+			if (PropertyMetaData != null && PropertyMetaData.MinValue > 0 || _minValue > 0)
+			{
+				var v = (PropertyMetaData == null ? null : PropertyMetaData.MinValue) ?? _minValue;
+				sb.Append(v.CreateQuotedAttribute(JQueryFieldValidationType.MinValue.Text));
+			}
+
+			if (PropertyMetaData != null && PropertyMetaData.MaxValue > 0 || _maxValue > 0)
+			{
+				var v = (PropertyMetaData == null ? null : PropertyMetaData.MaxValue) ?? _maxValue;
+				sb.Append(v.CreateQuotedAttribute(JQueryFieldValidationType.MaxValue.Text));
+			}
+
 
 			sb.Append(_value.CreateQuotedAttribute("value"));
 			if (ReadOnly)
