@@ -1,21 +1,33 @@
 using System;
+
 using FluentWebControls.Extensions;
+
 using Microsoft.Build.Framework.XamlTypes;
 
 namespace FluentWebControls
 {
 	public abstract class WebControlBase : IWebControl
 	{
+		protected string Data
+		{
+			get
+			{
+				var data = ((IWebControl)this).Data;
+				return data != null && !data.Name.IsNullOrEmpty()
+					? data.Value.CreateQuotedAttribute(String.Format("data-{0}", data.Name))
+					: "";
+			}
+		}
 		protected string IdWithPrefix
 		{
 			get
 			{
-				string prefix = ((IWebControl) this).IdPrefix ?? "";
+				var prefix = ((IWebControl)this).IdPrefix ?? "";
 				if (!String.IsNullOrEmpty(prefix))
 				{
 					prefix += Constants.WebCompatibleSeparator;
 				}
-				string id = ((IWebControl) this).Id;
+				var id = ((IWebControl)this).Id;
 				if (prefix.IsNullOrEmpty())
 				{
 					id = id.ToCamelCase();
@@ -31,9 +43,9 @@ namespace FluentWebControls
 			{
 				var name = ((IWebControl)this).Name;
 				var id = ((IWebControl)this).Id;
-				string prefix = ((IWebControl) this).NamePrefix ?? "";
+				var prefix = ((IWebControl)this).NamePrefix ?? "";
 
-				if (name == id && prefix.IsNullOrEmpty())
+				if (name.IsNullOrEmpty() && prefix.IsNullOrEmpty())
 				{
 					prefix = ((IWebControl)this).IdPrefix ?? "";
 				}
@@ -48,17 +60,6 @@ namespace FluentWebControls
 				}
 				name = prefix + name;
 				return name;
-			}
-		}
-
-		protected string Data
-		{
-			get
-			{
-				var data = ((IWebControl) this).Data;
-				return data != null && !data.Name.IsNullOrEmpty()
-				       	? data.Value.CreateQuotedAttribute(String.Format("data-{0}", data.Name))
-				       	: "";
 			}
 		}
 
