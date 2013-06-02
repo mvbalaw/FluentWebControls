@@ -1,6 +1,10 @@
-This is a fluent interface for emitting web controls in c#.
+FluentWebControls ReadMe
+===
+### Description
 
-## Sample Usages
+FluentWebControls is s a fluent interface for emitting web controls in C#.
+
+### Sample Usages
 
 ### TextBox
 	<%= Fluent.TextBoxFor(() => ViewData.Model.FirstName)
@@ -46,15 +50,28 @@ This is a fluent interface for emitting web controls in c#.
 	<%= Fluent.HiddenFor(() => PagedListParameters.PageSize) %>
 
 	
-## Input Builders
+### Input Builders
 [See how][inputbuilders] we use these controls with our input builders
 
-## License		
+### How To Build:
 
+The build script requires Ruby with rake installed.
+
+1. Run `InstallGems.bat` to get the ruby dependencies (only needs to be run once per computer)
+1. open a command prompt to the root folder and type `rake` to execute rakefile.rb
+
+If you do not have ruby:
+
+1. You need to create a src\CommonAssemblyInfo.cs file. Go.bat will copy src\CommonAssemblyInfo.cs.default to src\CommonAssemblyInfo.cs
+1. open src\StarterTree.sln with Visual Studio and build the solution
+
+### License
+	
 [MIT License][mitlicense]
 
-This project is part of [MVBA Law Commons][mvbalawcommons].
+This project is part of [MVBA's Open Source Projects][MvbaLawGithub].
 
-[mvbalawcommons]: http://code.google.com/p/mvbalaw-commons/
-[mitlicense]: http://www.opensource.org/licenses/mit-license.php
 [inputbuilders]: http://shashankshetty.wordpress.com/2010/03/05/separation-of-concerns-in-input-builders/
+[MvbaLawGithub]: http://mvbalaw.github.io/
+[mitlicense]: http://www.opensource.org/licenses/mit-license.php
+
