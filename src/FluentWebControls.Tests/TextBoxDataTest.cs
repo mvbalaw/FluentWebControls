@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Linq.Expressions;
 
@@ -53,10 +63,12 @@ namespace FluentWebControls.Tests
 			{
 				get { return "<input type='text' id='value' name='value' class='textbox digits' value='10'/>"; }
 			}
+
 			protected override string HtmlTextWithValidations
 			{
 				get { return "<input type='text' id='value' name='value' style='width:" + PropertyMetaDataWithValidations.MaxLength * 4 + "px' class='required textbox digits' minlength='1' maxlength='10' max='100' value='10'/><em>*</em>"; }
 			}
+
 			protected override string Id
 			{
 				get
@@ -65,16 +77,19 @@ namespace FluentWebControls.Tests
 					return Reflection.GetPropertyName(expr).ToCamelCase();
 				}
 			}
+
 // ReSharper restore ConvertToConstant
 
 			protected override IPropertyMetaData PropertyMetaData
 			{
 				get { return PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(int)); }
 			}
+
 			protected override IPropertyMetaData PropertyMetaDataWithValidations
 			{
 				get { return PropertyMetaDataMocker.CreateStub(Id, true, 1, 10, 0, 100, typeof(int)); }
 			}
+
 			protected override string Value
 			{
 				get { return value.ToString(); }
@@ -91,10 +106,12 @@ namespace FluentWebControls.Tests
 			{
 				get { return "<input type='text' id='value' name='value' class='datebox date' value='12/1/2008 12:00:00 AM'/>"; }
 			}
+
 			protected override string HtmlTextWithValidations
 			{
 				get { return "<input type='text' id='value' name='value' class='required datebox date' value='12/1/2008 12:00:00 AM'/><em>*</em>"; }
 			}
+
 			protected override string Id
 			{
 				get
@@ -108,10 +125,12 @@ namespace FluentWebControls.Tests
 			{
 				get { return PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(DateTime?)); }
 			}
+
 			protected override IPropertyMetaData PropertyMetaDataWithValidations
 			{
 				get { return PropertyMetaDataMocker.CreateStub(Id, true, null, null, null, null, typeof(DateTime?)); }
 			}
+
 			protected override string Value
 			{
 				get { return value.ToString(); }
@@ -129,10 +148,12 @@ namespace FluentWebControls.Tests
 			{
 				get { return "<input type='text' id='value' name='value' class='textbox digits' value=''/>"; }
 			}
+
 			protected override string HtmlTextWithValidations
 			{
 				get { return "<input type='text' id='value' name='value' style='width:" + PropertyMetaDataWithValidations.MaxLength * 4 + "px' class='required textbox digits' minlength='1' maxlength='10' max='100' value=''/><em>*</em>"; }
 			}
+
 			protected override string Id
 			{
 				get
@@ -141,16 +162,19 @@ namespace FluentWebControls.Tests
 					return Reflection.GetPropertyName(expr).ToCamelCase();
 				}
 			}
+
 // ReSharper restore RedundantDefaultFieldInitializer
 
 			protected override IPropertyMetaData PropertyMetaData
 			{
 				get { return PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(int?)); }
 			}
+
 			protected override IPropertyMetaData PropertyMetaDataWithValidations
 			{
 				get { return PropertyMetaDataMocker.CreateStub(Id, true, 1, 10, 0, 100, typeof(int?)); }
 			}
+
 			protected override string Value
 			{
 				get { return value.ToString(); }
@@ -160,20 +184,20 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_textbox_for_a_property_of_type_string : TextBoxDataTestBase
 		{
-// ReSharper disable ConvertToConstant
-// ReSharper disable ConvertToConstant.Local
-// ReSharper disable InconsistentNaming
+// ReSharper disable once ConvertToConstant.Local
+// ReSharper disable once FieldCanBeMadeReadOnly.Local
+// ReSharper disable once InconsistentNaming
 			private string value = "value";
-// ReSharper restore InconsistentNaming
-// ReSharper restore ConvertToConstant.Local
 			protected override string HtmlText
 			{
 				get { return "<input type='text' id='value' name='value' class='textbox' value='value'/>"; }
 			}
+
 			protected override string HtmlTextWithValidations
 			{
 				get { return "<input type='text' id='value' name='value' style='width:" + PropertyMetaDataWithValidations.MaxLength * 4 + "px' class='required textbox' minlength='1' maxlength='10' value='value'/><em>*</em>"; }
 			}
+
 			protected override string Id
 			{
 				get
@@ -182,16 +206,19 @@ namespace FluentWebControls.Tests
 					return Reflection.GetPropertyName(expr).ToCamelCase();
 				}
 			}
+
 // ReSharper restore ConvertToConstant
 
 			protected override IPropertyMetaData PropertyMetaData
 			{
 				get { return PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(string)); }
 			}
+
 			protected override IPropertyMetaData PropertyMetaDataWithValidations
 			{
 				get { return PropertyMetaDataMocker.CreateStub(Id, true, 1, 10, 0, null, typeof(string)); }
 			}
+
 			protected override string Value
 			{
 				get { return value; }
@@ -205,7 +232,7 @@ namespace FluentWebControls.Tests
 			public void Should_add_the_READONLY_attribute_if_ReadOnly_is_true()
 			{
 				var textBox = new TextBoxData("World").AsReadOnly();
-				string result = textBox.ToString();
+				var result = textBox.ToString();
 				result.ShouldBeEqualTo("<input type='text' class='textbox' value='World' READONLY/>");
 			}
 
@@ -213,7 +240,7 @@ namespace FluentWebControls.Tests
 			public void Should_not_add_the_READONLY_attribute_if_ReadOnly_is_false()
 			{
 				var textBox = new TextBoxData("World");
-				string result = textBox.ToString();
+				var result = textBox.ToString();
 				result.ShouldBeEqualTo("<input type='text' class='textbox' value='World'/>");
 			}
 		}

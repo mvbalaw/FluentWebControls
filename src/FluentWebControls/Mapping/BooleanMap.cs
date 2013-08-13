@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using FluentWebControls.Interfaces;
 
 namespace FluentWebControls.Mapping
@@ -12,15 +22,17 @@ namespace FluentWebControls.Mapping
 
 		public string Id { get; set; }
 		public bool IsChecked { get; set; }
-		string IFreeTextMap.Value
-		{
-			get { return IsChecked.ToString(); }
-		}
-		public IPropertyMetaData Validation { get; set; }
 
 		object IModelMap.GetValueForModel()
 		{
 			return IsChecked;
 		}
+
+		string IFreeTextMap.Value
+		{
+			get { return IsChecked.ToString(); }
+		}
+
+		public IPropertyMetaData Validation { get; set; }
 	}
 }

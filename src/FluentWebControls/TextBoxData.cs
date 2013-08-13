@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Text;
 
@@ -14,10 +24,10 @@ namespace FluentWebControls
 		int? MaxValue { get; }
 		int? MinValue { get; }
 		bool ReadOnly { get; }
+		string TabIndex { get; }
 		ValidatableWebControlBase.JQueryFieldValidationType ValidationType { get; }
 		string Value { get; }
 		string Width { get; }
-		string TabIndex { get; }
 	}
 
 	public class TextBoxData : ValidatableWebControlBase, ITextBoxData
@@ -35,31 +45,37 @@ namespace FluentWebControls
 
 		internal string CssClass { private get; set; }
 		internal LabelData Label { private get; set; }
+
 		internal int MaxValue
 		{
 			set { _maxValue = value > 0 ? value : (int?)null; }
 		}
+
 		internal int MinValue
 		{
 			set { _minValue = value >= 0 ? value : (int?)null; }
 		}
+
 		internal bool ReadOnly { private get; set; }
+		internal string TabIndex { private get; set; }
 		internal JQueryFieldValidationType ValidationType { private get; set; }
 		internal string Width { private get; set; }
-		internal string TabIndex { private get; set; }
 
 		string ITextBoxData.IdWithPrefix
 		{
 			get { return IdWithPrefix; }
 		}
+
 		string ITextBoxData.TabIndex
 		{
 			get { return TabIndex; }
 		}
+
 		string ITextBoxData.CssClass
 		{
 			get { return CssClass; }
 		}
+
 		LabelData ITextBoxData.Label
 		{
 			get { return Label; }
@@ -99,15 +115,15 @@ namespace FluentWebControls
 		{
 			if (PropertyMetaData != null)
 			{
-				if (PropertyMetaData.MaxLength > 0 && Width.IsNullOrEmpty())
+				if (PropertyMetaData.MaxLength.HasValue && PropertyMetaData.MaxLength > 0 && Width.IsNullOrEmpty())
 				{
 					Width = (PropertyMetaData.ValidationType == FieldValidationType.Digits ? 11 : 4) * PropertyMetaData.MaxLength.Value + "px";
 				}
 				if (PropertyMetaData.ReturnType == typeof(DateTime) ||
-				    PropertyMetaData.ReturnType == typeof(DateTime?))
+					PropertyMetaData.ReturnType == typeof(DateTime?))
 				{
 					if (CssClass.IsNullOrEmpty() ||
-					    CssClass == DefaultCssClass)
+						CssClass == DefaultCssClass)
 					{
 						CssClass = "datebox";
 					}
@@ -129,7 +145,7 @@ namespace FluentWebControls
 			}
 			if (Width != null)
 			{
-				string value = "width:" + Width;
+				var value = "width:" + Width;
 				sb.Append(value.CreateQuotedAttribute("style"));
 			}
 			sb.Append(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));
@@ -158,16 +174,15 @@ namespace FluentWebControls
 				sb.Append(v.CreateQuotedAttribute(JQueryFieldValidationType.MaxValue.Text));
 			}
 
-
 			sb.Append(_value.CreateQuotedAttribute("value"));
 			if (ReadOnly)
 			{
 				sb.Append(" READONLY");
 			}
-			
+
 			if (!TabIndex.IsNullOrEmpty())
 			{
-				sb.Append(TabIndex.CreateQuotedAttribute("tabindex"));	
+				sb.Append(TabIndex.CreateQuotedAttribute("tabindex"));
 			}
 
 			sb.Append("/>");

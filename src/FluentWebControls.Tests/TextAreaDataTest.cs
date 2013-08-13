@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Linq;
 
@@ -153,6 +163,7 @@ namespace FluentWebControls.Tests
 			{
 				get { return _result.ChildTags.FirstOrDefault(x => x.Type == "label"); }
 			}
+
 			private HTMLTag RequiredIndicator
 			{
 				get { return _result.ChildTags.FirstOrDefault(x => x.Type == "em"); }
@@ -182,6 +193,7 @@ namespace FluentWebControls.Tests
 			{
 				var @class = Tag.Attributes.FirstOrDefault(x => x.Name == "class");
 				@class.ShouldNotBeNull();
+// ReSharper disable once PossibleNullReferenceException
 				@class.Value.ShouldBeEqualTo("required textbox");
 			}
 
@@ -189,6 +201,7 @@ namespace FluentWebControls.Tests
 			{
 				var maxLength = Tag.Attributes.FirstOrDefault(x => x.Name == "maxlength");
 				maxLength.ShouldNotBeNull();
+// ReSharper disable once PossibleNullReferenceException
 				maxLength.Value.ShouldBeEqualTo(_maxLength.ToString());
 			}
 
@@ -196,6 +209,7 @@ namespace FluentWebControls.Tests
 			{
 				var minLength = Tag.Attributes.FirstOrDefault(x => x.Name == "minlength");
 				minLength.ShouldNotBeNull();
+// ReSharper disable once PossibleNullReferenceException
 				minLength.Value.ShouldBeEqualTo(_minLength.ToString());
 			}
 
@@ -209,6 +223,7 @@ namespace FluentWebControls.Tests
 			{
 				var @class = Tag.Attributes.FirstOrDefault(x => x.Name == "class");
 				@class.ShouldNotBeNull();
+// ReSharper disable once PossibleNullReferenceException
 				@class.Value.ShouldBeEqualTo("textbox");
 			}
 
@@ -226,19 +241,19 @@ namespace FluentWebControls.Tests
 
 			private void should_set_the_content_to_empty_string()
 			{
-				string content = Tag.Content;
+				var content = Tag.Content;
 				content.ShouldBeEqualTo("");
 			}
 
 			private void should_set_the_content_to_the_escaped_value()
 			{
-				string content = Tag.RawContent;
+				var content = Tag.RawContent;
 				content.ShouldBeEqualTo(_value.EscapeForHtml());
 			}
 
 			private void should_set_the_content_to_the_value()
 			{
-				string content = Tag.Content;
+				var content = Tag.Content;
 				content.ShouldBeEqualTo(_value);
 			}
 
@@ -249,7 +264,9 @@ namespace FluentWebControls.Tests
 				@for.ShouldNotBeNull();
 				var tag = Tag;
 				var id = tag.Attributes.FirstOrDefault(x => x.Name == "id");
+// ReSharper disable PossibleNullReferenceException
 				@for.Value.ShouldBeEqualTo(id.Value);
+// ReSharper restore PossibleNullReferenceException
 			}
 
 			private void when_asked_to_create_a_textarea_for_a_property()
@@ -259,7 +276,7 @@ namespace FluentWebControls.Tests
 					.WithValidationFrom(propertyMetaData)
 					.WithLabel(_label)
 					.WithId(Id);
-				string resultHtml = textArea.ToString();
+				var resultHtml = textArea.ToString();
 				_result = HTMLParser.Parse("<all>" + resultHtml + "</all>");
 			}
 

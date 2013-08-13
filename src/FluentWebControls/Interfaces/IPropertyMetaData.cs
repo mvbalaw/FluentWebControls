@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -105,38 +115,47 @@ namespace FluentWebControls.Interfaces
 		{
 			get { return _dependsOnProperty; }
 		}
+
 		bool IPropertyMetaData.IsRequired
 		{
 			get { return _isRequired; }
 		}
+
 		int? IPropertyMetaData.MaxLength
 		{
 			get { return _maxLength; }
 		}
+
 		int? IPropertyMetaData.MaxValue
 		{
 			get { return _maxValue; }
 		}
+
 		int? IPropertyMetaData.MinLength
 		{
 			get { return _minLength; }
 		}
+
 		int? IPropertyMetaData.MinValue
 		{
 			get { return _minValue; }
 		}
+
 		string IPropertyMetaData.Name
 		{
 			get { return _name; }
 		}
+
 		PropertyInfo IPropertyMetaData.PropertyInfo
 		{
 			get { return _propertyInfo; }
 		}
+
 		Type IPropertyMetaData.ReturnType
 		{
 			get { return _returnType; }
 		}
+
 		string IPropertyMetaData.ValidationType
 		{
 			get { return _validationType; }

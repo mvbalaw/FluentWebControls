@@ -1,4 +1,14 @@
-﻿using System.Linq;
+﻿//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
+using System.Linq;
 
 using FluentAssert;
 
@@ -90,19 +100,19 @@ namespace FluentWebControls.Tests
 
 			private void should_set_the_content_to_empty_string()
 			{
-				string content = Tag.Content;
+				var content = Tag.Content;
 				content.ShouldBeEqualTo("");
 			}
 
 			private void should_set_the_content_to_the_escaped_value()
 			{
-				string content = Tag.RawContent;
+				var content = Tag.RawContent;
 				content.ShouldBeEqualTo(_value.EscapeForHtml());
 			}
 
 			private void should_set_the_content_to_the_value()
 			{
-				string content = Tag.Content;
+				var content = Tag.Content;
 				content.ShouldBeEqualTo(_value);
 			}
 
@@ -113,7 +123,9 @@ namespace FluentWebControls.Tests
 				@for.ShouldNotBeNull();
 				var tag = Tag;
 				var id = tag.Attributes.FirstOrDefault(x => x.Name == "id");
+// ReSharper disable PossibleNullReferenceException
 				@for.Value.ShouldBeEqualTo(id.Value);
+// ReSharper restore PossibleNullReferenceException
 			}
 
 			private void when_asked_to_create_a_span()
@@ -121,7 +133,7 @@ namespace FluentWebControls.Tests
 				var span = new SpanData(_value)
 					.WithLabel(_label)
 					.WithId(_id);
-				string resultHtml = span.ToString();
+				var resultHtml = span.ToString();
 				_result = HTMLParser.Parse("<all>" + resultHtml + "</all>");
 			}
 

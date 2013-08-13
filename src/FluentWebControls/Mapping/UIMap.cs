@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -27,15 +37,15 @@ namespace FluentWebControls.Mapping
 			{
 				var source = matchingProperty.SourcePropertyType;
 				if (source.IsGenericType &&
-				    (source.GetGenericTypeDefinition() == typeof(List<>) ||
-				     source.GetGenericTypeDefinition() == typeof(IList<>)))
+					(source.GetGenericTypeDefinition() == typeof(List<>) ||
+						source.GetGenericTypeDefinition() == typeof(IList<>)))
 				{
 					continue;
 				}
 				var property = matchingProperty.DestinationPropertyType;
 				if (property.IsGenericType &&
-				    (property.GetGenericTypeDefinition() == typeof(List<>) ||
-				     property.GetGenericTypeDefinition() == typeof(IList<>)))
+					(property.GetGenericTypeDefinition() == typeof(List<>) ||
+						property.GetGenericTypeDefinition() == typeof(IList<>)))
 				{
 					continue;
 				}
@@ -104,7 +114,7 @@ namespace FluentWebControls.Mapping
 		{
 			var propertyName = Reflection.GetPropertyName(forId);
 			var listUiMap = new ChoiceListMap<TDomain, TModel, TItemType>(propertyName, getSelectedItem(Item),
-			                                                              getItemText, getItemValue);
+				getItemText, getItemValue);
 			TryAddValidation(forValidation, listUiMap);
 			if (_mappings.ContainsKey(propertyName) && listUiMap.Validation == null)
 			{
@@ -128,7 +138,7 @@ namespace FluentWebControls.Mapping
 		{
 			var propertyName = Reflection.GetPropertyName(forId);
 			var listUiMap = new ChoiceListMap<TDomain, TModel, TItemType>(propertyName, getSelectedItem.Compile()(Item),
-			                                                              getItemText, getItemValue);
+				getItemText, getItemValue);
 			TryAddValidation(getSelectedItem, listUiMap);
 			if (_mappings.ContainsKey(propertyName) && listUiMap.Validation == null)
 			{
@@ -193,13 +203,13 @@ namespace FluentWebControls.Mapping
 
 		[Obsolete("Use e.g. ConfigureFreeText(forId, forValidation, getValue")]
 		protected FreeTextMap<TDomain> ConfigureFreeText(Expression<Func<TModel, object>> forId,
-		                                                 Expression<Func<TDomain, string>> getValue)
+			Expression<Func<TDomain, string>> getValue)
 		{
 			var propertyName = Reflection.GetPropertyName(forId);
 			var getValueFunction = getValue.Compile();
 			var freeTextUiMap = new FreeTextMap<TDomain>(Item,
-			                                             propertyName,
-			                                             getValueFunction);
+				propertyName,
+				getValueFunction);
 			TryAddValidation(getValue, freeTextUiMap);
 			if (_mappings.ContainsKey(propertyName) && freeTextUiMap.Validation == null)
 			{
@@ -215,13 +225,13 @@ namespace FluentWebControls.Mapping
 		}
 
 		protected FreeTextMap<TDomain> ConfigureFreeText(Expression<Func<TModel, object>> forId,
-		                                                 Expression<Func<TDomain, object>> forValidation,
-		                                                 Func<TDomain, string> getValue)
+			Expression<Func<TDomain, object>> forValidation,
+			Func<TDomain, string> getValue)
 		{
 			var propertyName = Reflection.GetPropertyName(forId);
 			var freeTextUiMap = new FreeTextMap<TDomain>(Item,
-			                                             propertyName,
-			                                             getValue);
+				propertyName,
+				getValue);
 			TryAddValidation(forValidation, freeTextUiMap);
 			if (_mappings.ContainsKey(propertyName) && freeTextUiMap.Validation == null)
 			{
@@ -248,7 +258,7 @@ namespace FluentWebControls.Mapping
 		}
 
 		protected void ConfigureMap<TOutput, TItemType>(Expression<Func<TModel, object>> forId,
-		                                                Func<TDomain, TItemType> getItem, Func<TItemType, TOutput> createMap)
+			Func<TDomain, TItemType> getItem, Func<TItemType, TOutput> createMap)
 		{
 			var propertyName = Reflection.GetPropertyName(forId);
 			var uiMap = createMap(getItem(Item));
@@ -272,12 +282,12 @@ namespace FluentWebControls.Mapping
 			}
 
 			var freeTextMap = new FreeTextMap<TDomain>(Item,
-			                                           propertyMappingInfo.Name,
-			                                           x =>
-				                                           {
-					                                           var source = info.GetValueFromSource(x);
-					                                           return source == null ? (string)null : source.ToString();
-				                                           });
+				propertyMappingInfo.Name,
+				x =>
+				{
+					var source = info.GetValueFromSource(x);
+					return source == null ? (string)null : source.ToString();
+				});
 			TryAddValidation(propertyMappingInfo.Name, freeTextMap);
 			return freeTextMap;
 		}
@@ -342,7 +352,7 @@ namespace FluentWebControls.Mapping
 				}
 
 				if (source is IChoiceListMap &&
-				    property.PropertyType.IsGenericType)
+					property.PropertyType.IsGenericType)
 				{
 					if (property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
 					{

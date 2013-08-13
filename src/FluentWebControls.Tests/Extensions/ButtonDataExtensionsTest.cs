@@ -1,4 +1,12 @@
-using System;
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
 
 using FluentAssert;
 
@@ -43,35 +51,21 @@ namespace FluentWebControls.Tests.Extensions
 				const string value = "Foo.doc";
 				var button = _buttonData.WithQueryParameter(fileName, value);
 				Assert.AreSame(_buttonData, button);
-				string action = _buttonData.ToString().ParseHtmlTag()["action"];
+				var action = _buttonData.ToString().ParseHtmlTag()["action"];
 				action.Contains(fileName).ShouldBeTrue();
 			}
 		}
 
 		[TestFixture]
-		public class When_asked_to_assign_action : ButtonDataExtensionsTestBase
+		public class When_asked_to_assign_CssClass : ButtonDataExtensionsTestBase
 		{
 			[Test]
-			public void Should_return_a_ButtonData_With_Action_appended_to_the_new_value()
+			public void Should_return_a_ButtonData_with_CssClass_initialized()
 			{
-				const string action = "Save";
-				_pathUtility.Expect(x => x.GetUrl(null)).IgnoreArguments().Return(action);
-				var button = _buttonData.WithAction(action);
+				const string cssClass = "TestClass";
+				var button = _buttonData.WithCssClass(cssClass);
 				Assert.AreSame(_buttonData, button);
-				_buttonData.ToString().ParseHtmlTag()["action"].Contains(action).ShouldBeTrue(_buttonData.ToString());
-			}
-		}
-
-		[TestFixture]
-		public class When_asked_to_assign_confirmation_message : ButtonDataExtensionsTestBase
-		{
-			[Test]
-			public void Should_return_a_ButtonData_With_OnClick_attribute_set_to_to_the_new_message()
-			{
-				const string message = "Test";
-				var button = _buttonData.Confirm(message);
-				Assert.AreSame(_buttonData, button);
-				_buttonData.ToString().ParseHtmlTag()["onClick"].Contains(message).ShouldBeTrue();
+				button.ToString().Contains(cssClass).ShouldBeTrue();
 			}
 		}
 
@@ -110,19 +104,6 @@ namespace FluentWebControls.Tests.Extensions
 				button.ToString().Contains(text).ShouldBeTrue();
 			}
 		}
-		
-		[TestFixture]
-		public class When_asked_to_assign_CssClass : ButtonDataExtensionsTestBase
-		{
-			[Test]
-			public void Should_return_a_ButtonData_with_CssClass_initialized()
-			{
-				const string cssClass = "TestClass";
-				var button = _buttonData.WithCssClass(cssClass);
-				Assert.AreSame(_buttonData, button);
-				button.ToString().Contains(cssClass).ShouldBeTrue();
-			}
-		}
 
 		[TestFixture]
 		public class When_asked_to_assign_Visibility : ButtonDataExtensionsTestBase
@@ -139,6 +120,33 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var button = _buttonData.VisibleIf(false);
 				button.ToString().ShouldBeEqualTo("");
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_assign_action : ButtonDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_ButtonData_With_Action_appended_to_the_new_value()
+			{
+				const string action = "Save";
+				_pathUtility.Expect(x => x.GetUrl(null)).IgnoreArguments().Return(action);
+				var button = _buttonData.WithAction(action);
+				Assert.AreSame(_buttonData, button);
+				_buttonData.ToString().ParseHtmlTag()["action"].Contains(action).ShouldBeTrue(_buttonData.ToString());
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_assign_confirmation_message : ButtonDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_ButtonData_With_OnClick_attribute_set_to_to_the_new_message()
+			{
+				const string message = "Test";
+				var button = _buttonData.Confirm(message);
+				Assert.AreSame(_buttonData, button);
+				_buttonData.ToString().ParseHtmlTag()["onClick"].Contains(message).ShouldBeTrue();
 			}
 		}
 

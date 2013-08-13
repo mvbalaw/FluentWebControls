@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -71,10 +81,10 @@ namespace FluentWebControls
 		{
 			var indexedGridColumns = GridColumns
 				.Select((x, i) => new
-					{
-						Item = x,
-						Index = i
-					})
+				                  {
+					                  Item = x,
+					                  Index = i
+				                  })
 				.ToList();
 			var sortField = indexedGridColumns.FirstOrDefault(x => x.Item.FieldName == PagedListParameters.SortField);
 			if (sortField != null)
@@ -92,7 +102,7 @@ namespace FluentWebControls
 		public override string ToString()
 		{
 			var sb = new StringBuilder();
-			string tipVisibility = GridColumns.Where(c => c.Type != GridColumnType.Command && c.IsClientSideSortable).Count() > 1 ? "visible" : "hidden";
+			var tipVisibility = GridColumns.Where(c => c.Type != GridColumnType.Command && c.IsClientSideSortable).Count() > 1 ? "visible" : "hidden";
 			sb.AppendFormat(Body, BuildFilters(), GetDefaultSortColumnIndex(), BuildHeaderColumns(), BuildRows(), tipVisibility);
 			return sb.ToString();
 		}

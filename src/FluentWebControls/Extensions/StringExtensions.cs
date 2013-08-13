@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +20,11 @@ namespace FluentWebControls.Extensions
 {
 	public static class StringExtensions
 	{
+		public static string CombineWithWebCompatibleSeparator(this string prefix, string suffix)
+		{
+			return prefix + Constants.WebCompatibleSeparator + suffix;
+		}
+
 		public static string CreateQuotedAttribute(this string value, string name)
 		{
 			return String.Format(" {0}='{1}'", name, EscapeForTagAttribute(value));
@@ -53,7 +68,7 @@ namespace FluentWebControls.Extensions
 			}
 
 			var parts = value.Split(' ');
-			var result = parts.Select(x => HttpUtility.UrlEncode(x)).Join("%20");
+			var result = parts.Select(HttpUtility.UrlEncode).Join("%20");
 			return result;
 		}
 
@@ -72,11 +87,6 @@ namespace FluentWebControls.Extensions
 				default:
 					return ListSortDirection.Ascending;
 			}
-		}
-
-		public static string CombineWithWebCompatibleSeparator(this string prefix, string suffix)
-		{
-			return prefix + Constants.WebCompatibleSeparator + suffix;
 		}
 	}
 }

@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,12 +58,15 @@ namespace FluentWebControls
 		}
 
 		public string ActionName { get; private set; }
+
 		protected virtual bool ClientSideSortingEnabled
 		{
 			get { return false; }
 		}
+
 		public string ControllerExtension { get; set; }
 		public string ControllerName { get; private set; }
+
 		protected IEnumerable<DropDownListData> Filters
 		{
 			get { return _filters; }
@@ -86,14 +99,14 @@ namespace FluentWebControls
 		{
 			_gridColumns.Add(
 				new GridColumn(column.Type,
-				               column.ColumnHeader,
-				               column.FieldName,
-				               column.Align,
-				               column.IsDefaultSortColumn,
-				               column.IsClientSideSortable,
-				               column.Sorter,
-				               actionName,
-				               _items.Select(getItemValue).ToList())
+					column.ColumnHeader,
+					column.FieldName,
+					column.Align,
+					column.IsDefaultSortColumn,
+					column.IsClientSideSortable,
+					column.Sorter,
+					actionName,
+					_items.Select(getItemValue).ToList())
 				);
 		}
 
@@ -122,22 +135,22 @@ namespace FluentWebControls
 		protected string BuildHeaderColumns()
 		{
 			var sb = new StringBuilder();
-			int columnNumber = 0;
+			var columnNumber = 0;
 			foreach (var column in GridColumns)
 			{
 				sb.AppendFormat("<th{0}{1}", AlignAttribute.Center, ClientSideSortingEnabled && !column.IsClientSideSortable ? " class=\"{sorter: false}\"" : "");
-				string columnSorter = !column.Sorter.IsNullOrEmpty(true) ? " class=\"{sorter: '" + column.Sorter + "'}\"" : "";
+				var columnSorter = !column.Sorter.IsNullOrEmpty(true) ? " class=\"{sorter: '" + column.Sorter + "'}\"" : "";
 				sb.AppendFormat("{0}>", columnSorter);
 				switch (column.Type)
 				{
 					case GridColumnType.Sortable:
 						sb.Append(Link
-						          	.To(ControllerName, ControllerExtension, ActionName)
-						          	.WithLinkText(column.ColumnHeader)
-						          	.WithQueryStringData(() => PagedListParameters.SortDirection, GetNextSortDirection(column.FieldName, column.IsDefaultSortColumn))
-						          	.WithQueryStringData(() => PagedListParameters.SortField, column.FieldName)
-						          	.WithQueryStringData(_filters.Select(f => new KeyValuePair<string, string>(((IWebControl)f).Id, ((IDropDownListData)f).SelectedValue)))
-						          	.WithId("th" + columnNumber)
+							.To(ControllerName, ControllerExtension, ActionName)
+							.WithLinkText(column.ColumnHeader)
+							.WithQueryStringData(() => PagedListParameters.SortDirection, GetNextSortDirection(column.FieldName, column.IsDefaultSortColumn))
+							.WithQueryStringData(() => PagedListParameters.SortField, column.FieldName)
+							.WithQueryStringData(_filters.Select(f => new KeyValuePair<string, string>(((IWebControl)f).Id, ((IDropDownListData)f).SelectedValue)))
+							.WithId("th" + columnNumber)
 							);
 						break;
 					case GridColumnType.Command:
@@ -169,9 +182,9 @@ namespace FluentWebControls
 						break;
 					case GridColumnType.Command:
 						sb.Append(Link
-						          	.To(ControllerName, ControllerExtension, column.ActionName)
-						          	.WithLinkText(column.ActionName)
-						          	.WithQueryStringData(column.FieldName, column[rowId]));
+							.To(ControllerName, ControllerExtension, column.ActionName)
+							.WithLinkText(column.ActionName)
+							.WithQueryStringData(column.FieldName, column[rowId]));
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();
@@ -185,8 +198,8 @@ namespace FluentWebControls
 		{
 			var sb = new StringBuilder();
 
-			int count = _items.Count();
-			foreach (int rowId in Enumerable.Range(0, count))
+			var count = _items.Count();
+			foreach (var rowId in Enumerable.Range(0, count))
 			{
 				BuildRow(rowId, sb);
 			}

@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -51,6 +61,12 @@ namespace FluentWebControls.Extensions
 			return dropDownListData;
 		}
 
+		public static DropDownListData WithAttribute(this DropDownListData dropDownListData, string attributeName, string attributeValue)
+		{
+			dropDownListData.Attributes.Add(new KeyValuePair<string, string>(attributeName, attributeValue));
+			return dropDownListData;
+		}
+
 		public static DropDownListData WithDefault(this DropDownListData dropDownListData, string text, string value)
 		{
 			dropDownListData.Default = new KeyValuePair<string, string>(text, value);
@@ -65,11 +81,6 @@ namespace FluentWebControls.Extensions
 		public static DropDownListData WithLabel(this DropDownListData dropDownListData, LabelData label)
 		{
 			dropDownListData.Label = label;
-			return dropDownListData;
-		}
-		public static DropDownListData WithAttribute(this DropDownListData dropDownListData, string attributeName, string attributeValue)
-		{
-			dropDownListData.Attributes.Add(new KeyValuePair<string, string>(attributeName, attributeValue));
 			return dropDownListData;
 		}
 
@@ -107,12 +118,6 @@ namespace FluentWebControls.Extensions
 			return dropDownListData;
 		}
 
-		public static DropDownListData WithTabIndex(this DropDownListData dropDownListData, string tabIndex)
-		{
-			dropDownListData.TabIndex = tabIndex;
-			return dropDownListData;
-		}
-
 		public static DropDownListData WithSelectedValue(this DropDownListData dropDownListData, int? value)
 		{
 			dropDownListData.SelectedValue = value == null ? "" : value.ToString();
@@ -123,6 +128,12 @@ namespace FluentWebControls.Extensions
 		{
 			dropDownListData.SlaveId = Reflection.GetPropertyName(forSlaveId);
 			dropDownListData.SlaveDataSource = Reflection.GetMethodCallData(targetControllerJsonActionToGetSlaveData);
+			return dropDownListData;
+		}
+
+		public static DropDownListData WithTabIndex(this DropDownListData dropDownListData, string tabIndex)
+		{
+			dropDownListData.TabIndex = tabIndex;
 			return dropDownListData;
 		}
 	}

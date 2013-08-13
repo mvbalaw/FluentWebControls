@@ -1,8 +1,19 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
+
 using MvbaCore;
 
 namespace FluentWebControls.Mapping
@@ -15,13 +26,16 @@ namespace FluentWebControls.Mapping
 		public ListUIMap(IEnumerable<TDomain> items)
 		{
 			ListItems = items;
-			_columns = (IDictionary<string, object>) _container;
+			_columns = (IDictionary<string, object>)_container;
 			foreach (var matchingProperty in Reflection
-				.GetMatchingProperties(typeof (TDomain), typeof (TModel)))
+				.GetMatchingProperties(typeof(TDomain), typeof(TModel)))
 			{
 				_columns.Add(matchingProperty.Name, GetMap(matchingProperty));
 			}
 		}
+
+		public string IdPrefix { get; set; }
+		public IEnumerable<TDomain> ListItems { get; private set; }
 
 		public void Populate<TMapModel>(TMapModel model)
 		{
@@ -29,10 +43,16 @@ namespace FluentWebControls.Mapping
 				.ToDictionary(x => x.Name, x => x);
 			foreach (var mapping in _columns)
 			{
-				if (!properties.ContainsKey(mapping.Key)) continue;
+				if (!properties.ContainsKey(mapping.Key))
+				{
+					continue;
+				}
 				var property = properties[mapping.Key];
 				var source = mapping.Value as UIColumn<TDomain>;
-				if (source == null) continue;
+				if (source == null)
+				{
+					continue;
+				}
 
 				var itemValues = ListItems.Select(source.TextMethod).ToList();
 
@@ -62,18 +82,14 @@ namespace FluentWebControls.Mapping
 			}
 		}
 
-
-		public string IdPrefix { get; set; }
-		public IEnumerable<TDomain> ListItems { get; private set; }
+		public ListData<TDomain> AsList()
+		{
+			return Fluent.ListFor(ListItems);
+		}
 
 		public TableData<TDomain> AsTable()
 		{
 			return Fluent.TableFor(ListItems);
-		}
-
-		public ListData<TDomain> AsList()
-		{
-			return Fluent.ListFor(ListItems);
 		}
 
 		public CommandColumn<TDomain> CheckBoxCommandColumnFor<TValueHolder>(
@@ -89,15 +105,6 @@ namespace FluentWebControls.Mapping
 			return Fluent.CheckBoxCommandColumnFor<TModel, TDomain, TValueHolder>(forCheckBoxId, column.TextMethod);
 		}
 
-		public ListUIMap<TDomain, TModel> WithCommandColumnFor<TValueHolder>(
-			Expression<Func<TValueHolder, object>> forId, Func<TDomain, string> getText)
-		{
-			string id = Reflection.GetPropertyName(forId);
-			var column = new UIColumn<TDomain>(getText);
-			_columns[id] = column;
-			return this;
-		}
-
 		public CommandItem<TDomain> CheckBoxCommandItemFor<TValueHolder>(
 			Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
 		{
@@ -107,7 +114,7 @@ namespace FluentWebControls.Mapping
 		public CommandItem<TDomain> CheckBoxCommandItemFor<TValueHolder>(
 			Expression<Func<TValueHolder, object>> forCheckBoxId)
 		{
-			var column = (UIColumn<TDomain>) _columns[Reflection.GetPropertyName(forCheckBoxId)];
+			var column = (UIColumn<TDomain>)_columns[Reflection.GetPropertyName(forCheckBoxId)];
 			return Fluent.CheckBoxCommandItemFor<TModel, TDomain, TValueHolder>(forCheckBoxId, column.TextMethod);
 		}
 
@@ -118,9 +125,9 @@ namespace FluentWebControls.Mapping
 		}
 
 		protected ListUIMap<TDomain, TModel> ConfigureColumn(Expression<Func<TModel, object>> forId,
-		                                                     Func<TDomain, string> getText)
+			Func<TDomain, string> getText)
 		{
-			string id = Reflection.GetPropertyName(forId);
+			var id = Reflection.GetPropertyName(forId);
 			var column = new UIColumn<TDomain>(getText);
 			_columns[id] = column;
 			return this;
@@ -150,10 +157,10 @@ namespace FluentWebControls.Mapping
 		private static UIColumn<TDomain> GetMap(PropertyMappingInfo propertyMappingInfo)
 		{
 			return new UIColumn<TDomain>(y =>
-			                             	{
-			                             		var source = propertyMappingInfo.GetValueFromSource(y);
-			                             		return source == null ? "" : source.ToString();
-			                             	});
+			{
+				var source = propertyMappingInfo.GetValueFromSource(y);
+				return source == null ? "" : source.ToString();
+			});
 		}
 
 		public CommandColumn<TDomain> LinkCommandColumnFor(Func<TDomain, string> getControllerActionHrefForSpecificItem)
@@ -168,13 +175,22 @@ namespace FluentWebControls.Mapping
 
 		private object TryGetRequestedMap(Expression<Func<TModel, object>> source)
 		{
-			string key = Reflection.GetPropertyName(source);
+			var key = Reflection.GetPropertyName(source);
 			object uiMap;
 			if (!_columns.TryGetValue(key, out uiMap))
 			{
 				throw new ArgumentException("No mapping defined for '" + key + "'");
 			}
 			return uiMap;
+		}
+
+		public ListUIMap<TDomain, TModel> WithCommandColumnFor<TValueHolder>(
+			Expression<Func<TValueHolder, object>> forId, Func<TDomain, string> getText)
+		{
+			var id = Reflection.GetPropertyName(forId);
+			var column = new UIColumn<TDomain>(getText);
+			_columns[id] = column;
+			return this;
 		}
 	}
 }

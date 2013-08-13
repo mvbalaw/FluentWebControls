@@ -1,6 +1,17 @@
-﻿using System.Collections.Generic;
+﻿//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using FluentWebControls.Extensions;
 
 namespace FluentWebControls
@@ -16,9 +27,9 @@ namespace FluentWebControls
 			CssClass = new List<string>();
 		}
 
-		public List<string> SelectedValues { get; private set; }
 		public List<string> CssClass { get; set; }
 		public LabelData Label { get; set; }
+		public List<string> SelectedValues { get; private set; }
 		public string TabIndex { get; set; }
 
 		public override string ToString()
@@ -52,6 +63,5 @@ namespace FluentWebControls
 			}
 			return sb.ToString();
 		}
-
 	}
 }

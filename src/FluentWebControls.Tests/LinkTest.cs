@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 
 using FluentAssert;
@@ -44,7 +54,7 @@ namespace FluentWebControls.Tests
 			public void Should_return_html_code_representing_a_link()
 			{
 				var linkData = Link.To("AdminTest", ".mvc", "");
-				string expected = _pathUtility.GetUrl("AdminTest.mvc/");
+				var expected = _pathUtility.GetUrl("AdminTest.mvc/");
 				var s = linkData.ToString();
 				Console.WriteLine(s);
 				s.ParseHtmlTag()["href"].ShouldBeEqualTo(expected);
@@ -54,7 +64,7 @@ namespace FluentWebControls.Tests
 			public void Should_return_html_code_representing_a_link_with_the_full_url_if_PathUtility_is_configured()
 			{
 				var linkData = Link.To("AdminTest", ".mvc", "Test");
-				string expected = _pathUtility.GetUrl("AdminTest.mvc/Test");
+				var expected = _pathUtility.GetUrl("AdminTest.mvc/Test");
 				linkData.ToString().ParseHtmlTag()["href"].ShouldBeEqualTo(expected);
 			}
 
@@ -84,12 +94,12 @@ namespace FluentWebControls.Tests
 			public void Should_return_html_code_representing_a_link_when_argument_values_are_properties_of_an_object()
 			{
 				var test = new Test
-					{
-						Id = 4,
-						Name = "Name"
-					};
+				           {
+					           Id = 4,
+					           Name = "Name"
+				           };
 				var linkData = Link.To((TestController controller) => controller.Action(test.Id, test.Name));
-				string expected = _pathUtility.GetUrl("Test/Action/4/Name");
+				var expected = _pathUtility.GetUrl("Test/Action/4/Name");
 				linkData.ToString().ParseHtmlTag()["href"].ShouldBeEqualTo(expected);
 			}
 
@@ -99,7 +109,7 @@ namespace FluentWebControls.Tests
 				const int id = 4;
 				const string name = "Name";
 				var linkData = Link.To((TestController controller) => controller.Action(id, name));
-				string expected = _pathUtility.GetUrl("Test/Action/4/Name");
+				var expected = _pathUtility.GetUrl("Test/Action/4/Name");
 				linkData.ToString().ParseHtmlTag()["href"].ShouldBeEqualTo(expected);
 			}
 
@@ -109,18 +119,7 @@ namespace FluentWebControls.Tests
 				const int id = 4;
 				const string name = "Name";
 				var linkData = Link.To((TestController controller) => controller.Action(id, name));
-				string expected = _pathUtility.GetUrl("Test/Action/4/Name");
-				linkData.ToString().ParseHtmlTag()["href"].ShouldBeEqualTo(expected);
-			}
-
-			[Test]
-			public void Should_use_the_controller_extension_if_given()
-			{
-				const int id = 4;
-				const string name = "Name";
-				var linkData = Link.To((TestController controller) => controller.Action(id, name))
-					.WithControllerExtension(".mvc");
-				string expected = _pathUtility.GetUrl("Test.mvc/Action/4/Name");
+				var expected = _pathUtility.GetUrl("Test/Action/4/Name");
 				linkData.ToString().ParseHtmlTag()["href"].ShouldBeEqualTo(expected);
 			}
 
@@ -133,6 +132,17 @@ namespace FluentWebControls.Tests
 					.WithControllerExtension(".mvc");
 				const string expected = "Test_Action_4_Name";
 				linkData.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(expected);
+			}
+
+			[Test]
+			public void Should_use_the_controller_extension_if_given()
+			{
+				const int id = 4;
+				const string name = "Name";
+				var linkData = Link.To((TestController controller) => controller.Action(id, name))
+					.WithControllerExtension(".mvc");
+				var expected = _pathUtility.GetUrl("Test.mvc/Action/4/Name");
+				linkData.ToString().ParseHtmlTag()["href"].ShouldBeEqualTo(expected);
 			}
 
 			public class Test

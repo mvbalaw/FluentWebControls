@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 
@@ -15,11 +25,11 @@ namespace FluentWebControls.Tests.Extensions
 		public abstract class DropDownListDataExtensionsTestBase
 		{
 			private readonly List<KeyValuePair<string, string>> _items = new List<KeyValuePair<string, string>>
-				{
-					new KeyValuePair<string, string>("Name1", "Value1"),
-					new KeyValuePair<string, string>("Name2", "Value2"),
-					new KeyValuePair<string, string>("Name3", "3")
-				};
+			                                                             {
+				                                                             new KeyValuePair<string, string>("Name1", "Value1"),
+				                                                             new KeyValuePair<string, string>("Name2", "Value2"),
+				                                                             new KeyValuePair<string, string>("Name3", "3")
+			                                                             };
 
 			protected DropDownListData DropDownListData;
 			protected IPropertyMetaData PropertyMetaData;
@@ -136,7 +146,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string defaultValue = "Value2";
 				var listData = DropDownListData.WithDefault(defaultText, defaultValue);
 				Assert.AreSame(DropDownListData, listData);
-				string html = DropDownListData.ToString();
+				var html = DropDownListData.ToString();
 				html.Contains("<option value='Value2' selected='selected'></option>").ShouldBeTrue(html);
 				html.Contains("<option value='Value2'>Name2</option>").ShouldBeFalse(html);
 			}
@@ -166,7 +176,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 // ReSharper disable ConvertToConstant
 // ReSharper disable ConvertToConstant.Local
-				string value = "Value2";
+				var value = "Value2";
 // ReSharper restore ConvertToConstant.Local
 // ReSharper restore ConvertToConstant
 				var listData = DropDownListData.WithSelectedValue(() => value);
@@ -195,7 +205,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 // ReSharper disable ConvertToConstant
 // ReSharper disable ConvertToConstant.Local
-				int pageNumber = 4;
+				var pageNumber = 4;
 // ReSharper restore ConvertToConstant.Local
 // ReSharper restore ConvertToConstant
 				var listData = DropDownListData.SubmitOnChange(() => pageNumber, 4);

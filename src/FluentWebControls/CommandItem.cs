@@ -1,5 +1,16 @@
-﻿using System;
+﻿//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
+using System;
 using System.Text;
+
 using FluentWebControls.Extensions;
 
 namespace FluentWebControls
@@ -91,7 +102,7 @@ namespace FluentWebControls
 		public StringBuilder Render(T item)
 		{
 			var listItem = new StringBuilder();
-			string tag = WrapWithSpan ? "span" : "div";
+			var tag = WrapWithSpan ? "span" : "div";
 			listItem.Append('<');
 			listItem.Append(tag);
 			listItem.Append(Align.Text.CreateQuotedAttribute("align"));
@@ -100,7 +111,7 @@ namespace FluentWebControls
 				listItem.Append(CssClass.CreateQuotedAttribute("class"));
 			}
 			listItem.Append('>');
-			string control = _getControl == null ? GetLink(item).ToString() : _getControl(item, Text);
+			var control = _getControl == null ? GetLink(item).ToString() : _getControl(item, Text);
 			listItem.Append(control);
 			listItem.Append("</");
 			listItem.Append(tag);
@@ -112,8 +123,8 @@ namespace FluentWebControls
 
 		private LinkData GetLink(T item)
 		{
-			string navigateUrl = _getLink(item);
-			string linkId = String.Format("lnk{0}", navigateUrl.Replace('/', '_').TrimStart(new[] {'_'}));
+			var navigateUrl = _getLink(item);
+			var linkId = String.Format("lnk{0}", navigateUrl.Replace('/', '_').TrimStart(new[] { '_' }));
 			return new LinkData().WithId(linkId).WithUrl(navigateUrl).WithLinkText(Text).WithLinkImageUrl(ImageUrl, Alt);
 		}
 	}

@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 
 using FluentAssert;
@@ -89,13 +99,13 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_a_TextBoxData_with_Label_initialized_given_a_Label_object()
 			{
 				var label = new LabelData
-					{
-						Text = "Id"
-					};
+				            {
+					            Text = "Id"
+				            };
 
 				var tBox = TextBoxData.WithLabel(label);
 				Assert.AreSame(TextBoxData, tBox);
-				string textBox = tBox.ToString();
+				var textBox = tBox.ToString();
 				textBox.Contains(label.ToString()).ShouldBeTrue();
 			}
 
@@ -107,9 +117,9 @@ namespace FluentWebControls.Tests.Extensions
 				var tBox = TextBoxData.WithLabel(labeltext);
 				Assert.AreSame(TextBoxData, tBox);
 				var label = new LabelData
-					{
-						Text = labeltext
-					};
+				            {
+					            Text = labeltext
+				            };
 				tBox.ToString().Contains(label.ToString()).ShouldBeTrue();
 			}
 		}

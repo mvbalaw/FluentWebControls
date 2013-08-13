@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 
 using FluentAssert;
@@ -20,10 +30,10 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
 			{
-				bool value = true;
+				var value = true;
 				var checkBoxData = new CheckBoxData(value)
 					.WithId(Reflection.GetPropertyName(() => value).ToCamelCase());
-				string actual = checkBoxData.ToString();
+				var actual = checkBoxData.ToString();
 				actual.ShouldBeEqualTo(HtmlText, actual);
 			}
 		}
@@ -36,10 +46,10 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
 			{
-				bool value = false;
+				var value = false;
 				var checkBoxData = new CheckBoxData(value)
 					.WithId(Reflection.GetPropertyName(() => value).ToCamelCase());
-				string actual = checkBoxData.ToString();
+				var actual = checkBoxData.ToString();
 				actual.ShouldBeEqualTo(HtmlText, actual);
 			}
 		}
@@ -52,20 +62,20 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
 			{
-				bool value = false;
+				var value = false;
 				var checkBoxData = new CheckBoxData(value)
 					.WithId(Reflection.GetPropertyName(() => value).ToCamelCase());
 				SetLabel(checkBoxData);
-				string actual = checkBoxData.ToString();
+				var actual = checkBoxData.ToString();
 				actual.ShouldBeEqualTo(HtmlText, actual);
 			}
 
 			private static void SetLabel(CheckBoxData checkBoxData)
 			{
 				var label = new LabelData
-					{
-						Text = "Label"
-					};
+				            {
+					            Text = "Label"
+				            };
 				checkBoxData.WithLabel(label);
 				checkBoxData.WithLabelAlignedLeft(label);
 			}
@@ -79,20 +89,20 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
 			{
-				bool value = false;
+				var value = false;
 				var checkBoxData = new CheckBoxData(value)
 					.WithId(Reflection.GetPropertyName(() => value).ToCamelCase());
 				SetLabel(checkBoxData);
-				string actual = checkBoxData.ToString();
+				var actual = checkBoxData.ToString();
 				actual.ShouldBeEqualTo(HtmlText, actual);
 			}
 
 			private static void SetLabel(CheckBoxData checkBoxData)
 			{
 				var label = new LabelData
-					{
-						Text = "Label:"
-					};
+				            {
+					            Text = "Label:"
+				            };
 				checkBoxData.WithLabel(label);
 			}
 		}

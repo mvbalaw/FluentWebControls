@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 
 using FluentAssert;
@@ -17,7 +27,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_produce_correct_output_given_a_null_string_value()
 			{
 				const string value = null;
-				string result = value.CreateQuotedAttribute("name");
+				var result = value.CreateQuotedAttribute("name");
 				result.ShouldBeEqualTo(" name=''");
 			}
 
@@ -25,7 +35,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_produce_correct_output_given_a_string_value()
 			{
 				const string value = "value";
-				string result = value.CreateQuotedAttribute("name");
+				var result = value.CreateQuotedAttribute("name");
 				result.ShouldBeEqualTo(" name='value'");
 			}
 
@@ -33,7 +43,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_produce_correct_output_given_an_int_value()
 			{
 				const int value = 1;
-				string result = value.CreateQuotedAttribute("name");
+				var result = value.CreateQuotedAttribute("name");
 				result.ShouldBeEqualTo(" name='1'");
 			}
 
@@ -41,7 +51,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_produce_correct_output_given_an_null_nullable_int_value()
 			{
 				int? value = null;
-				string result = value.CreateQuotedAttribute("name");
+				var result = value.CreateQuotedAttribute("name");
 				result.ShouldBeEqualTo(" name=''");
 			}
 		}
@@ -56,7 +66,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_produce_correct_output_given_a_null_nullable_integer_value()
 			{
 				int? value = null;
-				string result = value.CreateQuotedAttribute("name");
+				var result = value.CreateQuotedAttribute("name");
 				result.ShouldBeEqualTo(" name=''");
 			}
 
@@ -64,7 +74,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_produce_correct_output_given_a_null_string_value()
 			{
 				const string value = null;
-				string result = value.CreateQuotedAttribute("name");
+				var result = value.CreateQuotedAttribute("name");
 				result.ShouldBeEqualTo(" name=''");
 			}
 
@@ -72,7 +82,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_produce_correct_output_given_a_string_value()
 			{
 				const string value = "<value\"";
-				string result = value.CreateQuotedAttribute("name");
+				var result = value.CreateQuotedAttribute("name");
 				result.ShouldBeEqualTo(String.Format(" name='{0}value{1}'", Lesser, Quote));
 			}
 
@@ -80,7 +90,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_produce_correct_output_given_an_integer_value()
 			{
 				const int value = 1;
-				string result = value.CreateQuotedAttribute("name");
+				var result = value.CreateQuotedAttribute("name");
 				result.ShouldBeEqualTo(" name='1'");
 			}
 		}

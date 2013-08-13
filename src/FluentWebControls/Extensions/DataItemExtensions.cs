@@ -1,4 +1,14 @@
-﻿using System;
+﻿//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
+using System;
 
 namespace FluentWebControls.Extensions
 {
@@ -23,12 +33,6 @@ namespace FluentWebControls.Extensions
 			return dataItem;
 		}
 
-		public static DataItem<T> WithLabel<T>(this DataItem<T> dataItem, string label)
-		{
-			dataItem.LabelText = label;
-			return dataItem;
-		}
-
 		public static DataItem<T> AsHidden<T>(this DataItem<T> dataItem, string forId)
 		{
 			dataItem.ColumnTextType = ColumnTextType.Hidden;
@@ -50,18 +54,6 @@ namespace FluentWebControls.Extensions
 			return dataItem;
 		}
 
-		public static DataItem<T> WithName<T>(this DataItem<T> dataColumn, string name)
-		{
-			dataColumn.InputTextName = name;
-			return dataColumn;
-		}
-
-		public static DataItem<T> WithInputCssClass<T>(this DataItem<T> dataItem, string inputCssClass)
-		{
-			dataItem.InputCssClass = inputCssClass;
-			return dataItem;
-		}
-
 		public static DataItem<T> WithContainerCssClass<T>(this DataItem<T> dataItem, string cssClass)
 		{
 			dataItem.ContainerCssClass = cssClass;
@@ -73,6 +65,24 @@ namespace FluentWebControls.Extensions
 			dataItem.HasDivId = true;
 			dataItem.DivId = divId;
 			return dataItem;
+		}
+
+		public static DataItem<T> WithInputCssClass<T>(this DataItem<T> dataItem, string inputCssClass)
+		{
+			dataItem.InputCssClass = inputCssClass;
+			return dataItem;
+		}
+
+		public static DataItem<T> WithLabel<T>(this DataItem<T> dataItem, string label)
+		{
+			dataItem.LabelText = label;
+			return dataItem;
+		}
+
+		public static DataItem<T> WithName<T>(this DataItem<T> dataColumn, string name)
+		{
+			dataColumn.InputTextName = name;
+			return dataColumn;
 		}
 
 		public static DataItem<T> WrapWithSpan<T>(this DataItem<T> dataItem)

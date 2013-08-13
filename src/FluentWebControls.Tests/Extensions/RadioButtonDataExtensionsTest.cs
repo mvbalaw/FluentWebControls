@@ -1,4 +1,14 @@
-﻿using System;
+﻿//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
+using System;
 
 using FluentAssert;
 
@@ -14,28 +24,14 @@ namespace FluentWebControls.Tests.Extensions
 	{
 		public abstract class RadioButtonDataExtensionsTestBase
 		{
-			protected RadioButtonData RadioButtonData;
 			protected bool IsChecked;
+			protected RadioButtonData RadioButtonData;
 
 			[SetUp]
 			public void BeforeEachTest()
 			{
 				IsChecked = true;
 				RadioButtonData = new RadioButtonData(true);
-			}
-		}
-
-		[TestFixture]
-		public class When_asked_to_assign_Id : RadioButtonDataExtensionsTestBase
-		{
-			[Test]
-			public void Should_return_a_RadioButtonData_With_Id_initialized()
-			{
-				var checkBoxData = RadioButtonData.WithId("isChecked");
-				Assert.AreSame(RadioButtonData, checkBoxData);
-				string propertyName = System.StringExtensions.ToCamelCase(Reflection.GetPropertyName(() => IsChecked));
-				RadioButtonData.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(propertyName.ToCamelCase());
-				checkBoxData.ToString().Contains(propertyName).ShouldBeTrue();
 			}
 		}
 
@@ -51,6 +47,21 @@ namespace FluentWebControls.Tests.Extensions
 				Assert.AreSame(RadioButtonData, checkBoxData);
 				checkBoxData.ToString().ParseHtmlTag()["tabindex"].ShouldBeEqualTo(tabIndex);
 				checkBoxData.ToString().Contains(tabIndex).ShouldBeTrue();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_assign_Id : RadioButtonDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_RadioButtonData_With_Id_initialized()
+			{
+				var checkBoxData = RadioButtonData.WithId("isChecked");
+				Assert.AreSame(RadioButtonData, checkBoxData);
+				var propertyName = System.StringExtensions.ToCamelCase(Reflection.GetPropertyName(() => IsChecked));
+				RadioButtonData.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(propertyName.ToCamelCase());
+// ReSharper disable once AssignNullToNotNullAttribute
+				checkBoxData.ToString().Contains(propertyName).ShouldBeTrue();
 			}
 		}
 
@@ -76,9 +87,9 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var label = new LabelData("Id");
 				var blankLabel = new LabelData
-					{
-						Text = "&nbsp;"
-					};
+				                 {
+					                 Text = "&nbsp;"
+				                 };
 
 				var checkBoxData = RadioButtonData.WithLabel(label);
 				Assert.AreSame(RadioButtonData, checkBoxData);
@@ -95,9 +106,9 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var label = new LabelData("Id");
 				var blankLabel = new LabelData
-					{
-						Text = "&nbsp;"
-					};
+				                 {
+					                 Text = "&nbsp;"
+				                 };
 
 				var checkBoxData = RadioButtonData.WithLabelAlignedLeft(label);
 				Assert.AreSame(RadioButtonData, checkBoxData);
@@ -137,12 +148,12 @@ namespace FluentWebControls.Tests.Extensions
 				RadioButtonData.ToString().ParseHtmlTag()["value"].ShouldBeEqualTo("true");
 			}
 
-			private void value_not_set(RadioButtonData checkBoxData)
+			private static void value_not_set(RadioButtonData checkBoxData)
 			{
 				checkBoxData.WithValue(null);
 			}
 
-			private void value_set_to_false(RadioButtonData checkBoxData)
+			private static void value_set_to_false(RadioButtonData checkBoxData)
 			{
 				checkBoxData.WithValue("false");
 			}

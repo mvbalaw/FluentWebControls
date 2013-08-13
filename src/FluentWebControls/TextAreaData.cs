@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Text;
 
@@ -12,10 +22,10 @@ namespace FluentWebControls
 		string IdWithPrefix { get; }
 		LabelData Label { get; }
 		int Rows { get; }
+		string TabIndex { get; }
 		ValidatableWebControlBase.JQueryFieldValidationType ValidationType { get; }
 		string Value { get; }
 		string Width { get; }
-		string TabIndex { get; }
 	}
 
 	public class TextAreaData : ValidatableWebControlBase, ITextAreaData
@@ -32,46 +42,55 @@ namespace FluentWebControls
 		internal string CssClass { private get; set; }
 		internal LabelData Label { private get; set; }
 		internal int Rows { private get; set; }
+		internal string TabIndex { private get; set; }
 		internal JQueryFieldValidationType ValidationType { private get; set; }
 		internal string Width { private get; set; }
-		internal string TabIndex { private get; set; }
 
 		int ITextAreaData.Cols
 		{
 			get { return Cols; }
 		}
+
 		string ITextAreaData.CssClass
 		{
 			get { return CssClass; }
 		}
+
 		LabelData ITextAreaData.Label
 		{
 			get { return Label; }
 		}
+
 		int ITextAreaData.Rows
 		{
 			get { return Rows; }
 		}
+
 		JQueryFieldValidationType ITextAreaData.ValidationType
 		{
 			get { return ValidationType; }
 		}
+
 		string ITextAreaData.Width
 		{
 			get { return Width; }
 		}
+
 		string ITextAreaData.Value
 		{
 			get { return _value; }
 		}
+
 		string ITextAreaData.IdWithPrefix
 		{
 			get { return IdWithPrefix; }
 		}
+
 		string ITextAreaData.TabIndex
 		{
 			get { return TabIndex; }
 		}
+
 		public override string ToString()
 		{
 			var sb = new StringBuilder();
@@ -88,7 +107,7 @@ namespace FluentWebControls
 			}
 			if (Width != null)
 			{
-				string value = "width:" + Width;
+				var value = "width:" + Width;
 				sb.Append(value.CreateQuotedAttribute("style"));
 			}
 			sb.Append(BuildJqueryValidation(CssClass).CreateQuotedAttribute("class"));

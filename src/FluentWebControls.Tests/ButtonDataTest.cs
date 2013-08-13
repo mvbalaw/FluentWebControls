@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 
@@ -95,11 +105,11 @@ namespace FluentWebControls.Tests
 			{
 				IPathUtility pathUtility = new TestPathUtility();
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
-					{
-						ControllerExtension = ".mvc"
-					};
+				              {
+					              ControllerExtension = ".mvc"
+				              };
 
-				string htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage, pathUtility.GetUrl("/Admin.mvc/Delete"));
+				var htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage, pathUtility.GetUrl("/Admin.mvc/Delete"));
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
@@ -108,11 +118,11 @@ namespace FluentWebControls.Tests
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
-					{
-						ControllerExtension = ".mvc"
-					};
+				              {
+					              ControllerExtension = ".mvc"
+				              };
 
-				string htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage, "/Admin.mvc/Delete");
+				var htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage, "/Admin.mvc/Delete");
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 		}
@@ -129,11 +139,11 @@ namespace FluentWebControls.Tests
 			{
 				IPathUtility pathUtility = new TestPathUtility();
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
-					{
-						ControllerExtension = ".mvc"
-					};
+				              {
+					              ControllerExtension = ".mvc"
+				              };
 				SetAdditionalParameters();
-				string htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), _buttonData.ConfirmMessage, pathUtility.GetUrl("/Admin.mvc/Test"));
+				var htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), _buttonData.ConfirmMessage, pathUtility.GetUrl("/Admin.mvc/Test"));
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
@@ -142,11 +152,11 @@ namespace FluentWebControls.Tests
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
-					{
-						ControllerExtension = ".mvc"
-					};
+				              {
+					              ControllerExtension = ".mvc"
+				              };
 				SetAdditionalParameters();
-				string htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), _buttonData.ConfirmMessage, "/Admin.mvc/Test");
+				var htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), _buttonData.ConfirmMessage, "/Admin.mvc/Test");
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
@@ -170,11 +180,11 @@ namespace FluentWebControls.Tests
 			{
 				IPathUtility pathUtility = new TestPathUtility();
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
-					{
-						ControllerExtension = ".mvc"
-					};
+				              {
+					              ControllerExtension = ".mvc"
+				              };
 
-				string htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", pathUtility.GetUrl("/Admin.mvc/Save"));
+				var htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", pathUtility.GetUrl("/Admin.mvc/Save"));
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
@@ -183,10 +193,10 @@ namespace FluentWebControls.Tests
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
-					{
-						ControllerExtension = ".mvc"
-					};
-				string htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", "/Admin.mvc/Save");
+				              {
+					              ControllerExtension = ".mvc"
+				              };
+				var htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", "/Admin.mvc/Save");
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 		}
@@ -203,11 +213,11 @@ namespace FluentWebControls.Tests
 			{
 				IPathUtility pathUtility = new TestPathUtility();
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
-					{
-						ControllerExtension = ".mvc"
-					};
+				              {
+					              ControllerExtension = ".mvc"
+				              };
 				SetAdditionalParameters();
-				string htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", pathUtility.GetUrl("/Admin.mvc/Save"));
+				var htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", pathUtility.GetUrl("/Admin.mvc/Save"));
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
@@ -216,11 +226,11 @@ namespace FluentWebControls.Tests
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
-					{
-						ControllerExtension = ".mvc"
-					};
+				              {
+					              ControllerExtension = ".mvc"
+				              };
 				SetAdditionalParameters();
-				string htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", "/Admin.mvc/Save");
+				var htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", "/Admin.mvc/Save");
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
@@ -243,9 +253,9 @@ namespace FluentWebControls.Tests
 			{
 				IPathUtility pathUtility = new TestPathUtility();
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
-					{
-						ControllerExtension = ".mvc"
-					};
+				              {
+					              ControllerExtension = ".mvc"
+				              };
 				SetAdditionalParameters();
 				_buttonData.ToString().ShouldBeEqualTo(HtmlText);
 			}
@@ -255,9 +265,9 @@ namespace FluentWebControls.Tests
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
-					{
-						ControllerExtension = ".mvc"
-					};
+				              {
+					              ControllerExtension = ".mvc"
+				              };
 				SetAdditionalParameters();
 				_buttonData.ToString().ShouldBeEqualTo(HtmlText);
 			}
@@ -280,7 +290,7 @@ namespace FluentWebControls.Tests
 				IPathUtility pathUtility = new TestPathUtility();
 				_buttonData = new ButtonData(_buttonType, pathUtility);
 				SetAdditionalParameters();
-				string htmlText = String.Format("<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;{0}&quot;'/>", pathUtility.GetUrl("/Test/Action/4/name"));
+				var htmlText = String.Format("<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;{0}&quot;'/>", pathUtility.GetUrl("/Test/Action/4/name"));
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
@@ -290,7 +300,7 @@ namespace FluentWebControls.Tests
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility);
 				SetAdditionalParameters();
-				string htmlText = String.Format("<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;{0}&quot;'/>", "/Test/Action/4/name");
+				var htmlText = String.Format("<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;{0}&quot;'/>", "/Test/Action/4/name");
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
@@ -300,10 +310,10 @@ namespace FluentWebControls.Tests
 				_buttonData.ControllerName = "Test";
 				_buttonData.ActionName = "Action";
 				_buttonData.AddUrlParameters(new List<string>
-					{
-						"4",
-						"name"
-					});
+				                             {
+					                             "4",
+					                             "name"
+				                             });
 			}
 		}
 	}

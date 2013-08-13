@@ -1,7 +1,19 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 using FluentWebControls.Extensions;
+
 using MvbaCore;
 
 namespace FluentWebControls
@@ -88,22 +100,22 @@ namespace FluentWebControls
 		public virtual void Render(T item, HtmlTextWriter writer)
 		{
 			var cell = new TableCell
-			           	{
-			           		HorizontalAlign = Align.ToHorizontalAlign(),
-			           		Text = GetColumnWithInput(item),
-			           		CssClass = CssClass
-			           	};
+			           {
+				           HorizontalAlign = Align.ToHorizontalAlign(),
+				           Text = GetColumnWithInput(item),
+				           CssClass = CssClass
+			           };
 			cell.RenderControl(writer);
 		}
 
 		public void RenderHeader(HtmlTextWriter writer)
 		{
 			var cell = new TableHeaderCell
-			           	{
-			           		HorizontalAlign = HeaderAlign.ToHorizontalAlign(),
-			           		Text = HeaderText,
-			           		CssClass = HeaderCssClass
-			           	};
+			           {
+				           HorizontalAlign = HeaderAlign.ToHorizontalAlign(),
+				           Text = HeaderText,
+				           CssClass = HeaderCssClass
+			           };
 			cell.RenderControl(writer);
 		}
 
@@ -128,11 +140,6 @@ namespace FluentWebControls
 			return GetColumnText(item);
 		}
 
-		private string GetName(T item)
-		{
-			return InputTextName ?? GetId(item);
-		}
-
 		private string GetId(T item)
 		{
 			if (InputTextId != null)
@@ -145,18 +152,24 @@ namespace FluentWebControls
 				return InputTextId ?? ColumnName;
 			}
 			return Prefix.IsNullOrEmpty()
-			       	? String.Format("{0}_{1}", ColumnName, GetItemId(item))
-			       	: String.Format("{0}_{1}_{2}", Prefix, ColumnName, GetItemId(item));
+				? String.Format("{0}_{1}", ColumnName, GetItemId(item))
+				: String.Format("{0}_{1}_{2}", Prefix, ColumnName, GetItemId(item));
+		}
+
+		private string GetName(T item)
+		{
+			return InputTextName ?? GetId(item);
 		}
 	}
 
 	public class ColumnTextType : NamedConstant<ColumnTextType>
 	{
-		[DefaultKey] public static ColumnTextType ColumnText = new ColumnTextType("column");
+		public static ColumnTextType CheckBox = new ColumnTextType("checkbox");
+		[DefaultKey]
+		public static ColumnTextType ColumnText = new ColumnTextType("column");
 		public static ColumnTextType Hidden = new ColumnTextType("hidden");
 		public static ColumnTextType Span = new ColumnTextType("span");
 		public static ColumnTextType TextBox = new ColumnTextType("textbox");
-		public static ColumnTextType CheckBox = new ColumnTextType("checkbox");
 
 		private ColumnTextType(string key)
 		{

@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System.Web;
 
 using FluentAssert;
@@ -22,7 +32,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_remove_characters_leading_to_Cross_Site_Scripting()
 			{
 				const string teststring = "<" + TestString + ">&";
-				string result = teststring.EscapeForHtml();
+				var result = teststring.EscapeForHtml();
 				result.ShouldBeEqualTo(Lesser + TestString + Greater + Ampersand);
 			}
 		}
@@ -39,10 +49,10 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_remove_characters_leading_to_Cross_Site_Scripting()
 			{
 				const string value = TestString + "\" <  ";
-				string result = value.EscapeForUrl();
+				var result = value.EscapeForUrl();
 				result.ShouldBeEqualTo(TestString + Quote + Space + LessThan + Space + Space);
 
-				string decoded = HttpUtility.UrlDecode(result);
+				var decoded = HttpUtility.UrlDecode(result);
 				decoded.ShouldBeEqualTo(value);
 			}
 
@@ -50,10 +60,10 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_correct_result_if_the_input_contains_percent_followed_by_20()
 			{
 				const string value = "%20";
-				string result = value.EscapeForUrl();
+				var result = value.EscapeForUrl();
 				result.ShouldBeEqualTo("%2520");
 
-				string decoded = HttpUtility.UrlDecode(result);
+				var decoded = HttpUtility.UrlDecode(result);
 				decoded.ShouldBeEqualTo(value);
 			}
 
@@ -61,7 +71,7 @@ namespace FluentWebControls.Tests.Extensions
 			public void Should_return_empty_if_the_input_is_null()
 			{
 				const string value = null;
-				string result = value.EscapeForUrl();
+				var result = value.EscapeForUrl();
 				result.ShouldBeEqualTo("");
 			}
 		}

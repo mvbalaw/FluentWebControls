@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 
 namespace FluentWebControls.Extensions
@@ -28,6 +38,20 @@ namespace FluentWebControls.Extensions
 			return dataColumn;
 		}
 
+		public static DataColumn<T> AsCheckBox<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
+		{
+			dataColumn.ColumnTextType = ColumnTextType.CheckBox;
+			dataColumn.GetItemId = forId;
+			return dataColumn;
+		}
+
+		public static DataColumn<T> AsCheckBox<T>(this DataColumn<T> dataColumn, string forId)
+		{
+			dataColumn.ColumnTextType = ColumnTextType.CheckBox;
+			dataColumn.InputTextId = forId;
+			return dataColumn;
+		}
+
 		public static DataColumn<T> AsHidden<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
 		{
 			dataColumn.ColumnTextType = ColumnTextType.Hidden;
@@ -42,12 +66,6 @@ namespace FluentWebControls.Extensions
 			return dataColumn;
 		}
 
-		public static DataColumn<T> WithName<T>(this DataColumn<T> dataColumn, string name)
-		{
-			dataColumn.InputTextName = name;
-			return dataColumn;
-		}
-
 		public static DataColumn<T> AsSpan<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
 		{
 			dataColumn.ColumnTextType = ColumnTextType.Span;
@@ -59,20 +77,6 @@ namespace FluentWebControls.Extensions
 		{
 			dataColumn.ColumnTextType = ColumnTextType.TextBox;
 			dataColumn.GetItemId = forId;
-			return dataColumn;
-		}
-
-		public static DataColumn<T> AsCheckBox<T>(this DataColumn<T> dataColumn, Func<T, string> forId)
-		{
-			dataColumn.ColumnTextType = ColumnTextType.CheckBox;
-			dataColumn.GetItemId = forId;
-			return dataColumn;
-		}
-
-		public static DataColumn<T> AsCheckBox<T>(this DataColumn<T> dataColumn, string forId)
-		{
-			dataColumn.ColumnTextType = ColumnTextType.CheckBox;
-			dataColumn.InputTextId = forId;
 			return dataColumn;
 		}
 
@@ -104,6 +108,12 @@ namespace FluentWebControls.Extensions
 		public static DataColumn<T> WithInputCssClass<T>(this DataColumn<T> dataColumn, string inputCssClass)
 		{
 			dataColumn.InputCssClass = inputCssClass;
+			return dataColumn;
+		}
+
+		public static DataColumn<T> WithName<T>(this DataColumn<T> dataColumn, string name)
+		{
+			dataColumn.InputTextName = name;
 			return dataColumn;
 		}
 

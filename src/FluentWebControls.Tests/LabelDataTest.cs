@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Linq.Expressions;
 
@@ -20,9 +30,9 @@ namespace FluentWebControls.Tests
 			private LabelData GetLabelData()
 			{
 				return new LabelData(ForId)
-					{
-						Text = Text
-					};
+				       {
+					       Text = Text
+				       };
 			}
 
 			[Test]
@@ -52,6 +62,7 @@ namespace FluentWebControls.Tests
 			{
 				get { return "<label for='value' style='float:left;text-align:right'></label>"; }
 			}
+
 			protected override string Text
 			{
 				get { return value.ToString(); }
@@ -61,11 +72,10 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_label_for_a_string : LabelDataTestBase
 		{
-// ReSharper disable ConvertToConstant.Local
-// ReSharper disable InconsistentNaming
+// ReSharper disable once ConvertToConstant.Local
+// ReSharper disable once FieldCanBeMadeReadOnly.Local
+// ReSharper disable once InconsistentNaming
 			private string value = "value";
-// ReSharper restore InconsistentNaming
-// ReSharper restore ConvertToConstant.Local
 
 			protected override string ForId
 			{
@@ -80,6 +90,7 @@ namespace FluentWebControls.Tests
 			{
 				get { return "<label for='value' style='float:left;text-align:right'>value</label>"; }
 			}
+
 			protected override string Text
 			{
 				get { return value; }
@@ -104,6 +115,7 @@ namespace FluentWebControls.Tests
 			{
 				get { return "<label for='_value' style='float:left;text-align:right'>10</label>"; }
 			}
+
 			protected override string Text
 			{
 				get { return _value.ToString(); }

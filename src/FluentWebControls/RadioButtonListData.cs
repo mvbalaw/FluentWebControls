@@ -1,4 +1,14 @@
-﻿using System.Collections.Generic;
+﻿//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
+using System.Collections.Generic;
 using System.Text;
 
 using FluentWebControls.Extensions;
@@ -32,12 +42,12 @@ namespace FluentWebControls
 			{
 				sb.Append("<em>*</em>");
 			}
-			string id = ((IWebControl)this).Id;
-			string idPrefix = ((IWebControl)this).IdPrefix;
-			string namePrefix = ((IWebControl)this).NamePrefix;
+			var id = ((IWebControl)this).Id;
+			var idPrefix = ((IWebControl)this).IdPrefix;
+			var namePrefix = ((IWebControl)this).NamePrefix;
 			foreach (var item in _items)
 			{
-				bool isChecked = SelectedValue == item.Value;
+				var isChecked = SelectedValue == item.Value;
 				var checkbox = new RadioButtonData(isChecked)
 					.WithValue(item.Value)
 					.WithId(id)

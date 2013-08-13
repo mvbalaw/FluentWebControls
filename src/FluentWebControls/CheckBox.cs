@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Linq.Expressions;
 
@@ -25,7 +35,7 @@ namespace FluentWebControls
 		public static CheckBoxData For<T>(T source, Expression<Func<T, bool>> forCheckedAndId)
 		{
 			var getValue = forCheckedAndId.Compile();
-			bool isChecked = getValue(source);
+			var isChecked = getValue(source);
 			var checkBoxData = new CheckBoxData(isChecked)
 				.WithId(forCheckedAndId);
 			return checkBoxData;

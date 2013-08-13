@@ -1,6 +1,18 @@
-﻿using System;
+﻿//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
+using System;
 using System.Text;
+
 using FluentWebControls.Extensions;
+
 using MvbaCore;
 
 namespace FluentWebControls
@@ -16,8 +28,8 @@ namespace FluentWebControls
 	public interface IDataItem
 	{
 		AlignAttribute Align { get; }
-		string InputCssClass { get; }
 		string ContainerCssClass { get; }
+		string InputCssClass { get; }
 		string LabelText { get; }
 		bool WrapWithSpan { get; }
 	}
@@ -36,14 +48,14 @@ namespace FluentWebControls
 
 		internal AlignAttribute Align { private get; set; }
 		internal ColumnTextType ColumnTextType { get; set; }
-		internal Func<T, string> GetItemId { get; set; }
-		internal string InputCssClass { get; set; }
 		internal string ContainerCssClass { get; set; }
-		internal string LabelText { get; set; }
+		internal string DivId { get; set; }
+		internal Func<T, string> GetItemId { get; set; }
+		internal bool HasDivId { get; set; }
+		internal string InputCssClass { get; set; }
 		internal string InputTextId { get; set; }
 		internal string InputTextName { get; set; }
-		internal bool HasDivId { get; set; }
-		internal string DivId { get; set; }
+		internal string LabelText { get; set; }
 		internal bool WrapWithSpan { private get; set; }
 
 		#region IDataItem Members
@@ -80,7 +92,7 @@ namespace FluentWebControls
 		public StringBuilder Render(T item)
 		{
 			var listItem = new StringBuilder();
-			string tag = WrapWithSpan ? "span" : "div";
+			var tag = WrapWithSpan ? "span" : "div";
 			listItem.Append('<');
 			listItem.Append(tag);
 			if (HasDivId)
@@ -124,11 +136,6 @@ namespace FluentWebControls
 			return GetColumnText(item);
 		}
 
-		private string GetName(T item)
-		{
-			return InputTextName ?? GetId(item);
-		}
-		
 		private string GetId(T item)
 		{
 			if (InputTextId != null)
@@ -141,6 +148,11 @@ namespace FluentWebControls
 				return InputTextId ?? ColumnName;
 			}
 			return String.Format("{0}_{1}_{2}", Reflection.GetClassName<T>(), ColumnName, GetItemId(item));
+		}
+
+		private string GetName(T item)
+		{
+			return InputTextName ?? GetId(item);
 		}
 	}
 }

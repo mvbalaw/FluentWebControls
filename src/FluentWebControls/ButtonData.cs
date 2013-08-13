@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,10 +25,10 @@ namespace FluentWebControls
 		private string _text;
 
 		public ButtonData(IButtonType type)
-			: this(type, null,  null)
+			: this(type, null, null)
 		{
 		}
-		
+
 		public ButtonData(IButtonType type, IPathUtility pathUtility)
 			: this(type, pathUtility, null)
 		{
@@ -80,37 +90,37 @@ namespace FluentWebControls
 
 			var sb = new StringBuilder();
 			sb.Append("<input");
-			string id = String.Format("{0}", Id ?? "btn" + _type.Name);
+			var id = String.Format("{0}", Id ?? "btn" + _type.Name);
 			sb.Append(id.CreateQuotedAttribute("Id"));
 			sb.Append(id.CreateQuotedAttribute("name"));
 			sb.Append(Text.CreateQuotedAttribute("value"));
-			sb.Append((_type.CssClass + (Default ? " default" : "") + (CssClass != null ? " "+CssClass : "")).CreateQuotedAttribute("class"));
+			sb.Append((_type.CssClass + (Default ? " default" : "") + (CssClass != null ? " " + CssClass : "")).CreateQuotedAttribute("class"));
 			if (!String.IsNullOrEmpty(Width))
 			{
-				string value = "width:" + Width;
+				var value = "width:" + Width;
 				sb.Append(value.CreateQuotedAttribute("style"));
 			}
 			sb.Append(_type.Type.CreateQuotedAttribute("type"));
 
 			if (_type.Type.Equals("submit", StringComparison.OrdinalIgnoreCase))
 			{
-				string actionName = ActionName ?? _type.Name;
-				string virtualDirectory = String.Format("/{0}{1}/{2}", ControllerName, ControllerExtension ?? "", actionName);
-				string url = _pathUtility == null ? virtualDirectory : _pathUtility.GetUrl(virtualDirectory);
+				var actionName = ActionName ?? _type.Name;
+				var virtualDirectory = String.Format("/{0}{1}/{2}", ControllerName, ControllerExtension ?? "", actionName);
+				var url = _pathUtility == null ? virtualDirectory : _pathUtility.GetUrl(virtualDirectory);
 				sb.Append((String.IsNullOrEmpty(QueryParameter) ? url : String.Format("{0}?{1}", url, QueryParameter)).CreateQuotedAttribute("action"));
 
 				if (String.IsNullOrEmpty(OnClickMethod))
 				{
 					OnClickMethod = String.Format("javascript:return {0}",
-					                              _type == ButtonType.Delete
-					                              	? String.Format("confirmThenChangeFormAction(\"{0}\", this)", ConfirmMessage ?? ButtonType.Delete.ConfirmationMessage)
-					                              	: "changeFormAction(this)");
+						_type == ButtonType.Delete
+							? String.Format("confirmThenChangeFormAction(\"{0}\", this)", ConfirmMessage ?? ButtonType.Delete.ConfirmationMessage)
+							: "changeFormAction(this)");
 				}
 			}
 			else if (_type.Type.Equals("button", StringComparison.OrdinalIgnoreCase))
 			{
-				string virtualDirectory = String.Format("/{0}{1}/{2}{3}", ControllerName, ControllerExtension ?? "", ActionName, BuildUrlParameters());
-				string url = _pathUtility == null ? virtualDirectory : _pathUtility.GetUrl(virtualDirectory);
+				var virtualDirectory = String.Format("/{0}{1}/{2}{3}", ControllerName, ControllerExtension ?? "", ActionName, BuildUrlParameters());
+				var url = _pathUtility == null ? virtualDirectory : _pathUtility.GetUrl(virtualDirectory);
 
 				if (String.IsNullOrEmpty(OnClickMethod) && _type == ButtonType.Link)
 				{

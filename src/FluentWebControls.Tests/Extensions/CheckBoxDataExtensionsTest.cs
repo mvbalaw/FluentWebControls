@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 
 using FluentAssert;
@@ -26,20 +36,6 @@ namespace FluentWebControls.Tests.Extensions
 		}
 
 		[TestFixture]
-		public class When_asked_to_assign_Id : CheckBoxDataExtensionsTestBase
-		{
-			[Test]
-			public void Should_return_a_CheckBoxData_With_Id_initialized()
-			{
-				var checkBoxData = CheckBoxData.WithId("isChecked");
-				Assert.AreSame(CheckBoxData, checkBoxData);
-				string propertyName = Reflection.GetPropertyName(() => IsChecked).ToCamelCase();
-				CheckBoxData.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(propertyName.ToCamelCase());
-				checkBoxData.ToString().Contains(propertyName).ShouldBeTrue();
-			}
-		}
-
-		[TestFixture]
 		public class When_asked_to_add_TabIndex : CheckBoxDataExtensionsTestBase
 		{
 			[Test]
@@ -51,6 +47,21 @@ namespace FluentWebControls.Tests.Extensions
 				Assert.AreSame(CheckBoxData, checkBoxData);
 				checkBoxData.ToString().ParseHtmlTag()["tabindex"].ShouldBeEqualTo(tabIndex);
 				checkBoxData.ToString().Contains(tabIndex).ShouldBeTrue();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_assign_Id : CheckBoxDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_CheckBoxData_With_Id_initialized()
+			{
+				var checkBoxData = CheckBoxData.WithId("isChecked");
+				Assert.AreSame(CheckBoxData, checkBoxData);
+				var propertyName = Reflection.GetPropertyName(() => IsChecked).ToCamelCase();
+				CheckBoxData.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(propertyName.ToCamelCase());
+// ReSharper disable once AssignNullToNotNullAttribute
+				checkBoxData.ToString().Contains(propertyName).ShouldBeTrue();
 			}
 		}
 
@@ -76,9 +87,9 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var label = new LabelData("Id");
 				var blankLabel = new LabelData
-					{
-						Text = "&nbsp;"
-					};
+				                 {
+					                 Text = "&nbsp;"
+				                 };
 
 				var checkBoxData = CheckBoxData.WithLabel(label);
 				Assert.AreSame(CheckBoxData, checkBoxData);
@@ -95,9 +106,9 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var label = new LabelData("Id");
 				var blankLabel = new LabelData
-					{
-						Text = "&nbsp;"
-					};
+				                 {
+					                 Text = "&nbsp;"
+				                 };
 
 				var checkBoxData = CheckBoxData.WithLabelAlignedLeft(label);
 				Assert.AreSame(CheckBoxData, checkBoxData);
@@ -137,12 +148,12 @@ namespace FluentWebControls.Tests.Extensions
 				CheckBoxData.ToString().ParseHtmlTag()["value"].ShouldBeEqualTo("true");
 			}
 
-			private void value_not_set(CheckBoxData checkBoxData)
+			private static void value_not_set(CheckBoxData checkBoxData)
 			{
 				checkBoxData.WithValue(null);
 			}
 
-			private void value_set_to_false(CheckBoxData checkBoxData)
+			private static void value_set_to_false(CheckBoxData checkBoxData)
 			{
 				checkBoxData.WithValue("false");
 			}

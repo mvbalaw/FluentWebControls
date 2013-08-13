@@ -1,4 +1,14 @@
-﻿using System;
+﻿//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
+using System;
 using System.Linq.Expressions;
 
 using FluentAssert;
@@ -27,7 +37,7 @@ namespace FluentWebControls.Tests
 
 		internal class TestString
 		{
-            public TestString(string value)
+			public TestString(string value)
 			{
 				Value = value;
 			}
@@ -58,6 +68,7 @@ namespace FluentWebControls.Tests
 				textBoxData.ToString().ShouldBeEqualTo("<input type='text' id='value' name='value' class='textbox digits' value='10'/>");
 			}
 		}
+
 		[TestFixture]
 		public class When_asked_to_create_a_TextBox_for_a_property_of_type_string
 		{
@@ -74,11 +85,11 @@ namespace FluentWebControls.Tests
 			public void Should_return_HTML_code_representing_a_TextBox_with_its_value_embedded_in_it()
 			{
 				var test = new TestString("Ginger's House");
-                Expression<Func<TestString, string>> metadataFunc = x => x.Value;
+				Expression<Func<TestString, string>> metadataFunc = x => x.Value;
 				_businessObjectPropertyMetaDataFactory.Expect(x => x.GetFor(metadataFunc)).IgnoreArguments().Return(PropertyMetaDataMocker.CreateStub("Value", false, null, null, null, null, typeof(string)));
 
 				var textBoxData = TextBox.For(test, x => x.Value.ToString(), x => x.Value).WithValidationFrom((Test x) => x.Value);
-                textBoxData.ToString().ShouldBeEqualTo("<input type='text' id='value' name='value' class='textbox' value='Ginger&apos;s House'/>");
+				textBoxData.ToString().ShouldBeEqualTo("<input type='text' id='value' name='value' class='textbox' value='Ginger&apos;s House'/>");
 			}
 		}
 	}

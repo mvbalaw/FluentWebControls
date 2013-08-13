@@ -1,4 +1,14 @@
-﻿using System;
+﻿//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
+using System;
 using System.Collections.Generic;
 
 using FluentAssert;
@@ -27,9 +37,9 @@ namespace FluentWebControls.Tests
 			{
 				Test.Given<HiddenData>()
 					.CreatedBy(Create_HiddenData_from_integer_context, new IntegerContext
-						{
-							Value = 10
-						})
+					                                                   {
+						                                                   Value = 10
+					                                                   })
 					.When(ToString_is_called)
 					.Should(Get_the_property_name_as_the_tag_id_attribute)
 					.Should(Get_the_property_name_as_the_tag_name_attribute)
@@ -42,9 +52,9 @@ namespace FluentWebControls.Tests
 			{
 				Test.Given<HiddenData>()
 					.CreatedBy(Create_HiddenData_from_nullable_integer_context, new NullableIntegerContext
-						{
-							Value = 10
-						})
+					                                                            {
+						                                                            Value = 10
+					                                                            })
 					.When(ToString_is_called)
 					.Should(Get_the_property_name_as_the_tag_id_attribute)
 					.Should(Get_the_property_name_as_the_tag_name_attribute)
@@ -57,9 +67,9 @@ namespace FluentWebControls.Tests
 			{
 				Test.Given<HiddenData>()
 					.CreatedBy(Create_HiddenData_from_string_context, new StringContext
-						{
-							Value = "Bar"
-						})
+					                                                  {
+						                                                  Value = "Bar"
+					                                                  })
 					.When(ToString_is_called)
 					.Should(Get_the_property_name_as_the_tag_id_attribute)
 					.Should(Get_the_property_name_as_the_tag_name_attribute)

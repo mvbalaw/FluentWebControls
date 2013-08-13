@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 
@@ -39,10 +49,10 @@ namespace FluentWebControls.Tests
 
 				_htmlText = "<select name='value' id='value' class='required ddlDetail'><option value='Value1'>Name1</option><option value='Value2' selected='selected'>Name2</option></select><em>*</em>";
 				_items = new List<KeyValuePair<string, string>>
-					{
-						new KeyValuePair<string, string>("Name1", "Value1"),
-						new KeyValuePair<string, string>("Name2", "Value2")
-					};
+				         {
+					         new KeyValuePair<string, string>("Name1", "Value1"),
+					         new KeyValuePair<string, string>("Name2", "Value2")
+				         };
 			}
 
 			[Test]
@@ -78,10 +88,10 @@ namespace FluentWebControls.Tests
 
 				_htmlText = "<select name='value' id='value' class='ddlDetail'><option value='' selected='selected'>All</option><option value='Value1'>Name1</option><option value='Value2'>Name2</option></select>";
 				_items = new List<KeyValuePair<string, string>>
-					{
-						new KeyValuePair<string, string>("Name1", "Value1"),
-						new KeyValuePair<string, string>("Name2", "Value2")
-					};
+				         {
+					         new KeyValuePair<string, string>("Name1", "Value1"),
+					         new KeyValuePair<string, string>("Name2", "Value2")
+				         };
 			}
 
 			[Test]
@@ -118,10 +128,10 @@ namespace FluentWebControls.Tests
 
 				_htmlText = "<select name='value' id='value' class='ddlDetail' onchange='this.form.submit();'><option value='Value1' selected='selected'>Name1</option><option value='Value2'>Name2</option></select>";
 				_items = new List<KeyValuePair<string, string>>
-					{
-						new KeyValuePair<string, string>("Name1", "Value1"),
-						new KeyValuePair<string, string>("Name2", "Value2")
-					};
+				         {
+					         new KeyValuePair<string, string>("Name1", "Value1"),
+					         new KeyValuePair<string, string>("Name2", "Value2")
+				         };
 			}
 
 			[Test]
@@ -154,9 +164,9 @@ namespace FluentWebControls.Tests
 
 				_htmlText = "<select name='value' id='value_readonly' class='ddlDetail' disabled='disabled'><option value='Value1' selected='selected'>Name1</option></select><input type='hidden' id='value' name='value' value='Value1'/>";
 				_items = new List<KeyValuePair<string, string>>
-					{
-						new KeyValuePair<string, string>("Name1", "Value1"),
-					};
+				         {
+					         new KeyValuePair<string, string>("Name1", "Value1"),
+				         };
 			}
 
 			[Test]

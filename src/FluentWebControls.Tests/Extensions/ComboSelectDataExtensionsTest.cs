@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System.Collections.Generic;
 
 using FluentAssert;
@@ -14,11 +24,11 @@ namespace FluentWebControls.Tests.Extensions
 		public abstract class ComboSelectDataExtensionsTestBase
 		{
 			private readonly List<KeyValuePair<string, string>> _items = new List<KeyValuePair<string, string>>
-				{
-					new KeyValuePair<string, string>("Name1", "1"),
-					new KeyValuePair<string, string>("Name2", "2"),
-					new KeyValuePair<string, string>("Name3", "3")
-				};
+			                                                             {
+				                                                             new KeyValuePair<string, string>("Name1", "1"),
+				                                                             new KeyValuePair<string, string>("Name2", "2"),
+				                                                             new KeyValuePair<string, string>("Name3", "3")
+			                                                             };
 
 			protected ComboSelectData ComboSelectData;
 			protected IPropertyMetaData PropertyMetaData;
@@ -90,10 +100,10 @@ namespace FluentWebControls.Tests.Extensions
 		public class When_asked_to_assign_Set_a_set_of_selected_Values : ComboSelectDataExtensionsTestBase
 		{
 			private readonly IList<Values> _selectedValues = new List<Values>
-				{
-					new Values("Name2", 2),
-					new Values("Name3", 3)
-				};
+			                                                 {
+				                                                 new Values("Name2", 2),
+				                                                 new Values("Name3", 3)
+			                                                 };
 
 			[Test]
 			public void Should_return_a_ComboSelectData_with_selected_values_assigned_to_option_that_was_selected()
@@ -103,9 +113,11 @@ namespace FluentWebControls.Tests.Extensions
 					var listData = ComboSelectData.WithSelectedValues(_selectedValues, values => values.Value);
 					Assert.AreSame(ComboSelectData, listData);
 				}
-				ComboSelectData.ToString().Contains("<option value='1'>Name1</option>").ShouldBeTrue();
-				ComboSelectData.ToString().Contains("<option value='2' selected='selected'>Name2</option>").ShouldBeTrue();
-				ComboSelectData.ToString().Contains("<option value='3' selected='selected'>Name3</option>").ShouldBeTrue();
+// ReSharper disable once PossibleNullReferenceException
+				var str = ComboSelectData.ToString();
+				str.Contains("<option value='1'>Name1</option>").ShouldBeTrue();
+				str.Contains("<option value='2' selected='selected'>Name2</option>").ShouldBeTrue();
+				str.Contains("<option value='3' selected='selected'>Name3</option>").ShouldBeTrue();
 			}
 		}
 	}

@@ -1,12 +1,23 @@
-﻿using FluentAssert;
+﻿//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
 
-using FluentWebControls.Extensions;
+using System;
+
+using FluentAssert;
 
 using MvbaCore;
 
 using NUnit.Framework;
 
-using StringExtensions = System.StringExtensions;
+using IWebControlExtensions = FluentWebControls.Extensions.IWebControlExtensions;
+using RadioButtonDataExtensions = FluentWebControls.Extensions.RadioButtonDataExtensions;
 
 namespace FluentWebControls.Tests
 {
@@ -20,10 +31,9 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_radio_field_with_its_value_embedded_in_it()
 			{
-				bool value = true;
-				var checkBoxData = new RadioButtonData(value)
-					.WithId(StringExtensions.ToCamelCase(Reflection.GetPropertyName(() => value)));
-				string actual = checkBoxData.ToString();
+				var value = true;
+				var checkBoxData = IWebControlExtensions.WithId(new RadioButtonData(value), StringExtensions.ToCamelCase(Reflection.GetPropertyName(() => value)));
+				var actual = checkBoxData.ToString();
 				actual.ShouldBeEqualTo(HtmlText, actual);
 			}
 		}
@@ -36,10 +46,9 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_radio_field_with_its_value_embedded_in_it()
 			{
-				bool value = false;
-				var checkBoxData = new RadioButtonData(value)
-					.WithId(StringExtensions.ToCamelCase(Reflection.GetPropertyName(() => value)));
-				string actual = checkBoxData.ToString();
+				var value = false;
+				var checkBoxData = IWebControlExtensions.WithId(new RadioButtonData(value), StringExtensions.ToCamelCase(Reflection.GetPropertyName(() => value)));
+				var actual = checkBoxData.ToString();
 				actual.ShouldBeEqualTo(HtmlText, actual);
 			}
 		}
@@ -52,22 +61,21 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_radio_field_with_its_value_embedded_in_it()
 			{
-				bool value = false;
-				var checkBoxData = new RadioButtonData(value)
-					.WithId(StringExtensions.ToCamelCase(Reflection.GetPropertyName(() => value)));
+				var value = false;
+				var checkBoxData = IWebControlExtensions.WithId(new RadioButtonData(value), StringExtensions.ToCamelCase(Reflection.GetPropertyName(() => value)));
 				SetLabel(checkBoxData);
-				string actual = checkBoxData.ToString();
+				var actual = checkBoxData.ToString();
 				actual.ShouldBeEqualTo(HtmlText, actual);
 			}
 
 			private static void SetLabel(RadioButtonData checkBoxData)
 			{
 				var label = new LabelData
-					{
-						Text = "Label"
-					};
-				checkBoxData.WithLabel(label);
-				checkBoxData.WithLabelAlignedLeft(label);
+				            {
+					            Text = "Label"
+				            };
+				RadioButtonDataExtensions.WithLabel(checkBoxData, label);
+				RadioButtonDataExtensions.WithLabelAlignedLeft(checkBoxData, label);
 			}
 		}
 
@@ -79,21 +87,20 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_radio_field_with_its_value_embedded_in_it()
 			{
-				bool value = false;
-				var checkBoxData = new RadioButtonData(value)
-					.WithId(StringExtensions.ToCamelCase(Reflection.GetPropertyName(() => value)));
+				var value = false;
+				var checkBoxData = IWebControlExtensions.WithId(new RadioButtonData(value), StringExtensions.ToCamelCase(Reflection.GetPropertyName(() => value)));
 				SetLabel(checkBoxData);
-				string actual = checkBoxData.ToString();
+				var actual = checkBoxData.ToString();
 				actual.ShouldBeEqualTo(HtmlText, actual);
 			}
 
 			private static void SetLabel(RadioButtonData checkBoxData)
 			{
 				var label = new LabelData
-					{
-						Text = "Label:"
-					};
-				checkBoxData.WithLabel(label);
+				            {
+					            Text = "Label:"
+				            };
+				RadioButtonDataExtensions.WithLabel(checkBoxData, label);
 			}
 		}
 	}

@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 
 using FluentAssert;
@@ -20,6 +30,18 @@ namespace FluentWebControls.Tests.Extensions
 			public void BeforeEachTest()
 			{
 				LinkData = new LinkData();
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_Disable : LinkDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_LinkData_that_is_disabled()
+			{
+				var link = LinkData.DisabledIf(true);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains("disabled").ShouldBeTrue();
 			}
 		}
 
@@ -139,6 +161,33 @@ namespace FluentWebControls.Tests.Extensions
 		}
 
 		[TestFixture]
+		public class When_asked_to_assign_Image_Url : LinkDataExtensionsTestBase
+		{
+			[Test]
+			public void Should_return_a_LinkData_With_Image_Url_initialized()
+			{
+				const string imageUrl = "ImageUrl";
+				const string alt = "alt";
+				const string text = "Text";
+				var link = LinkData.WithLinkText(text).WithLinkImageUrl(imageUrl, alt);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(imageUrl).ShouldBeTrue();
+				LinkData.ToString().Contains("<img src='" + imageUrl + "' alt='" + alt + "'/>").ShouldBeTrue();
+			}
+
+			[Test]
+			public void Should_return_a_LinkData_Without_Text_initialized()
+			{
+				const string imageUrl = "ImageUrl";
+				const string alt = "alt";
+				const string text = "Text";
+				var link = LinkData.WithLinkImageUrl(imageUrl, alt);
+				Assert.AreSame(LinkData, link);
+				LinkData.ToString().Contains(text).ShouldBeFalse();
+			}
+		}
+
+		[TestFixture]
 		public class When_asked_to_assign_MouseOverText : LinkDataExtensionsTestBase
 		{
 			[Test]
@@ -162,45 +211,6 @@ namespace FluentWebControls.Tests.Extensions
 				var link = LinkData.WithLinkText(text);
 				Assert.AreSame(LinkData, link);
 				LinkData.ToString().Contains(text).ShouldBeTrue();
-			}
-		}
-		
-		[TestFixture]
-		public class When_asked_to_assign_Image_Url : LinkDataExtensionsTestBase
-		{
-			[Test]
-			public void Should_return_a_LinkData_With_Image_Url_initialized()
-			{
-				const string imageUrl = "ImageUrl";
-				const string alt = "alt";
-				const string text = "Text";
-				var link = LinkData.WithLinkText(text).WithLinkImageUrl(imageUrl, alt);
-				Assert.AreSame(LinkData, link);
-				LinkData.ToString().Contains(imageUrl).ShouldBeTrue();
-				LinkData.ToString().Contains("<img src='" + imageUrl + "' alt='" + alt + "'/>").ShouldBeTrue();
-			}
-			
-			[Test]
-			public void Should_return_a_LinkData_Without_Text_initialized()
-			{
-				const string imageUrl = "ImageUrl";
-				const string alt = "alt";
-				const string text = "Text";
-				var link = LinkData.WithLinkImageUrl(imageUrl, alt);
-				Assert.AreSame(LinkData, link);
-				LinkData.ToString().Contains(text).ShouldBeFalse();
-			}
-		}
-
-		[TestFixture]
-		public class When_asked_to_Disable : LinkDataExtensionsTestBase
-		{
-			[Test]
-			public void Should_return_a_LinkData_that_is_disabled()
-			{
-				var link = LinkData.DisabledIf(true);
-				Assert.AreSame(LinkData, link);
-				LinkData.ToString().Contains("disabled").ShouldBeTrue();
 			}
 		}
 	}

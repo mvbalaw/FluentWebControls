@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System.ComponentModel;
 
 using FluentWebControls.Interfaces;
@@ -89,7 +99,7 @@ namespace FluentWebControls.Extensions
 		}
 
 		/// <summary>
-		///		one based page number and page size
+		///     one based page number and page size
 		/// </summary>
 		public static IPagedList Page(this IPagedList pagedList, int pageNumber, int pageSize)
 		{
@@ -99,7 +109,7 @@ namespace FluentWebControls.Extensions
 		}
 
 		/// <summary>
-		///		one based page number
+		///     one based page number
 		/// </summary>
 		public static IPagedList PageNumber(this IPagedList pagedList, int pageNumber)
 		{
@@ -108,7 +118,7 @@ namespace FluentWebControls.Extensions
 		}
 
 		/// <summary>
-		///		one based number of items per page
+		///     one based number of items per page
 		/// </summary>
 		public static IPagedList PageSize(this IPagedList pagedList, int pageSize)
 		{

@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,18 +25,18 @@ namespace FluentWebControls.Tests
 			private const string ActionName = "Action";
 			private const string ControllerName = "Controller";
 			private readonly List<string> _rows = new List<string>
-				{
-					"Row1",
-					"Row2"
-				};
+			                                      {
+				                                      "Row1",
+				                                      "Row2"
+			                                      };
 
 			[Test]
 			public void Should_map_the_constructor_parameters_to_the_right_properties()
 			{
 				var gridColumns = new List<IGridColumn>
-					{
-						new GridColumn(GridColumnType.Sortable, "Header", "Field", AlignAttribute.Left, false, true, "", ActionName, _rows)
-					};
+				                  {
+					                  new GridColumn(GridColumnType.Sortable, "Header", "Field", AlignAttribute.Left, false, true, "", ActionName, _rows)
+				                  };
 				var filters = new List<DropDownListData>();
 				var pagedGridData = new GridData(null, ControllerName, ".mvc", ActionName, gridColumns, gridColumns.Count, filters, _rows.Count);
 				pagedGridData.PagedListParameters.ShouldBeEqualTo(null);
@@ -48,10 +58,10 @@ namespace FluentWebControls.Tests
 			protected const string ControllerName = "Controller";
 
 			protected readonly List<TestData.Item> _items = new List<TestData.Item>
-				{
-					new TestData.Item(1, "Item1"),
-					new TestData.Item(2, "Item2")
-				};
+			                                                {
+				                                                new TestData.Item(1, "Item1"),
+				                                                new TestData.Item(2, "Item2")
+			                                                };
 
 			protected GridData<TestData.Item> _gridData;
 
@@ -113,10 +123,10 @@ namespace FluentWebControls.Tests
 			private const string ControllerName = "Controller";
 
 			private readonly List<TestData.Item> _items = new List<TestData.Item>
-				{
-					new TestData.Item(1, "Item1"),
-					new TestData.Item(2, "Item2")
-				};
+			                                              {
+				                                              new TestData.Item(1, "Item1"),
+				                                              new TestData.Item(2, "Item2")
+			                                              };
 
 			[Test]
 			public void Should_map_the_constructor_parameters_to_the_right_properties()

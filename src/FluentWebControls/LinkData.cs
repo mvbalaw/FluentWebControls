@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +53,7 @@ namespace FluentWebControls
 		internal string LinkText { private get; set; }
 		internal string MouseOverText { private get; set; }
 		internal string Rel { private get; set; }
+
 		internal string Url
 		{
 			private get
@@ -64,27 +75,34 @@ namespace FluentWebControls
 			}
 			set { _url = value; }
 		}
+
 		public bool Visible { private get; set; }
+
 		string ILinkData.ControllerExtension
 		{
 			get { return ControllerExtension; }
 		}
+
 		string ILinkData.CssClass
 		{
 			get { return CssClass; }
 		}
+
 		bool ILinkData.Disabled
 		{
 			get { return Disabled; }
 		}
+
 		string ILinkData.IdWithPrefix
 		{
 			get { return IdWithPrefix; }
 		}
+
 		string ILinkData.Url
 		{
 			get { return Url; }
 		}
+
 		string ILinkData.Alt
 		{
 			get { return Alt; }
@@ -149,7 +167,7 @@ namespace FluentWebControls
 					.Append(item.Value);
 			}
 
-			var keyedItems = _queryStringData.Where(x => x.Key.Length > 0);
+			var keyedItems = _queryStringData.Where(x => x.Key.Length > 0).Memoize();
 			if (keyedItems.Any())
 			{
 				sb.Append('?');

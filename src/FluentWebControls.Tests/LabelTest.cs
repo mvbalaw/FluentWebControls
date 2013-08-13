@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using FluentAssert;
 
 using NUnit.Framework;
@@ -14,7 +24,7 @@ namespace FluentWebControls.Tests
 			{
 // ReSharper disable ConvertToConstant
 // ReSharper disable ConvertToConstant.Local
-				int value = 10;
+				var value = 10;
 // ReSharper restore ConvertToConstant.Local
 // ReSharper restore ConvertToConstant
 				var labelData = Label.For(() => value);
@@ -41,7 +51,7 @@ namespace FluentWebControls.Tests
 			public void Should_return_html_code_representing_a_label_with_its_value_embedded_in_it()
 			{
 // ReSharper disable ConvertToConstant.Local
-				string value = "Bar";
+				var value = "Bar";
 // ReSharper restore ConvertToConstant.Local
 				var labelData = Label.For(() => value);
 				labelData.ToString().ShouldBeEqualTo("<label for='value' style='float:left;text-align:right'></label>");

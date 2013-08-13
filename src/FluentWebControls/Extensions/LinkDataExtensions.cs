@@ -1,3 +1,13 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -14,10 +24,10 @@ namespace FluentWebControls.Extensions
 			return linkData;
 		}
 
-		public static LinkData WithId(this LinkData linkData, string id)
+		public static LinkData VisibleIf(this LinkData buttonData, bool visible)
 		{
-			linkData.Id = id;
-			return linkData;
+			buttonData.Visible = visible;
+			return buttonData;
 		}
 
 		public static LinkData WithControllerExtension(this LinkData linkData, string controllerExtension)
@@ -32,12 +42,35 @@ namespace FluentWebControls.Extensions
 			return linkData;
 		}
 
-		public static LinkData VisibleIf(this LinkData buttonData, bool visible)
+		public static LinkData WithId(this LinkData linkData, string id)
 		{
-			buttonData.Visible = visible;
-			return buttonData;
+			linkData.Id = id;
+			return linkData;
 		}
 
+		public static LinkData WithLinkImageUrl(this LinkData linkData, string imageUrl)
+		{
+			return linkData.WithLinkImageUrl(imageUrl, "");
+		}
+
+		public static LinkData WithLinkImageUrl(this LinkData linkData, string imageUrl, string alt)
+		{
+			linkData.ImageUrl = imageUrl;
+			linkData.Alt = alt;
+			return linkData;
+		}
+
+		public static LinkData WithLinkText(this LinkData linkData, string linkText)
+		{
+			linkData.LinkText = linkText;
+			return linkData;
+		}
+
+		public static LinkData WithMouseOverText(this LinkData linkData, string mouseOverText)
+		{
+			linkData.MouseOverText = mouseOverText;
+			return linkData;
+		}
 
 		public static LinkData WithQueryStringData(this LinkData linkData, Expression<Func<string>> fieldNameAndValue)
 		{
@@ -94,30 +127,6 @@ namespace FluentWebControls.Extensions
 		public static LinkData WithQueryStringData<T, K>(this LinkData linkData, T source, Expression<Func<T, K>> fieldName, Func<T, string> fieldValue)
 		{
 			linkData.AddQueryStringData(Reflection.GetPropertyName(fieldName), fieldValue(source));
-			return linkData;
-		}
-
-		public static LinkData WithLinkText(this LinkData linkData, string linkText)
-		{
-			linkData.LinkText = linkText;
-			return linkData;
-		}
-		
-		public static LinkData WithLinkImageUrl(this LinkData linkData, string imageUrl)
-		{
-			return linkData.WithLinkImageUrl(imageUrl, "");
-		}
-
-		public static LinkData WithLinkImageUrl(this LinkData linkData, string imageUrl, string alt)
-		{
-			linkData.ImageUrl = imageUrl;
-			linkData.Alt = alt;
-			return linkData;
-		}
-
-		public static LinkData WithMouseOverText(this LinkData linkData, string mouseOverText)
-		{
-			linkData.MouseOverText = mouseOverText;
 			return linkData;
 		}
 

@@ -1,25 +1,37 @@
+//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using FluentWebControls.Extensions;
+
 using MvbaCore;
 
 namespace FluentWebControls
 {
 	public interface IDropDownListData : IWebControl
 	{
+		List<KeyValuePair<string, string>> Attributes { get; }
 		string CssClass { get; }
 		KeyValuePair<string, string>? Default { get; }
 		KeyValuePair<string, string>? FormFieldToSetBeforeSubmitOnChange { get; }
 		string IdWithPrefix { get; }
 		LabelData Label { get; }
 		IEnumerable<KeyValuePair<string, string>> ListItems { get; }
-		List<KeyValuePair<string, string>> Attributes { get; }
 		bool ReadOnly { get; }
 		string SelectedValue { get; }
-		string TabIndex { get; }
 		bool SubmitOnChange { get; }
+		string TabIndex { get; }
 	}
 
 	public class DropDownListData : ValidatableWebControlBase, IDropDownListData
@@ -35,6 +47,8 @@ namespace FluentWebControls
 			CssClass = "ddlDetail";
 		}
 
+		internal List<KeyValuePair<string, string>> Attributes { get; private set; }
+
 		internal KeyValuePair<string, string>? Default { private get; set; }
 
 		internal KeyValuePair<string, string> FormFieldToSetBeforeSubmitOnChange
@@ -48,10 +62,7 @@ namespace FluentWebControls
 
 		internal LabelData Label { private get; set; }
 
-		internal List<KeyValuePair<string, string>> Attributes { get; private set; }
-
 		internal bool ReadOnly { private get; set; }
-		internal string TabIndex { private get; set; }
 
 		internal string SelectedValue
 		{
@@ -79,6 +90,7 @@ namespace FluentWebControls
 		public MethodCallData SlaveDataSource { get; set; }
 		public string SlaveId { get; set; }
 		internal bool SubmitOnChange { private get; set; }
+		internal string TabIndex { private get; set; }
 
 		#region IDropDownListData Members
 
@@ -150,7 +162,7 @@ namespace FluentWebControls
 				sb.Append(Label);
 			}
 			sb.Append("<select");
-			string idWithPrefix = IdWithPrefix;
+			var idWithPrefix = IdWithPrefix;
 			if (ReadOnly)
 			{
 				idWithPrefix += "_readonly";
@@ -161,18 +173,18 @@ namespace FluentWebControls
 			sb.Append(Data);
 			if (SubmitOnChange)
 			{
-				string v = _formFieldToSetBeforeSubmitting != null
-				           	? "setFormFieldAndSubmit(\"" + _formFieldToSetBeforeSubmitting.Value.Key + "\",\"" +
-				           	  _formFieldToSetBeforeSubmitting.Value.Value + "\", this);"
-				           	: "this.form.submit();";
+				var v = _formFieldToSetBeforeSubmitting != null
+					? "setFormFieldAndSubmit(\"" + _formFieldToSetBeforeSubmitting.Value.Key + "\",\"" +
+						_formFieldToSetBeforeSubmitting.Value.Value + "\", this);"
+					: "this.form.submit();";
 				sb.Append(v.CreateQuotedAttribute("onchange"));
 			}
 			else if (SlaveId != null)
 			{
-				string secondaryDdlScript = String.Format("UpdateSecondDropDown(\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\");",
-				                                          IdWithPrefix, SlaveId.ToCamelCase(),
-				                                          Reflection.GetControllerName(SlaveDataSource.ClassName),
-				                                          SlaveDataSource.MethodName, SlaveDataSource.ParameterValues.First().Key);
+				var secondaryDdlScript = String.Format("UpdateSecondDropDown(\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\");",
+					IdWithPrefix, SlaveId.ToCamelCase(),
+					Reflection.GetControllerName(SlaveDataSource.ClassName),
+					SlaveDataSource.MethodName, SlaveDataSource.ParameterValues.First().Key);
 				sb.Append(secondaryDdlScript.CreateQuotedAttribute("onchange"));
 			}
 			if (ReadOnly)
@@ -209,9 +221,9 @@ namespace FluentWebControls
 			{
 				var hidden = new HiddenData()
 					.WithValue(SelectedValue)
-					.WithId(((IWebControl) this).Id)
-					.WithIdPrefix(((IWebControl) this).IdPrefix)
-					.WithNamePrefix(((IWebControl) this).NamePrefix);
+					.WithId(((IWebControl)this).Id)
+					.WithIdPrefix(((IWebControl)this).IdPrefix)
+					.WithNamePrefix(((IWebControl)this).NamePrefix);
 
 				sb.Append(hidden.ToString());
 			}

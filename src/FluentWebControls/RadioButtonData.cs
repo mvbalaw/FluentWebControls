@@ -1,5 +1,16 @@
-﻿using System;
+﻿//  * **************************************************************************
+//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
+//  * This source code is subject to terms and conditions of the MIT License.
+//  * A copy of the license can be found in the License.txt file
+//  * at the root of this distribution. 
+//  * By using this source code in any fashion, you are agreeing to be bound by 
+//  * the terms of the MIT License.
+//  * You must not remove this notice from this software.
+//  * **************************************************************************
+
+using System;
 using System.Text;
+
 using FluentWebControls.Extensions;
 
 namespace FluentWebControls
@@ -7,11 +18,11 @@ namespace FluentWebControls
 	public interface IRadioButtonData
 	{
 		bool Checked { get; }
+		string CssClass { get; }
 		LabelData Label { get; }
 		AlignAttribute LabelAlignAttribute { get; }
-		string Value { get; }
 		string TabIndex { get; }
-		string CssClass { get; }
+		string Value { get; }
 	}
 
 	public class RadioButtonData : WebControlBase, IRadioButtonData
@@ -23,11 +34,11 @@ namespace FluentWebControls
 		}
 
 		internal bool Checked { private get; set; }
+		internal string CssClass { private get; set; }
 		internal LabelData Label { private get; set; }
 		internal AlignAttribute LabelAlignAttribute { private get; set; }
-		internal string Value { private get; set; }
 		internal string TabIndex { private get; set; }
-		internal string CssClass { private get; set; }
+		internal string Value { private get; set; }
 
 		LabelData IRadioButtonData.Label
 		{
@@ -73,9 +84,9 @@ namespace FluentWebControls
 			else
 			{
 				var blankLabel = new LabelData
-				                 	{
-				                 		Text = "&nbsp;"
-				                 	};
+				                 {
+					                 Text = "&nbsp;"
+				                 };
 				stringBuilder.Insert(0, blankLabel);
 				Label.Style = "";
 				if (!String.IsNullOrEmpty(Label.Text) && Label.Text.EndsWith(":"))
