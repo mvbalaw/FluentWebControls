@@ -91,17 +91,19 @@ namespace FluentWebControls
 						writer.Write("</thead>");
 
 						writer.Write("<tbody>");
+						var rowIndex = 0;
 						foreach (var item in _items)
 						{
 							var tableRow = new TableRow();
 							tableRow.RenderBeginTag(writer);
 							{
-								foreach (var column in _columns)
+								foreach(var column in _columns)
 								{
-									column.Render(item, writer);
+									column.Render(item, rowIndex, writer);
 								}
 							}
 							tableRow.RenderEndTag(writer);
+							rowIndex++;
 						}
 						writer.Write("</tbody>");
 					}

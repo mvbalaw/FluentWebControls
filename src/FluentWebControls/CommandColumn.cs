@@ -80,7 +80,7 @@ namespace FluentWebControls
 			get { return CssClass; }
 		}
 
-		public void Render(T item, HtmlTextWriter writer)
+		public void Render(T item, int rowIndex, HtmlTextWriter writer)
 		{
 			var control = _getControl(item, Text ?? String.Format("<img src='{0}' alt='{1}'/>", ImageUrl, Alt));
 			var cell = new TableCell
@@ -88,6 +88,7 @@ namespace FluentWebControls
 				           HorizontalAlign = Align.ToHorizontalAlign(),
 				           CssClass = CssClass
 			           };
+			control.ID += "_" + rowIndex;
 			cell.Controls.Add(control);
 			cell.RenderControl(writer);
 		}

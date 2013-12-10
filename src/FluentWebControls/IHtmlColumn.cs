@@ -14,7 +14,7 @@ namespace FluentWebControls
 {
 	public interface IHtmlColumn<T>
 	{
-		void Render(T item, HtmlTextWriter writer);
+		void Render(T item, int rowIndex, HtmlTextWriter writer);
 		void RenderHeader(HtmlTextWriter writer);
 	}
 }

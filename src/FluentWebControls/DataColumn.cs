@@ -97,12 +97,12 @@ namespace FluentWebControls
 			get { return Prefix; }
 		}
 
-		public virtual void Render(T item, HtmlTextWriter writer)
+		public virtual void Render(T item, int rowIndex, HtmlTextWriter writer)
 		{
 			var cell = new TableCell
 			           {
 				           HorizontalAlign = Align.ToHorizontalAlign(),
-				           Text = GetColumnWithInput(item),
+				           Text = GetColumnWithInput(item, rowIndex),
 				           CssClass = CssClass
 			           };
 			cell.RenderControl(writer);
@@ -119,37 +119,37 @@ namespace FluentWebControls
 			cell.RenderControl(writer);
 		}
 
-		private string GetColumnWithInput(T item)
+		private string GetColumnWithInput(T item, int rowIndex)
 		{
 			if (ColumnTextType == ColumnTextType.TextBox)
 			{
-				return new TextBoxData(GetColumnText(item)).WithId(GetId(item)).WithName(GetName(item)).CssClass(InputCssClass).ToString();
+				return new TextBoxData(GetColumnText(item)).WithId(GetId(item, rowIndex)).WithName(GetName(item)).CssClass(InputCssClass).ToString();
 			}
 			if (ColumnTextType == ColumnTextType.CheckBox)
 			{
-				return new CheckBoxData(bool.Parse(GetColumnText(item))).WithId(GetId(item)).WithName(GetName(item)).WithCssClass(InputCssClass).ToString();
+				return new CheckBoxData(bool.Parse(GetColumnText(item))).WithId(GetId(item, rowIndex)).WithName(GetName(item)).WithCssClass(InputCssClass).ToString();
 			}
 			if (ColumnTextType == ColumnTextType.Hidden)
 			{
-				return new HiddenData().WithId(GetId(item)).WithName(GetName(item)).WithValue(GetColumnText(item)).ToString();
+				return new HiddenData().WithId(GetId(item, rowIndex)).WithName(GetName(item)).WithValue(GetColumnText(item)).ToString();
 			}
 			if (ColumnTextType == ColumnTextType.Span)
 			{
-				return new SpanData(GetColumnText(item)).WithId(GetId(item)).WithName(GetName(item)).WithCssClass(InputCssClass).ToString();
+				return new SpanData(GetColumnText(item)).WithId(GetId(item, rowIndex)).WithName(GetName(item)).WithCssClass(InputCssClass).ToString();
 			}
 			return GetColumnText(item);
 		}
 
-		private string GetId(T item)
+		private string GetId(T item, int? rowIndex)
 		{
 			if (InputTextId != null)
 			{
-				return InputTextId;
+				return InputTextId + (rowIndex != null ? ("_" + rowIndex) : "");
 			}
 
 			if (GetItemId == null)
 			{
-				return InputTextId ?? ColumnName;
+				return ColumnName + (rowIndex != null ? ("_" + rowIndex) : "");
 			}
 			return Prefix.IsNullOrEmpty()
 				? String.Format("{0}_{1}", ColumnName, GetItemId(item))
@@ -158,7 +158,7 @@ namespace FluentWebControls
 
 		private string GetName(T item)
 		{
-			return InputTextName ?? GetId(item);
+			return InputTextName ?? GetId(item, null);
 		}
 	}
 
