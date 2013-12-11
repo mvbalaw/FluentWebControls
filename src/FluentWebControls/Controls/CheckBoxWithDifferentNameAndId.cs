@@ -4,7 +4,11 @@ using System.Web.UI;
 
 namespace FluentWebControls.Controls
 {
-	public class CheckBoxWithDifferentNameAndId : System.Web.UI.WebControls.CheckBox
+	public interface IShouldHaveDifferentNameAndId
+	{
+	}
+
+	public class CheckBoxWithDifferentNameAndId : System.Web.UI.WebControls.CheckBox, IShouldHaveDifferentNameAndId
 	{
 		private string _name;
 		private string _id;

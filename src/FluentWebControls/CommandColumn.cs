@@ -12,6 +12,8 @@ using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using FluentWebControls.Controls;
+
 namespace FluentWebControls
 {
 	public class CommandColumn
@@ -88,7 +90,10 @@ namespace FluentWebControls
 				           HorizontalAlign = Align.ToHorizontalAlign(),
 				           CssClass = CssClass
 			           };
-			control.ID += "_" + rowIndex;
+			if (control is IShouldHaveDifferentNameAndId)
+			{
+				control.ID += "_" + rowIndex;
+			}
 			cell.Controls.Add(control);
 			cell.RenderControl(writer);
 		}
