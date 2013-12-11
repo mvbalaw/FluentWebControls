@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.UI.WebControls;
 
+using FluentWebControls.Controls;
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 
@@ -50,9 +51,10 @@ namespace FluentWebControls
 			var checkBoxId = Reflection.GetCamelCasePropertyName(forCheckBoxId);
 			return CommandColumn.For((TDomain item, string text) =>
 			{
-				var checkBox = new System.Web.UI.WebControls.CheckBox
+				var checkBox = new CheckBoxWithDifferentNameAndId
 				               {
-					               ID = checkBoxId
+					               ID = checkBoxId,
+								   Name = checkBoxId
 				               };
 				checkBox.InputAttributes["Value"] = getCheckBoxValue(item);
 				return checkBox;

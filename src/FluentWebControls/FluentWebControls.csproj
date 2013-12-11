@@ -85,6 +85,7 @@
     <Compile Include="CommandItem.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\CheckBoxWithDifferentNameAndId.cs" />
     <Compile Include="DataColumn.cs" />
     <Compile Include="DataItem.cs" />
     <Compile Include="Extensions\CheckBoxListDataExtensions.cs" />
