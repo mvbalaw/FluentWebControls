@@ -30,113 +30,20 @@ namespace FluentWebControls
 		string LinkText { get; }
 		string MouseOverText { get; }
 		string Rel { get; }
+		string Target { get; }
 		string Url { get; }
 	}
 
 	public class LinkData : WebControlBase, ILinkData
 	{
-		private readonly Dictionary<string, string> _queryStringData = new Dictionary<string, string>();
-		private readonly List<string> _urlParameters = new List<string>();
-		private string _url;
-
 		public LinkData()
 		{
 			Visible = true;
 		}
 
-		internal string Alt { private get; set; }
-		internal string ControllerExtension { private get; set; }
-		internal string CssClass { private get; set; }
-		internal bool Disabled { private get; set; }
-		internal string Id { private get; set; }
-		internal string ImageUrl { private get; set; }
-		internal string LinkText { private get; set; }
-		internal string MouseOverText { private get; set; }
-		internal string Rel { private get; set; }
-
-		internal string Url
-		{
-			private get
-			{
-				if (ControllerExtension == null || _url.IsNullOrEmpty())
-				{
-					return _url;
-				}
-				var parts = _url.Split('/');
-				if (parts.Length == 1)
-				{
-					parts[0] += ControllerExtension;
-				}
-				else
-				{
-					parts[parts.Length - 1 - 1] += ControllerExtension;
-				}
-				return parts.Join("/");
-			}
-			set { _url = value; }
-		}
-
-		public bool Visible { private get; set; }
-
-		string ILinkData.ControllerExtension
-		{
-			get { return ControllerExtension; }
-		}
-
-		string ILinkData.CssClass
-		{
-			get { return CssClass; }
-		}
-
-		bool ILinkData.Disabled
-		{
-			get { return Disabled; }
-		}
-
-		string ILinkData.IdWithPrefix
-		{
-			get { return IdWithPrefix; }
-		}
-
-		string ILinkData.Url
-		{
-			get { return Url; }
-		}
-
-		string ILinkData.Alt
-		{
-			get { return Alt; }
-		}
-
-		public string Href
-		{
-			get { return Url + BuildUrlParameters() + BuildQueryString(); }
-		}
-
-		string ILinkData.Id
-		{
-			get { return Id; }
-		}
-
-		string ILinkData.LinkText
-		{
-			get { return LinkText; }
-		}
-
-		string ILinkData.ImageUrl
-		{
-			get { return ImageUrl; }
-		}
-
-		string ILinkData.MouseOverText
-		{
-			get { return MouseOverText; }
-		}
-
-		string ILinkData.Rel
-		{
-			get { return Rel; }
-		}
+		private readonly Dictionary<string, string> _queryStringData = new Dictionary<string, string>();
+		private string _url;
+		private readonly List<string> _urlParameters = new List<string>();
 
 		public void AddQueryStringData(string key, string value)
 		{
@@ -215,6 +122,10 @@ namespace FluentWebControls
 			{
 				sb.Append(Rel.CreateQuotedAttribute("rel"));
 			}
+			if (Target != null)
+			{
+				sb.Append(Target.CreateQuotedAttribute("target"));
+			}
 			if (CssClass != null)
 			{
 				sb.Append(CssClass.CreateQuotedAttribute("class"));
@@ -237,5 +148,92 @@ namespace FluentWebControls
 			sb.Append("</a>");
 			return sb.ToString();
 		}
+
+		internal string Alt { private get; set; }
+		string ILinkData.Alt
+		{
+			get { return Alt; }
+		}
+		internal string ControllerExtension { private get; set; }
+		string ILinkData.ControllerExtension
+		{
+			get { return ControllerExtension; }
+		}
+		internal string CssClass { private get; set; }
+		string ILinkData.CssClass
+		{
+			get { return CssClass; }
+		}
+		internal bool Disabled { private get; set; }
+		bool ILinkData.Disabled
+		{
+			get { return Disabled; }
+		}
+		public string Href
+		{
+			get { return Url + BuildUrlParameters() + BuildQueryString(); }
+		}
+		internal string Id { private get; set; }
+		string ILinkData.Id
+		{
+			get { return Id; }
+		}
+		string ILinkData.IdWithPrefix
+		{
+			get { return IdWithPrefix; }
+		}
+		internal string ImageUrl { private get; set; }
+		string ILinkData.ImageUrl
+		{
+			get { return ImageUrl; }
+		}
+		internal string LinkText { private get; set; }
+		string ILinkData.LinkText
+		{
+			get { return LinkText; }
+		}
+		internal string MouseOverText { private get; set; }
+		string ILinkData.MouseOverText
+		{
+			get { return MouseOverText; }
+		}
+		internal string Rel { private get; set; }
+		string ILinkData.Rel
+		{
+			get { return Rel; }
+		}
+		internal string Target { private get; set; }
+		string ILinkData.Target
+		{
+			get { return Target; }
+		}
+
+		internal string Url
+		{
+			private get
+			{
+				if (ControllerExtension == null || _url.IsNullOrEmpty())
+				{
+					return _url;
+				}
+				var parts = _url.Split('/');
+				if (parts.Length == 1)
+				{
+					parts[0] += ControllerExtension;
+				}
+				else
+				{
+					parts[parts.Length - 1 - 1] += ControllerExtension;
+				}
+				return parts.Join("/");
+			}
+			set { _url = value; }
+		}
+
+		string ILinkData.Url
+		{
+			get { return Url; }
+		}
+		public bool Visible { private get; set; }
 	}
 }
