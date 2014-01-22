@@ -64,7 +64,13 @@ namespace FluentWebControls
 		public static CommandItem<TDomain> CheckBoxCommandItemFor<TModel, TDomain, TValueHolder>(
 			Expression<Func<TValueHolder, object>> forCheckBoxId, Func<TDomain, string> getCheckBoxValue)
 		{
-			return CommandItem.For((TDomain item, string text) => new CheckBoxData(false).WithId(forCheckBoxId).WithValue(getCheckBoxValue(item)).ToString());
+			var index = 0;
+			return CommandItem.For((TDomain item, string text) =>
+			{
+				var name = Reflection.GetCamelCasePropertyName(forCheckBoxId);
+				var id = name + "_" + (index++);
+				return new CheckBoxData(false).WithId(id).WithName(name).WithValue(getCheckBoxValue(item)).ToString();
+			});
 		}
 
 		public static CheckBoxData CheckBoxFor<T>(T source, bool @checked, Expression<Func<T, object>> forId)
