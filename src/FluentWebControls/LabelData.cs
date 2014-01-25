@@ -19,7 +19,6 @@ namespace FluentWebControls
 	{
 		public LabelData()
 		{
-			Style = "float:left;text-align:right";
 		}
 
 		public LabelData(string forId)

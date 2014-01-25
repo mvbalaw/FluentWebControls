@@ -57,7 +57,7 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_checkbox_with_label_in_the_left
 		{
-			private const string HtmlText = "<label for='value' style='float:left;text-align:right'>Label</label><input type='checkbox' id='value' name='value' value='true'/>";
+			private const string HtmlText = "<label for='value'>Label</label><input type='checkbox' id='value' name='value' value='true'/>";
 
 			[Test]
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
@@ -84,7 +84,7 @@ namespace FluentWebControls.Tests
 		[TestFixture]
 		public class When_asked_to_create_a_checkbox_with_label_in_the_right
 		{
-			private const string HtmlText = "<label style='float:left;text-align:right'>&nbsp;</label><input type='checkbox' id='value' name='value' value='true'/><label for='value'>Label</label>";
+			private const string HtmlText = "<label>&nbsp;</label><input type='checkbox' id='value' name='value' value='true'/><label for='value'>Label</label>";
 
 			[Test]
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()

@@ -28,7 +28,7 @@ namespace FluentWebControls.Tests
 // ReSharper restore ConvertToConstant.Local
 // ReSharper restore ConvertToConstant
 				var labelData = Label.For(() => value);
-				labelData.ToString().ShouldBeEqualTo("<label for='value' style='float:left;text-align:right'></label>");
+				labelData.ToString().ShouldBeEqualTo("<label for='value'></label>");
 			}
 		}
 
@@ -40,7 +40,7 @@ namespace FluentWebControls.Tests
 			{
 				int? value = 10;
 				var labelData = Label.For(() => value);
-				labelData.ToString().ShouldBeEqualTo("<label for='value' style='float:left;text-align:right'></label>");
+				labelData.ToString().ShouldBeEqualTo("<label for='value'></label>");
 			}
 		}
 
@@ -54,7 +54,7 @@ namespace FluentWebControls.Tests
 				var value = "Bar";
 // ReSharper restore ConvertToConstant.Local
 				var labelData = Label.For(() => value);
-				labelData.ToString().ShouldBeEqualTo("<label for='value' style='float:left;text-align:right'></label>");
+				labelData.ToString().ShouldBeEqualTo("<label for='value'></label>");
 			}
 		}
 	}

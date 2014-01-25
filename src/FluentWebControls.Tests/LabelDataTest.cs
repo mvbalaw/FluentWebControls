@@ -60,7 +60,7 @@ namespace FluentWebControls.Tests
 
 			protected override string HtmlText
 			{
-				get { return "<label for='value' style='float:left;text-align:right'></label>"; }
+				get { return "<label for='value'></label>"; }
 			}
 
 			protected override string Text
@@ -88,7 +88,7 @@ namespace FluentWebControls.Tests
 
 			protected override string HtmlText
 			{
-				get { return "<label for='value' style='float:left;text-align:right'>value</label>"; }
+				get { return "<label for='value'>value</label>"; }
 			}
 
 			protected override string Text
@@ -113,7 +113,7 @@ namespace FluentWebControls.Tests
 
 			protected override string HtmlText
 			{
-				get { return "<label for='_value' style='float:left;text-align:right'>10</label>"; }
+				get { return "<label for='_value'>10</label>"; }
 			}
 
 			protected override string Text
