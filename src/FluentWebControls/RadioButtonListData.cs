@@ -45,6 +45,7 @@ namespace FluentWebControls
 			var id = ((IWebControl)this).Id;
 			var idPrefix = ((IWebControl)this).IdPrefix;
 			var namePrefix = ((IWebControl)this).NamePrefix;
+			sb.Append("<div class='radioButtonList'>");
 			foreach (var item in _items)
 			{
 				var isChecked = SelectedValue == item.Value;
@@ -68,6 +69,7 @@ namespace FluentWebControls
 					sb.Append("</div>");
 				}
 			}
+			sb.Append("</div>");
 			return sb.ToString();
 		}
 	}

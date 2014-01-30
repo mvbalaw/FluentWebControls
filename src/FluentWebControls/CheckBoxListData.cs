@@ -10,7 +10,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
 using FluentWebControls.Extensions;
@@ -48,6 +47,7 @@ namespace FluentWebControls
 			var idPrefix = ((IWebControl)this).IdPrefix;
 			var namePrefix = ((IWebControl)this).NamePrefix;
 			var index = 0;
+			sb.Append("<div class='checkBoxList'>");
 			foreach (var item in _items)
 			{
 				var isChecked = SelectedValues.Any(value => item.Value != null && item.Value.Equals(value));
@@ -65,6 +65,7 @@ namespace FluentWebControls
 				sb.Append("</div>");
 				index++;
 			}
+			sb.Append("</div>");
 			return sb.ToString();
 		}
 	}
