@@ -60,6 +60,7 @@ namespace FluentWebControls
 		internal string Alt { private get; set; }
 		internal string CssClass { private get; set; }
 		internal string ImageUrl { private get; set; }
+		internal string InnerHtml { private get; set; }
 		internal string Text { private get; set; }
 		internal bool WrapWithSpan { private get; set; }
 
@@ -125,7 +126,7 @@ namespace FluentWebControls
 		{
 			var navigateUrl = _getLink(item);
 			var linkId = String.Format("lnk{0}", navigateUrl.Replace('/', '_').TrimStart(new[] { '_' }));
-			return new LinkData().WithId(linkId).WithUrl(navigateUrl).WithLinkText(Text).WithLinkImageUrl(ImageUrl, Alt);
+			return new LinkData().WithId(linkId).WithUrl(navigateUrl).WithLinkText(Text).WithInnerHtml(InnerHtml).WithLinkImageUrl(ImageUrl, Alt);
 		}
 	}
 }

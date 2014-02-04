@@ -42,6 +42,12 @@ namespace FluentWebControls.Extensions
 			return commandItem;
 		}
 
+		public static CommandItem<T> WithInnerHtml<T>(this CommandItem<T> commandItem, string innerHtml)
+		{
+			commandItem.InnerHtml = innerHtml;
+			return commandItem;
+		}
+
 		public static CommandItem<T> WithText<T>(this CommandItem<T> commandItem, string text)
 		{
 			commandItem.Text = text;

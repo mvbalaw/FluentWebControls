@@ -60,6 +60,12 @@ namespace FluentWebControls.Extensions
 			return linkData;
 		}
 
+		public static LinkData WithInnerHtml(this LinkData linkData, string innerHtml)
+		{
+			linkData.InnerHtml = innerHtml;
+			return linkData;
+		}
+
 		public static LinkData WithLinkText(this LinkData linkData, string linkText)
 		{
 			linkData.LinkText = linkText;

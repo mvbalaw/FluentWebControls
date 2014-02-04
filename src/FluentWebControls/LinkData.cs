@@ -27,6 +27,7 @@ namespace FluentWebControls
 		string Id { get; }
 		string IdWithPrefix { get; }
 		string ImageUrl { get; }
+		string InnerHtml { get; }
 		string LinkText { get; }
 		string MouseOverText { get; }
 		string Rel { get; }
@@ -141,6 +142,10 @@ namespace FluentWebControls
 			{
 				sb.Append("<img src='" + ImageUrl + "' alt='" + Alt + "'/>");
 			}
+			else if (InnerHtml != null)
+			{
+				sb.Append(InnerHtml);
+			}
 			else
 			{
 				sb.Append(LinkText.EscapeForHtml());
@@ -186,6 +191,11 @@ namespace FluentWebControls
 		string ILinkData.ImageUrl
 		{
 			get { return ImageUrl; }
+		}
+		internal string InnerHtml { private get; set; }
+		string ILinkData.InnerHtml
+		{
+			get { return InnerHtml; }
 		}
 		internal string LinkText { private get; set; }
 		string ILinkData.LinkText

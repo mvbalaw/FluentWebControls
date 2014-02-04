@@ -13,6 +13,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using FluentWebControls.Controls;
+using FluentWebControls.Extensions;
 
 namespace FluentWebControls
 {
@@ -32,6 +33,7 @@ namespace FluentWebControls
 		string CssClass { get; }
 		string HeaderCssClass { get; }
 		string ImageUrl { get; }
+		string InnerHtml { get; }
 		string Text { get; }
 	}
 
@@ -50,6 +52,7 @@ namespace FluentWebControls
 		internal string CssClass { private get; set; }
 		internal string HeaderCssClass { private get; set; }
 		internal string ImageUrl { private get; set; }
+		internal string InnerHtml { private get; set; }
 		internal string Text { private get; set; }
 
 		string ICommandColumn.HeaderCssClass
@@ -65,6 +68,11 @@ namespace FluentWebControls
 		string ICommandColumn.ImageUrl
 		{
 			get { return ImageUrl; }
+		}
+
+		string ICommandColumn.InnerHtml
+		{
+			get { return InnerHtml; }
 		}
 
 		string ICommandColumn.Alt
@@ -84,7 +92,19 @@ namespace FluentWebControls
 
 		public void Render(T item, int rowIndex, HtmlTextWriter writer)
 		{
-			var control = _getControl(item, Text ?? String.Format("<img src='{0}' alt='{1}'/>", ImageUrl, Alt));
+			var columnText = Text.ToNonNull().EscapeForHtml();
+
+			if (InnerHtml != null)
+			{
+				columnText = InnerHtml;
+			}
+			else if (ImageUrl != null && Alt != null)
+			{
+				columnText = String.Format("<img src='{0}' alt='{1}'/>", ImageUrl, Alt);
+			}
+
+			var control = _getControl(item, columnText);
+
 			var cell = new TableCell
 			           {
 				           HorizontalAlign = Align.ToHorizontalAlign(),

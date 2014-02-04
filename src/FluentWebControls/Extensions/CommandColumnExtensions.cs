@@ -48,6 +48,12 @@ namespace FluentWebControls.Extensions
 			return commandColumn;
 		}
 
+		public static CommandColumn<T> WithInnerHtml<T>(this CommandColumn<T> commandColumn, string innerHtml)
+		{
+			commandColumn.InnerHtml = innerHtml;
+			return commandColumn;
+		}
+
 		public static CommandColumn<T> WithText<T>(this CommandColumn<T> commandColumn, string text)
 		{
 			commandColumn.Text = text;
