@@ -8,6 +8,8 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
+using System;
+
 namespace FluentWebControls.Extensions
 {
 	public static class CommandColumnExtensions
@@ -59,5 +61,23 @@ namespace FluentWebControls.Extensions
 			commandColumn.Text = text;
 			return commandColumn;
 		}
+
+		public static CommandColumn<T> WithText<T>(this CommandColumn<T> commandColumn, Func<T,string> getText)
+		{
+			commandColumn.GetText = getText;
+			return commandColumn;
+		}
+
+		public static CommandColumn<T> WithHeader<T>(this CommandColumn<T> commandColumn, string header)
+		{
+			commandColumn.HeaderText = header;
+			return commandColumn;
+		}
+		public static CommandColumn<T> WithTarget<T>(this CommandColumn<T> commandColumn, string target)
+		{
+			commandColumn.LinkTarget = target;
+			return commandColumn;
+		}
+
 	}
 }

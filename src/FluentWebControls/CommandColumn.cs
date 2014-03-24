@@ -1,13 +1,3 @@
-//  * **************************************************************************
-//  * Copyright (c) McCreary, Veselka, Bragg & Allen, P.C.
-//  * This source code is subject to terms and conditions of the MIT License.
-//  * A copy of the license can be found in the License.txt file
-//  * at the root of this distribution. 
-//  * By using this source code in any fashion, you are agreeing to be bound by 
-//  * the terms of the MIT License.
-//  * You must not remove this notice from this software.
-//  * **************************************************************************
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -32,6 +22,7 @@ namespace FluentWebControls
 		//string Href { get; }
 		string CssClass { get; }
 		string HeaderCssClass { get; }
+		string HeaderText { get; }
 		string ImageUrl { get; }
 		string InnerHtml { get; }
 		string Text { get; }
@@ -39,60 +30,17 @@ namespace FluentWebControls
 
 	public class CommandColumn<T> : ICommandColumn, IHtmlColumn<T>
 	{
-		private readonly Func<T, string, Control> _getControl;
-
 		public CommandColumn(Func<T, string, Control> getControl)
 		{
 			_getControl = getControl;
 			Align = AlignAttribute.Center;
 		}
 
-		internal AlignAttribute Align { private get; set; }
-		internal string Alt { private get; set; }
-		internal string CssClass { private get; set; }
-		internal string HeaderCssClass { private get; set; }
-		internal string ImageUrl { private get; set; }
-		internal string InnerHtml { private get; set; }
-		internal string Text { private get; set; }
-
-		string ICommandColumn.HeaderCssClass
-		{
-			get { return HeaderCssClass; }
-		}
-
-		string ICommandColumn.Text
-		{
-			get { return Text; }
-		}
-
-		string ICommandColumn.ImageUrl
-		{
-			get { return ImageUrl; }
-		}
-
-		string ICommandColumn.InnerHtml
-		{
-			get { return InnerHtml; }
-		}
-
-		string ICommandColumn.Alt
-		{
-			get { return Alt; }
-		}
-
-		AlignAttribute ICommandColumn.Align
-		{
-			get { return Align; }
-		}
-
-		string ICommandColumn.CssClass
-		{
-			get { return CssClass; }
-		}
+		private readonly Func<T, string, Control> _getControl;
 
 		public void Render(T item, int rowIndex, HtmlTextWriter writer)
 		{
-			var columnText = Text.ToNonNull().EscapeForHtml();
+			var columnText = (GetText != null ? GetText(item) : Text).ToNonNull().EscapeForHtml();
 
 			if (InnerHtml != null)
 			{
@@ -114,6 +62,10 @@ namespace FluentWebControls
 			{
 				control.ID += "_" + rowIndex;
 			}
+			if (LinkTarget != null)
+			{
+				((HyperLink)control).Target = LinkTarget;
+			}
 			cell.Controls.Add(control);
 			cell.RenderControl(writer);
 		}
@@ -122,11 +74,56 @@ namespace FluentWebControls
 		{
 			var cell = new TableHeaderCell
 			           {
-				           Text = "&nbsp;",
+				           Text = HeaderText == null ? "&nbsp;" : HeaderText.EscapeForHtml(),
 				           HorizontalAlign = Align.ToHorizontalAlign(),
 				           CssClass = HeaderCssClass
 			           };
 			cell.RenderControl(writer);
 		}
+
+		internal AlignAttribute Align { private get; set; }
+		AlignAttribute ICommandColumn.Align
+		{
+			get { return Align; }
+		}
+		internal string Alt { private get; set; }
+		string ICommandColumn.Alt
+		{
+			get { return Alt; }
+		}
+		internal string CssClass { private get; set; }
+		string ICommandColumn.CssClass
+		{
+			get { return CssClass; }
+		}
+		public Func<T, string> GetText { get; set; }
+		internal string HeaderCssClass { private get; set; }
+		string ICommandColumn.HeaderCssClass
+		{
+			get { return HeaderCssClass; }
+		}
+		public string HeaderText { get; set; }
+
+		string ICommandColumn.HeaderText
+		{
+			get { return HeaderText; }
+		}
+		internal string ImageUrl { private get; set; }
+		string ICommandColumn.ImageUrl
+		{
+			get { return ImageUrl; }
+		}
+		internal string InnerHtml { private get; set; }
+		string ICommandColumn.InnerHtml
+		{
+			get { return InnerHtml; }
+		}
+		internal string Text { private get; set; }
+
+		string ICommandColumn.Text
+		{
+			get { return Text; }
+		}
+		public string LinkTarget { get; set; }
 	}
 }
