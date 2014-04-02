@@ -8,10 +8,12 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 using FluentWebControls.Extensions;
+using Microsoft.Build.Framework.XamlTypes;
 
 namespace FluentWebControls
 {
@@ -31,8 +33,9 @@ namespace FluentWebControls
 		public string SpanContent { get; set; }
 		public string SpanCssClass { get; set; }
 		public string SpanId { get; set; }
+	    public NameValuePair Data { get; set; }
 
-		public void AddListItem(DataItem<T> dataItem)
+	    public void AddListItem(DataItem<T> dataItem)
 		{
 			_columns.Add(dataItem);
 		}
@@ -55,6 +58,10 @@ namespace FluentWebControls
 			if (CssClass != null)
 			{
 				list.Append(CssClass.Trim().CreateQuotedAttribute("class"));
+			}
+            if (Data != null && !Data.Name.IsNullOrEmpty())
+			{
+				list.Append(Data.Value.CreateQuotedAttribute(String.Format("data-{0}",Data.Name)));
 			}
 			list.Append('>');
 			return list;

@@ -8,6 +8,8 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
+using Microsoft.Build.Framework.XamlTypes;
+
 namespace FluentWebControls.Extensions
 {
 	public static class ListDataExtensions
@@ -39,6 +41,16 @@ namespace FluentWebControls.Extensions
 		public static ListData<T> WithItemClass<T>(this ListData<T> list, string @class)
 		{
 			list.ItemCssClass = @class;
+			return list;
+		}
+
+        public static ListData<T> WithData<T>(this ListData<T> list, string name, string value)
+		{
+            list.Data = new NameValuePair
+            {
+                Name = name,
+                Value = value
+            };
 			return list;
 		}
 
