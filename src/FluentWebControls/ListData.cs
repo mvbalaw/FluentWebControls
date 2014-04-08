@@ -30,6 +30,7 @@ namespace FluentWebControls
 		public string CssClass { get; set; }
 		internal string Id { get; set; }
 		public string ItemCssClass { get; set; }
+		public string ItemDivCssClass { get; set; }
 		public string SpanContent { get; set; }
 		public string SpanCssClass { get; set; }
 		public string SpanId { get; set; }
@@ -77,6 +78,10 @@ namespace FluentWebControls
 				list.Append(ItemCssClass.Trim().CreateQuotedAttribute("class"));
 			}
 			list.Append('>');
+            if (ItemDivCssClass != null)
+            {
+                list.Append("<div " + ItemDivCssClass.Trim().CreateQuotedAttribute("class") + ">");
+            }
 			if (SpanCssClass != null)
 			{
 				list.Append(new SpanData(SpanContent).WithId(SpanId).WithCssClass(SpanCssClass).ToString());
@@ -91,10 +96,14 @@ namespace FluentWebControls
 			return list;
 		}
 
-		private static StringBuilder EndListItem()
+		private StringBuilder EndListItem()
 		{
 			var list = new StringBuilder();
-			list.Append("</li>");
+		    if (ItemDivCssClass != null)
+		    {
+                list.Append("</div>");
+		    }
+		    list.Append("</li>");
 			return list;
 		}
 

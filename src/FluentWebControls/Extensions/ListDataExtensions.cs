@@ -44,6 +44,12 @@ namespace FluentWebControls.Extensions
 			return list;
 		}
 
+        public static ListData<T> WrapListItemInDivWithClass<T>(this ListData<T> list, string @class)
+		{
+			list.ItemDivCssClass = @class;
+			return list;
+		}
+
         public static ListData<T> WithData<T>(this ListData<T> list, string name, string value)
 		{
             list.Data = new NameValuePair
