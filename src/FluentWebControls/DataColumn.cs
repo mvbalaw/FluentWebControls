@@ -168,6 +168,7 @@ namespace FluentWebControls
 		[DefaultKey]
 		public static ColumnTextType ColumnText = new ColumnTextType("column");
 		public static ColumnTextType Hidden = new ColumnTextType("hidden");
+		public static ColumnTextType Link = new ColumnTextType("link");
 		public static ColumnTextType Span = new ColumnTextType("span");
 		public static ColumnTextType TextBox = new ColumnTextType("textbox");
 

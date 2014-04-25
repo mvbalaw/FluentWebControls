@@ -9,6 +9,7 @@
 //  * **************************************************************************
 
 using System;
+using System.Linq.Expressions;
 
 namespace FluentWebControls.Extensions
 {
@@ -44,6 +45,17 @@ namespace FluentWebControls.Extensions
 		{
 			dataItem.ColumnTextType = ColumnTextType.Span;
 			dataItem.GetItemId = forId;
+			return dataItem;
+		}
+
+        public static DataItem<T> AsLink<T>(this DataItem<T> dataItem, Func<T, string> getControllerActionHref, string linkName = null)
+        {
+            dataItem.ColumnTextType = ColumnTextType.Link;
+            dataItem.GetHref = getControllerActionHref;
+            if (!linkName.IsNullOrEmpty())
+            {
+                dataItem.LinkName = linkName;
+            }
 			return dataItem;
 		}
 

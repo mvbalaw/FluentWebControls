@@ -32,6 +32,7 @@ namespace FluentWebControls
 		string InputCssClass { get; }
 		string LabelText { get; }
 		bool WrapWithSpan { get; }
+		string LinkName { get; }
 	}
 
 	public class DataItem<T> : IDataItem, IListItem<T>
@@ -57,6 +58,8 @@ namespace FluentWebControls
 		internal string InputTextName { get; set; }
 		internal string LabelText { get; set; }
 		internal bool WrapWithSpan { private get; set; }
+        internal Func<T, string> GetHref { private get; set; }
+		internal string LinkName { private get; set; }
 
 		#region IDataItem Members
 
@@ -84,8 +87,13 @@ namespace FluentWebControls
 		{
 			get { return WrapWithSpan; }
 		}
+      
+        string IDataItem.LinkName 
+	    {
+	        get { return LinkName;   }
+	    }
 
-		#endregion
+	    #endregion
 
 		#region IListItem<T> Members
 
@@ -133,6 +141,10 @@ namespace FluentWebControls
 			{
 				return new HiddenData().WithId(GetId(item)).WithName(GetName(item)).WithValue(GetColumnText(item)).ToString();
 			}
+			if (ColumnTextType == ColumnTextType.Link)
+			{
+			    return GetLink(item).ToString();
+			}
 			return GetColumnText(item);
 		}
 
@@ -154,5 +166,13 @@ namespace FluentWebControls
 		{
 			return InputTextName ?? GetId(item);
 		}
+
+        private LinkData GetLink(T item)
+        {
+            var navigateUrl = GetHref(item);
+            var linkId = String.Format("lnk{0}", navigateUrl.Replace('/', '_').TrimStart(new[] { '_' }));
+            var link = new LinkData().WithId(linkId).WithUrl(navigateUrl).WithLinkText(GetColumnText(item));
+            return LinkName.IsNullOrEmpty() ? link.WithName(LinkName) : link;
+        }
 	}
 }
