@@ -171,7 +171,7 @@ namespace FluentWebControls
         {
             var navigateUrl = GetHref(item);
             var linkId = String.Format("lnk{0}", navigateUrl.Replace('/', '_').TrimStart(new[] { '_' }));
-            var link = new LinkData().WithId(linkId).WithUrl(navigateUrl).WithLinkText(GetColumnText(item));
+            var link = new LinkData().WithId(linkId).WithUrl(navigateUrl).WithInnerHtml(GetColumnText(item));
             return LinkName.IsNullOrEmpty() ? link.WithName(LinkName) : link;
         }
 	}
