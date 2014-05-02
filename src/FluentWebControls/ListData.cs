@@ -35,6 +35,8 @@ namespace FluentWebControls
 		public string SpanCssClass { get; set; }
 		public string SpanId { get; set; }
 	    public NameValuePair Data { get; set; }
+        public Func<T, string> GetLink { private get; set; }
+
 
 	    public void AddListItem(DataItem<T> dataItem)
 		{
@@ -68,7 +70,7 @@ namespace FluentWebControls
 			return list;
 		}
 
-		private StringBuilder BeginListItem()
+		private StringBuilder BeginListItem(T item)
 		{
 			var list = new StringBuilder();
 			list.Append('<');
@@ -77,6 +79,10 @@ namespace FluentWebControls
 			{
 				list.Append(ItemCssClass.Trim().CreateQuotedAttribute("class"));
 			}
+		    if (GetLink != null)
+		    {
+		        list.Append(GetLink(item).CreateQuotedAttribute(String.Format("data-link")));
+		    }
 			list.Append('>');
             if (ItemDivCssClass != null)
             {
@@ -89,7 +95,7 @@ namespace FluentWebControls
 			return list;
 		}
 
-		private static StringBuilder EndList()
+	    private static StringBuilder EndList()
 		{
 			var list = new StringBuilder();
 			list.Append("</ul>");
@@ -113,7 +119,7 @@ namespace FluentWebControls
 			unOrderedList.Append(BeginList());
 			foreach (var item in _items)
 			{
-				unOrderedList.Append(BeginListItem());
+				unOrderedList.Append(BeginListItem(item));
 				foreach (var column in _columns)
 				{
 					unOrderedList.Append(column.Render(item));

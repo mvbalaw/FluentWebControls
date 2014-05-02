@@ -8,6 +8,7 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
+using System;
 using Microsoft.Build.Framework.XamlTypes;
 
 namespace FluentWebControls.Extensions
@@ -59,6 +60,12 @@ namespace FluentWebControls.Extensions
             };
 			return list;
 		}
+
+        public static ListData<T> WithItemLink<T>(this ListData<T> list, Func<T, string> getLink)
+        {
+            list.GetLink = getLink;
+            return list;
+        }
 
 		public static ListData<T> WithSpan<T>(this ListData<T> list, string content, string @class)
 		{

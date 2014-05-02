@@ -8,6 +8,7 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
+using System;
 using System.Web.UI.WebControls;
 
 namespace FluentWebControls.Extensions
@@ -49,6 +50,18 @@ namespace FluentWebControls.Extensions
 			table.GridLines = gridLines;
 			return table;
 		}
+
+        public static TableData<T> WithRowLink<T>(this TableData<T> table, Func<T, string> getLink)
+        {
+            table.GetLink = getLink;
+            return table;
+        }
+
+        public static TableData<T> WithRowCssClass<T>(this TableData<T> table, string cssClass)
+        {
+            table.RowCssClass = cssClass;
+            return table;
+        }
 
 		public static TableData<T> WithId<T>(this TableData<T> table, string id)
 		{
