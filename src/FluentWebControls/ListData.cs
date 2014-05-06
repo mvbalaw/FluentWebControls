@@ -30,12 +30,14 @@ namespace FluentWebControls
 		public string CssClass { get; set; }
 		internal string Id { get; set; }
 		public string ItemCssClass { get; set; }
+        public Func<T, int> GetItemId { get; set; }
 		public string ItemDivCssClass { get; set; }
 		public string SpanContent { get; set; }
 		public string SpanCssClass { get; set; }
 		public string SpanId { get; set; }
 	    public NameValuePair Data { get; set; }
         public Func<T, string> GetLink { private get; set; }
+	    public string ItemIdPrefix { get; set; }
 
 
 	    public void AddListItem(DataItem<T> dataItem)
@@ -57,7 +59,6 @@ namespace FluentWebControls
 			{
 				list.Append(Id.CreateQuotedAttribute("id"));
 			}
-
 			if (CssClass != null)
 			{
 				list.Append(CssClass.Trim().CreateQuotedAttribute("class"));
@@ -75,7 +76,11 @@ namespace FluentWebControls
 			var list = new StringBuilder();
 			list.Append('<');
 			list.Append("li");
-			if (ItemCssClass != null)
+			if (GetItemId != null)
+			{
+				list.Append(GetListItemId(item).Trim().CreateQuotedAttribute("id"));
+			}
+            if (ItemCssClass != null)
 			{
 				list.Append(ItemCssClass.Trim().CreateQuotedAttribute("class"));
 			}
@@ -94,6 +99,11 @@ namespace FluentWebControls
 			}
 			return list;
 		}
+
+	    private string GetListItemId(T item)
+	    {
+	        return String.Format("{0}{1}", ItemIdPrefix, GetItemId(item));
+	    }
 
 	    private static StringBuilder EndList()
 		{

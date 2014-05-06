@@ -45,6 +45,13 @@ namespace FluentWebControls.Extensions
 			return list;
 		}
 
+        public static ListData<T> WithItemId<T>(this ListData<T> list, Func<T, int> getId, string prefix = "li_")
+        {
+            list.GetItemId = getId;
+            list.ItemIdPrefix = prefix;
+			return list;
+		}
+
         public static ListData<T> WrapListItemInDivWithClass<T>(this ListData<T> list, string @class)
 		{
 			list.ItemDivCssClass = @class;

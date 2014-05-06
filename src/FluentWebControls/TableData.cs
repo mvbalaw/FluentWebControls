@@ -25,6 +25,9 @@ namespace FluentWebControls
         public int CellSpacing { get; set; }
         public List<string> CssClass { get; set; }
         public string RowCssClass { get; set; }
+        public string RowIdPrefix { get; set; }
+        public Func<T, int> GetRowId { get; set; }
+
         public GridLines GridLines { get; set; }
         internal string Id { get; set; }
         public Dictionary<string, string> Style { get; set; }
@@ -113,12 +116,21 @@ namespace FluentWebControls
             writer.Write(tableRow);
         }
 
+        private string GetTableRowId(T item)
+        {
+            return String.Format("{0}{1}", RowIdPrefix, GetRowId(item));
+        }
+
         private void BeginTableRow(T item, HtmlTextWriter writer)
         {
             var tableRow = new StringBuilder();
             tableRow.Append('<');
             tableRow.Append("tr");
 
+            if (GetRowId != null)
+            {
+                tableRow.Append(GetTableRowId(item).Trim().CreateQuotedAttribute("id"));
+            }
             if (RowCssClass != null)
             {
                 tableRow.Append(RowCssClass.Trim().CreateQuotedAttribute("class"));

@@ -57,6 +57,13 @@ namespace FluentWebControls.Extensions
             return table;
         }
 
+        public static TableData<T> WithRowId<T>(this TableData<T> table, Func<T, int> getId, string prefix = "tr_")
+        {
+            table.GetRowId = getId;
+            table.RowIdPrefix = prefix;
+            return table;
+        }
+
         public static TableData<T> WithRowCssClass<T>(this TableData<T> table, string cssClass)
         {
             table.RowCssClass = cssClass;
