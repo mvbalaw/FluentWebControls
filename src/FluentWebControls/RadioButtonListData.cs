@@ -46,28 +46,31 @@ namespace FluentWebControls
 			var idPrefix = ((IWebControl)this).IdPrefix;
 			var namePrefix = ((IWebControl)this).NamePrefix;
 			sb.Append("<div class='radioButtonList'>");
+			int index = 0;
 			foreach (var item in _items)
 			{
 				var isChecked = SelectedValue == item.Value;
-				var checkbox = new RadioButtonData(isChecked)
+				var radioButton = new RadioButtonData(isChecked)
 					.WithValue(item.Value)
-					.WithId(id)
+					.WithId(id+"_"+index)
+					.WithName(id)
 					.WithIdPrefix(idPrefix)
 					.WithNamePrefix(namePrefix);
 				if (!CssClass.IsNullOrEmpty())
 				{
-					checkbox.WithCssClass(CssClass);
+					radioButton.WithCssClass(CssClass);
 				}
 				if (UseItemSeparator)
 				{
 					sb.Append("<div>");
 				}
-				sb.Append(checkbox);
+				sb.Append(radioButton);
 				sb.Append(item.Key);
 				if (UseItemSeparator)
 				{
 					sb.Append("</div>");
 				}
+				index++;
 			}
 			sb.Append("</div>");
 			return sb.ToString();
