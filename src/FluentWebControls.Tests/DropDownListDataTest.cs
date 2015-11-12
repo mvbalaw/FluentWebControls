@@ -165,7 +165,7 @@ namespace FluentWebControls.Tests
 				_htmlText = "<select name='value' id='value_readonly' class='ddlDetail' disabled='disabled'><option value='Value1' selected='selected'>Name1</option></select><input type='hidden' id='value' name='value' value='Value1'/>";
 				_items = new List<KeyValuePair<string, string>>
 				         {
-					         new KeyValuePair<string, string>("Name1", "Value1"),
+					         new KeyValuePair<string, string>("Name1", "Value1")
 				         };
 			}
 

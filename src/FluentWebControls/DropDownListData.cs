@@ -225,7 +225,7 @@ namespace FluentWebControls
 					.WithIdPrefix(((IWebControl)this).IdPrefix)
 					.WithNamePrefix(((IWebControl)this).NamePrefix);
 
-				sb.Append(hidden.ToString());
+				sb.Append(hidden);
 			}
 			if (SlaveId != null)
 			{

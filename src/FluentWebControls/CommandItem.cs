@@ -125,7 +125,7 @@ namespace FluentWebControls
 		private LinkData GetLink(T item)
 		{
 			var navigateUrl = _getLink(item);
-			var linkId = String.Format("lnk{0}", navigateUrl.Replace('/', '_').TrimStart(new[] { '_' }));
+			var linkId = String.Format("lnk{0}", navigateUrl.Replace('/', '_').TrimStart('_'));
 			return new LinkData().WithId(linkId).WithUrl(navigateUrl).WithLinkText(Text).WithInnerHtml(InnerHtml).WithLinkImageUrl(ImageUrl, Alt);
 		}
 	}

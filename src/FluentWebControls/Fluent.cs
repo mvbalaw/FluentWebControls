@@ -68,7 +68,7 @@ namespace FluentWebControls
 			return CommandItem.For((TDomain item, string text) =>
 			{
 				var name = Reflection.GetCamelCasePropertyName(forCheckBoxId);
-				var id = name + "_" + (index++);
+				var id = name + "_" + index++;
 				return new CheckBoxData(false).WithId(id).WithName(name).WithValue(getCheckBoxValue(item)).ToString();
 			});
 		}
@@ -182,7 +182,7 @@ namespace FluentWebControls
 			{
 				var navigateUrl = getHref(item);
 				var linkId = String.Format("lnk{0}",
-					navigateUrl.Replace('/', '_').TrimStart(new[] { '_' }));
+					navigateUrl.Replace('/', '_').TrimStart('_'));
 				return new HyperLink
 				       {
 					       NavigateUrl = navigateUrl,

@@ -58,7 +58,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				var checkBoxData = RadioButtonData.WithId("isChecked");
 				Assert.AreSame(RadioButtonData, checkBoxData);
-				var propertyName = System.StringExtensions.ToCamelCase(Reflection.GetPropertyName(() => IsChecked));
+				var propertyName = Reflection.GetPropertyName(() => IsChecked).ToCamelCase();
 				RadioButtonData.ToString().ParseHtmlTag()["id"].ShouldBeEqualTo(propertyName.ToCamelCase());
 // ReSharper disable once AssignNullToNotNullAttribute
 				checkBoxData.ToString().Contains(propertyName).ShouldBeTrue();

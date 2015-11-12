@@ -42,7 +42,7 @@ namespace FluentWebControls.Tests
 			public void Should_generate_the_correct_HTML_code()
 			{
 				var buttonData = Button.For(ButtonData.ButtonType.Link, (TestController controller) => controller.Action(4, "name"));
-				buttonData.ToString().ShouldBeEqualTo(String.Format("<input Id='btnLink' name='btnLink' value='Link' class='cancel' type='button' onClick='javascript:location.href=&quot;/Test/Action/4/name&quot;'/>"));
+				buttonData.ToString().ShouldBeEqualTo("<input Id=\'btnLink\' name=\'btnLink\' value=\'Link\' class=\'cancel\' type=\'button\' onClick=\'javascript:location.href=&quot;/Test/Action/4/name&quot;\'/>");
 			}
 
 			public class TestController

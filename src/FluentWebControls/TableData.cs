@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 using FluentWebControls.Extensions;
 
 namespace FluentWebControls
@@ -61,11 +62,11 @@ namespace FluentWebControls
                         BorderWidth = BorderWidth,
                         CellSpacing = CellSpacing,
                         GridLines = GridLines,
-                        CssClass = "",
+                        CssClass = ""
                     };
 
                     CssClass.ForEach(x => table.CssClass = String.Format("{0} {1}", table.CssClass, x));
-                    table.CssClass = table.CssClass.Trim(new[] {' '});
+                    table.CssClass = table.CssClass.Trim(' ');
 
                     foreach (var kvp in Style)
                     {
@@ -106,7 +107,7 @@ namespace FluentWebControls
             return Encoding.UTF8.GetString(stream.ToArray());
         }
 
-        private void EndTableRow(HtmlTextWriter writer)
+        private static void EndTableRow(HtmlTextWriter writer)
         {
             var tableRow = new StringBuilder();
             tableRow.Append('<');
@@ -137,7 +138,7 @@ namespace FluentWebControls
             }
             if (GetLink != null)
             {
-                tableRow.Append(GetLink(item).CreateQuotedAttribute(String.Format("data-link")));
+                tableRow.Append(GetLink(item).CreateQuotedAttribute("data-link"));
             }
             tableRow.Append('>');
             writer.Write(tableRow);

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using FluentWebControls.Extensions;
+
 using Microsoft.Build.Framework.XamlTypes;
 
 namespace FluentWebControls
@@ -86,7 +87,7 @@ namespace FluentWebControls
 			}
 		    if (GetLink != null)
 		    {
-		        list.Append(GetLink(item).CreateQuotedAttribute(String.Format("data-link")));
+		        list.Append(GetLink(item).CreateQuotedAttribute("data-link"));
 		    }
 			list.Append('>');
             if (ItemDivCssClass != null)
@@ -95,7 +96,7 @@ namespace FluentWebControls
             }
 			if (SpanCssClass != null)
 			{
-				list.Append(new SpanData(SpanContent).WithId(SpanId).WithCssClass(SpanCssClass).ToString());
+				list.Append(new SpanData(SpanContent).WithId(SpanId).WithCssClass(SpanCssClass));
 			}
 			return list;
 		}

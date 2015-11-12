@@ -22,12 +22,12 @@ namespace FluentWebControls.Tests
 		{
 			public string GetIdWithPrefix()
 			{
-				return base.IdWithPrefix;
+				return IdWithPrefix;
 			}
 
 			public string GetNameWithPrefix()
 			{
-				return base.NameWithPrefix;
+				return NameWithPrefix;
 			}
 		}
 

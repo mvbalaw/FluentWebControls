@@ -144,12 +144,12 @@ namespace FluentWebControls
 		{
 			if (InputTextId != null)
 			{
-				return InputTextId + (rowIndex != null ? ("_" + rowIndex) : "");
+				return InputTextId + (rowIndex != null ? "_" + rowIndex : "");
 			}
 
 			if (GetItemId == null)
 			{
-				return ColumnName + (rowIndex != null ? ("_" + rowIndex) : "");
+				return ColumnName + (rowIndex != null ? "_" + rowIndex : "");
 			}
 			return Prefix.IsNullOrEmpty()
 				? String.Format("{0}_{1}", ColumnName, GetItemId(item))
@@ -164,12 +164,12 @@ namespace FluentWebControls
 
 	public class ColumnTextType : NamedConstant<ColumnTextType>
 	{
-		public static ColumnTextType CheckBox = new ColumnTextType("checkbox");
+		public static readonly ColumnTextType CheckBox = new ColumnTextType("checkbox");
 		[DefaultKey]
-		public static ColumnTextType ColumnText = new ColumnTextType("column");
-		public static ColumnTextType Hidden = new ColumnTextType("hidden");
-		public static ColumnTextType Span = new ColumnTextType("span");
-		public static ColumnTextType TextBox = new ColumnTextType("textbox");
+		public static readonly ColumnTextType ColumnText = new ColumnTextType("column");
+		public static readonly ColumnTextType Hidden = new ColumnTextType("hidden");
+		public static readonly ColumnTextType Span = new ColumnTextType("span");
+		public static readonly ColumnTextType TextBox = new ColumnTextType("textbox");
 
 		private ColumnTextType(string key)
 		{

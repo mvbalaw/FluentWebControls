@@ -93,7 +93,7 @@ namespace FluentWebControls.Tests
 					         new KeyValuePair<string, string>("Name1", "Value1"),
 					         new KeyValuePair<string, string>("Name2", "Value2"),
 					         new KeyValuePair<string, string>("Name3", "Value3"),
-					         new KeyValuePair<string, string>("Name4", "Value4"),
+					         new KeyValuePair<string, string>("Name4", "Value4")
 				         };
 			}
 		}
@@ -147,7 +147,7 @@ namespace FluentWebControls.Tests
 						       new KeyValuePair<string, string>("Name1", "Value1"),
 						       new KeyValuePair<string, string>("Name2", "Value2"),
 						       new KeyValuePair<string, string>("Name3", "Value3"),
-						       new KeyValuePair<string, string>("Name4", "Value4"),
+						       new KeyValuePair<string, string>("Name4", "Value4")
 					       };
 				}
 			}

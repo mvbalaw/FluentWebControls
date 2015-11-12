@@ -9,6 +9,7 @@
 //  * **************************************************************************
 
 using System;
+
 using Microsoft.Build.Framework.XamlTypes;
 
 namespace FluentWebControls.Extensions

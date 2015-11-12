@@ -34,7 +34,7 @@ namespace FluentWebControls.Tests
 		public class When_asked_to_create_a_Basic_Button
 		{
 			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Basic;
-			private readonly string _htmlText = String.Format("<input Id='btnBasic' name='btnBasic' value='Populate Button' class='cancel' type='button' onClick='validate()'/>");
+			private readonly string _htmlText = "<input Id=\'btnBasic\' name=\'btnBasic\' value=\'Populate Button\' class=\'cancel\' type=\'button\' onClick=\'validate()\'/>";
 			private ButtonData _buttonData;
 
 			[Test]
@@ -66,7 +66,7 @@ namespace FluentWebControls.Tests
 		public class When_asked_to_create_a_Basic_Button_with_given_width
 		{
 			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Basic;
-			private readonly string _htmlText = String.Format("<input Id='btnBasic' name='btnBasic' value='Basic' class='cancel' style='width:400px' type='button'/>");
+			private readonly string _htmlText = "<input Id=\'btnBasic\' name=\'btnBasic\' value=\'Basic\' class=\'cancel\' style=\'width:400px\' type=\'button\'/>";
 			private ButtonData _buttonData;
 
 			[Test]

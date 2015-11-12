@@ -50,7 +50,7 @@ namespace FluentWebControls
 		{
 			var sb = new StringBuilder();
 			sb.AppendFormat(Body,
-				base.BuildFilters(),
+				BuildFilters(),
 				BuildHeaderColumns(),
 				BuildRows(),
 				Fluent.LinkTo(ControllerName, ControllerExtension, ActionName)
