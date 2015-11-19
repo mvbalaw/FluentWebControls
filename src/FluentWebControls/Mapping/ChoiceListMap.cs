@@ -70,7 +70,21 @@ namespace FluentWebControls.Mapping
 
 		string IFreeTextMap.Value
 		{
-			get { return SelectedValue; }
+			get
+			{
+				var lookup = ListItems
+					.GroupBy(x => x.Key)
+					.Select(x => x.First())
+					.Where(x => x.Value != null)
+					.Where(x => x.Key != null)
+					.ToDictionary(x => x.Value, x => x.Key);
+				var selected = _selectedValues.FirstOrDefault(x => lookup.ContainsKey(x));
+				if (selected == null)
+				{
+					return null;
+				}
+				return lookup[selected];
+			}
 		}
 
 		public ChoiceListMap<TDomain, TModel, TItemType> WithItems(Func<IEnumerable<TItemType>> getListItems)
