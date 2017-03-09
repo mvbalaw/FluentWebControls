@@ -23,7 +23,6 @@ namespace FluentWebControls.Mapping
 		private readonly Func<TItemType, string> _getItemText;
 		private readonly Func<TItemType, string> _getItemValue;
 		private readonly List<string> _selectedValues = new List<string>();
-		private Func<IEnumerable<TItemType>> _getListItems;
 		private IEnumerable<KeyValuePair<string, string>> _listItems;
 
 		public ChoiceListMap(string id,
@@ -53,7 +52,7 @@ namespace FluentWebControls.Mapping
 
 		public IEnumerable<KeyValuePair<string, string>> ListItems
 		{
-			get { return _listItems ?? (_listItems = _getListItems().Select(x => new KeyValuePair<string, string>(_getItemText(x), _getItemValue(x)))); }
+			get { return _listItems; }
 		}
 
 		public string SelectedValue
@@ -89,7 +88,7 @@ namespace FluentWebControls.Mapping
 
 		public ChoiceListMap<TDomain, TModel, TItemType> WithItems(Func<IEnumerable<TItemType>> getListItems)
 		{
-			_getListItems = getListItems;
+			_listItems = getListItems().Select(x => new KeyValuePair<string, string>(_getItemText(x), _getItemValue(x)));
 			return this;
 		}
 
