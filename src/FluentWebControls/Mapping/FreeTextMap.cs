@@ -17,22 +17,15 @@ namespace FluentWebControls.Mapping
 {
 	public class FreeTextMap<TDomain> : IFreeTextMap
 	{
-		private readonly Func<TDomain, string> _getValue;
-		private readonly TDomain _item;
-		private bool _haveValue;
-		private string _value;
+		private readonly string _value;
 
-		public FreeTextMap(TDomain item, string id, Func<TDomain, string> getValue)
+		public FreeTextMap(TDomain item, string id, Func<TDomain, string> getValue) : this(id, getValue(item))
 		{
-			Id = id;
-			_item = item;
-			_getValue = getValue;
 		}
 
 		public FreeTextMap(string id, string value)
 		{
 			Id = id;
-			_haveValue = true;
 			_value = value;
 		}
 
@@ -43,12 +36,7 @@ namespace FluentWebControls.Mapping
 		{
 			get
 			{
-				if (_haveValue)
-				{
-					return _value;
-				}
-				_haveValue = true;
-				return _value = _getValue(_item);
+				return _value;
 			}
 		}
 
