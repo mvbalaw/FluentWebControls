@@ -31,6 +31,7 @@ namespace FluentWebControls.Tests
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
 			{
 				var value = true;
+				// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 				var checkBoxData = new CheckBoxData(value)
 					.WithId(Reflection.GetPropertyName(() => value).ToCamelCase());
 				var actual = checkBoxData.ToString();
@@ -47,6 +48,7 @@ namespace FluentWebControls.Tests
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
 			{
 				var value = false;
+				// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 				var checkBoxData = new CheckBoxData(value)
 					.WithId(Reflection.GetPropertyName(() => value).ToCamelCase());
 				var actual = checkBoxData.ToString();
@@ -63,6 +65,7 @@ namespace FluentWebControls.Tests
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
 			{
 				var value = false;
+				// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 				var checkBoxData = new CheckBoxData(value)
 					.WithId(Reflection.GetPropertyName(() => value).ToCamelCase());
 				SetLabel(checkBoxData);
@@ -90,6 +93,7 @@ namespace FluentWebControls.Tests
 			public void Should_return_HTML_code_representing_a_checkbox_field_with_its_value_embedded_in_it()
 			{
 				var value = false;
+				// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 				var checkBoxData = new CheckBoxData(value)
 					.WithId(Reflection.GetPropertyName(() => value).ToCamelCase());
 				SetLabel(checkBoxData);
