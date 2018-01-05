@@ -86,9 +86,16 @@ namespace FluentWebControls.Mapping
 			}
 		}
 
+		[Obsolete("Can result in database read after connection is closed")]
 		public ChoiceListMap<TDomain, TModel, TItemType> WithItems(Func<IEnumerable<TItemType>> getListItems)
 		{
 			_listItems = getListItems().Select(x => new KeyValuePair<string, string>(_getItemText(x), _getItemValue(x)));
+			return this;
+		}
+
+		public ChoiceListMap<TDomain, TModel, TItemType> WithItems(IEnumerable<TItemType> items)
+		{
+			_listItems = items.Select(x => new KeyValuePair<string, string>(_getItemText(x), _getItemValue(x)));
 			return this;
 		}
 

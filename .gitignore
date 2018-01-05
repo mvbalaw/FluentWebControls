@@ -19,3 +19,4 @@ dist/
 dist.bat
 src/packages
 src/*.Tests/FluentAssert.*
+.vs/
