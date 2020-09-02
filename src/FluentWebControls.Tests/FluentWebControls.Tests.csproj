@@ -1,200 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{99BF4D3C-90B8-4AC5-B706-3576C3AC46B3}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FluentWebControls.Tests</RootNamespace>
-    <AssemblyName>FluentWebControls.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <TargetFrameworkProfile />
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="FastReflection, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FastReflection.1.1.0\lib\net48\FastReflection.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssert, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssert.1.1.0\lib\net48\FluentAssert.dll</HintPath>
-    </Reference>
-    <Reference Include="JetBrains.Annotations, Version=2020.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.2020.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="LinqToHtml, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LinqToHtml.1.1.0\lib\net48\LinqToHtml.dll</HintPath>
-    </Reference>
-    <Reference Include="MvbaCore, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvbaCore.1.1.0\lib\net48\MvbaCore.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.2.7.1\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\ASP.Net MVC\System.Web.Routing.dll</HintPath>
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="FluentAssert" Version="1.1.0" />
+    <PackageReference Include="LinqToHtml" Version="1.1.0" />
+    <PackageReference Include="MvbaCore" Version="1.1.0" />
+    <PackageReference Include="NUnit" Version="2.7.1" />
+    <PackageReference Include="NUnit.Runners" Version="2.7.1" />
+    <PackageReference Include="RhinoMocks" Version="3.6.1" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="..\CommonAssemblyInfo.cs">
-      <Link>Properties\CommonAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="AlignAttributeTest.cs" />
-    <Compile Include="ButtonDataTest.cs" />
-    <Compile Include="ButtonTest.cs" />
-    <Compile Include="CheckBoxDataTest.cs" />
-    <Compile Include="CheckBoxTest.cs" />
-    <Compile Include="ComboSelectDataTest.cs" />
-    <Compile Include="CommandColumnTest.cs" />
-    <Compile Include="CommandGridColumnTest.cs" />
-    <Compile Include="DropDownListDataTest.cs" />
-    <Compile Include="DropDownListTest.cs" />
-    <Compile Include="Extensions\ButtonDataExtensionsTest.cs" />
-    <Compile Include="Extensions\CheckBoxDataExtensionsTest.cs" />
-    <Compile Include="Extensions\ComboSelectDataExtensionsTest.cs" />
-    <Compile Include="Extensions\GridCommandColumnExtensionsTest.cs" />
-    <Compile Include="Extensions\DropDownListDataExtensionsTest.cs" />
-    <Compile Include="Extensions\GridDataExtensionsTest.cs" />
-    <Compile Include="Extensions\HiddenDataExtensionsTest.cs" />
-    <Compile Include="Extensions\KeyValuePairExtensionsTests.cs" />
-    <Compile Include="Extensions\LabelDataExtensionsTest.cs" />
-    <Compile Include="Extensions\LinkDataExtensionsTest.cs" />
-    <Compile Include="Extensions\PagedListExtensionsTest.cs" />
-    <Compile Include="Extensions\PropertyMetaData.cs" />
-    <Compile Include="Extensions\RadioButtonDataExtensionsTest.cs" />
-    <Compile Include="Extensions\RegularColumnExtensionsTest.cs" />
-    <Compile Include="Extensions\SortableColumnExtensionsTest.cs" />
-    <Compile Include="Extensions\SpanDataExtensionsTest.cs" />
-    <Compile Include="Extensions\StringExtensionsTests.cs" />
-    <Compile Include="Extensions\TextAreaDataExtensionsTest.cs" />
-    <Compile Include="Extensions\TextBoxDataExtensionsTest.cs" />
-    <Compile Include="Extensions\TExtensionsTests.cs" />
-    <Compile Include="GridColumnTest.cs" />
-    <Compile Include="GridDataTest.cs" />
-    <Compile Include="HiddenDataTest.cs" />
-    <Compile Include="HiddenTest.cs" />
-    <Compile Include="LabelDataTest.cs" />
-    <Compile Include="LabelTest.cs" />
-    <Compile Include="LinkDataTest.cs" />
-    <Compile Include="LinkTest.cs" />
-    <Compile Include="Mapping\ListUIMapWithItemTests.cs" />
-    <Compile Include="PagedGridTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RadioButtonDataTest.cs" />
-    <Compile Include="RegularColumnTest.cs" />
-    <Compile Include="ScrollableGridTest.cs" />
-    <Compile Include="SortableColumnTest.cs" />
-    <Compile Include="SortableGridColumnTest.cs" />
-    <Compile Include="SpanDataTest.cs" />
-    <Compile Include="TestData.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="TextAreaDataTest.cs" />
-    <Compile Include="TextAreaTest.cs" />
-    <Compile Include="TextBoxDataTest.cs" />
-    <Compile Include="TextBoxTest.cs" />
-    <Compile Include="ValidatableWebControlBaseTest.cs" />
-    <Compile Include="WebControlBaseTests.cs" />
+    <ProjectReference Include="..\FluentWebControls\FluentWebControls.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FluentWebControls\FluentWebControls.csproj">
-      <Project>{2D4D3CE3-9CE6-4CFF-8CC5-57ABE00986BB}</Project>
-      <Name>FluentWebControls</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
