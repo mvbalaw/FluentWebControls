@@ -55,15 +55,9 @@ namespace FluentWebControls.Tests
 				}
 			}
 
-			protected override string HtmlText
-			{
-				get { return "<input type='hidden' id='_value' name='_value' value='10'/>"; }
-			}
+			protected override string HtmlText => "<input type='hidden' id='_value' name='_value' value='10'/>";
 
-			protected override string Text
-			{
-				get { return _value.ToString(); }
-			}
+			protected override string Text => _value.ToString();
 		}
 	}
 }

@@ -124,10 +124,7 @@ namespace FluentWebControls.Tests
 				comboSelectData.ToString().ShouldBeEqualTo(textToCompare);
 			}
 
-			private static string HtmlText
-			{
-				get { return "<select name='_value' id='_value' class='required comboselect' multiple='multiple' size='6'><option value='Value1' selected='selected'>Name1</option><option value='Value2'>Name2</option><option value='Value3' selected='selected'>Name3</option><option value='Value4'>Name4</option></select><em>*</em>"; }
-			}
+			private static string HtmlText => "<select name='_value' id='_value' class='required comboselect' multiple='multiple' size='6'><option value='Value1' selected='selected'>Name1</option><option value='Value2'>Name2</option><option value='Value3' selected='selected'>Name3</option><option value='Value4'>Name4</option></select><em>*</em>";
 
 			private string Id
 			{
@@ -138,24 +135,16 @@ namespace FluentWebControls.Tests
 				}
 			}
 
-			private static IEnumerable<KeyValuePair<string, string>> Items
-			{
-				get
+			private static IEnumerable<KeyValuePair<string, string>> Items =>
+				new List<KeyValuePair<string, string>>
 				{
-					return new List<KeyValuePair<string, string>>
-					       {
-						       new KeyValuePair<string, string>("Name1", "Value1"),
-						       new KeyValuePair<string, string>("Name2", "Value2"),
-						       new KeyValuePair<string, string>("Name3", "Value3"),
-						       new KeyValuePair<string, string>("Name4", "Value4")
-					       };
-				}
-			}
+					new KeyValuePair<string, string>("Name1", "Value1"),
+					new KeyValuePair<string, string>("Name2", "Value2"),
+					new KeyValuePair<string, string>("Name3", "Value3"),
+					new KeyValuePair<string, string>("Name4", "Value4")
+				};
 
-			private IPropertyMetaData PropertyMetaData
-			{
-				get { return PropertyMetaDataMocker.CreateStub(Id, true, null, null, null, null, typeof(string)); }
-			}
+			private IPropertyMetaData PropertyMetaData => PropertyMetaDataMocker.CreateStub(Id, true, null, null, null, null, typeof(string));
 
 			private void SetSelected()
 			{

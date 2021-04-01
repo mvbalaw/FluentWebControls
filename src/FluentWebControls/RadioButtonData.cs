@@ -40,35 +40,17 @@ namespace FluentWebControls
 		internal string TabIndex { private get; set; }
 		internal string Value { private get; set; }
 
-		LabelData IRadioButtonData.Label
-		{
-			get { return Label; }
-		}
+		LabelData IRadioButtonData.Label => Label;
 
-		AlignAttribute IRadioButtonData.LabelAlignAttribute
-		{
-			get { return LabelAlignAttribute; }
-		}
+		AlignAttribute IRadioButtonData.LabelAlignAttribute => LabelAlignAttribute;
 
-		bool IRadioButtonData.Checked
-		{
-			get { return Checked; }
-		}
+		bool IRadioButtonData.Checked => Checked;
 
-		string IRadioButtonData.Value
-		{
-			get { return Value; }
-		}
+		string IRadioButtonData.Value => Value;
 
-		string IRadioButtonData.TabIndex
-		{
-			get { return TabIndex; }
-		}
+		string IRadioButtonData.TabIndex => TabIndex;
 
-		string IRadioButtonData.CssClass
-		{
-			get { return CssClass; }
-		}
+		string IRadioButtonData.CssClass => CssClass;
 
 		private void AppendLabel(StringBuilder stringBuilder)
 		{
@@ -89,7 +71,7 @@ namespace FluentWebControls
 				                 };
 				stringBuilder.Insert(0, blankLabel);
 				Label.Style = "";
-				if (!String.IsNullOrEmpty(Label.Text) && Label.Text.EndsWith(":"))
+				if (!string.IsNullOrEmpty(Label.Text) && Label.Text.EndsWith(":"))
 				{
 					Label.Text = Label.Text.Replace(":", "");
 				}

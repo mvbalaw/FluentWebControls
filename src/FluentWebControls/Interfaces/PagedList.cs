@@ -8,7 +8,6 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -37,8 +36,9 @@ namespace FluentWebControls.Interfaces
 			if (SortProperty != null)
 			{
 				var sortPropertyInfo = typeof(TReturn).GetProperty(SortProperty);
-				Func<TReturn, object> selector = x => sortPropertyInfo.GetValue(x, null);
-				temp = SortDirection == ListSortDirection.Ascending ? _list.OrderBy(selector) : _list.OrderByDescending(selector);
+				// ReSharper disable once PossibleNullReferenceException
+				object Selector(TReturn x) => sortPropertyInfo.GetValue(x, null);
+				temp = SortDirection == ListSortDirection.Ascending ? _list.OrderBy(Selector) : _list.OrderByDescending(Selector);
 			}
 			else
 			{

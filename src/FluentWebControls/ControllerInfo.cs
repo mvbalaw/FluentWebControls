@@ -17,14 +17,15 @@ namespace FluentWebControls
 			if (aspxPage != null)
 			{
 				var type = aspxPage.GetType().BaseType;
-// ReSharper disable once PossibleNullReferenceException
+				// ReSharper disable PossibleNullReferenceException
 				var parts = type.FullName.Split('.');
+				// ReSharper restore PossibleNullReferenceException
 				Action = parts[parts.Length - 1];
 				Name = parts[parts.Length - 2];
 			}
 		}
 
-		public string Action { get; private set; }
-		public string Name { get; private set; }
+		public string Action { get; }
+		public string Name { get; }
 	}
 }

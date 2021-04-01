@@ -28,10 +28,7 @@ namespace FluentWebControls.Mapping
 			return IsChecked;
 		}
 
-		string IFreeTextMap.Value
-		{
-			get { return IsChecked.ToString(); }
-		}
+		string IFreeTextMap.Value => IsChecked.ToString();
 
 		public IPropertyMetaData Validation { get; set; }
 	}

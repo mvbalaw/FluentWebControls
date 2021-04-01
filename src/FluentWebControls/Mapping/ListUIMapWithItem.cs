@@ -22,6 +22,6 @@ namespace FluentWebControls.Mapping
 			Item = item.ToNonNull();
 		}
 
-		public TItem Item { get; private set; }
+		public TItem Item { get; }
 	}
 }

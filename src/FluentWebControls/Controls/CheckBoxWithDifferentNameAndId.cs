@@ -15,30 +15,27 @@ namespace FluentWebControls.Controls
 
 		public string Name
 		{
-			get { return _name; }
-			set { _name = value; }
+			get => _name;
+			set => _name = value;
 		}
 
 		public override string ID
 		{
-			get { return _id; }
-			set { _id = value; }
+			get => _id;
+			set => _id = value;
 		}
 
-		public override string UniqueID
-		{
-			get { return _name ?? _id; }
-		}
+		public override string UniqueID => _name ?? _id;
 
 		protected override void Render(HtmlTextWriter writer)
 		{
 			var stream = new MemoryStream();
 			using (var streamWriter = new StreamWriter(stream))
 			{
-				using (var localWrtier = new HtmlTextWriter(streamWriter))
+				using (var localWriter = new HtmlTextWriter(streamWriter))
 				{
 
-					base.Render(localWrtier);
+					base.Render(localWriter);
 				}
 			}
 

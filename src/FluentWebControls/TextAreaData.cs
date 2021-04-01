@@ -46,50 +46,23 @@ namespace FluentWebControls
 		internal JQueryFieldValidationType ValidationType { private get; set; }
 		internal string Width { private get; set; }
 
-		int ITextAreaData.Cols
-		{
-			get { return Cols; }
-		}
+		int ITextAreaData.Cols => Cols;
 
-		string ITextAreaData.CssClass
-		{
-			get { return CssClass; }
-		}
+		string ITextAreaData.CssClass => CssClass;
 
-		LabelData ITextAreaData.Label
-		{
-			get { return Label; }
-		}
+		LabelData ITextAreaData.Label => Label;
 
-		int ITextAreaData.Rows
-		{
-			get { return Rows; }
-		}
+		int ITextAreaData.Rows => Rows;
 
-		JQueryFieldValidationType ITextAreaData.ValidationType
-		{
-			get { return ValidationType; }
-		}
+		JQueryFieldValidationType ITextAreaData.ValidationType => ValidationType;
 
-		string ITextAreaData.Width
-		{
-			get { return Width; }
-		}
+		string ITextAreaData.Width => Width;
 
-		string ITextAreaData.Value
-		{
-			get { return _value; }
-		}
+		string ITextAreaData.Value => _value;
 
-		string ITextAreaData.IdWithPrefix
-		{
-			get { return IdWithPrefix; }
-		}
+		string ITextAreaData.IdWithPrefix => IdWithPrefix;
 
-		string ITextAreaData.TabIndex
-		{
-			get { return TabIndex; }
-		}
+		string ITextAreaData.TabIndex => TabIndex;
 
 		public override string ToString()
 		{
@@ -139,7 +112,7 @@ namespace FluentWebControls
 				sb.Append(TabIndex.CreateQuotedAttribute("tabindex"));
 			}
 
-			sb.Append(String.Format(">{0}</textarea>", _value.EscapeForHtml()));
+			sb.Append($">{_value.EscapeForHtml()}</textarea>");
 			if (PropertyMetaData != null)
 			{
 				if (PropertyMetaData.IsRequired)

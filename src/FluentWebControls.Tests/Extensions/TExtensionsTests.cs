@@ -8,8 +8,6 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
-using System;
-
 using FluentAssert;
 
 using FluentWebControls.Extensions;
@@ -83,7 +81,7 @@ namespace FluentWebControls.Tests.Extensions
 			{
 				const string value = "<value\"";
 				var result = value.CreateQuotedAttribute("name");
-				result.ShouldBeEqualTo(String.Format(" name='{0}value{1}'", Lesser, Quote));
+				result.ShouldBeEqualTo($" name='{Lesser}value{Quote}'");
 			}
 
 			[Test]

@@ -31,8 +31,8 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_remove_characters_leading_to_Cross_Site_Scripting()
 			{
-				const string teststring = "<" + TestString + ">&";
-				var result = teststring.EscapeForHtml();
+				const string testString = "<" + TestString + ">&";
+				var result = testString.EscapeForHtml();
 				result.ShouldBeEqualTo(Lesser + TestString + Greater + Ampersand);
 			}
 		}

@@ -29,7 +29,7 @@ namespace FluentWebControls
 
 		public List<string> CssClass { get; set; }
 		public LabelData Label { get; set; }
-		public List<string> SelectedValues { get; private set; }
+		public List<string> SelectedValues { get; }
 		public string TabIndex { get; set; }
 
 		public override string ToString()

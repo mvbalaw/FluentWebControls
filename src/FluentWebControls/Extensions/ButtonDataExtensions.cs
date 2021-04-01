@@ -8,7 +8,6 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
-using System;
 using System.Web;
 
 namespace FluentWebControls.Extensions
@@ -71,7 +70,7 @@ namespace FluentWebControls.Extensions
 
 		public static ButtonData WithQueryParameter(this ButtonData buttonData, string parameterName, string parameterValue)
 		{
-			if (!String.IsNullOrEmpty(buttonData.QueryParameter))
+			if (!string.IsNullOrEmpty(buttonData.QueryParameter))
 			{
 				buttonData.QueryParameter += "&";
 			}

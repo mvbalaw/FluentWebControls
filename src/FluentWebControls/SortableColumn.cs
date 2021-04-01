@@ -19,9 +19,6 @@ namespace FluentWebControls
 		{
 		}
 
-		public override GridColumnType Type
-		{
-			get { return GridColumnType.Sortable; }
-		}
+		public override GridColumnType Type => GridColumnType.Sortable;
 	}
 }

@@ -66,35 +66,17 @@ namespace FluentWebControls
 
 		#region ICommandItem Members
 
-		string ICommandItem.Text
-		{
-			get { return Text; }
-		}
+		string ICommandItem.Text => Text;
 
-		string ICommandItem.ImageUrl
-		{
-			get { return ImageUrl; }
-		}
+		string ICommandItem.ImageUrl => ImageUrl;
 
-		string ICommandItem.Alt
-		{
-			get { return Alt; }
-		}
+		string ICommandItem.Alt => Alt;
 
-		AlignAttribute ICommandItem.Align
-		{
-			get { return Align; }
-		}
+		AlignAttribute ICommandItem.Align => Align;
 
-		string ICommandItem.CssClass
-		{
-			get { return CssClass; }
-		}
+		string ICommandItem.CssClass => CssClass;
 
-		bool ICommandItem.WrapWithSpan
-		{
-			get { return WrapWithSpan; }
-		}
+		bool ICommandItem.WrapWithSpan => WrapWithSpan;
 
 		#endregion
 
@@ -125,7 +107,7 @@ namespace FluentWebControls
 		private LinkData GetLink(T item)
 		{
 			var navigateUrl = _getLink(item);
-			var linkId = String.Format("lnk{0}", navigateUrl.Replace('/', '_').TrimStart('_'));
+			var linkId = $"lnk{navigateUrl.Replace('/', '_').TrimStart('_')}";
 			return new LinkData().WithId(linkId).WithUrl(navigateUrl).WithLinkText(Text).WithInnerHtml(InnerHtml).WithLinkImageUrl(ImageUrl, Alt);
 		}
 	}

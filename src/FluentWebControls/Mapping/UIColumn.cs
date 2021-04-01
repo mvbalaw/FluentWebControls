@@ -21,9 +21,6 @@ namespace FluentWebControls.Mapping
 			_getText = getText;
 		}
 
-		public Func<TDomain, string> TextMethod
-		{
-			get { return _getText; }
-		}
+		public Func<TDomain, string> TextMethod => _getText;
 	}
 }

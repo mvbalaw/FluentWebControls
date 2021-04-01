@@ -49,8 +49,8 @@ namespace FluentWebControls.Tests.Extensions
 				Value = value;
 			}
 
-			public string Id { get; private set; }
-			public int Value { get; private set; }
+			public string Id { get; }
+			public int Value { get; }
 		}
 
 		[TestFixture]

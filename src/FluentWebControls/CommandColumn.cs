@@ -48,7 +48,7 @@ namespace FluentWebControls
 			}
 			else if (ImageUrl != null && Alt != null)
 			{
-				columnText = String.Format("<img src='{0}' alt='{1}'/>", ImageUrl, Alt);
+				columnText = $"<img src='{ImageUrl}' alt='{Alt}'/>";
 			}
 
 			var control = _getControl(item, columnText);
@@ -82,48 +82,24 @@ namespace FluentWebControls
 		}
 
 		internal AlignAttribute Align { private get; set; }
-		AlignAttribute ICommandColumn.Align
-		{
-			get { return Align; }
-		}
+		AlignAttribute ICommandColumn.Align => Align;
 		internal string Alt { private get; set; }
-		string ICommandColumn.Alt
-		{
-			get { return Alt; }
-		}
+		string ICommandColumn.Alt => Alt;
 		internal string CssClass { private get; set; }
-		string ICommandColumn.CssClass
-		{
-			get { return CssClass; }
-		}
+		string ICommandColumn.CssClass => CssClass;
 		public Func<T, string> GetText { get; set; }
 		internal string HeaderCssClass { private get; set; }
-		string ICommandColumn.HeaderCssClass
-		{
-			get { return HeaderCssClass; }
-		}
+		string ICommandColumn.HeaderCssClass => HeaderCssClass;
 		public string HeaderText { get; set; }
 
-		string ICommandColumn.HeaderText
-		{
-			get { return HeaderText; }
-		}
+		string ICommandColumn.HeaderText => HeaderText;
 		internal string ImageUrl { private get; set; }
-		string ICommandColumn.ImageUrl
-		{
-			get { return ImageUrl; }
-		}
+		string ICommandColumn.ImageUrl => ImageUrl;
 		internal string InnerHtml { private get; set; }
-		string ICommandColumn.InnerHtml
-		{
-			get { return InnerHtml; }
-		}
+		string ICommandColumn.InnerHtml => InnerHtml;
 		internal string Text { private get; set; }
 
-		string ICommandColumn.Text
-		{
-			get { return Text; }
-		}
+		string ICommandColumn.Text => Text;
 		public string LinkTarget { get; set; }
 	}
 }

@@ -29,16 +29,10 @@ namespace FluentWebControls.Mapping
 			_value = value;
 		}
 
-		public string Id { get; private set; }
+		public string Id { get; }
 		public IPropertyMetaData Validation { get; set; }
 
-		public string Value
-		{
-			get
-			{
-				return _value;
-			}
-		}
+		public string Value => _value;
 
 		object IModelMap.GetValueForModel()
 		{

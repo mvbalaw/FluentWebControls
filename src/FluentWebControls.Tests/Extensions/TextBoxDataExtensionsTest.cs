@@ -112,13 +112,13 @@ namespace FluentWebControls.Tests.Extensions
 			[Test]
 			public void Should_return_a_TextBoxData_with_Label_initialized_given_a_string_label_text()
 			{
-				const string labeltext = "Id";
+				const string labelText = "Id";
 
-				var tBox = TextBoxData.WithLabel(labeltext);
+				var tBox = TextBoxData.WithLabel(labelText);
 				Assert.AreSame(TextBoxData, tBox);
 				var label = new LabelData
 				            {
-					            Text = labeltext
+					            Text = labelText
 				            };
 				tBox.ToString().Contains(label.ToString()).ShouldBeTrue();
 			}

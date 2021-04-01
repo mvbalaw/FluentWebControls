@@ -38,7 +38,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string key1 = "key1";
 				const string value1 = "value1";
 				_parameters.Add(new KeyValuePair<string, string>(key1, value1));
-				_parameters.ToQueryString().ShouldBeEqualTo(String.Format("{0}={1}", key1, value1));
+				_parameters.ToQueryString().ShouldBeEqualTo($"{key1}={value1}");
 			}
 
 			[Test]
@@ -48,7 +48,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string value1 = "value1";
 				_parameters.Add(new KeyValuePair<string, string>(key1, value1));
 
-				_parameters.ToQueryString().ShouldBeEqualTo(String.Format("{0}={1}", key1.EscapeForUrl(), value1));
+				_parameters.ToQueryString().ShouldBeEqualTo($"{key1.EscapeForUrl()}={value1}");
 			}
 
 			[Test]
@@ -58,7 +58,7 @@ namespace FluentWebControls.Tests.Extensions
 				const string value1 = "val ue1";
 				_parameters.Add(new KeyValuePair<string, string>(key1, value1));
 
-				_parameters.ToQueryString().ShouldBeEqualTo(String.Format("{0}={1}", key1, value1.EscapeForUrl()));
+				_parameters.ToQueryString().ShouldBeEqualTo($"{key1}={value1.EscapeForUrl()}");
 			}
 
 			[Test]
@@ -71,7 +71,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				_parameters.Add(new KeyValuePair<string, string>(key1, value1));
 				_parameters.Add(new KeyValuePair<string, string>(key2, value2));
-				_parameters.ToQueryString().ShouldBeEqualTo(String.Format("{0}=&{1}={2}", key1, key2, value2));
+				_parameters.ToQueryString().ShouldBeEqualTo($"{key1}=&{key2}={value2}");
 			}
 
 			[Test]
@@ -84,7 +84,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				_parameters.Add(new KeyValuePair<string, string>(key1, value1));
 				_parameters.Add(new KeyValuePair<string, string>(key2, value2));
-				_parameters.ToQueryString().ShouldBeEqualTo(String.Format("{0}=&{1}={2}", key1, key2, value2));
+				_parameters.ToQueryString().ShouldBeEqualTo($"{key1}=&{key2}={value2}");
 			}
 
 			[Test]
@@ -97,7 +97,7 @@ namespace FluentWebControls.Tests.Extensions
 
 				_parameters.Add(new KeyValuePair<string, string>(key1, value1));
 				_parameters.Add(new KeyValuePair<string, string>(key2, value2));
-				_parameters.ToQueryString().ShouldBeEqualTo(String.Format("{0}={1}&{2}={3}", key1, value1, key2, value2));
+				_parameters.ToQueryString().ShouldBeEqualTo($"{key1}={value1}&{key2}={value2}");
 			}
 
 			[Test]

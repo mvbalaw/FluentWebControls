@@ -47,7 +47,7 @@ namespace FluentWebControls
 			CssClass = "ddlDetail";
 		}
 
-		internal List<KeyValuePair<string, string>> Attributes { get; private set; }
+		internal List<KeyValuePair<string, string>> Attributes { get; }
 
 		internal KeyValuePair<string, string>? Default { private get; set; }
 
@@ -94,57 +94,27 @@ namespace FluentWebControls
 
 		#region IDropDownListData Members
 
-		bool IDropDownListData.SubmitOnChange
-		{
-			get { return SubmitOnChange; }
-		}
+		bool IDropDownListData.SubmitOnChange => SubmitOnChange;
 
-		string IDropDownListData.IdWithPrefix
-		{
-			get { return IdWithPrefix; }
-		}
+		string IDropDownListData.IdWithPrefix => IdWithPrefix;
 
-		string IDropDownListData.TabIndex
-		{
-			get { return TabIndex; }
-		}
+		string IDropDownListData.TabIndex => TabIndex;
 
-		IEnumerable<KeyValuePair<string, string>> IDropDownListData.ListItems
-		{
-			get { return _items; }
-		}
+		IEnumerable<KeyValuePair<string, string>> IDropDownListData.ListItems => _items;
 
-		List<KeyValuePair<string, string>> IDropDownListData.Attributes
-		{
-			get { return Attributes; }
-		}
+		List<KeyValuePair<string, string>> IDropDownListData.Attributes => Attributes;
 
 		public string CssClass { get; set; }
 
-		KeyValuePair<string, string>? IDropDownListData.Default
-		{
-			get { return Default; }
-		}
+		KeyValuePair<string, string>? IDropDownListData.Default => Default;
 
-		KeyValuePair<string, string>? IDropDownListData.FormFieldToSetBeforeSubmitOnChange
-		{
-			get { return _formFieldToSetBeforeSubmitting; }
-		}
+		KeyValuePair<string, string>? IDropDownListData.FormFieldToSetBeforeSubmitOnChange => _formFieldToSetBeforeSubmitting;
 
-		LabelData IDropDownListData.Label
-		{
-			get { return Label; }
-		}
+		LabelData IDropDownListData.Label => Label;
 
-		string IDropDownListData.SelectedValue
-		{
-			get { return SelectedValue; }
-		}
+		string IDropDownListData.SelectedValue => SelectedValue;
 
-		bool IDropDownListData.ReadOnly
-		{
-			get { return ReadOnly; }
-		}
+		bool IDropDownListData.ReadOnly => ReadOnly;
 
 		#endregion
 
@@ -181,10 +151,8 @@ namespace FluentWebControls
 			}
 			else if (SlaveId != null)
 			{
-				var secondaryDdlScript = String.Format("UpdateSecondDropDown(\"{0}\", \"{1}\", \"{2}\", \"{3}\", \"{4}\");",
-					IdWithPrefix, SlaveId.ToCamelCase(),
-					Reflection.GetControllerName(SlaveDataSource.ClassName),
-					SlaveDataSource.MethodName, SlaveDataSource.ParameterValues.First().Key);
+				var secondaryDdlScript =
+					$"UpdateSecondDropDown(\"{IdWithPrefix}\", \"{SlaveId.ToCamelCase()}\", \"{Reflection.GetControllerName(SlaveDataSource.ClassName)}\", \"{SlaveDataSource.MethodName}\", \"{SlaveDataSource.ParameterValues.First().Key}\");";
 				sb.Append(secondaryDdlScript.CreateQuotedAttribute("onchange"));
 			}
 			if (ReadOnly)

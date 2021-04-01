@@ -58,15 +58,9 @@ namespace FluentWebControls.Tests
 				}
 			}
 
-			protected override string HtmlText
-			{
-				get { return "<label for='value'></label>"; }
-			}
+			protected override string HtmlText => "<label for='value'></label>";
 
-			protected override string Text
-			{
-				get { return value.ToString(); }
-			}
+			protected override string Text => value.ToString();
 		}
 
 		[TestFixture]
@@ -86,15 +80,9 @@ namespace FluentWebControls.Tests
 				}
 			}
 
-			protected override string HtmlText
-			{
-				get { return "<label for='value'>value</label>"; }
-			}
+			protected override string HtmlText => "<label for='value'>value</label>";
 
-			protected override string Text
-			{
-				get { return value; }
-			}
+			protected override string Text => value;
 		}
 
 		[TestFixture]
@@ -111,15 +99,9 @@ namespace FluentWebControls.Tests
 				}
 			}
 
-			protected override string HtmlText
-			{
-				get { return "<label for='_value'>10</label>"; }
-			}
+			protected override string HtmlText => "<label for='_value'>10</label>";
 
-			protected override string Text
-			{
-				get { return _value.ToString(); }
-			}
+			protected override string Text => _value.ToString();
 		}
 	}
 }

@@ -43,22 +43,13 @@ namespace FluentWebControls.Mapping
 			_selectedValues.Add(getItemValue(selectedItem));
 		}
 
-		public IEnumerable<string> SelectedValues
-		{
-			get { return _selectedValues; }
-		}
+		public IEnumerable<string> SelectedValues => _selectedValues;
 
-		public string Id { get; private set; }
+		public string Id { get; }
 
-		public IEnumerable<KeyValuePair<string, string>> ListItems
-		{
-			get { return _listItems; }
-		}
+		public IEnumerable<KeyValuePair<string, string>> ListItems => _listItems;
 
-		public string SelectedValue
-		{
-			get { return _selectedValues.FirstOrDefault(); }
-		}
+		public string SelectedValue => _selectedValues.FirstOrDefault();
 
 		public IPropertyMetaData Validation { get; set; }
 

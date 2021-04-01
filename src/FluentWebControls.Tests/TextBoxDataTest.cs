@@ -47,27 +47,21 @@ namespace FluentWebControls.Tests
 			}
 
 			[Test]
-			public void Should_return_HTML_code_representing_a_textbox_with_its_value_embedded_in_it()
+			public void Should_return_HTML_code_representing_a_TextBox_with_its_value_embedded_in_it()
 			{
 				AssertAreEqual(HtmlText, GetTextBoxData(PropertyMetaData));
 			}
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_textbox_for_a_property_of_type_int : TextBoxDataTestBase
+		public class When_asked_to_create_a_TextBox_for_a_property_of_type_int : TextBoxDataTestBase
 		{
 // ReSharper disable InconsistentNaming
 			private readonly int value = 10;
 // ReSharper restore InconsistentNaming
-			protected override string HtmlText
-			{
-				get { return "<input type='text' id='value' name='value' class='textbox digits' value='10'/>"; }
-			}
+			protected override string HtmlText => "<input type='text' id='value' name='value' class='textbox digits' value='10'/>";
 
-			protected override string HtmlTextWithValidations
-			{
-				get { return "<input type='text' id='value' name='value' style='width:" + PropertyMetaDataWithValidations.MaxLength * 4 + "px' class='required textbox digits' minlength='1' maxlength='10' max='100' value='10'/><em>*</em>"; }
-			}
+			protected override string HtmlTextWithValidations => "<input type='text' id='value' name='value' style='width:" + PropertyMetaDataWithValidations.MaxLength * 4 + "px' class='required textbox digits' minlength='1' maxlength='10' max='100' value='10'/><em>*</em>";
 
 			protected override string Id
 			{
@@ -80,37 +74,22 @@ namespace FluentWebControls.Tests
 
 // ReSharper restore ConvertToConstant
 
-			protected override IPropertyMetaData PropertyMetaData
-			{
-				get { return PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(int)); }
-			}
+			protected override IPropertyMetaData PropertyMetaData => PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(int));
 
-			protected override IPropertyMetaData PropertyMetaDataWithValidations
-			{
-				get { return PropertyMetaDataMocker.CreateStub(Id, true, 1, 10, 0, 100, typeof(int)); }
-			}
+			protected override IPropertyMetaData PropertyMetaDataWithValidations => PropertyMetaDataMocker.CreateStub(Id, true, 1, 10, 0, 100, typeof(int));
 
-			protected override string Value
-			{
-				get { return value.ToString(); }
-			}
+			protected override string Value => value.ToString();
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_textbox_for_a_property_of_type_nullable_date_time : TextBoxDataTestBase
+		public class When_asked_to_create_a_TextBox_for_a_property_of_type_nullable_date_time : TextBoxDataTestBase
 		{
 // ReSharper disable InconsistentNaming
 			private DateTime? value = Convert.ToDateTime("12/1/2008");
 // ReSharper restore InconsistentNaming
-			protected override string HtmlText
-			{
-				get { return "<input type='text' id='value' name='value' class='datebox date' value='12/1/2008 12:00:00 AM'/>"; }
-			}
+			protected override string HtmlText => "<input type='text' id='value' name='value' class='datebox date' value='12/1/2008 12:00:00 AM'/>";
 
-			protected override string HtmlTextWithValidations
-			{
-				get { return "<input type='text' id='value' name='value' class='required datebox date' value='12/1/2008 12:00:00 AM'/><em>*</em>"; }
-			}
+			protected override string HtmlTextWithValidations => "<input type='text' id='value' name='value' class='required datebox date' value='12/1/2008 12:00:00 AM'/><em>*</em>";
 
 			protected override string Id
 			{
@@ -121,38 +100,23 @@ namespace FluentWebControls.Tests
 				}
 			}
 
-			protected override IPropertyMetaData PropertyMetaData
-			{
-				get { return PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(DateTime?)); }
-			}
+			protected override IPropertyMetaData PropertyMetaData => PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(DateTime?));
 
-			protected override IPropertyMetaData PropertyMetaDataWithValidations
-			{
-				get { return PropertyMetaDataMocker.CreateStub(Id, true, null, null, null, null, typeof(DateTime?)); }
-			}
+			protected override IPropertyMetaData PropertyMetaDataWithValidations => PropertyMetaDataMocker.CreateStub(Id, true, null, null, null, null, typeof(DateTime?));
 
-			protected override string Value
-			{
-				get { return value.ToString(); }
-			}
+			protected override string Value => value.ToString();
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_textbox_for_a_property_of_type_nullable_int : TextBoxDataTestBase
+		public class When_asked_to_create_a_TextBox_for_a_property_of_type_nullable_int : TextBoxDataTestBase
 		{
 // ReSharper disable RedundantDefaultFieldInitializer
 // ReSharper disable InconsistentNaming
 			private int? value = null;
 // ReSharper restore InconsistentNaming
-			protected override string HtmlText
-			{
-				get { return "<input type='text' id='value' name='value' class='textbox digits' value=''/>"; }
-			}
+			protected override string HtmlText => "<input type='text' id='value' name='value' class='textbox digits' value=''/>";
 
-			protected override string HtmlTextWithValidations
-			{
-				get { return "<input type='text' id='value' name='value' style='width:" + PropertyMetaDataWithValidations.MaxLength * 4 + "px' class='required textbox digits' minlength='1' maxlength='10' max='100' value=''/><em>*</em>"; }
-			}
+			protected override string HtmlTextWithValidations => "<input type='text' id='value' name='value' style='width:" + PropertyMetaDataWithValidations.MaxLength * 4 + "px' class='required textbox digits' minlength='1' maxlength='10' max='100' value=''/><em>*</em>";
 
 			protected override string Id
 			{
@@ -165,38 +129,23 @@ namespace FluentWebControls.Tests
 
 // ReSharper restore RedundantDefaultFieldInitializer
 
-			protected override IPropertyMetaData PropertyMetaData
-			{
-				get { return PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(int?)); }
-			}
+			protected override IPropertyMetaData PropertyMetaData => PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(int?));
 
-			protected override IPropertyMetaData PropertyMetaDataWithValidations
-			{
-				get { return PropertyMetaDataMocker.CreateStub(Id, true, 1, 10, 0, 100, typeof(int?)); }
-			}
+			protected override IPropertyMetaData PropertyMetaDataWithValidations => PropertyMetaDataMocker.CreateStub(Id, true, 1, 10, 0, 100, typeof(int?));
 
-			protected override string Value
-			{
-				get { return value.ToString(); }
-			}
+			protected override string Value => value.ToString();
 		}
 
 		[TestFixture]
-		public class When_asked_to_create_a_textbox_for_a_property_of_type_string : TextBoxDataTestBase
+		public class When_asked_to_create_a_TextBox_for_a_property_of_type_string : TextBoxDataTestBase
 		{
 // ReSharper disable once ConvertToConstant.Local
 // ReSharper disable once FieldCanBeMadeReadOnly.Local
 // ReSharper disable once InconsistentNaming
 			private string value = "value";
-			protected override string HtmlText
-			{
-				get { return "<input type='text' id='value' name='value' class='textbox' value='value'/>"; }
-			}
+			protected override string HtmlText => "<input type='text' id='value' name='value' class='textbox' value='value'/>";
 
-			protected override string HtmlTextWithValidations
-			{
-				get { return "<input type='text' id='value' name='value' style='width:" + PropertyMetaDataWithValidations.MaxLength * 4 + "px' class='required textbox' minlength='1' maxlength='10' value='value'/><em>*</em>"; }
-			}
+			protected override string HtmlTextWithValidations => "<input type='text' id='value' name='value' style='width:" + PropertyMetaDataWithValidations.MaxLength * 4 + "px' class='required textbox' minlength='1' maxlength='10' value='value'/><em>*</em>";
 
 			protected override string Id
 			{
@@ -209,24 +158,15 @@ namespace FluentWebControls.Tests
 
 // ReSharper restore ConvertToConstant
 
-			protected override IPropertyMetaData PropertyMetaData
-			{
-				get { return PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(string)); }
-			}
+			protected override IPropertyMetaData PropertyMetaData => PropertyMetaDataMocker.CreateStub(Id, false, null, null, null, null, typeof(string));
 
-			protected override IPropertyMetaData PropertyMetaDataWithValidations
-			{
-				get { return PropertyMetaDataMocker.CreateStub(Id, true, 1, 10, 0, null, typeof(string)); }
-			}
+			protected override IPropertyMetaData PropertyMetaDataWithValidations => PropertyMetaDataMocker.CreateStub(Id, true, 1, 10, 0, null, typeof(string));
 
-			protected override string Value
-			{
-				get { return value; }
-			}
+			protected override string Value => value;
 		}
 
 		[TestFixture]
-		public class When_asked_to_make_the_textbox_readonly
+		public class When_asked_to_make_the_TextBox_readonly
 		{
 			[Test]
 			public void Should_add_the_READONLY_attribute_if_ReadOnly_is_true()

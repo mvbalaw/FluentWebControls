@@ -32,20 +32,11 @@ namespace FluentWebControls
 		internal LabelData Label { private get; set; }
 		internal string Value { private get; set; }
 
-		string ISpanData.IdWithPrefix
-		{
-			get { return IdWithPrefix; }
-		}
+		string ISpanData.IdWithPrefix => IdWithPrefix;
 
-		string ISpanData.Value
-		{
-			get { return Value; }
-		}
+		string ISpanData.Value => Value;
 
-		string ISpanData.CssClass
-		{
-			get { return CssClass; }
-		}
+		string ISpanData.CssClass => CssClass;
 
 		public override string ToString()
 		{

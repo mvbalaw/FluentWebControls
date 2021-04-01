@@ -30,6 +30,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_radio_field_with_its_value_embedded_in_it()
 			{
+				// ReSharper disable once ConvertToConstant.Local
 				var value = true;
 				// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 				var checkBoxData = new RadioButtonData(value).WithId(Reflection.GetPropertyName(() => value).ToCamelCase());
@@ -46,6 +47,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_radio_field_with_its_value_embedded_in_it()
 			{
+				// ReSharper disable once ConvertToConstant.Local
 				var value = false;
 				// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 				var checkBoxData = new RadioButtonData(value).WithId(Reflection.GetPropertyName(() => value).ToCamelCase());
@@ -62,6 +64,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_radio_field_with_its_value_embedded_in_it()
 			{
+				// ReSharper disable once ConvertToConstant.Local
 				var value = false;
 				// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 				var checkBoxData = new RadioButtonData(value).WithId(Reflection.GetPropertyName(() => value).ToCamelCase());
@@ -89,6 +92,7 @@ namespace FluentWebControls.Tests
 			[Test]
 			public void Should_return_HTML_code_representing_a_radio_field_with_its_value_embedded_in_it()
 			{
+				// ReSharper disable once ConvertToConstant.Local
 				var value = false;
 				// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 				var checkBoxData = new RadioButtonData(value).WithId(Reflection.GetPropertyName(() => value).ToCamelCase());

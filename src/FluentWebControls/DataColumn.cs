@@ -62,40 +62,19 @@ namespace FluentWebControls
 		internal string InputTextName { get; set; }
 		internal string Prefix { get; set; }
 
-		AlignAttribute IDataColumn.Align
-		{
-			get { return Align; }
-		}
+		AlignAttribute IDataColumn.Align => Align;
 
-		string IDataColumn.CssClass
-		{
-			get { return CssClass; }
-		}
+		string IDataColumn.CssClass => CssClass;
 
-		string IDataColumn.InputCssClass
-		{
-			get { return InputCssClass; }
-		}
+		string IDataColumn.InputCssClass => InputCssClass;
 
-		string IDataColumn.HeaderText
-		{
-			get { return HeaderText; }
-		}
+		string IDataColumn.HeaderText => HeaderText;
 
-		AlignAttribute IDataColumn.HeaderAlign
-		{
-			get { return HeaderAlign; }
-		}
+		AlignAttribute IDataColumn.HeaderAlign => HeaderAlign;
 
-		string IDataColumn.HeaderCssClass
-		{
-			get { return HeaderCssClass; }
-		}
+		string IDataColumn.HeaderCssClass => HeaderCssClass;
 
-		string IDataColumn.Prefix
-		{
-			get { return Prefix; }
-		}
+		string IDataColumn.Prefix => Prefix;
 
 		public virtual void Render(T item, int rowIndex, HtmlTextWriter writer)
 		{
@@ -152,8 +131,8 @@ namespace FluentWebControls
 				return ColumnName + (rowIndex != null ? "_" + rowIndex : "");
 			}
 			return Prefix.IsNullOrEmpty()
-				? String.Format("{0}_{1}", ColumnName, GetItemId(item))
-				: String.Format("{0}_{1}_{2}", Prefix, ColumnName, GetItemId(item));
+				? $"{ColumnName}_{GetItemId(item)}"
+				: $"{Prefix}_{ColumnName}_{GetItemId(item)}";
 		}
 
 		private string GetName(T item)

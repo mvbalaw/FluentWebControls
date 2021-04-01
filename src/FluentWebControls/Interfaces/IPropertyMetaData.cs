@@ -111,55 +111,25 @@ namespace FluentWebControls.Interfaces
 			return this;
 		}
 
-		IList<string> IPropertyMetaData.DependsOnProperty
-		{
-			get { return _dependsOnProperty; }
-		}
+		IList<string> IPropertyMetaData.DependsOnProperty => _dependsOnProperty;
 
-		bool IPropertyMetaData.IsRequired
-		{
-			get { return _isRequired; }
-		}
+		bool IPropertyMetaData.IsRequired => _isRequired;
 
-		int? IPropertyMetaData.MaxLength
-		{
-			get { return _maxLength; }
-		}
+		int? IPropertyMetaData.MaxLength => _maxLength;
 
-		int? IPropertyMetaData.MaxValue
-		{
-			get { return _maxValue; }
-		}
+		int? IPropertyMetaData.MaxValue => _maxValue;
 
-		int? IPropertyMetaData.MinLength
-		{
-			get { return _minLength; }
-		}
+		int? IPropertyMetaData.MinLength => _minLength;
 
-		int? IPropertyMetaData.MinValue
-		{
-			get { return _minValue; }
-		}
+		int? IPropertyMetaData.MinValue => _minValue;
 
-		string IPropertyMetaData.Name
-		{
-			get { return _name; }
-		}
+		string IPropertyMetaData.Name => _name;
 
-		PropertyInfo IPropertyMetaData.PropertyInfo
-		{
-			get { return _propertyInfo; }
-		}
+		PropertyInfo IPropertyMetaData.PropertyInfo => _propertyInfo;
 
-		Type IPropertyMetaData.ReturnType
-		{
-			get { return _returnType; }
-		}
+		Type IPropertyMetaData.ReturnType => _returnType;
 
-		string IPropertyMetaData.ValidationType
-		{
-			get { return _validationType; }
-		}
+		string IPropertyMetaData.ValidationType => _validationType;
 
 		void IPropertyMetaData.Combine(IPropertyMetaData parentMetaData)
 		{

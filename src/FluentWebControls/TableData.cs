@@ -65,7 +65,7 @@ namespace FluentWebControls
                         CssClass = ""
                     };
 
-                    CssClass.ForEach(x => table.CssClass = String.Format("{0} {1}", table.CssClass, x));
+                    CssClass.ForEach(x => table.CssClass = $"{table.CssClass} {x}");
                     table.CssClass = table.CssClass.Trim(' ');
 
                     foreach (var kvp in Style)
@@ -88,7 +88,7 @@ namespace FluentWebControls
                         writer.Write("</thead>");
 
                         writer.Write("<tbody>");
-                        int rowIndex = 0;
+                        var rowIndex = 0;
                         foreach (var item in _items)
                         {
                             BeginTableRow(item, writer);
@@ -107,6 +107,7 @@ namespace FluentWebControls
             return Encoding.UTF8.GetString(stream.ToArray());
         }
 
+        // ReSharper disable once SuggestBaseTypeForParameter
         private static void EndTableRow(HtmlTextWriter writer)
         {
             var tableRow = new StringBuilder();
@@ -119,9 +120,10 @@ namespace FluentWebControls
 
         private string GetTableRowId(T item)
         {
-            return String.Format("{0}{1}", RowIdPrefix, GetRowId(item));
+            return $"{RowIdPrefix}{GetRowId(item)}";
         }
 
+        // ReSharper disable once SuggestBaseTypeForParameter
         private void BeginTableRow(T item, HtmlTextWriter writer)
         {
             var tableRow = new StringBuilder();

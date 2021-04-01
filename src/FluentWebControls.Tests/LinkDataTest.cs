@@ -8,8 +8,6 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
-using System;
-
 using FluentAssert;
 
 using FluentWebControls.Extensions;
@@ -87,8 +85,8 @@ namespace FluentWebControls.Tests
 				linkData.AddQueryStringData("key1", "value");
 				linkData.AddQueryStringData("key2", null);
 
-				var href = "AdminTest?key1=value&key2=&";
-				var htmlText = String.Format("<a href='{0}' class='Css' title='MouseOver'>Link</a>", href);
+				const string href = "AdminTest?key1=value&key2=&";
+				var htmlText = $"<a href='{href}' class='Css' title='MouseOver'>Link</a>";
 				linkData.ToString().ShouldBeEqualTo(htmlText);
 				((ILinkData)linkData).Href.ShouldBeEqualTo(href);
 			}

@@ -24,7 +24,7 @@ namespace FluentWebControls
 			{
 				var data = ((IWebControl)this).Data;
 				return data != null && !data.Name.IsNullOrEmpty()
-					? data.Value.CreateQuotedAttribute(String.Format("data-{0}", data.Name))
+					? data.Value.CreateQuotedAttribute($"data-{data.Name}")
 					: "";
 			}
 		}
@@ -34,7 +34,7 @@ namespace FluentWebControls
 			get
 			{
 				var prefix = ((IWebControl)this).IdPrefix ?? "";
-				if (!String.IsNullOrEmpty(prefix))
+				if (!string.IsNullOrEmpty(prefix))
 				{
 					prefix += Constants.WebCompatibleSeparator;
 				}
@@ -60,7 +60,7 @@ namespace FluentWebControls
 				{
 					prefix = ((IWebControl)this).IdPrefix ?? "";
 				}
-				if (!String.IsNullOrEmpty(prefix))
+				if (!string.IsNullOrEmpty(prefix))
 				{
 					prefix += ".";
 				}

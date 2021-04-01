@@ -32,14 +32,14 @@ namespace FluentWebControls
 			RowCount = rowCount;
 		}
 
-		public string ActionName { get; private set; }
-		public string ControllerExtension { get; private set; }
-		public string ControllerName { get; private set; }
-		public IEnumerable<DropDownListData> Filters { get; private set; }
-		public IEnumerable<IGridColumn> GridColumns { get; private set; }
-		public IPagedListParameters PagedListParameters { get; private set; }
-		public int RowCount { get; private set; }
-		public int Total { get; private set; }
+		public string ActionName { get; }
+		public string ControllerExtension { get; }
+		public string ControllerName { get; }
+		public IEnumerable<DropDownListData> Filters { get; }
+		public IEnumerable<IGridColumn> GridColumns { get; }
+		public IPagedListParameters PagedListParameters { get; }
+		public int RowCount { get; }
+		public int Total { get; }
 	}
 
 	public class GridData<T>
@@ -57,25 +57,16 @@ namespace FluentWebControls
 			ActionName = actionName;
 		}
 
-		public string ActionName { get; private set; }
+		public string ActionName { get; }
 
-		protected virtual bool ClientSideSortingEnabled
-		{
-			get { return false; }
-		}
+		protected virtual bool ClientSideSortingEnabled => false;
 
 		public string ControllerExtension { get; set; }
-		public string ControllerName { get; private set; }
+		public string ControllerName { get; }
 
-		protected IEnumerable<DropDownListData> Filters
-		{
-			get { return _filters; }
-		}
+		protected IEnumerable<DropDownListData> Filters => _filters;
 
-		public IEnumerable<IGridColumn> GridColumns
-		{
-			get { return _gridColumns; }
-		}
+		public IEnumerable<IGridColumn> GridColumns => _gridColumns;
 
 		public IPagedListParameters PagedListParameters { get; set; }
 		public int Total { get; set; }
@@ -210,7 +201,7 @@ namespace FluentWebControls
 		{
 			if (PagedListParameters.SortField == fieldName)
 			{
-				return String.Compare(PagedListParameters.SortDirection, "Asc", true) == 0 ? "Desc" : "Asc";
+				return string.Compare(PagedListParameters.SortDirection, "Asc", true) == 0 ? "Desc" : "Asc";
 			}
 			return isDefaultSortColumn ? "Desc" : "Asc";
 		}

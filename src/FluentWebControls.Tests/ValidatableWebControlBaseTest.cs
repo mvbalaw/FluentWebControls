@@ -42,8 +42,9 @@ namespace FluentWebControls.Tests
 				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Field", true, 0, 10, null, null, typeof(DateTime));
 				_cssClass = "testClass";
 				var validatableTest = new ValidatableTest().WithValidationFrom(_propertyMetaData);
-				var expectedValiationString = String.Format("required {0} {1}", _cssClass, ValidatableWebControlBase.JQueryFieldValidationType.Date.Text);
-				validatableTest.Validation(_cssClass).ShouldBeEqualTo(expectedValiationString);
+				var expectedValidationString =
+					$"required {_cssClass} {ValidatableWebControlBase.JQueryFieldValidationType.Date.Text}";
+				validatableTest.Validation(_cssClass).ShouldBeEqualTo(expectedValidationString);
 			}
 
 			[Test]
@@ -52,8 +53,9 @@ namespace FluentWebControls.Tests
 				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Field", true, 0, 10, 0, 100, typeof(int));
 				_cssClass = "testClass";
 				var validatableTest = new ValidatableTest().WithValidationFrom(_propertyMetaData);
-				var expectedValiationString = String.Format("required {0} {1}", _cssClass, ValidatableWebControlBase.JQueryFieldValidationType.Digits.Text);
-				validatableTest.Validation(_cssClass).ShouldBeEqualTo(expectedValiationString);
+				var expectedValidationString =
+					$"required {_cssClass} {ValidatableWebControlBase.JQueryFieldValidationType.Digits.Text}";
+				validatableTest.Validation(_cssClass).ShouldBeEqualTo(expectedValidationString);
 			}
 
 			[Test]
@@ -62,8 +64,8 @@ namespace FluentWebControls.Tests
 				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Field", true, 0, 10, null, null, typeof(string));
 				_cssClass = "testClass";
 				var validatableTest = new ValidatableTest().WithValidationFrom(_propertyMetaData);
-				var expectedValiationString = String.Format("required {0}", _cssClass);
-				validatableTest.Validation(_cssClass).ShouldBeEqualTo(expectedValiationString);
+				var expectedValidationString = $"required {_cssClass}";
+				validatableTest.Validation(_cssClass).ShouldBeEqualTo(expectedValidationString);
 			}
 
 			[Test]
@@ -72,8 +74,9 @@ namespace FluentWebControls.Tests
 				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Field", true, 0, 10, 0, 100, typeof(decimal));
 				_cssClass = "testClass";
 				var validatableTest = new ValidatableTest().WithValidationFrom(_propertyMetaData);
-				var expectedValiationString = String.Format("required {0} {1}", _cssClass, ValidatableWebControlBase.JQueryFieldValidationType.Number.Text);
-				validatableTest.Validation(_cssClass).ShouldBeEqualTo(expectedValiationString);
+				var expectedValidationString =
+					$"required {_cssClass} {ValidatableWebControlBase.JQueryFieldValidationType.Number.Text}";
+				validatableTest.Validation(_cssClass).ShouldBeEqualTo(expectedValidationString);
 			}
 
 			[Test]
@@ -82,8 +85,8 @@ namespace FluentWebControls.Tests
 				_propertyMetaData = PropertyMetaDataMocker.CreateStub("Field", false, 0, 10, null, null, typeof(string));
 				_cssClass = "testClass";
 				var validatableTest = new ValidatableTest().WithValidationFrom(_propertyMetaData);
-				var expectedValiationString = String.Format("{0}", _cssClass);
-				validatableTest.Validation(_cssClass).ShouldBeEqualTo(expectedValiationString);
+				var expectedValidationString = $"{_cssClass}";
+				validatableTest.Validation(_cssClass).ShouldBeEqualTo(expectedValidationString);
 			}
 		}
 	}

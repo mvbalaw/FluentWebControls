@@ -22,10 +22,7 @@ namespace FluentWebControls
 			_getItemValueFunction = getItemValueFunction;
 		}
 
-		public override GridColumnType Type
-		{
-			get { return GridColumnType.Regular; }
-		}
+		public override GridColumnType Type => GridColumnType.Regular;
 
 		public string GetItemValue(T item)
 		{

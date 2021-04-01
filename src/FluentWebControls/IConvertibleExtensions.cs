@@ -32,15 +32,14 @@ namespace FluentWebControls
 				targetType = underlyingType;
 			}
 
-			if (obj is string && new List<Type>
+			if (obj is string s && new List<Type>
 			                     {
 				                     typeof(decimal),
 				                     typeof(double),
 				                     typeof(int)
 			                     }.Contains(targetType))
 			{
-				double d;
-				Double.TryParse((string)obj, NumberStyles.AllowCurrencySymbol | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, null, out d);
+				double.TryParse(s, NumberStyles.AllowCurrencySymbol | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, null, out var d);
 				obj = d;
 			}
 

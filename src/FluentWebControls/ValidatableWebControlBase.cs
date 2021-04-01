@@ -82,7 +82,7 @@ namespace FluentWebControls
 				Text = text;
 			}
 
-			public string Text { get; private set; }
+			public string Text { get; }
 		}
 	}
 }

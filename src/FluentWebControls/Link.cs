@@ -33,7 +33,7 @@ namespace FluentWebControls
 		public static LinkData To(string controllerName, string controllerExtension, string actionName)
 		{
 			var pathUtility = Configuration.PathUtility;
-			var virtualDirectory = String.Format("{0}{1}/{2}", controllerName, controllerExtension, actionName);
+			var virtualDirectory = $"{controllerName}{controllerExtension}/{actionName}";
 			var url = pathUtility != null ? pathUtility.GetUrl(virtualDirectory) : virtualDirectory;
 			return new LinkData
 			       {

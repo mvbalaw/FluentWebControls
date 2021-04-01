@@ -8,7 +8,6 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -27,7 +26,7 @@ namespace FluentWebControls.Extensions
 
 		public static string CreateQuotedAttribute(this string value, string name)
 		{
-			return String.Format(" {0}='{1}'", name, EscapeForTagAttribute(value));
+			return $" {name}='{EscapeForTagAttribute(value)}'";
 		}
 
 		[CanBeNull]
@@ -75,7 +74,7 @@ namespace FluentWebControls.Extensions
 		[NotNull]
 		public static ListSortDirection ToSortDirection([CanBeNull] this string sortDirection)
 		{
-			if (String.IsNullOrEmpty(sortDirection))
+			if (string.IsNullOrEmpty(sortDirection))
 			{
 				return ListSortDirection.Ascending;
 			}

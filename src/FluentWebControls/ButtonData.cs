@@ -55,8 +55,8 @@ namespace FluentWebControls
 
 		public string Text
 		{
-			get { return _text; }
-			set { _text = value ?? _type.Name; }
+			get => _text;
+			set => _text = value ?? _type.Name;
 		}
 
 		public bool Visible { get; set; }
@@ -78,7 +78,7 @@ namespace FluentWebControls
 			{
 				return "";
 			}
-			return String.Format("/{0}", _urlParameters.Join("/"));
+			return $"/{_urlParameters.Join("/")}";
 		}
 
 		public override string ToString()
@@ -90,12 +90,12 @@ namespace FluentWebControls
 
 			var sb = new StringBuilder();
 			sb.Append("<input");
-			var id = String.Format("{0}", Id ?? "btn" + _type.Name);
+			var id = $"{Id ?? "btn" + _type.Name}";
 			sb.Append(id.CreateQuotedAttribute("Id"));
 			sb.Append(id.CreateQuotedAttribute("name"));
 			sb.Append(Text.CreateQuotedAttribute("value"));
 			sb.Append((_type.CssClass + (Default ? " default" : "") + (CssClass != null ? " " + CssClass : "")).CreateQuotedAttribute("class"));
-			if (!String.IsNullOrEmpty(Width))
+			if (!string.IsNullOrEmpty(Width))
 			{
 				var value = "width:" + Width;
 				sb.Append(value.CreateQuotedAttribute("style"));
@@ -105,30 +105,29 @@ namespace FluentWebControls
 			if (_type.Type.Equals("submit", StringComparison.OrdinalIgnoreCase))
 			{
 				var actionName = ActionName ?? _type.Name;
-				var virtualDirectory = String.Format("/{0}{1}/{2}", ControllerName, ControllerExtension ?? "", actionName);
+				var virtualDirectory = $"/{ControllerName}{ControllerExtension ?? ""}/{actionName}";
 				var url = _pathUtility == null ? virtualDirectory : _pathUtility.GetUrl(virtualDirectory);
-				sb.Append((String.IsNullOrEmpty(QueryParameter) ? url : String.Format("{0}?{1}", url, QueryParameter)).CreateQuotedAttribute("action"));
+				sb.Append((string.IsNullOrEmpty(QueryParameter) ? url : $"{url}?{QueryParameter}").CreateQuotedAttribute("action"));
 
-				if (String.IsNullOrEmpty(OnClickMethod))
+				if (string.IsNullOrEmpty(OnClickMethod))
 				{
-					OnClickMethod = String.Format("javascript:return {0}",
-						_type == ButtonType.Delete
-							? String.Format("confirmThenChangeFormAction(\"{0}\", this)", ConfirmMessage ?? ButtonType.Delete.ConfirmationMessage)
-							: "changeFormAction(this)");
+					OnClickMethod =
+						$"javascript:return {(_type == ButtonType.Delete ? $"confirmThenChangeFormAction(\"{ConfirmMessage ?? ButtonType.Delete.ConfirmationMessage}\", this)" : "changeFormAction(this)")}";
 				}
 			}
 			else if (_type.Type.Equals("button", StringComparison.OrdinalIgnoreCase))
 			{
-				var virtualDirectory = String.Format("/{0}{1}/{2}{3}", ControllerName, ControllerExtension ?? "", ActionName, BuildUrlParameters());
+				var virtualDirectory =
+					$"/{ControllerName}{ControllerExtension ?? ""}/{ActionName}{BuildUrlParameters()}";
 				var url = _pathUtility == null ? virtualDirectory : _pathUtility.GetUrl(virtualDirectory);
 
-				if (String.IsNullOrEmpty(OnClickMethod) && _type == ButtonType.Link)
+				if (string.IsNullOrEmpty(OnClickMethod) && _type == ButtonType.Link)
 				{
-					OnClickMethod = String.Format("javascript:location.href=\"{0}\"", url);
+					OnClickMethod = $"javascript:location.href=\"{url}\"";
 				}
 			}
 
-			if (!String.IsNullOrEmpty(OnClickMethod))
+			if (!string.IsNullOrEmpty(OnClickMethod))
 			{
 				sb.Append(OnClickMethod.CreateQuotedAttribute("onClick"));
 			}
@@ -155,10 +154,10 @@ namespace FluentWebControls
 				ConfirmationMessage = confirmationMessage;
 			}
 
-			public string ConfirmationMessage { get; private set; }
-			public string CssClass { get; private set; }
-			public string Name { get; private set; }
-			public string Type { get; private set; }
+			public string ConfirmationMessage { get; }
+			public string CssClass { get; }
+			public string Name { get; }
+			public string Type { get; }
 
 			private class JQueryFormValidationType
 			{
@@ -170,7 +169,7 @@ namespace FluentWebControls
 					Type = type;
 				}
 
-				public string Type { get; private set; }
+				public string Type { get; }
 			}
 		}
 	}

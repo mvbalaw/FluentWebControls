@@ -48,7 +48,7 @@ namespace FluentWebControls
 			{
 				sb.AppendFormat(" for='{0}'", ForId);
 			}
-			if (!String.IsNullOrEmpty(Style))
+			if (!string.IsNullOrEmpty(Style))
 			{
 				sb.Append(Style.CreateQuotedAttribute("style"));
 			}

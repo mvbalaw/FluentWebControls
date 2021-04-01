@@ -24,15 +24,9 @@ namespace FluentWebControls
 	{
 		internal string Value { private get; set; }
 
-		string IHiddenData.IdWithPrefix
-		{
-			get { return IdWithPrefix; }
-		}
+		string IHiddenData.IdWithPrefix => IdWithPrefix;
 
-		string IHiddenData.Value
-		{
-			get { return Value; }
-		}
+		string IHiddenData.Value => Value;
 
 		public override string ToString()
 		{

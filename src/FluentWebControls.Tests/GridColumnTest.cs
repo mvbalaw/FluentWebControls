@@ -31,19 +31,19 @@ namespace FluentWebControls.Tests
 				           };
 
 				const GridColumnType gridColumnType = GridColumnType.Sortable;
-				const string columnheader = "ColumnHeader";
-				const string fieldname = "FieldName";
+				const string columnHeader = "ColumnHeader";
+				const string fieldName = "FieldName";
 				var left = AlignAttribute.Left;
-				const string actionname = "ActionName";
-				IGridColumn gridColumn = new GridColumn(gridColumnType, columnheader, fieldname, left, true, false, "", actionname, rows);
+				const string actionName = "ActionName";
+				IGridColumn gridColumn = new GridColumn(gridColumnType, columnHeader, fieldName, left, true, false, "", actionName, rows);
 
 				gridColumn.Type.ShouldBeEqualTo(gridColumnType);
-				gridColumn.ColumnHeader.ShouldBeEqualTo(columnheader);
-				gridColumn.FieldName.ShouldBeEqualTo(fieldname);
+				gridColumn.ColumnHeader.ShouldBeEqualTo(columnHeader);
+				gridColumn.FieldName.ShouldBeEqualTo(fieldName);
 				gridColumn.Align.ShouldBeEqualTo(left);
 				gridColumn.IsDefaultSortColumn.ShouldBeTrue();
 				gridColumn.IsClientSideSortable.ShouldBeFalse();
-				gridColumn.ActionName.ShouldBeEqualTo(actionname);
+				gridColumn.ActionName.ShouldBeEqualTo(actionName);
 				gridColumn.Count.ShouldBeEqualTo(rows.Count);
 				gridColumn[0].ShouldBeEqualTo(rows[0]);
 				gridColumn[1].ShouldBeEqualTo(rows[1]);

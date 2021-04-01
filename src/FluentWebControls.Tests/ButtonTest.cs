@@ -8,8 +8,6 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
-using System;
-
 using FluentAssert;
 
 using FluentWebControls.Extensions;
@@ -67,7 +65,7 @@ namespace FluentWebControls.Tests
 			public void Should_generate_the_correct_HTML_code()
 			{
 				var buttonData = Button.For(ButtonData.ButtonType.Delete, "AdminDelete").WithControllerExtension(".mvc");
-				buttonData.ToString().ShouldBeEqualTo(String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='/AdminDelete.mvc/Delete' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage));
+				buttonData.ToString().ShouldBeEqualTo(string.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='/AdminDelete.mvc/Delete' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage));
 			}
 		}
 

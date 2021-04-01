@@ -35,7 +35,7 @@ namespace FluentWebControls.Mapping
 		}
 
 		public string IdPrefix { get; set; }
-		public IEnumerable<TDomain> ListItems { get; private set; }
+		public IEnumerable<TDomain> ListItems { get; }
 
 		public void Populate<TMapModel>(TMapModel model)
 		{
@@ -70,13 +70,12 @@ namespace FluentWebControls.Mapping
 					foreach (var item in itemValues)
 					{
 						// handle Guids
-						int value;
-						if (targetType == typeof(Int32) && !Int32.TryParse(item, out value))
+						if (targetType == typeof(int) && !int.TryParse(item, out _))
 						{
 							continue;
 						}
 						var convertedValue = item.To(targetType);
-						addMethod.Invoke(targetList, new[] { convertedValue });
+						if (!(addMethod is null)) addMethod.Invoke(targetList, new[] {convertedValue});
 					}
 				}
 			}
@@ -176,8 +175,7 @@ namespace FluentWebControls.Mapping
 		private object TryGetRequestedMap(Expression<Func<TModel, object>> source)
 		{
 			var key = Reflection.GetPropertyName(source);
-			object uiMap;
-			if (!_columns.TryGetValue(key, out uiMap))
+			if (!_columns.TryGetValue(key, out var uiMap))
 			{
 				throw new ArgumentException("No mapping defined for '" + key + "'");
 			}

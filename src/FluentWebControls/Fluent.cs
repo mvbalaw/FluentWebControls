@@ -181,8 +181,7 @@ namespace FluentWebControls
 			return CommandColumn.For((T item, string text) =>
 			{
 				var navigateUrl = getHref(item);
-				var linkId = String.Format("lnk{0}",
-					navigateUrl.Replace('/', '_').TrimStart('_'));
+				var linkId = $"lnk{navigateUrl.Replace('/', '_').TrimStart('_')}";
 				return new HyperLink
 				       {
 					       NavigateUrl = navigateUrl,

@@ -154,10 +154,7 @@ namespace FluentWebControls.Tests
 					);
 			}
 
-			protected string Id
-			{
-				get { return _id.ToCamelCase(); }
-			}
+			protected string Id => _id.ToCamelCase();
 
 			private HTMLTag Label
 			{
@@ -169,10 +166,7 @@ namespace FluentWebControls.Tests
 				get { return _result.ChildTags.FirstOrDefault(x => x.Type == "em"); }
 			}
 
-			private HTMLTag Tag
-			{
-				get { return _result.ChildTags.WithAttributeNamed("class").First(); }
-			}
+			private HTMLTag Tag => _result.ChildTags.WithAttributeNamed("class").First();
 
 			private void should_add_the_visual_required_indicator()
 			{

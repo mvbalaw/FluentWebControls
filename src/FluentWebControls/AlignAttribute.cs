@@ -8,7 +8,6 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
-using System;
 using System.Web.UI.WebControls;
 
 namespace FluentWebControls
@@ -26,7 +25,7 @@ namespace FluentWebControls
 			Text = text;
 		}
 
-		public string Text { get; private set; }
+		public string Text { get; }
 
 		public HorizontalAlign ToHorizontalAlign()
 		{
@@ -35,7 +34,7 @@ namespace FluentWebControls
 
 		public override string ToString()
 		{
-			return String.Format(" align='{0}'", Text);
+			return $" align='{Text}'";
 		}
 	}
 }

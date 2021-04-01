@@ -48,12 +48,12 @@ namespace FluentWebControls
 
 		internal int MaxValue
 		{
-			set { _maxValue = value > 0 ? value : (int?)null; }
+			set => _maxValue = value > 0 ? value : (int?)null;
 		}
 
 		internal int MinValue
 		{
-			set { _minValue = value >= 0 ? value : (int?)null; }
+			set => _minValue = value >= 0 ? value : (int?)null;
 		}
 
 		internal bool ReadOnly { private get; set; }
@@ -61,55 +61,25 @@ namespace FluentWebControls
 		internal JQueryFieldValidationType ValidationType { private get; set; }
 		internal string Width { private get; set; }
 
-		string ITextBoxData.IdWithPrefix
-		{
-			get { return IdWithPrefix; }
-		}
+		string ITextBoxData.IdWithPrefix => IdWithPrefix;
 
-		string ITextBoxData.TabIndex
-		{
-			get { return TabIndex; }
-		}
+		string ITextBoxData.TabIndex => TabIndex;
 
-		string ITextBoxData.CssClass
-		{
-			get { return CssClass; }
-		}
+		string ITextBoxData.CssClass => CssClass;
 
-		LabelData ITextBoxData.Label
-		{
-			get { return Label; }
-		}
+		LabelData ITextBoxData.Label => Label;
 
-		string ITextBoxData.Value
-		{
-			get { return _value; }
-		}
+		string ITextBoxData.Value => _value;
 
-		int? ITextBoxData.MaxValue
-		{
-			get { return _maxValue; }
-		}
+		int? ITextBoxData.MaxValue => _maxValue;
 
-		int? ITextBoxData.MinValue
-		{
-			get { return _minValue; }
-		}
+		int? ITextBoxData.MinValue => _minValue;
 
-		bool ITextBoxData.ReadOnly
-		{
-			get { return ReadOnly; }
-		}
+		bool ITextBoxData.ReadOnly => ReadOnly;
 
-		JQueryFieldValidationType ITextBoxData.ValidationType
-		{
-			get { return ValidationType; }
-		}
+		JQueryFieldValidationType ITextBoxData.ValidationType => ValidationType;
 
-		string ITextBoxData.Width
-		{
-			get { return Width; }
-		}
+		string ITextBoxData.Width => Width;
 
 		public override string ToString()
 		{
@@ -164,13 +134,13 @@ namespace FluentWebControls
 			}
 			if (PropertyMetaData != null && PropertyMetaData.MinValue > 0 || _minValue > 0)
 			{
-				var v = (PropertyMetaData == null ? null : PropertyMetaData.MinValue) ?? _minValue;
+				var v = PropertyMetaData?.MinValue ?? _minValue;
 				sb.Append(v.CreateQuotedAttribute(JQueryFieldValidationType.MinValue.Text));
 			}
 
 			if (PropertyMetaData != null && PropertyMetaData.MaxValue > 0 || _maxValue > 0)
 			{
-				var v = (PropertyMetaData == null ? null : PropertyMetaData.MaxValue) ?? _maxValue;
+				var v = PropertyMetaData?.MaxValue ?? _maxValue;
 				sb.Append(v.CreateQuotedAttribute(JQueryFieldValidationType.MaxValue.Text));
 			}
 

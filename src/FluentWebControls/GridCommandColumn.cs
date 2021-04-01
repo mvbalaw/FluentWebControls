@@ -24,12 +24,9 @@ namespace FluentWebControls
 			IsClientSideSortable = false;
 		}
 
-		public string ActionName { get; private set; }
+		public string ActionName { get; }
 
-		public override GridColumnType Type
-		{
-			get { return GridColumnType.Command; }
-		}
+		public override GridColumnType Type => GridColumnType.Command;
 
 		public string GetItemId(T item)
 		{

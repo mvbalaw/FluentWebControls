@@ -8,7 +8,6 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
-using System;
 using System.Collections.Generic;
 
 using FluentAssert;
@@ -26,7 +25,7 @@ namespace FluentWebControls.Tests
 		{
 			public string GetUrl(string virtualDirectory)
 			{
-				return String.Format("someapp/{0}", virtualDirectory);
+				return $"someapp/{virtualDirectory}";
 			}
 		}
 
@@ -34,7 +33,7 @@ namespace FluentWebControls.Tests
 		public class When_asked_to_create_a_Basic_Button
 		{
 			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Basic;
-			private readonly string _htmlText = "<input Id=\'btnBasic\' name=\'btnBasic\' value=\'Populate Button\' class=\'cancel\' type=\'button\' onClick=\'validate()\'/>";
+			private const string _htmlText = "<input Id=\'btnBasic\' name=\'btnBasic\' value=\'Populate Button\' class=\'cancel\' type=\'button\' onClick=\'validate()\'/>";
 			private ButtonData _buttonData;
 
 			[Test]
@@ -47,7 +46,7 @@ namespace FluentWebControls.Tests
 			}
 
 			[Test]
-			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_PathUtility_is_not_configured()
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility);
@@ -66,7 +65,7 @@ namespace FluentWebControls.Tests
 		public class When_asked_to_create_a_Basic_Button_with_given_width
 		{
 			private readonly ButtonData.ButtonType _buttonType = ButtonData.ButtonType.Basic;
-			private readonly string _htmlText = "<input Id=\'btnBasic\' name=\'btnBasic\' value=\'Basic\' class=\'cancel\' style=\'width:400px\' type=\'button\'/>";
+			private const string _htmlText = "<input Id=\'btnBasic\' name=\'btnBasic\' value=\'Basic\' class=\'cancel\' style=\'width:400px\' type=\'button\'/>";
 			private ButtonData _buttonData;
 
 			[Test]
@@ -79,7 +78,7 @@ namespace FluentWebControls.Tests
 			}
 
 			[Test]
-			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_PathUtility_is_not_configured()
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility);
@@ -109,12 +108,13 @@ namespace FluentWebControls.Tests
 					              ControllerExtension = ".mvc"
 				              };
 
-				var htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage, pathUtility.GetUrl("/Admin.mvc/Delete"));
+				var htmlText =
+					$"<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='{pathUtility.GetUrl("/Admin.mvc/Delete")}' onClick='javascript:return confirmThenChangeFormAction({"\"".EscapeForTagAttribute()}{ButtonData.ButtonType.Delete.ConfirmationMessage}{"\"".EscapeForTagAttribute()}, this)'/>";
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
 			[Test]
-			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_PathUtility_is_not_configured()
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
@@ -122,7 +122,8 @@ namespace FluentWebControls.Tests
 					              ControllerExtension = ".mvc"
 				              };
 
-				var htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), ButtonData.ButtonType.Delete.ConfirmationMessage, "/Admin.mvc/Delete");
+				var htmlText =
+					$"<input Id='btnDelete' name='btnDelete' value='Delete' class='cancel' type='submit' action='/Admin.mvc/Delete' onClick='javascript:return confirmThenChangeFormAction({"\"".EscapeForTagAttribute()}{ButtonData.ButtonType.Delete.ConfirmationMessage}{"\"".EscapeForTagAttribute()}, this)'/>";
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 		}
@@ -143,12 +144,13 @@ namespace FluentWebControls.Tests
 					              ControllerExtension = ".mvc"
 				              };
 				SetAdditionalParameters();
-				var htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), _buttonData.ConfirmMessage, pathUtility.GetUrl("/Admin.mvc/Test"));
+				var htmlText =
+					$"<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='{pathUtility.GetUrl("/Admin.mvc/Test")}' onClick='javascript:return confirmThenChangeFormAction({"\"".EscapeForTagAttribute()}{_buttonData.ConfirmMessage}{"\"".EscapeForTagAttribute()}, this)'/>";
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
 			[Test]
-			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_PathUtility_is_not_configured()
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
@@ -156,7 +158,8 @@ namespace FluentWebControls.Tests
 					              ControllerExtension = ".mvc"
 				              };
 				SetAdditionalParameters();
-				var htmlText = String.Format("<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='{2}' onClick='javascript:return confirmThenChangeFormAction({0}{1}{0}, this)'/>", "\"".EscapeForTagAttribute(), _buttonData.ConfirmMessage, "/Admin.mvc/Test");
+				var htmlText =
+					$"<input Id='btnDelete' name='btnDelete' value='Text' class='cancel' type='submit' action='/Admin.mvc/Test' onClick='javascript:return confirmThenChangeFormAction({"\"".EscapeForTagAttribute()}{_buttonData.ConfirmMessage}{"\"".EscapeForTagAttribute()}, this)'/>";
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
@@ -184,19 +187,20 @@ namespace FluentWebControls.Tests
 					              ControllerExtension = ".mvc"
 				              };
 
-				var htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", pathUtility.GetUrl("/Admin.mvc/Save"));
+				var htmlText =
+					$"<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='{pathUtility.GetUrl("/Admin.mvc/Save")}' onClick='javascript:return changeFormAction(this)'/>";
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
 			[Test]
-			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_PathUtility_is_not_configured()
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
 				              {
 					              ControllerExtension = ".mvc"
 				              };
-				var htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", "/Admin.mvc/Save");
+				const string htmlText = "<input Id='btnSave' name='btnSave' value='Save' class='button' type='submit' action='/Admin.mvc/Save' onClick='javascript:return changeFormAction(this)'/>";
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 		}
@@ -217,12 +221,13 @@ namespace FluentWebControls.Tests
 					              ControllerExtension = ".mvc"
 				              };
 				SetAdditionalParameters();
-				var htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", pathUtility.GetUrl("/Admin.mvc/Save"));
+				var htmlText =
+					$"<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='{pathUtility.GetUrl("/Admin.mvc/Save")}' onClick='javascript:return changeFormAction(this)'/>";
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
 			[Test]
-			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_PathUtility_is_not_configured()
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
@@ -230,7 +235,7 @@ namespace FluentWebControls.Tests
 					              ControllerExtension = ".mvc"
 				              };
 				SetAdditionalParameters();
-				var htmlText = String.Format("<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='{0}' onClick='javascript:return changeFormAction(this)'/>", "/Admin.mvc/Save");
+				const string htmlText = "<input Id='btnSave' name='btnSave' value='Save' class='button default' type='submit' action='/Admin.mvc/Save' onClick='javascript:return changeFormAction(this)'/>";
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
@@ -261,7 +266,7 @@ namespace FluentWebControls.Tests
 			}
 
 			[Test]
-			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_PathUtility_is_not_configured()
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility, ControllerName)
@@ -290,17 +295,18 @@ namespace FluentWebControls.Tests
 				IPathUtility pathUtility = new TestPathUtility();
 				_buttonData = new ButtonData(_buttonType, pathUtility);
 				SetAdditionalParameters();
-				var htmlText = String.Format("<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;{0}&quot;'/>", pathUtility.GetUrl("/Test/Action/4/name"));
+				var htmlText =
+					$"<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;{pathUtility.GetUrl("/Test/Action/4/name")}&quot;'/>";
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 
 			[Test]
-			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_pathutility_is_not_configured()
+			public void Should_return_HTML_code_representing_a_button_with_partial_path_if_PathUtility_is_not_configured()
 			{
 				const IPathUtility pathUtility = null;
 				_buttonData = new ButtonData(_buttonType, pathUtility);
 				SetAdditionalParameters();
-				var htmlText = String.Format("<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;{0}&quot;'/>", "/Test/Action/4/name");
+				const string htmlText = "<input Id='btnLink' name='btnLink' value='Cancel' class='cancel' type='button' onClick='javascript:location.href=&quot;/Test/Action/4/name&quot;'/>";
 				_buttonData.ToString().ShouldBeEqualTo(htmlText);
 			}
 

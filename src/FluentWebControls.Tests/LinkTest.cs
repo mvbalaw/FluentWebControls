@@ -24,7 +24,7 @@ namespace FluentWebControls.Tests
 	{
 		public string GetUrl(string virtualDirectory)
 		{
-			return String.Format("/someapp/{0}", virtualDirectory);
+			return $"/someapp/{virtualDirectory}";
 		}
 	}
 

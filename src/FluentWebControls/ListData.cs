@@ -66,7 +66,7 @@ namespace FluentWebControls
 			}
             if (Data != null && !Data.Name.IsNullOrEmpty())
 			{
-				list.Append(Data.Value.CreateQuotedAttribute(String.Format("data-{0}",Data.Name)));
+				list.Append(Data.Value.CreateQuotedAttribute($"data-{Data.Name}"));
 			}
 			list.Append('>');
 			return list;
@@ -103,7 +103,7 @@ namespace FluentWebControls
 
 	    private string GetListItemId(T item)
 	    {
-	        return String.Format("{0}{1}", ItemIdPrefix, GetItemId(item));
+	        return $"{ItemIdPrefix}{GetItemId(item)}";
 	    }
 
 	    private static StringBuilder EndList()

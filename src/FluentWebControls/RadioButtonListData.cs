@@ -46,7 +46,7 @@ namespace FluentWebControls
 			var idPrefix = ((IWebControl)this).IdPrefix;
 			var namePrefix = ((IWebControl)this).NamePrefix;
 			sb.Append("<div class='radioButtonList'>");
-			int index = 0;
+			var index = 0;
 			foreach (var item in _items)
 			{
 				var isChecked = SelectedValue == item.Value;

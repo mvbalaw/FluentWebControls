@@ -41,10 +41,7 @@ namespace FluentWebControls
 		{
 		}
 
-		protected int LastPage
-		{
-			get { return (int)Math.Ceiling((decimal)Total / PagedListParameters.PageSize); }
-		}
+		protected int LastPage => (int)Math.Ceiling((decimal)Total / PagedListParameters.PageSize);
 
 		public override string ToString()
 		{

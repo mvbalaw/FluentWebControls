@@ -42,35 +42,17 @@ namespace FluentWebControls
 
 		#region ICheckBoxData Members
 
-		LabelData ICheckBoxData.Label
-		{
-			get { return Label; }
-		}
+		LabelData ICheckBoxData.Label => Label;
 
-		AlignAttribute ICheckBoxData.LabelAlignAttribute
-		{
-			get { return LabelAlignAttribute; }
-		}
+		AlignAttribute ICheckBoxData.LabelAlignAttribute => LabelAlignAttribute;
 
-		bool ICheckBoxData.Checked
-		{
-			get { return Checked; }
-		}
+		bool ICheckBoxData.Checked => Checked;
 
-		string ICheckBoxData.Value
-		{
-			get { return Value; }
-		}
+		string ICheckBoxData.Value => Value;
 
-		string ICheckBoxData.TabIndex
-		{
-			get { return TabIndex; }
-		}
+		string ICheckBoxData.TabIndex => TabIndex;
 
-		string ICheckBoxData.CssClass
-		{
-			get { return CssClass; }
-		}
+		string ICheckBoxData.CssClass => CssClass;
 
 		#endregion
 
@@ -93,7 +75,7 @@ namespace FluentWebControls
 				                 };
 				stringBuilder.Insert(0, blankLabel);
 				Label.Style = "";
-				if (!String.IsNullOrEmpty(Label.Text) && Label.Text.EndsWith(":"))
+				if (!string.IsNullOrEmpty(Label.Text) && Label.Text.EndsWith(":"))
 				{
 					Label.Text = Label.Text.Replace(":", "");
 				}

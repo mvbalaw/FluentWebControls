@@ -60,32 +60,17 @@ namespace FluentWebControls
 
 		#region IDataItem Members
 
-		AlignAttribute IDataItem.Align
-		{
-			get { return Align; }
-		}
+		AlignAttribute IDataItem.Align => Align;
 
-		string IDataItem.InputCssClass
-		{
-			get { return InputCssClass; }
-		}
+		string IDataItem.InputCssClass => InputCssClass;
 
-		string IDataItem.ContainerCssClass
-		{
-			get { return ContainerCssClass; }
-		}
+		string IDataItem.ContainerCssClass => ContainerCssClass;
 
-		string IDataItem.LabelText
-		{
-			get { return LabelText; }
-		}
+		string IDataItem.LabelText => LabelText;
 
-		bool IDataItem.WrapWithSpan
-		{
-			get { return WrapWithSpan; }
-		}
-      
-	    #endregion
+		bool IDataItem.WrapWithSpan => WrapWithSpan;
+
+		#endregion
 
 		#region IListItem<T> Members
 
@@ -147,7 +132,7 @@ namespace FluentWebControls
 			{
 				return InputTextId ?? ColumnName;
 			}
-			return String.Format("{0}_{1}_{2}", Reflection.GetClassName<T>(), ColumnName, GetItemId(item));
+			return $"{Reflection.GetClassName<T>()}_{ColumnName}_{GetItemId(item)}";
 		}
 
 		private string GetName(T item)

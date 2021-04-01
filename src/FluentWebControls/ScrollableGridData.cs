@@ -72,10 +72,7 @@ namespace FluentWebControls
 		{
 		}
 
-		protected override bool ClientSideSortingEnabled
-		{
-			get { return true; }
-		}
+		protected override bool ClientSideSortingEnabled => true;
 
 		private int GetDefaultSortColumnIndex()
 		{

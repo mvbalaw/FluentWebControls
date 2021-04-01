@@ -93,7 +93,7 @@ namespace FluentWebControls
 			{
 				return "";
 			}
-			return String.Format("/{0}", _urlParameters.Join("/"));
+			return $"/{_urlParameters.Join("/")}";
 		}
 
 		public override string ToString()
@@ -155,68 +155,31 @@ namespace FluentWebControls
 		}
 
 		internal string Alt { private get; set; }
-		string ILinkData.Alt
-		{
-			get { return Alt; }
-		}
+		string ILinkData.Alt => Alt;
 		internal string ControllerExtension { private get; set; }
-		string ILinkData.ControllerExtension
-		{
-			get { return ControllerExtension; }
-		}
+		string ILinkData.ControllerExtension => ControllerExtension;
 		internal string CssClass { private get; set; }
-		string ILinkData.CssClass
-		{
-			get { return CssClass; }
-		}
+		string ILinkData.CssClass => CssClass;
 		internal bool Disabled { private get; set; }
-		bool ILinkData.Disabled
-		{
-			get { return Disabled; }
-		}
-		public string Href
-		{
-			get { return Url + BuildUrlParameters() + BuildQueryString(); }
-		}
+		bool ILinkData.Disabled => Disabled;
+
+		public string Href => Url + BuildUrlParameters() + BuildQueryString();
 		internal string Id { private get; set; }
-		string ILinkData.Id
-		{
-			get { return Id; }
-		}
-		string ILinkData.IdWithPrefix
-		{
-			get { return IdWithPrefix; }
-		}
+		string ILinkData.Id => Id;
+
+		string ILinkData.IdWithPrefix => IdWithPrefix;
 		internal string ImageUrl { private get; set; }
-		string ILinkData.ImageUrl
-		{
-			get { return ImageUrl; }
-		}
+		string ILinkData.ImageUrl => ImageUrl;
 		internal string InnerHtml { private get; set; }
-		string ILinkData.InnerHtml
-		{
-			get { return InnerHtml; }
-		}
+		string ILinkData.InnerHtml => InnerHtml;
 		internal string LinkText { private get; set; }
-		string ILinkData.LinkText
-		{
-			get { return LinkText; }
-		}
+		string ILinkData.LinkText => LinkText;
 		internal string MouseOverText { private get; set; }
-		string ILinkData.MouseOverText
-		{
-			get { return MouseOverText; }
-		}
+		string ILinkData.MouseOverText => MouseOverText;
 		internal string Rel { private get; set; }
-		string ILinkData.Rel
-		{
-			get { return Rel; }
-		}
+		string ILinkData.Rel => Rel;
 		internal string Target { private get; set; }
-		string ILinkData.Target
-		{
-			get { return Target; }
-		}
+		string ILinkData.Target => Target;
 
 		internal string Url
 		{
@@ -240,10 +203,7 @@ namespace FluentWebControls
 			set { _url = value; }
 		}
 
-		string ILinkData.Url
-		{
-			get { return Url; }
-		}
+		string ILinkData.Url => Url;
 		public bool Visible { private get; set; }
 	}
 }
