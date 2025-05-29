@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="FluentAssert" Version="1.1.0.2" />
     <PackageReference Include="LinqToHtml" Version="1.1.0.3" />
-    <PackageReference Include="MvbaCore" Version="1.1.0.3" />
+    <PackageReference Include="MvbaCore" Version="1.0.0.50" />
     <PackageReference Include="NUnit" Version="2.7.1" />
     <PackageReference Include="NUnit.Runners" Version="2.7.1" />
     <PackageReference Include="RhinoMocks" Version="3.6.1" />

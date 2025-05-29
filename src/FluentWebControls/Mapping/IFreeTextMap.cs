@@ -8,7 +8,7 @@
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
 
-using FluentWebControls.Interfaces;
+using MvbaCore.Interfaces;
 
 namespace FluentWebControls.Mapping
 {

@@ -11,7 +11,7 @@
 using System;
 using System.Linq.Expressions;
 
-using FluentWebControls.Interfaces;
+using MvbaCore.Interfaces;
 
 namespace FluentWebControls.Extensions
 {

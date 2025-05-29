@@ -10,6 +10,7 @@
 
 using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
+using MvbaCore.Interfaces;
 
 namespace FluentWebControls
 {

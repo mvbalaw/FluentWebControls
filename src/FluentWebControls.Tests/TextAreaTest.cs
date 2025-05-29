@@ -9,9 +9,7 @@
 //  * **************************************************************************
 
 using FluentAssert;
-
-using FluentWebControls.Interfaces;
-
+using MvbaCore.Interfaces;
 using NUnit.Framework;
 
 using Rhino.Mocks;

@@ -43,12 +43,12 @@ namespace FluentWebControls.Mapping
 				.ToDictionary(x => x.Name, x => x);
 			foreach (var mapping in _columns)
 			{
-				if (!properties.ContainsKey(mapping.Key))
+				if (!properties.TryGetValue(mapping.Key, out var property))
 				{
 					continue;
 				}
-				var property = properties[mapping.Key];
-				var source = mapping.Value as UIColumn<TDomain>;
+
+                var source = mapping.Value as UIColumn<TDomain>;
 				if (source == null)
 				{
 					continue;
@@ -75,8 +75,8 @@ namespace FluentWebControls.Mapping
 							continue;
 						}
 						var convertedValue = item.To(targetType);
-						if (!(addMethod is null)) addMethod.Invoke(targetList, new[] {convertedValue});
-					}
+                        addMethod?.Invoke(targetList, new[] {convertedValue});
+                    }
 				}
 			}
 		}

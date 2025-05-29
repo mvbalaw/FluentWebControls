@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using FluentWebControls.Interfaces;
+using MvbaCore.Interfaces;
 
 namespace FluentWebControls
 {

@@ -10,7 +10,7 @@
 
 using System.Collections.Generic;
 
-using FluentWebControls.Interfaces;
+using MvbaCore.Interfaces;
 
 namespace FluentWebControls.Mapping
 {

@@ -18,6 +18,7 @@ using FluentWebControls.Extensions;
 using FluentWebControls.Interfaces;
 
 using MvbaCore;
+using MvbaCore.Interfaces;
 
 namespace FluentWebControls
 {

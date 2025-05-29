@@ -7,18 +7,15 @@
 //  * the terms of the MIT License.
 //  * You must not remove this notice from this software.
 //  * **************************************************************************
-
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-
 namespace FluentWebControls.Interfaces
 {
-	public interface IBusinessObjectPropertyMetaDataFactory
-	{
-		IPropertyMetaData GetFor<T>(string propertyName);
-		IPropertyMetaData GetFor<TReturn>(Expression<Func<TReturn>> property);
-		IPropertyMetaData GetFor<T, TReturn>(Expression<Func<T, TReturn>> property);
-		IEnumerable<IPropertyMetaData> GetProperties<T>();
-	}
+    public interface IFieldValidationBuilder
+    {
+        IFieldValidationBuilder MaxLength(int? value);
+        IFieldValidationBuilder MaxValue(int? value);
+        IFieldValidationBuilder MinLength(int? value);
+        IFieldValidationBuilder MinValue(int? value);
+        IFieldValidationBuilder Optional();
+        IFieldValidationBuilder Required();
+    }
 }

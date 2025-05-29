@@ -317,21 +317,17 @@ namespace FluentWebControls.Mapping
 				.ToDictionary(x => x.Name, x => x);
 			foreach (var mapping in _mappings)
 			{
-				if (!properties.ContainsKey(mapping.Key))
+				if (!properties.TryGetValue(mapping.Key, out var property))
 				{
 					continue;
 				}
-				var property = properties[mapping.Key];
-				var source = mapping.Value as IModelMap;
+
+                var source = mapping.Value as IModelMap;
 				if (source == null)
 				{
 					var listSource = mapping.Value as IListUIMap;
-					if (listSource == null)
-					{
-						continue;
-					}
 
-					listSource.Populate(model);
+                    listSource?.Populate(model);
 					continue;
 				}
 				var valueForModel = source.GetValueForModel();
@@ -355,9 +351,9 @@ namespace FluentWebControls.Mapping
 						var targetList = property.GetValue(model, null);
 						var addMethod = targetList.GetType().GetMethod("Add");
 						foreach (var item in items)
-						{
-							if (!(addMethod is null)) addMethod.Invoke(targetList, new[] {item});
-						}
+                        {
+                            addMethod?.Invoke(targetList, new[] {item});
+                        }
 					}
 				}
 				else

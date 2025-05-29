@@ -10,7 +10,7 @@
 
 using System.ComponentModel;
 
-using FluentWebControls.Interfaces;
+using MvbaCore.Interfaces;
 
 namespace FluentWebControls.Extensions
 {

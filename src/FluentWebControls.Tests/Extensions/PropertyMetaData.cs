@@ -9,9 +9,7 @@
 //  * **************************************************************************
 
 using System;
-
-using FluentWebControls.Interfaces;
-
+using MvbaCore.Interfaces;
 using Rhino.Mocks;
 
 namespace FluentWebControls.Tests.Extensions

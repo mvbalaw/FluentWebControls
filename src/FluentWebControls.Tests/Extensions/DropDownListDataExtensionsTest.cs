@@ -14,8 +14,7 @@ using System.Collections.Generic;
 using FluentAssert;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Interfaces;
-
+using MvbaCore.Interfaces;
 using NUnit.Framework;
 
 namespace FluentWebControls.Tests.Extensions

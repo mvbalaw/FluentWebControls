@@ -16,13 +16,12 @@ using System.Linq.Expressions;
 using FluentAssert;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Interfaces;
 using FluentWebControls.Tests.Extensions;
 
 using LinqToHtml;
 
 using MvbaCore;
-
+using MvbaCore.Interfaces;
 using NUnit.Framework;
 
 namespace FluentWebControls.Tests

@@ -10,8 +10,7 @@
 
 using System;
 
-using FluentWebControls.Interfaces;
-
+using MvbaCore.Interfaces;
 using NUnit.Framework;
 
 namespace FluentWebControls.Tests

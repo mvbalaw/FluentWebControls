@@ -13,8 +13,7 @@ using System.ComponentModel;
 using FluentAssert;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Interfaces;
-
+using MvbaCore.Interfaces;
 using NUnit.Framework;
 
 using Rhino.Mocks;

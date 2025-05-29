@@ -14,9 +14,8 @@ using System.Linq.Expressions;
 using FluentAssert;
 
 using FluentWebControls.Extensions;
-using FluentWebControls.Interfaces;
 using FluentWebControls.Tests.Extensions;
-
+using MvbaCore.Interfaces;
 using NUnit.Framework;
 
 using Rhino.Mocks;
