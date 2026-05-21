@@ -1,8 +1,5 @@
-# Sample settings file
-# Copy this file to your preferred name and run the build with following command:
+# Sample artifact path note for the PowerShell build.
+# The build no longer reads YAML settings. Pass a custom artifact folder directly:
 #
-#    rake default environment=sample.yaml
-
-# artifacts is where the nuget package gets created.
-# :artifacts: /path/to/build/artifacts
+#    .\Build.bat -Artifacts "\\server\share\FluentWebControls"
 

@@ -1,0 +1,5 @@
+Build.bat
+Build.bat -Configuration Release
+Build.bat -Task test
+Build.bat -Task assemblyinfo
+Build.bat -Artifacts "\\fsa\Shares2\dev\Build Artifacts\FluentWebControls\master"

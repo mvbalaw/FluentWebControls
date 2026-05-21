@@ -55,14 +55,13 @@ FluentWebControls is s a fluent interface for emitting web controls in C#.
 
 ### How To Build:
 
-The build script requires Ruby with rake installed.
+The build script requires PowerShell 5.1 and MSBuild from Visual Studio or the Visual Studio Build Tools.
 
-1. Run `InstallGems.bat` to get the ruby dependencies (only needs to be run once per computer)
-1. open a command prompt to the root folder and type `rake` to execute rakefile.rb
-
-If you do not have ruby:
-
-1. open src\FluentWebControls.sln with Visual Studio and build the solution
+1. Open a command prompt to the root folder.
+1. Run `Build.bat` to build, test, and create the NuGet package.
+1. Run `Build.bat -Configuration Release` to build a Release package.
+1. Run `Build.bat -Task test` to build and run tests without creating a package.
+1. Run `Build.bat -Artifacts "\\server\share\FluentWebControls"` to write packages to a custom artifact folder.
 
 ### License
 
