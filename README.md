@@ -62,6 +62,9 @@ The build script requires PowerShell 5.1 and MSBuild from Visual Studio or the V
 1. Run `Build.bat -Configuration Release` to build a Release package.
 1. Run `Build.bat -Task test` to build and run tests without creating a package.
 1. Run `Build.bat -Artifacts "\\server\share\FluentWebControls"` to write packages to a custom artifact folder.
+1. Run `Build.bat environment=devAgentMaster` on the build server — this resolves the artifacts path from `settings\<environment>.yaml` and also publishes the package to the shared NuGet feed (`\\fs-dev\Build\MvbaNugetFeed`).
+1. Run `Build.bat -Task publish -Feed "\\fs-dev\Build\MvbaNugetFeed"` (or run `dist.bat` after a local build) to publish a package to the shared NuGet feed manually.
+1. Run `Build.bat -Task resolve environment=devAgentMaster` for a dry run that prints the resolved configuration, artifacts, and feed paths without building.
 
 ### License
 

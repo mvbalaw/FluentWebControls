@@ -1,5 +1,10 @@
-# Sample artifact path note for the PowerShell build.
-# The build no longer reads YAML settings. Pass a custom artifact folder directly:
+# Build-server settings, selected by -Environment (or the legacy 'environment=' arg).
 #
-#    .\Build.bat -Artifacts "\\server\share\FluentWebControls"
-
+# The build reads settings\<environment>.default.yaml then settings\<environment>.yaml
+# and uses the ':artifacts:' value as the NuGet PackageOutputPath. When -Environment
+# is set, the package is also published to the shared MVBA NuGet feed.
+#
+# Example: Build.bat environment=devAgentMaster   ->   settings\devAgentMaster.yaml
+#
+# artifacts is where the nuget package gets created (UNC paths may use / or \):
+:artifacts: //server/share/FluentWebControls/master

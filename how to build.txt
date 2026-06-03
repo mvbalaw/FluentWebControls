@@ -3,3 +3,13 @@ Build.bat -Configuration Release
 Build.bat -Task test
 Build.bat -Task assemblyinfo
 Build.bat -Artifacts "\\fsa\Shares2\dev\Build Artifacts\FluentWebControls\master"
+
+Build server (resolves artifacts path from settings\<env>.yaml AND publishes to the shared feed):
+Build.bat environment=devAgentMaster
+
+Dry-run (show resolved Configuration/Environment/Artifacts/Feed without building):
+Build.bat -Task resolve environment=devAgentMaster
+
+Publish a local build to the shared NuGet feed (\\fs-dev\Build\MvbaNugetFeed):
+Build.bat -Task publish -Feed "\\fs-dev\Build\MvbaNugetFeed"
+  - or, after a plain Build.bat, run dist.bat to copy dist\*.nupkg to the feed.
